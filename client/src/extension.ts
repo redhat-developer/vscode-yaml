@@ -4,15 +4,12 @@ import * as path from 'path';
 
 import { workspace, Disposable, ExtensionContext, commands } from 'vscode';
 import { LanguageClient, LanguageClientOptions, SettingMonitor, ServerOptions, TransportKind } from 'vscode-languageclient';
-import { enableValidation, disableValidation } from './kubernetes-commands';
 
 export function activate(context: ExtensionContext) {
 
-	commands.registerCommand('extension.k8s.enableValidation', enableValidation);
-	commands.registerCommand('extension.k8s.disableValidation', disableValidation);
-
-	// The se	rver is implemented in node
-	let serverModule = context.asAbsolutePath(path.join('server/src', 'server.js'));
+	// The server is implemented in node
+	//let serverModule = context.asAbsolutePath(path.join('../yaml-language-server/out/server', 'server.js'));
+	let serverModule = context.extensionPath + '/../yaml-language-server/out/server/src/server.js'
 	// The debug options for the server
 	let debugOptions = { execArgv: ["--nolazy", "--debug=6009"] };
 
@@ -29,14 +26,14 @@ export function activate(context: ExtensionContext) {
 		documentSelector: ['yaml'],
 		synchronize: {
 			// Synchronize the setting section 'languageServerExample' to the server
-			configurationSection: 'k8s',
+			configurationSection: 'yaml',
 			// Notify the server about file changes to '.clientrc files contain in the workspace
 			fileEvents: workspace.createFileSystemWatcher("**/*.yaml")
 		}
 	}
 
 	// Create the language client and start the client.
-	let disposable = new LanguageClient('yaml', 'Kubernetes Support', serverOptions, clientOptions).start();
+	let disposable = new LanguageClient('yaml', 'Yaml Support', serverOptions, clientOptions).start();
 
 	// Push the disposable to the context's subscriptions so that the
 	// client can be deactivated on extension deactivation

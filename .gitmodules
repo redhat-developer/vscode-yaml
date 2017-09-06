@@ -1,0 +1,3 @@
+[submodule "yaml-language-server"]
+	path = yaml-language-server
+	url = https://github.com/redhat-developer/yaml-language-server
