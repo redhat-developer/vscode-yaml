@@ -1,6 +1,2 @@
-# Kubernetes extension for VS Code
-VS Code extension that provides assistance for authoring kubernetes 
-and Openshift configuration.
-
-## Features 
-* YAML validation
+# Client side of VSCode-k8s
+The client side of VSCode-k8s

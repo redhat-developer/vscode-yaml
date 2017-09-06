@@ -1,10 +1,9 @@
-[![Build Status](https://travis-ci.org/gorkem/vscode-k8s.svg?branch=master)](https://travis-ci.org/gorkem/vscode-k8s)
+[![Build Status](https://travis-ci.org/redhat-developer/yaml-language-server.svg?branch=master)](https://travis-ci.org/redhat-developer/vscode-k8s)
 
-# Kubernetes extension for VS Code
-VS Code extension that provides assistance for authoring kubernetes and Openshift configurations.
+# Yaml Language Server for VSCode
 
 ## Features 
-![screencast](https://github.com/JPinkney/vscode-k8s/blob/master/images/demo.gif)
+![screencast](https://github.com/redhat-developer/vscode-k8s/images/demo.gif)
 
 1. YAML validation:
     * Detects whether the entire file is valid yaml
@@ -19,25 +18,20 @@ VS Code extension that provides assistance for authoring kubernetes and Openshif
 3. Auto completion:
     * Auto completes on all commands
     * Scalar nodes autocomplete to schema's defaults if they exist
-4. Snippets:
-    * Snippets for creating deployment, deployment config, route, config map, persistent volume claim. *specifically for kubernetes*
-5. Hover support:
+4. Hover support:
     * Hovering over a node shows description *if available*
-6. Additional Commands:
-    * Commands for allowing the user to turn on/off validation of the specific yaml file they are working on
 
-## Supported VS Code Configuration Settings
-`k8s.filesNotValidating` : List of files you DO NOT want to validate
+# Language Server Settings
+`yaml.schemas`: The entrance point for new schema.
+```
+yaml.schemas: {
+    "url": "globPattern",
+    "Kedge": "globPattern",
+    "Kubernetes": "globPattern"
+}
+```
 
-`k8s.k8sSchemaOn` : Whether the files are being validated against kubernetes schema
-
-`k8s.kedgeSchemaOn` : Whether the files are being validated against kedge schema
-
-NOTE: If both k8sSchemaOn and kedgeSchemaOn are true it defaults to only kubernetes schema so they do not clash. Additionally, if k8sSchemaOn and kedgeSchemaOn are both false it defaults to kubernetes schema. If you want to turn off schema specific features then use the commands for keybindings `extension.k8s.disableValidation`
-
-## Supported VS Code Commands for Keybindings
-`extension.k8s.enableValidation` : Enable Kubernetes Validation for the file you are on
-`extension.k8s.disableValidation` : Disable Kubernetes Validation for the file you are on
+This extension allows you to specify json schemas that you want to validate against the yaml that you write. In the vscode preferences you can set a url and a glob pattern that you want to validate against the schema. Kedge and Kubernetes are optional fields. They do not require a url as the language server will provide that. You just need the key word kedge/kubernetes and a glob pattern.
 
 ## Developer Support
 
@@ -45,25 +39,25 @@ NOTE: If both k8sSchemaOn and kedgeSchemaOn are true it defaults to only kuberne
 1. Install prerequisites:
    * latest [Visual Studio Code](https://code.visualstudio.com/)
    * [Node.js](https://nodejs.org/) v6.0.0 or higher
-2. Fork and clone this repository
-3. `cd vscode-k8s`
-4. Install the dependencies for server
-  ```bash
-  cd server
-  $ npm install
-  ```
-5. Install the dependencies for client
-  ```bash
-  cd ../client
-  $ npm install
-  ```
-6. Open client on VS Code
-  ```bash
-  cd ..
-  code ./client
-  ```
-7. Open server on VS Code
-  ```bash
-  code ./server
-  ```
-  Refer to VS Code [documentation](https://code.visualstudio.com/docs/extensions/debugging-extensions) on how to run and debug the extension
+2. Fork and clone this repository and go into the folder
+    ```bash
+     $ cd vscode-k8s
+    ```
+3. Install the dependencies for client
+    ```bash
+	$ cd client
+	$ npm install
+	```
+4. Install the yaml language server submodule
+	```bash
+	$ git submodule update --init --recursive
+	```
+
+##### Developing the client side
+1. Open the client in vscode
+2. Make changes as neccessary and the run the code using F5
+
+##### Developing the server side
+1. To develop the language server visit https://github.com/redhat-developer/yaml-language-server
+
+Refer to VS Code [documentation](https://code.visualstudio.com/docs/extensions/debugging-extensions) on how to run and debug the extension

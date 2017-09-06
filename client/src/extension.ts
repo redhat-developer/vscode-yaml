@@ -8,7 +8,6 @@ import { LanguageClient, LanguageClientOptions, SettingMonitor, ServerOptions, T
 export function activate(context: ExtensionContext) {
 
 	// The server is implemented in node
-	//let serverModule = context.asAbsolutePath(path.join('../yaml-language-server/out/server', 'server.js'));
 	let serverModule = context.extensionPath + '/../yaml-language-server/out/server/src/server.js'
 	// The debug options for the server
 	let debugOptions = { execArgv: ["--nolazy", "--debug=6009"] };
