@@ -3,7 +3,7 @@
 # Yaml Language Server for VSCode
 
 ## Features 
-![screencast](https://github.com/redhat-developer/vscode-k8s/images/demo.gif)
+![screencast](https://github.com/redhat-developer/vscode-k8s/blob/master/images/demo.gif)
 
 1. YAML validation:
     * Detects whether the entire file is valid yaml

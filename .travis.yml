@@ -10,10 +10,7 @@ before_install:
   sh -e /etc/init.d/xvfb start; sleep 3; fi
 - npm install -g typescript@2.1.5
 install:
-- cd server
-- npm install
-- npm run compile
-- cd ../client
+- cd client
 - npm install
 - npm run vscode:prepublish
 - npm install -g vsce
@@ -30,6 +27,4 @@ deploy:
   on:
     branch: master
     tags: false
-    repo: gorkem/vscode-k8s
-
-
+    repo: redhat-developer/vscode-k8s

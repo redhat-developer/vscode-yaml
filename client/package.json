@@ -2,6 +2,12 @@
   "name": "vscode-k8s",
   "description": "Kubernetes support for VS Code",
   "author": "Gorkem Ercan",
+  "contributors": [
+    {
+      "name": "Joshua Pinkney",
+      "email": "jpinkney@redhat.com"
+    }
+  ],
   "license": "MIT",
   "version": "0.0.1",
   "publisher": "gercan",
@@ -12,22 +18,10 @@
     "Other"
   ],
   "activationEvents": [
-    "onLanguage:yaml",
-    "onCommand:extension.k8s.enableValidation",
-    "onCommand:extension.k8s.disableValidation"
+    "onLanguage:yaml"
   ],
   "main": "./out/src/extension",
   "contributes": {
-    "commands": [
-      {
-        "command": "extension.k8s.enableValidation",
-        "title": "Enable Kubernetes Validation for this file"
-      },
-      {
-        "command": "extension.k8s.disableValidation",
-        "title": "Disable Kubernetes Validation for this file"
-      }
-    ],
     "configuration": {
       "properties": {
         "yaml.trace.server": {
@@ -39,21 +33,6 @@
           ],
           "default": "off",
           "description": "Traces the communication between VSCode and the languageServerExample service."
-        },
-        "k8s.filesNotValidating": {
-          "type": "array",
-          "default": [],
-          "description": "List of files you DO NOT want to validate"
-        },
-        "k8s.k8sSchemaOn": {
-          "type": "boolean",
-          "default": true,
-          "description": "Whether the files are being validated against kubernetes schema"
-        },
-        "k8s.kedgeSchemaOn": {
-          "type": "boolean",
-          "default": false,
-          "description": "Whether the files are being validated against kedge schema"
         }
       }
     }
@@ -63,7 +42,7 @@
     "compile": "tsc -watch -p ./",
     "update-vscode": "node ./node_modules/vscode/bin/install",
     "postinstall": "node ./node_modules/vscode/bin/install",
-    "test": "mocha --ui tdd out/test/extension.test.js && mocha --ui tdd server/test/*.test.js"
+    "test": "mocha --ui tdd out/test/extension.test.js"
   },
   "devDependencies": {
     "@types/mocha": "^2.2.33",
