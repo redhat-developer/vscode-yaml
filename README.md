@@ -48,6 +48,10 @@ This extension allows you to specify json schemas that you want to validate agai
     ```bash
 	$ npm install
 	```
+4. Compile the Typescript to Javascript
+    ```bash
+	$ npm run compile
+	```
 
 ##### Developing the client side
 1. Open the client in vscode
