@@ -34,10 +34,10 @@
           "default": "off",
           "description": "Traces the communication between VSCode and the languageServerExample service."
         },
-        "yaml.schemas": {
+        "yaml.schemas":{
           "type": "object",
-          "default": {},
-          "description": "Object of urls mapping to glob patterns {Url: Glob Pattern}"
+          "default":{"Kubernetes":"*"},
+          "description": "Associate schemas to Yaml files in the current workspace"
         }
       }
     }
@@ -57,7 +57,7 @@
     "vscode": "^1.1.0"
   },
   "dependencies": {
-    "vscode-languageclient": "^3.2.0",
+    "vscode-languageclient": "3.2.0",
     "vscode-nls": "^2.0.2",
     "yaml-language-server": "0.0.1"
   }
