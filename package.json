@@ -13,8 +13,7 @@
   "version": "0.0.1",
   "publisher": "redhat",
   "preview": true,
-  "bugs": "https://github.com/redhat-developer/vscode-k8s/issues",
-  "icon": "./icons/icon128.png",
+  "bugs": "https://github.com/redhat-developer/vscode-yaml/issues",
   "engines": {
     "vscode": "^1.8.0"
   },
