@@ -7,19 +7,20 @@
 
 1. YAML validation:
     * Detects whether the entire file is valid yaml
-2. Validation:
     * Detects errors such as:
         * Node is not found   
         * Node has an invalid key node type
         * Node has an invalid type
         * Node is not a valid child node
-    * Detects warnings such as:
-        * Node is an additional property of parent
+2. Document Outlining:
+    * Provides the document outlining of all completed nodes in the file
 3. Auto completion:
     * Auto completes on all commands
     * Scalar nodes autocomplete to schema's defaults if they exist
 4. Hover support:
     * Hovering over a node shows description *if available*
+
+*Auto completion and hover support are provided by the schema. Please refer to Language Server Settings to setup a schema*
 
 # Language Server Settings
 `yaml.schemas`: The entrance point for new schema.
@@ -43,14 +44,9 @@ This extension allows you to specify json schemas that you want to validate agai
     ```bash
      $ cd vscode-k8s
     ```
-3. Install the dependencies for client
+3. Install the dependencies
     ```bash
-	$ cd client
 	$ npm install
-	```
-4. Install the yaml language server submodule
-	```bash
-	$ git submodule update --init --recursive
 	```
 
 ##### Developing the client side
