@@ -1,14 +1,15 @@
 [![Build Status](https://travis-ci.org/redhat-developer/yaml-language-server.svg?branch=master)](https://travis-ci.org/redhat-developer/vscode-k8s)
 
-# Yaml Language Server for VSCode
+# YAML Support for Visual Studio Code
+Provides YAML support via [yaml-language-server](https://github.com/redhat-developer/yaml-language-server) with built-in Kubernetes syntax support.
 
-## Features 
+## Features
 ![screencast](https://github.com/redhat-developer/vscode-k8s/blob/master/images/demo.gif)
 
 1. YAML validation:
     * Detects whether the entire file is valid yaml
     * Detects errors such as:
-        * Node is not found   
+        * Node is not found
         * Node has an invalid key node type
         * Node has an invalid type
         * Node is not a valid child node

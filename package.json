@@ -1,7 +1,8 @@
 {
-  "name": "vscode-k8s",
-  "description": "Yaml support for VS Code",
-  "author": "Gorkem Ercan",
+  "name": "vscode-yaml",
+  "displayName": "YAML Support by Red Hat",
+  "description": "YAML Support for Visual Studio Code provided by Red Hat",
+  "author": "Red Hat",
   "contributors": [
     {
       "name": "Joshua Pinkney",
@@ -10,12 +11,17 @@
   ],
   "license": "MIT",
   "version": "0.0.1",
-  "publisher": "gercan",
+  "publisher": "redhat",
+  "preview": true,
+  "bugs": "https://github.com/redhat-developer/vscode-k8s/issues",
+  "icon": "./icons/icon128.png",
   "engines": {
     "vscode": "^1.8.0"
   },
   "categories": [
-    "Other"
+    "Languages",
+    "Linters",
+    "Snippets"
   ],
   "activationEvents": [
     "onLanguage:yaml"
