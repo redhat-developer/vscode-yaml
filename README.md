@@ -13,30 +13,30 @@ Provides YAML support via [yaml-language-server](https://github.com/redhat-devel
         * Node has an invalid key node type
         * Node has an invalid type
         * Node is not a valid child node
-2. Document Outlining:
+2. Document Outlining (<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>O</kbd>):
     * Provides the document outlining of all completed nodes in the file
-3. Auto completion:
+3. Auto completion (<kbd>Ctrl</kbd> + <kbd>Space</kbd>):
     * Auto completes on all commands
     * Scalar nodes autocomplete to schema's defaults if they exist
 4. Hover support:
-    * Hovering over a node shows description *if available*
+    * Hovering over a node shows description *if provided by schema*
 
 *Auto completion and hover support are provided by the schema. Please refer to Language Server Settings to setup a schema*
 
 # Language Server Settings
-`yaml.schemas`: The entrance point for new schema.
+
 ```
 yaml.schemas: {
     "url": "globPattern",
-    "Kedge": "globPattern",
     "Kubernetes": "globPattern"
 }
 ```
 
-This extension allows you to specify json schemas that you want to validate against the yaml that you write. In the vscode preferences you can set a url and a glob pattern that you want to validate against the schema. Kedge and Kubernetes are optional fields. They do not require a url as the language server will provide that. You just need the key word kedge/kubernetes and a glob pattern.
+- The entrance point for `yaml.schemas` is location in [user and workspace settings](https://code.visualstudio.com/docs/getstarted/settings#_creating-user-and-workspace-settings)
+
+This extension allows you to specify json schemas that you want to validate against the yaml that you write. In the vscode user and workspace preferences you can set a url and a glob pattern that you want to validate against the schema. Kubernetes is an optional field. It does not require a url as the language server will provide that. You just need the key word kubernetes and a glob pattern.
 
 ## Developer Support
-
 ### Getting started
 1. Install prerequisites:
    * latest [Visual Studio Code](https://code.visualstudio.com/)
@@ -62,3 +62,12 @@ This extension allows you to specify json schemas that you want to validate agai
 1. To develop the language server visit https://github.com/redhat-developer/yaml-language-server
 
 Refer to VS Code [documentation](https://code.visualstudio.com/docs/extensions/debugging-extensions) on how to run and debug the extension
+
+### Installation from Github Release
+To obtain and install the latest release from github you can:
+* First download the latest *.vsix file from [Github Releases section](https://github.com/redhat-developer/vscode-yaml/releases)
+* Inside of VSCode navigate to the extension tab and click the three elipses (...).
+* Click install from VSIX and provide the location of the *.vsix that was downloaded
+
+### Contributing
+All contributions are welcome!
