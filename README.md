@@ -67,7 +67,7 @@ This extension allows you to specify json schemas that you want to validate agai
    * [Node.js](https://nodejs.org/) v6.0.0 or higher
 2. Fork and clone this repository and go into the folder
     ```bash
-     $ cd vscode-k8s
+     $ cd vscode-yaml
     ```
 3. Install the dependencies
     ```bash
