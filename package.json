@@ -41,8 +41,13 @@
         },
         "yaml.schemas":{
           "type": "object",
-          "default":{"Kubernetes":"*"},
+          "default":{},
           "description": "Associate schemas to Yaml files in the current workspace"
+        },
+        "yaml.format.enable": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enable/disable default YAML formatter (requires restart)"
         }
       }
     }
