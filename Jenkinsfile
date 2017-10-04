@@ -42,7 +42,7 @@ node('rhel7'){
 
 node('rhel7'){
 	timeout(time:5, unit:'DAYS') {
-		input message:'Approve deployment?', submitter: 'gercan'
+		input message:'Approve deployment?', submitter: 'bercan'
 	}
 
 	stage "Publish to Marketplace"
