@@ -41,17 +41,15 @@ node('rhel7'){
 }
 
 node('rhel7'){
-	if(publishToMarketPlace.equals('true')){
-		timeout(time:5, unit:'DAYS') {
-			input message:'Approve deployment?', submitter: 'gercan'
-		}
+	timeout(time:5, unit:'DAYS') {
+		input message:'Approve deployment?', submitter: 'gercan'
+	}
 
-		stage "Publish to Marketplace"
-		unstash 'vsix';
-		withCredentials([[$class: 'StringBinding', credentialsId: 'vscode_java_marketplace', variable: 'TOKEN']]) {
-			def vsix = findFiles(glob: '**.vsix')
-			sh 'vsce publish -p ${TOKEN} --packagePath' + " ${vsix[0].path}"
-		}
-		archive includes:"**.vsix"
-	}//if publishMarketPlace
+	stage "Publish to Marketplace"
+	unstash 'vsix';
+	withCredentials([[$class: 'StringBinding', credentialsId: 'vscode_java_marketplace', variable: 'TOKEN']]) {
+		def vsix = findFiles(glob: '**.vsix')
+		sh 'vsce publish -p ${TOKEN} --packagePath' + " ${vsix[0].path}"
+	}
+	archive includes:"**.vsix"
 }
