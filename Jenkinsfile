@@ -37,7 +37,7 @@ node('rhel7'){
 	stage 'Upload vscode-yaml to staging'
 	def vsix = findFiles(glob: '**.vsix')
 	sh "rsync -Pzrlt --rsh=ssh --protocol=28 ${vsix[0].path} ${UPLOAD_LOCATION}"
-	stash name:'vsix', includes:files[0].path
+	stash name:'vsix', includes:vsix[0].path
 }
 
 node('rhel7'){
