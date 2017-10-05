@@ -28,6 +28,7 @@
   ],
   "main": "./out/src/extension",
   "contributes": {
+    "yamlValidation":[],
     "configuration": {
       "properties": {
         "yaml.trace.server": {

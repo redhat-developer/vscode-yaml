@@ -8,8 +8,16 @@
 
 import * as path from 'path';
 
-import { workspace, Disposable, ExtensionContext, commands, languages } from 'vscode';
-import { LanguageClient, LanguageClientOptions, SettingMonitor, ServerOptions, TransportKind } from 'vscode-languageclient';
+import { workspace, Disposable, ExtensionContext, commands, languages, extensions, Uri } from 'vscode';
+import { LanguageClient, LanguageClientOptions, SettingMonitor, ServerOptions, TransportKind, NotificationType } from 'vscode-languageclient';
+
+export interface ISchemaAssociations {
+	[pattern: string]: string[];
+}
+
+namespace SchemaAssociationNotification {
+	export const type: NotificationType<ISchemaAssociations, any> = new NotificationType('json/schemaAssociations');
+}
 
 export function activate(context: ExtensionContext) {
 
@@ -39,13 +47,51 @@ export function activate(context: ExtensionContext) {
 	}
 
 	// Create the language client and start the client.
-	let disposable = new LanguageClient('yaml', 'Yaml Support', serverOptions, clientOptions).start();
+	let client = new LanguageClient('yaml', 'Yaml Support', serverOptions, clientOptions); 
+	let disposable = client.start();
 
 	// Push the disposable to the context's subscriptions so that the
 	// client can be deactivated on extension deactivation
 	context.subscriptions.push(disposable);
 
+	client.onReady().then(() => {
+		client.sendNotification(SchemaAssociationNotification.type, getSchemaAssociation(context));
+	});
+
 	languages.setLanguageConfiguration('yaml', {
 		wordPattern: /("(?:[^\\\"]*(?:\\.)?)*"?)|[^\s{}\[\],:]+/
 	});
+}
+
+function getSchemaAssociation(context: ExtensionContext): ISchemaAssociations {
+	let associations: ISchemaAssociations = {};
+	extensions.all.forEach(extension => {
+		let packageJSON = extension.packageJSON;
+		if (packageJSON && packageJSON.contributes && packageJSON.contributes.yamlValidation) {
+			let yamlValidation = packageJSON.contributes.yamlValidation;
+			if (Array.isArray(yamlValidation)) {
+				yamlValidation.forEach(jv => {
+					let { fileMatch, url } = jv;
+					if (fileMatch && url) {
+						if (url[0] === '.' && url[1] === '/') {
+							url = Uri.file(path.join(extension.extensionPath, url)).toString();
+						}
+						if (fileMatch[0] === '%') {
+							fileMatch = fileMatch.replace(/%APP_SETTINGS_HOME%/, '/User');
+							fileMatch = fileMatch.replace(/%APP_WORKSPACES_HOME%/, '/Workspaces');
+						} else if (fileMatch.charAt(0) !== '/' && !fileMatch.match(/\w+:\/\//)) {
+							fileMatch = '/' + fileMatch;
+						}
+						let association = associations[fileMatch];
+						if (!association) {
+							association = [];
+							associations[fileMatch] = association;
+						}
+						association.push(url);
+					}
+				});
+			}
+		}
+	});
+	return associations;
 }
