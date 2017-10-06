@@ -57,6 +57,7 @@ yaml.schemas: {
 
 - The entrance point for `yaml.schemas` is location in [user and workspace settings](https://code.visualstudio.com/docs/getstarted/settings#_creating-user-and-workspace-settings)
 - Supports schemas through [schema store](http://schemastore.org/json/) as well as any other schema url
+- Supports 'yamlValidation' point which allows you to contribute a schema for a specific type of json file (Similar to [jsonValidation](https://code.visualstudio.com/docs/extensionAPI/extension-points#_contributesjsonvalidation))
 
 This extension allows you to specify json schemas that you want to validate against the yaml that you write. In the vscode user and workspace preferences you can set a url and a glob pattern that you want to validate against the schema. Kubernetes is an optional field. It does not require a url as the language server will provide that. You just need the key word kubernetes and a glob pattern.
 
