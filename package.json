@@ -28,7 +28,7 @@
   ],
   "main": "./out/src/extension",
   "contributes": {
-    "yamlValidation":[],
+    "yamlValidation": [],
     "configuration": {
       "properties": {
         "yaml.trace.server": {
@@ -41,9 +41,9 @@
           "default": "off",
           "description": "Traces the communication between VSCode and the languageServerExample service."
         },
-        "yaml.schemas":{
+        "yaml.schemas": {
           "type": "object",
-          "default":{},
+          "default": {},
           "description": "Associate schemas to Yaml files in the current workspace"
         },
         "yaml.format.enable": {
@@ -71,6 +71,6 @@
   "dependencies": {
     "vscode-languageclient": "3.2.0",
     "vscode-nls": "^2.0.2",
-    "yaml-language-server": "0.0.1"
+    "yaml-language-server": "0.0.3"
   }
 }
