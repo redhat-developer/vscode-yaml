@@ -1,3 +1,7 @@
+#### 0.0.5
+- Fixed Schema validation reports errors in valid YAML document [#42](https://github.com/redhat-developer/vscode-yaml/issues/42)
+- Fixed Support for multiple YAML documents in single file [#43](https://github.com/redhat-developer/vscode-yaml/issues/43)
+
 #### 0.0.4
 - Fixed support for kubernetes files
 - Fixed boolean notation for validation [#40](https://github.com/redhat-developer/vscode-yaml/issues/40)
