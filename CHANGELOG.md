@@ -1,3 +1,6 @@
+#### 0.0.6
+- Hotfix for making multiple schemas in the settings work again
+
 #### 0.0.5
 - Fixed Schema validation reports errors in valid YAML document [#42](https://github.com/redhat-developer/vscode-yaml/issues/42)
 - Fixed Support for multiple YAML documents in single file [#43](https://github.com/redhat-developer/vscode-yaml/issues/43)
