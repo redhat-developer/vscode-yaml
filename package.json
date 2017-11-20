@@ -54,6 +54,11 @@
           "type": "boolean",
           "default": false,
           "description": "Enable/disable default YAML formatter (requires restart)"
+        },
+        "yaml.validate": {
+          "type": "boolean",
+          "default": true,
+          "description": "Toggle validation feature"
         }
       }
     }
