@@ -47,7 +47,9 @@
         },
         "yaml.schemas": {
           "type": "object",
-          "default": {},
+          "default": {
+            "http://json.schemastore.org/travis":".travis.yml"
+          },
           "description": "Associate schemas to Yaml files in the current workspace"
         },
         "yaml.format.enable": {
