@@ -1,3 +1,9 @@
+#### 0.0.7
+- Added validation toggle in settings [#20](https://github.com/redhat-developer/yaml-language-server/issues/20)
+- YAML Schemas are pulled from JSON Schema Store [#15](https://github.com/redhat-developer/yaml-language-server/issues/15)
+- YAML Diagnostics throw on a single line instead of the entire file [#19](https://github.com/redhat-developer/yaml-language-server/issues/19)
+- Fix for getNodeFromOffset [#18](https://github.com/redhat-developer/yaml-language-server/issues/18)
+
 #### 0.0.6
 - Hotfix for making multiple schemas in the settings work again
 
