@@ -4,7 +4,7 @@
 Provides YAML support via [yaml-language-server](https://github.com/redhat-developer/yaml-language-server) with built-in Kubernetes syntax support.
 
 ## Features
-![screencast](https://github.com/redhat-developer/vscode-yaml/blob/master/images/demo.gif)
+![screencast](https://raw.githubusercontent.com/redhat-developer/vscode-yaml/master/images/demo.gif)
 
 1. YAML validation:
     * Detects whether the entire file is valid yaml
