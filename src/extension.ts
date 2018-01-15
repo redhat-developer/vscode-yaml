@@ -42,7 +42,10 @@ export function activate(context: ExtensionContext) {
 			// Synchronize the setting section 'languageServerExample' to the server
 			configurationSection: ['yaml', 'http.proxy', 'http.proxyStrictSSL'],
 			// Notify the server about file changes to '.clientrc files contain in the workspace
-			fileEvents: workspace.createFileSystemWatcher('**/*.?(e)y?(a)ml')
+			fileEvents: [
+				workspace.createFileSystemWatcher('**/*.?(e)y?(a)ml'),
+				workspace.createFileSystemWatcher('**/*.json')
+			]
 		}
 	}
 
