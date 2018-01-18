@@ -1,7 +1,7 @@
 {
   "name": "vscode-yaml",
   "displayName": "YAML Support by Red Hat",
-  "description": "YAML Support for Visual Studio Code provided by Red Hat",
+  "description": "YAML Support for Visual Studio Code provided by Red Hat, with built-in Kubernetes and Kedge syntax support",
   "author": "Red Hat",
   "contributors": [
     {
