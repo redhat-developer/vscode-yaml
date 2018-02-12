@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/redhat-developer/yaml-language-server.svg?branch=master)](https://travis-ci.org/redhat-developer/vscode-yaml)
 
 # YAML Support for Visual Studio Code
-Provides YAML support via [yaml-language-server](https://github.com/redhat-developer/yaml-language-server) with built-in Kubernetes syntax support.
+Provides YAML support via [yaml-language-server](https://github.com/redhat-developer/yaml-language-server) with built-in Kubernetes and Kedge syntax support.
 
 ## Features
 ![screencast](https://raw.githubusercontent.com/redhat-developer/vscode-yaml/master/images/demo.gif)
@@ -28,7 +28,8 @@ Provides YAML support via [yaml-language-server](https://github.com/redhat-devel
 ```
 yaml.schemas: {
     "url": "globPattern",
-    "Kubernetes": "globPattern"
+    "Kubernetes": "globPattern",
+    "kedge": "globPattern"
 }
 ```
 
@@ -47,6 +48,12 @@ yaml.schemas: {
 }
 ```
 
+```
+yaml.schemas: {
+    "kedge": "/myKedgeApp.yaml"
+}
+```
+
 e.g.
 ```
 yaml.schemas: {
@@ -59,7 +66,7 @@ yaml.schemas: {
 - Supports schemas through [schema store](http://schemastore.org/json/) as well as any other schema url
 - Supports 'yamlValidation' point which allows you to contribute a schema for a specific type of yaml file (Similar to [jsonValidation](https://code.visualstudio.com/docs/extensionAPI/extension-points#_contributesjsonvalidation))
 
-This extension allows you to specify json schemas that you want to validate against the yaml that you write. In the vscode user and workspace preferences you can set a url and a glob pattern that you want to validate against the schema. Kubernetes is an optional field. It does not require a url as the language server will provide that. You just need the key word kubernetes and a glob pattern.
+This extension allows you to specify json schemas that you want to validate against the yaml that you write. In the vscode user and workspace preferences you can set a url and a glob pattern that you want to validate against the schema. Kubernetes and kedge are optional fields. They do not require a url as the language server will provide that. You just need the keywords kubernetes/kedge and a glob pattern.
 
 ## Developer Support
 ### Getting started

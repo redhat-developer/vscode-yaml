@@ -1,3 +1,10 @@
+#### 0.0.8
+- Added Kedge back in as one of the default schemas
+- Added file watch for json schema files in the workspace [#34](https://github.com/redhat-developer/yaml-language-server/issues/34)
+- Multi root settings [#50](https://github.com/redhat-developer/vscode-yaml/issues/50)
+- Fix for crashing yaml language server when !include is present [#52](https://github.com/redhat-developer/vscode-yaml/issues/52)
+- Update tests to work on windows [#30](https://github.com/redhat-developer/yaml-language-server/issues/30)
+
 #### 0.0.7
 - Added validation toggle in settings [#20](https://github.com/redhat-developer/yaml-language-server/issues/20)
 - YAML Schemas are pulled from JSON Schema Store [#15](https://github.com/redhat-developer/yaml-language-server/issues/15)
