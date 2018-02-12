@@ -20,7 +20,7 @@
   },
   "icon": "icon/icon128.png",
   "engines": {
-    "vscode": "^1.8.0"
+    "vscode": "^1.18.0"
   },
   "categories": [
     "Languages",
