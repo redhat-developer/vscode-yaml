@@ -1,3 +1,8 @@
+#### 0.0.9
+- Remove console.log from jsonSchemaService [#49](https://github.com/redhat-developer/yaml-language-server/issues/49)
+- Change "Property {$property_name} is not allowed" error message [#42](https://github.com/redhat-developer/yaml-language-server/issues/42)
+- New Kubernetes Schema + Updated support for Kubernetes [#40](https://github.com/redhat-developer/yaml-language-server/issues/40)
+
 #### 0.0.8
 - Added Kedge back in as one of the default schemas
 - Added file watch for json schema files in the workspace [#34](https://github.com/redhat-developer/yaml-language-server/issues/34)
