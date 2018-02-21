@@ -25,10 +25,19 @@
   "categories": [
     "Languages",
     "Linters",
-    "Snippets"
+    "Snippets",
+    "Formatters"
   ],
   "activationEvents": [
     "onLanguage:yaml"
+  ],
+  "keywords": [
+    "kubernetes",
+    "kedge",
+    "yaml",
+    "autocompletion",
+    "validation",
+    "language server"
   ],
   "main": "./out/src/extension",
   "contributes": {
