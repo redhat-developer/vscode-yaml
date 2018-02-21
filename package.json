@@ -58,7 +58,7 @@
         "yaml.validate": {
           "type": "boolean",
           "default": true,
-          "description": "Toggle validation feature"
+          "description": "Enable/disable validation feature"
         }
       }
     },

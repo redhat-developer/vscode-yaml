@@ -20,11 +20,24 @@ Provides YAML support via [yaml-language-server](https://github.com/redhat-devel
     * Scalar nodes autocomplete to schema's defaults if they exist
 4. Hover support:
     * Hovering over a node shows description *if provided by schema*
+5. Formatter:
+    * Allows for formatting the current file
 
 *Auto completion and hover support are provided by the schema. Please refer to Language Server Settings to setup a schema*
 
 # Language Server Settings
 
+The following settings are supported:
+* `yaml.format.enable`: Enable/disable default YAML formatter (requires restart)
+* `yaml.validate`: Enable/disable validation feature
+* `yaml.schemas`: Helps you associate schemas with files in a glob pattern
+* `[yaml]`: VSCode-YAML adds default configuration for all yaml files. More specifically it converts tabs to spaces to ensure valid yaml, sets the tab size, and allows live typing autocompletion. These settings can be modified via the corresponding settings inside the `[yaml]` section in the settings:
+    *   `editor.insertSpaces`
+    *   `editor.tabSize`
+    *   `editor.quickSuggestions`
+
+##### Associating a schema to a glob pattern via yaml.schemas: 
+When associating a schema it should follow the format below
 ```
 yaml.schemas: {
     "url": "globPattern",
@@ -47,7 +60,7 @@ yaml.schemas: {
     "kubernetes": "/myYamlFile.yaml"
 }
 ```
-
+e.g.
 ```
 yaml.schemas: {
     "kedge": "/myKedgeApp.yaml"
