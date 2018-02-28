@@ -10,6 +10,7 @@ import * as path from 'path';
 
 import { workspace, Disposable, ExtensionContext, commands, languages, extensions, Uri } from 'vscode';
 import { LanguageClient, LanguageClientOptions, SettingMonitor, ServerOptions, TransportKind, NotificationType } from 'vscode-languageclient';
+import { schemaContributor, CUSTOM_SCHEMA_REQUEST, CUSTOM_CONTENT_REQUEST } from './schema-contributor'
 
 export interface ISchemaAssociations {
 	[pattern: string]: string[];
@@ -22,7 +23,7 @@ namespace SchemaAssociationNotification {
 export function activate(context: ExtensionContext) {
 
 	// The server is implemented in node
-	let serverModule = context.asAbsolutePath(path.join('node_modules', 'yaml-language-server', 'out', 'server', 'src', 'server.js'));	
+	let serverModule = context.asAbsolutePath(path.join('node_modules', 'yaml-language-server', 'out', 'server', 'src', 'server.js'));
 
 	// The debug options for the server
 	let debugOptions = { execArgv: ["--nolazy", "--debug=6009"] };
@@ -32,7 +33,7 @@ export function activate(context: ExtensionContext) {
 	let serverOptions: ServerOptions = {
 		run : { module: serverModule, transport: TransportKind.ipc },
 		debug: { module: serverModule, transport: TransportKind.ipc, options: debugOptions }
-	}
+	};
 
 	// Options to control the language client
 	let clientOptions: LanguageClientOptions = {
@@ -47,10 +48,10 @@ export function activate(context: ExtensionContext) {
 				workspace.createFileSystemWatcher('**/*.json')
 			]
 		}
-	}
+	};
 
 	// Create the language client and start the client.
-	let client = new LanguageClient('yaml', 'Yaml Support', serverOptions, clientOptions); 
+	let client = new LanguageClient('yaml', 'Yaml Support', serverOptions, clientOptions);
 	let disposable = client.start();
 
 	// Push the disposable to the context's subscriptions so that the
@@ -59,11 +60,19 @@ export function activate(context: ExtensionContext) {
 
 	client.onReady().then(() => {
 		client.sendNotification(SchemaAssociationNotification.type, getSchemaAssociation(context));
+		client.onRequest(CUSTOM_SCHEMA_REQUEST, (resource) => {
+			return schemaContributor.requestCustomSchema(resource);
+		});
+		client.onRequest(CUSTOM_CONTENT_REQUEST, (uri) => {
+			return schemaContributor.requestCustomSchemaContent(uri);
+		});
 	});
 
 	languages.setLanguageConfiguration('yaml', {
 		wordPattern: /("(?:[^\\\"]*(?:\\.)?)*"?)|[^\s{}\[\],:]+/
 	});
+
+	return schemaContributor;
 }
 
 function getSchemaAssociation(context: ExtensionContext): ISchemaAssociations {
