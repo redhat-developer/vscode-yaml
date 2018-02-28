@@ -36,8 +36,7 @@
     "kedge",
     "yaml",
     "autocompletion",
-    "validation",
-    "language server"
+    "validation"
   ],
   "main": "./out/src/extension",
   "contributes": {
@@ -99,7 +98,7 @@
   },
   "dependencies": {
     "vscode-languageclient": "3.5.0",
-    "vscode-nls": "^2.0.2",
-    "yaml-language-server": "0.0.9"
+    "vscode-nls": "^3.2.1",
+    "yaml-language-server": "0.0.10"
   }
 }
