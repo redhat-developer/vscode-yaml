@@ -20,11 +20,10 @@ class SchemaContributor {
             requestSchema: (resource: string) => string,
             requestSchemaContent: (uri: string) => string) {
         if (this._customSchemaContributors[schema]) {
-            console.log('Duplicate schema provider is ignored.');
             return false;
         }
         if (!requestSchema) {
-            throw new Error("Illegal paramter for requestSchema.");
+            throw new Error("Illegal parameter for requestSchema.");
         }
 
         this._customSchemaContributors[schema] = <SchemaContributorProvider>{
