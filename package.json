@@ -10,7 +10,7 @@
     }
   ],
   "license": "MIT",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "publisher": "redhat",
   "preview": true,
   "bugs": "https://github.com/redhat-developer/vscode-yaml/issues",

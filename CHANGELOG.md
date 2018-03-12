@@ -1,3 +1,7 @@
+#### 0.0.10
+- Programmatically associate YAML files with schemas by other extensions [#61](https://github.com/redhat-developer/vscode-yaml/issues/61)
+- Autocompletion not triggered while typing [#46](https://github.com/redhat-developer/vscode-yaml/issues/46)
+
 #### 0.0.9
 - Remove console.log from jsonSchemaService [#49](https://github.com/redhat-developer/yaml-language-server/issues/49)
 - Change "Property {$property_name} is not allowed" error message [#42](https://github.com/redhat-developer/yaml-language-server/issues/42)
