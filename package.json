@@ -97,7 +97,7 @@
     "vscode": "^1.1.0"
   },
   "dependencies": {
-    "vscode-languageclient": "3.5.0",
+    "vscode-languageclient": "3.5.1",
     "vscode-nls": "^3.2.1",
     "yaml-language-server": "0.0.10"
   }
