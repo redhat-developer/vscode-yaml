@@ -1,3 +1,8 @@
+#### 0.0.11
+- Pasting multiple full lines adds additional indentation on first pasted line, causing bad indentation error [#74](https://github.com/redhat-developer/vscode-yaml/issues/74)
+- Added indentation rules and yaml tmLanguage [#79](https://github.com/redhat-developer/vscode-yaml/issues/79)
+- Fix for completion helper if it contains \r [#37](https://github.com/redhat-developer/yaml-language-server/issues/37)
+
 #### 0.0.10
 - Programmatically associate YAML files with schemas by other extensions [#61](https://github.com/redhat-developer/vscode-yaml/issues/61)
 - Autocompletion not triggered while typing [#46](https://github.com/redhat-developer/vscode-yaml/issues/46)
