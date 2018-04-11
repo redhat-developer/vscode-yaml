@@ -38,7 +38,10 @@ export function activate(context: ExtensionContext) {
 	// Options to control the language client
 	let clientOptions: LanguageClientOptions = {
 		// Register the server for plain text documents
-		documentSelector: ['yaml'],
+		documentSelector: [
+			{ language: 'yaml', scheme: 'file' },
+			{ language: 'yaml', scheme: 'untitled' }
+		],
 		synchronize: {
 			// Synchronize the setting section 'languageServerExample' to the server
 			configurationSection: ['yaml', 'http.proxy', 'http.proxyStrictSSL'],
