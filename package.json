@@ -94,6 +94,11 @@
           "type": "boolean",
           "default": true,
           "description": "Enable/disable validation feature"
+        },
+        "yaml.customTags": {
+          "type": "array",
+          "default": [],
+          "description": "Custom tags for the parser to use"
         }
       }
     },
