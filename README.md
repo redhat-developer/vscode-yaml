@@ -31,6 +31,7 @@ The following settings are supported:
 * `yaml.format.enable`: Enable/disable default YAML formatter (requires restart)
 * `yaml.validate`: Enable/disable validation feature
 * `yaml.schemas`: Helps you associate schemas with files in a glob pattern
+* `yaml.customTags`: Array of custom tags that the parser will validate against. It has two ways to be used. Either an item in the array is a custom tag such as "!Ref" or you can specify the type of the object !Ref should be by doing "!Ref Scalar". For example: ["!Ref", "!Some-Tag Scalar"]. The type of object can be one of Scalar, Sequence, Mapping, Map.
 * `[yaml]`: VSCode-YAML adds default configuration for all yaml files. More specifically it converts tabs to spaces to ensure valid yaml, sets the tab size, and allows live typing autocompletion. These settings can be modified via the corresponding settings inside the `[yaml]` section in the settings:
     *   `editor.insertSpaces`
     *   `editor.tabSize`

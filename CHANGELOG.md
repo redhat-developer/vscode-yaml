@@ -1,3 +1,8 @@
+#### 0.0.12
+- Support for custom tags [#59](https://github.com/redhat-developer/yaml-language-server/issues/59)
+- Incorrect duplicate key registered when using YAML anchors [#82](https://github.com/redhat-developer/vscode-yaml/issues/82)
+- Automatically insert colon on autocomplete [#78](https://github.com/redhat-developer/vscode-yaml/issues/78)
+
 #### 0.0.11
 - Pasting multiple full lines adds additional indentation on first pasted line, causing bad indentation error [#74](https://github.com/redhat-developer/vscode-yaml/issues/74)
 - Added indentation rules and yaml tmLanguage [#79](https://github.com/redhat-developer/vscode-yaml/issues/79)
