@@ -20,10 +20,10 @@
   },
   "icon": "icon/icon128.png",
   "engines": {
-    "vscode": "^1.18.0"
+    "vscode": "^1.22.0"
   },
   "categories": [
-    "Languages",
+    "Programming Languages",
     "Linters",
     "Snippets",
     "Formatters"
@@ -41,31 +41,31 @@
   "main": "./out/src/extension",
   "contributes": {
     "languages": [
-        {
-            "id": "yaml",
-            "aliases": [
-                "YAML",
-                "yaml"
-            ],
-            "extensions": [
-                ".yml",
-                ".eyaml",
-                ".eyml",
-                ".yaml"
-            ],
-            "filenames": [
-                "yarn.lock"
-            ],
-            "firstLine": "^#cloud-config",
-            "configuration": "./language-configuration.json"
-        }
+      {
+        "id": "yaml",
+        "aliases": [
+          "YAML",
+          "yaml"
+        ],
+        "extensions": [
+          ".yml",
+          ".eyaml",
+          ".eyml",
+          ".yaml"
+        ],
+        "filenames": [
+          "yarn.lock"
+        ],
+        "firstLine": "^#cloud-config",
+        "configuration": "./language-configuration.json"
+      }
     ],
     "grammars": [
-        {
-            "language": "yaml",
-            "scopeName": "source.yaml",
-            "path": "./syntaxes/yaml.tmLanguage.json"
-        }
+      {
+        "language": "yaml",
+        "scopeName": "source.yaml",
+        "path": "./syntaxes/yaml.tmLanguage.json"
+      }
     ],
     "yamlValidation": [],
     "configuration": {
@@ -127,11 +127,12 @@
     "@types/node": "^6.0.52",
     "ts-node": "^3.3.0",
     "typescript": "^2.2.2",
-    "vscode": "^1.1.0"
+    "vscode": "^1.1.17"
   },
   "dependencies": {
-    "vscode-languageclient": "3.5.1",
+    "vscode-languageclient": "4.1.3",
     "vscode-nls": "^3.2.1",
+    "vscode-uri": "^1.0.3",
     "yaml-language-server": "0.0.12"
   }
 }
