@@ -53,9 +53,7 @@
           ".eyml",
           ".yaml"
         ],
-        "filenames": [
-          "yarn.lock"
-        ],
+        "filenames": [],
         "firstLine": "^#cloud-config",
         "configuration": "./language-configuration.json"
       }
