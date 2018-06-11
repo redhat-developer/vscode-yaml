@@ -1,11 +1,18 @@
+#### 0.0.13
+- Show errors if schema cannot be grabbed [#73](https://github.com/redhat-developer/yaml-language-server/issues/73)
+- The validator should support null values [#72](https://github.com/redhat-developer/yaml-language-server/issues/72)
+- Server returning nothing on things such as completion errors Eclipse Che [#66](https://github.com/redhat-developer/yaml-language-server/issues/66)
+- Return promises that resolve to null [#PR-71](https://github.com/redhat-developer/yaml-language-server/pull/71)
+- Remove unused dependency to deep-equal  [#PR-70](https://github.com/redhat-developer/yaml-language-server/pull/70)
+- Added custom tags to autocompletion [#Commit](https://github.com/redhat-developer/yaml-language-server/commit/73c244a3efe09ec4250def78068c54af3acaed58)
+- Remove yarn.lock from language contributes [#Commit](https://github.com/redhat-developer/vscode-yaml/commit/c65a3f870206306f5714cc7e5f0a181c40770201)
+
 #### 0.0.12
 - Support for custom tags [#59](https://github.com/redhat-developer/yaml-language-server/issues/59)
 - Incorrect duplicate key registered when using YAML anchors [#82](https://github.com/redhat-developer/vscode-yaml/issues/82)
 - Automatically insert colon on autocomplete [#78](https://github.com/redhat-developer/vscode-yaml/issues/78)
 
 #### 0.0.11
-- Pasting multiple full lines adds additional indentation on first pasted line, causing bad indentation error [#74](https://github.com/redhat-developer/vscode-yaml/issues/74)
-- Added indentation rules and yaml tmLanguage [#79](https://github.com/redhat-developer/vscode-yaml/issues/79)
 - Fix for completion helper if it contains \r [#37](https://github.com/redhat-developer/yaml-language-server/issues/37)
 
 #### 0.0.10
