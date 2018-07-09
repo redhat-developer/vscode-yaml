@@ -1,3 +1,9 @@
+#### 0.0.14
+
+Updated formatter to use prettier [#75](https://github.com/redhat-developer/vscode-yaml/issues/75) [#90](https://github.com/redhat-developer/vscode-yaml/issues/90)
+Fixed dynamic registration of formatter [#74](https://github.com/redhat-developer/yaml-language-server/issues/74)
+Relative paths fix [#92](https://github.com/redhat-developer/vscode-yaml/issues/92)
+
 #### 0.0.13
 - Show errors if schema cannot be grabbed [#73](https://github.com/redhat-developer/yaml-language-server/issues/73)
 - The validator should support null values [#72](https://github.com/redhat-developer/yaml-language-server/issues/72)
