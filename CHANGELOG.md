@@ -1,8 +1,8 @@
 #### 0.0.14
 
-Fixed strange behaviour of formatter [#90](https://github.com/redhat-developer/vscode-yaml/issues/90)
-Fixed dynamic registration of formatter [#74](https://github.com/redhat-developer/yaml-language-server/issues/74)
-Relative paths fix [#92](https://github.com/redhat-developer/vscode-yaml/issues/92)
+- Fixed strange behaviour of formatter [#90](https://github.com/redhat-developer/vscode-yaml/issues/90)
+- Fixed dynamic registration of formatter [#74](https://github.com/redhat-developer/yaml-language-server/issues/74)
+- Relative paths fix [#92](https://github.com/redhat-developer/vscode-yaml/issues/92)
 
 #### 0.0.13
 - Show errors if schema cannot be grabbed [#73](https://github.com/redhat-developer/yaml-language-server/issues/73)
