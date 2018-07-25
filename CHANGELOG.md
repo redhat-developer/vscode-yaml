@@ -1,6 +1,6 @@
 #### 0.0.14
 
-Updated formatter to use prettier [#75](https://github.com/redhat-developer/vscode-yaml/issues/75) [#90](https://github.com/redhat-developer/vscode-yaml/issues/90)
+Fixed strange behaviour of formatter [#90](https://github.com/redhat-developer/vscode-yaml/issues/90)
 Fixed dynamic registration of formatter [#74](https://github.com/redhat-developer/yaml-language-server/issues/74)
 Relative paths fix [#92](https://github.com/redhat-developer/vscode-yaml/issues/92)
 
