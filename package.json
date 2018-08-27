@@ -10,7 +10,7 @@
     }
   ],
   "license": "MIT",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "publisher": "redhat",
   "preview": true,
   "bugs": "https://github.com/redhat-developer/vscode-yaml/issues",
@@ -131,6 +131,6 @@
     "vscode-languageclient": "3.5.1",
     "vscode-nls": "^3.2.1",
     "vscode-uri": "^1.0.3",
-    "yaml-language-server": "0.0.17"
+    "yaml-language-server": "0.0.18"
   }
 }
