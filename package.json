@@ -98,6 +98,11 @@
           "default": true,
           "description": "Enable/disable hover feature"
         },
+        "yaml.completion": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable/disable completion feature"
+        },
         "yaml.customTags": {
           "type": "array",
           "default": [],
