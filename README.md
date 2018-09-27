@@ -43,7 +43,7 @@ The following settings are supported:
     *   `editor.quickSuggestions`
 
 ##### Associating a schema to a glob pattern via yaml.schemas: 
-yaml.schemas applies a schema to a file. In other words, the schema (placed on the left) is applied to the glob pattern on the right. Your schema can be local or online. Your schema must be an relative path but not an absolute path.
+yaml.schemas applies a schema to a file. In other words, the schema (placed on the left) is applied to the glob pattern on the right. Your schema can be local or online. Your schema must be a relative path and not an absolute path.
 
 When associating a schema it should follow the format below
 ```
