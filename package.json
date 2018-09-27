@@ -88,6 +88,26 @@
           "default": false,
           "description": "Enable/disable default YAML formatter (requires restart)"
         },
+        "yaml.format.singleQuote": {
+          "type": "boolean",
+          "default": false,
+          "description": "Use single quotes instead of double quotes"
+        },
+        "yaml.format.bracketSpacing": {
+          "type": "boolean",
+          "default": true,
+          "description": "Print spaces between brackets in objects"
+        },
+        "yaml.format.proseWrap": {
+          "type": "string",
+          "default": "preserve",
+          "enum": [
+            "preserve",
+            "never",
+            "always"
+          ],
+          "description": "Always: wrap prose if it exeeds the print width, Never: never wrap the prose, Preserve: wrap prose as-is"
+        },
         "yaml.validate": {
           "type": "boolean",
           "default": true,
