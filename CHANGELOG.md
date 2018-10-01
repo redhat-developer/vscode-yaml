@@ -1,3 +1,10 @@
+#### 0.0.17
+
+- New icon [#Commit](https://github.com/redhat-developer/vscode-yaml/commit/2f49d24abe7be0df1a4999b48345b7643892b5c9)
+- Ability to toggle hover/autocompletion [#Commit](https://github.com/redhat-developer/vscode-yaml/commit/abc35b1734c126f122a7635ba6b5ad5b55a0af5c)
+- Add formatter settings [#Commit](https://github.com/redhat-developer/vscode-yaml/commit/ee6b82500b2e1bec9697dad3f0047fb619e482e1)
+- Added a new formatter that uses prettier [#Commit](https://github.com/redhat-developer/yaml-language-server/commit/a5092e3d33a2e208bfea7941076518dedd2aba7b)
+
 #### 0.0.16
 
 - Support intellisense default value [#86](https://github.com/redhat-developer/yaml-language-server/pull/86)
