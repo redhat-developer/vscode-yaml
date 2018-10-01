@@ -20,6 +20,10 @@ namespace SchemaAssociationNotification {
 	export const type: NotificationType<ISchemaAssociations, any> = new NotificationType('json/schemaAssociations');
 }
 
+namespace DynamicCustomSchemaRequestRegistration {
+	export const type: NotificationType<{}, {}> = new NotificationType('yaml/registerCustomSchemaRequest');
+}
+
 export function activate(context: ExtensionContext) {
 
 	// The server is implemented in node
@@ -63,6 +67,7 @@ export function activate(context: ExtensionContext) {
 
 	client.onReady().then(() => {
 		client.sendNotification(SchemaAssociationNotification.type, getSchemaAssociation(context));
+		client.sendNotification(DynamicCustomSchemaRequestRegistration.type);
 		client.onRequest(CUSTOM_SCHEMA_REQUEST, (resource) => {
 			return schemaContributor.requestCustomSchema(resource);
 		});
