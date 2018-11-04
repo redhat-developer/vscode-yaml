@@ -1,3 +1,7 @@
+#### 0.1.0
+
+- Fixed region markers not showing [#Commit](https://github.com/redhat-developer/vscode-yaml/commit/66852c9541048010829c88672170d13fc69221a6)
+
 #### 0.0.17
 
 - New icon [#Commit](https://github.com/redhat-developer/vscode-yaml/commit/2f49d24abe7be0df1a4999b48345b7643892b5c9)
