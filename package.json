@@ -1,7 +1,7 @@
 {
   "name": "vscode-yaml",
-  "displayName": "YAML Support by Red Hat",
-  "description": "YAML Support for Visual Studio Code provided by Red Hat, with built-in Kubernetes and Kedge syntax support",
+  "displayName": "YAML",
+  "description": "YAML Language Support by Red Hat, with built-in Kubernetes and Kedge syntax support",
   "author": "Red Hat",
   "contributors": [
     {
@@ -10,7 +10,7 @@
     }
   ],
   "license": "MIT",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publisher": "redhat",
   "preview": true,
   "bugs": "https://github.com/redhat-developer/vscode-yaml/issues",
