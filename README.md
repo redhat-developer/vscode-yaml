@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/redhat-developer/yaml-language-server.svg?branch=master)](https://travis-ci.org/redhat-developer/vscode-yaml) [![Marketplace Version](https://vsmarketplacebadge.apphb.com/version/redhat.vscode-yaml.svg "Current Release")](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml)
 
-# YAML Support for Visual Studio Code
-Provides YAML support via [yaml-language-server](https://github.com/redhat-developer/yaml-language-server) with built-in Kubernetes and Kedge syntax support.
+# YAML Language Support by Red Hat
+Provides comprehensive YAML Language support to [Visual Studio Code](https://code.visualstudio.com/), via the [yaml-language-server](https://github.com/redhat-developer/yaml-language-server), with built-in Kubernetes and Kedge syntax support.
 
 ## Features
 ![screencast](https://raw.githubusercontent.com/redhat-developer/vscode-yaml/master/images/demo.gif)
