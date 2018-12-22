@@ -1,3 +1,9 @@
+#### 0.2.0
+
+- Added fix for bracket spacing option in formatter [#Commit](https://github.com/redhat-developer/yaml-language-server/commit/3b79ef397dbd215744c4577da9227298b3447bad)
+- Added fix for boolean type [#Commit](https://github.com/redhat-developer/yaml-language-server/commit/9351ef54348e0a967a672e7c0f45b091ed53c533)
+- Renamed extension to YAML [#Commit](https://github.com/redhat-developer/vscode-yaml/commit/cb59f85b3191fa30290dada1366d4b0c7e916f2b)
+
 #### 0.1.0
 
 - Fixed region markers not showing [#Commit](https://github.com/redhat-developer/vscode-yaml/commit/66852c9541048010829c88672170d13fc69221a6)
