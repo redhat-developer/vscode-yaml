@@ -127,6 +127,11 @@
           "type": "array",
           "default": [],
           "description": "Custom tags for the parser to use"
+        },
+        "yaml.schemaStore": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically pull available YAML schemas from JSON Schema Store"
         }
       }
     },
