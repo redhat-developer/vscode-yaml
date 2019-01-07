@@ -128,7 +128,7 @@
           "default": [],
           "description": "Custom tags for the parser to use"
         },
-        "yaml.schemaStore": {
+        "yaml.schemaStore.enable": {
           "type": "boolean",
           "default": true,
           "description": "Automatically pull available YAML schemas from JSON Schema Store"
