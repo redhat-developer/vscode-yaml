@@ -44,7 +44,7 @@ The following settings are supported:
 
 ##### Adding custom tags
 
-In order to use the custom tags in your YAML file you need to first specify the custom tags in the setting of your code editor. For example, we can have the following custom tags:
+In order to use the custom tags in your YAML file you need to first specify the custom tags in the setting of your code editor. For example, you can have the following custom tags:
 
 ```YAML
 "yaml.customTags": [
@@ -56,7 +56,7 @@ In order to use the custom tags in your YAML file you need to first specify the 
 
 The !Scalar-example would map to a scalar custom tag, the !Seq-example would map to a sequence custom tag, the !Mapping-example would map to a mapping custom tag.
 
-We can then use the newly defined custom tags inside our YAML file:
+You can then use the newly defined custom tags inside the YAML file:
 
 ```YAML
 some_key: !Scalar-example some_value
