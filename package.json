@@ -1,22 +1,21 @@
 {
-  "name": "vscode-yaml",
-  "displayName": "YAML",
-  "description": "YAML Language Support by Red Hat, with built-in Kubernetes and Kedge syntax support",
-  "author": "Red Hat",
+  "name": "vscode-devops-as-code",
+  "displayName": "Devops As Code by XebiaLabs",
+  "description": "This extension adds YAML support to VSCode for the Devops as Code feature from the XebiaLabs Devops platform",
+  "author": "XebiaLabs",
   "contributors": [
     {
-      "name": "Joshua Pinkney",
-      "email": "jpinkney@redhat.com"
+      "name": "Paul van der Ende"
     }
   ],
   "license": "MIT",
-  "version": "0.2.1",
-  "publisher": "redhat",
+  "version": "1.0.0",
+  "publisher": "XebiaLabs",
   "preview": true,
-  "bugs": "https://github.com/redhat-developer/vscode-yaml/issues",
+  "bugs": "http://xebialabs.zendesk.com/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/redhat-developer/vscode-yaml"
+    "url": "https://github.com/xebialabs/devops-as-code-vscode"
   },
   "icon": "icon/icon128.png",
   "engines": {
@@ -80,12 +79,14 @@
         },
         "yaml.schemas": {
           "type": "object",
-          "default": {},
+          "default": {
+            "xebialabs": "*.yaml"
+          },
           "description": "Associate schemas to Yaml files in the current workspace"
         },
         "yaml.format.enable": {
           "type": "boolean",
-          "default": false,
+          "default": true,
           "description": "Enable/disable default YAML formatter (requires restart)"
         },
         "yaml.format.singleQuote": {
@@ -125,7 +126,11 @@
         },
         "yaml.customTags": {
           "type": "array",
-          "default": [],
+          "default": [
+            "!file",
+            "!value",
+            "!format"
+          ],
           "description": "Custom tags for the parser to use"
         }
       }
