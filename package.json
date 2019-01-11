@@ -9,7 +9,7 @@
     }
   ],
   "license": "MIT",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "publisher": "XebiaLabs",
   "preview": true,
   "bugs": "http://xebialabs.zendesk.com/",
@@ -62,6 +62,12 @@
         "language": "yaml",
         "scopeName": "source.yaml",
         "path": "./syntaxes/yaml.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "yaml",
+        "path": "./snippets/snippets.json"
       }
     ],
     "yamlValidation": [],
@@ -166,6 +172,6 @@
     "vscode-languageclient": "3.5.1",
     "vscode-nls": "^3.2.1",
     "vscode-uri": "^1.0.5",
-    "yaml-language-server": "0.2.1"
+    "devops-as-code-language-server": "0.2.2"
   }
 }

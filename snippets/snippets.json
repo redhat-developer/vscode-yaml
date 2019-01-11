@@ -1,0 +1,37 @@
+{
+    "XLD Definition": {
+        "prefix": "xld def",
+        "body": [
+		  "---",
+		  "apiVersion: xl-deploy/v1",
+          "kind: ${2|Applications,Infrastructure,Environments,Configuration|}",
+		  "spec:",
+		  "  - $0"
+        ],
+        "description": "XL Deploy definition"
+    },
+    "XLD deploy": {
+        "prefix": "xld deploy",
+        "body": [
+		  "---",
+		  "apiVersion: xl-deploy/v1",
+		  "kind: Deployment",
+		  "spec:",
+		  "  package: Applications/$1",
+		  "  environment: Environments/$0"
+		 ],
+        "description": "XL Deploy deployment"
+    },
+    "Import Spec": {
+        "prefix": "import",
+        "body": [
+		  "---",
+		  "apiVersion: xl/v1",
+		  "kind: Import",
+		  "metadata:",
+		  "  imports:",
+		  "    - $0"
+		  ],
+        "description": "Import"
+    }
+}
