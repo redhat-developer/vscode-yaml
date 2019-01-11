@@ -172,6 +172,6 @@
     "vscode-languageclient": "3.5.1",
     "vscode-nls": "^3.2.1",
     "vscode-uri": "^1.0.5",
-    "devops-as-code-language-server": "0.2.2"
+    "devops-as-code-language-server": "0.2.3"
   }
 }
