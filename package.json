@@ -31,11 +31,14 @@
     "onLanguage:yaml"
   ],
   "keywords": [
-    "kubernetes",
-    "kedge",
+    "xebialabs",
+    "devops as code",
     "yaml",
+    "yml",
+    "xl-deploy",
+    "xl-release",
     "autocompletion",
-    "validation"
+    "formatting"
   ],
   "main": "./out/src/extension",
   "contributes": {

@@ -1,11 +1,12 @@
 
-# Devops as Code YAML support by XebiaLabs
+# Devops as Code by XebiaLabs
 
 This extension adds Devops as Code YAML support to VSCode. The extension adds the following features:
 
 * Syntax highlighting
 * Code completion
 * Code validation
+* Code formatting
 * Code snippets
 * Context documentation
 
@@ -21,14 +22,15 @@ Current support is limited to XL Deploy.
 When using the extension:
 * You can trigger code completion using `CTRL`+`SPACE`. Code snippets are also listed as suggestions.
 * You can insert Code snippets by typing the shortcut for the snippet. For example, try typing "def" and press `ENTER`. You can cycle through all template input positions by pressing `TAB`.
-* The YAML is automatically validated. 
+* You can format the code by right-mouse clicking the document and select `Format Document`. If you make a selection, only the selected part of the document will be formatted.
+* The YAML is automatically validated.
 	* Issues are indicated in red and are also listed in the "Problems window".
 	* The validation is XL type system-aware, as the extension includes type system information of a standard installation with the default plugins installed.
 * Embedded help is displayed when using code completion and when hovering over properties in the YAML document.
 
 ## Changing configuration
 
-You can configure the files for which the extension will be enabled. By default, the extension is enabled on all files with extension `.yaml`. This behaviour may conflict with other configuration file formats that also use the `.yaml` extension. 
+You can configure the files for which the extension will be enabled. By default, the extension is enabled on all files with extension `.yaml`. This behaviour may conflict with other configuration file formats that also use the `.yaml` extension.
 
 **Note:** `xebialabs` is the schema name of the built-in support for Devops as Code YAML.
 
