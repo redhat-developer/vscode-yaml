@@ -1,7 +1,7 @@
 {
   "name": "vscode-devops-as-code",
-  "displayName": "Devops As Code by XebiaLabs",
-  "description": "This extension adds YAML support to VSCode for the Devops as Code feature from the XebiaLabs Devops platform",
+  "displayName": "DevOps As Code by XebiaLabs",
+  "description": "This extension adds YAML support to VSCode for the DevOps as Code feature from the XebiaLabs DevOps platform",
   "author": "XebiaLabs",
   "contributors": [
     {
@@ -31,12 +31,13 @@
     "onLanguage:yaml"
   ],
   "keywords": [
-    "xebialabs",
-    "devops as code",
+    "XebiaLabs",
+    "DevOps as Code",
+    "DevOps",
     "yaml",
     "yml",
-    "xl-deploy",
-    "xl-release",
+    "XL-Deploy",
+    "XL-Release",
     "autocompletion",
     "formatting"
   ],
