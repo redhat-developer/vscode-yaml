@@ -1,7 +1,11 @@
 
 # DevOps as Code by XebiaLabs
 
-This extension adds DevOps as Code YAML support to VSCode. The extension adds the following features:
+The XebiaLabs DevOps Platform is the backbone for comprehensive release orchestration, automated and standardized deployments, and full visibility into the end-to-end Continuous Delivery process. XebiaLabs' DevOps as Code approach allows teams to define deployment packages, infrastructure, environments, release templates, dashboards, and more in YAML files that they can store in source control alongside their application code. With DevOps as Code, the components of the software delivery pipeline can be version-controlled, shared across the organization, and audited with ease.
+
+## Features
+
+This extension adds YAML support for the XebiaLabs DevOps Platform to Visual Studio Code. The extension adds the following features:
 
 * Syntax highlighting
 * Code completion
@@ -10,12 +14,17 @@ This extension adds DevOps as Code YAML support to VSCode. The extension adds th
 * Code snippets
 * Context documentation
 
-Current support is limited to XL Deploy.
+Limitations:
+
+* Current support is limited to XL Deploy. Support for XL Release is comming soon.
+* The extension currently only knows about the types of a standard product installation and the plugins that are installed by default. In a future version it will be possible to load type information from your server.
 
 ## Demo
 ![screencast](https://raw.githubusercontent.com/xebialabs/devops-as-code-vscode/master/images/demo.gif)
 
 ## Usage info
+
+If you are looking for more information about how to get started with DevOps as Code, please have a look [here](https://docs.xebialabs.com/xl-platform/concept/getting-started-with-devops-as-code.html). For more information about this extension, please keep reading.
 
 **Note:** By default, this extension provides DevOps as Code YAML support on all documents with the filename extension `.yaml`. This may conflict with other configuration file formats that also use the .yaml extension. See the section "Changing configuration" below.
 
@@ -24,7 +33,7 @@ When using the extension:
 * You can insert Code snippets by typing the shortcut for the snippet. For example, try typing "def" and press `ENTER`. You can cycle through all template input positions by pressing `TAB`.
 * You can format the code by right-mouse clicking the document and select `Format Document`. If you make a selection, only the selected part of the document will be formatted.
 * The YAML is automatically validated.
-	* Issues are indicated in red and are also listed in the "Problems window".
+	* Issues are indicated in red and are also listed in the "Problems window". You can open this window by going to menu "View" > "Problems". Keep this window open to have a nice overview of all problems in your document.
 	* The validation is XL type system-aware, as the extension includes type system information of a standard installation with the default plugins installed.
 * Embedded help is displayed when using code completion and when hovering over properties in the YAML document.
 
@@ -39,7 +48,7 @@ For example, if you want editor support for both XebiaLabs and Kubernetes YAML, 
 ```
   "yaml.schemas": {
     "xebialabs": "*.xl.yaml",
-    "kubernetes": "*.kube.yaml"
+    "kubernetes": "*.k8s.yaml"
  }
 ```
 
