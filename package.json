@@ -20,7 +20,7 @@
   },
   "icon": "icon/icon128.png",
   "engines": {
-    "vscode": "^1.22.0"
+    "vscode": "^1.31.0"
   },
   "categories": [
     "Programming Languages",
@@ -65,7 +65,6 @@
         "path": "./syntaxes/yaml.tmLanguage.json"
       }
     ],
-    "yamlValidation": [],
     "configuration": {
       "properties": {
         "yaml.trace.server": {
@@ -160,7 +159,7 @@
     "@types/node": "^6.0.52",
     "ts-node": "^3.3.0",
     "typescript": "3.0.0-dev.20180626",
-    "vscode": "^1.1.17"
+    "vscode": "^1.1.29"
   },
   "dependencies": {
     "vscode-languageclient": "3.5.1",
