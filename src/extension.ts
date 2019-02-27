@@ -67,6 +67,10 @@ export function activate(context: ExtensionContext) {
 
 	client.onReady().then(() => {
 		client.sendNotification(SchemaAssociationNotification.type, getSchemaAssociation(context));
+		extensions.onDidChange(_ => {
+			client.sendNotification(SchemaAssociationNotification.type, getSchemaAssociation(context));
+		});
+
 		client.sendNotification(DynamicCustomSchemaRequestRegistration.type);
 		client.onRequest(CUSTOM_SCHEMA_REQUEST, (resource) => {
 			return schemaContributor.requestCustomSchema(resource);
