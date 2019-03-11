@@ -14,11 +14,6 @@ This extension adds YAML support for the XebiaLabs DevOps Platform to Visual Stu
 * Code snippets
 * Context documentation
 
-Limitations:
-
-* Current support is limited to XL Deploy. Support for XL Release is comming soon.
-* The extension currently only knows about the types of a standard product installation and the plugins that are installed by default. In a future version it will be possible to load type information from your server.
-
 ## Demo
 ![screencast](https://raw.githubusercontent.com/xebialabs/devops-as-code-vscode/master/images/demo.gif)
 
@@ -36,6 +31,30 @@ When using the extension:
 	* Issues are indicated in red and are also listed in the "Problems window". You can open this window by going to menu "View" > "Problems". Keep this window open to have a nice overview of all problems in your document.
 	* The validation is XL type system-aware, as the extension includes type system information of a standard installation with the default plugins installed.
 * Embedded help is displayed when using code completion and when hovering over properties in the YAML document.
+
+## Updating the validation schema
+
+This extension uses a schema to validate the YAML. By default the extension comes with a default schema that includes only information of a standard installation of our products. If you have additional plugins installed or you have done customizations to the type system, the default schema might not validate your YAML correctly. You can solve this by downloading the schema from the XL Deploy and/or XL Release instance that you are using, and configure the extension to use that schema. You can use the XL CLI to download the schema.
+
+You can install the XL CLI by following the instructions on [this page](https://docs.xebialabs.com/xl-platform/how-to/install-the-xl-cli.html).
+
+You can generate a new schema by running this command:
+
+`xl ide schema --xl-release --xl-deploy`
+
+A file called `schema.json` is written to disk. For this example lets assume the file is generated at this location: `/data/schema.json`.
+
+Now you have to change the VS Code extension configuration to use this schema:
+
+```
+  "yaml.schemas": {
+          "file:///data/schema.json": "*.yaml"
+ }
+```
+
+Save the configuration file and restart VS Code and now the extenion will validate against the updated schema.
+
+Please note that everytime you install or deinstall a plugin, or change the type system of the server, you'll have to update the schema file.
 
 ## Changing configuration
 
