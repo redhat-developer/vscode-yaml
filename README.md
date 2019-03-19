@@ -69,7 +69,7 @@ some_mapping: !Mapping-example
   some_mapping_key_2: some_mapping_value_2
 ```
 
-##### Associating a schema to a glob pattern via yaml.schemas: 
+##### Associating a schema to a glob pattern via yaml.schemas:
 yaml.schemas applies a schema to a file. In other words, the schema (placed on the left) is applied to the glob pattern on the right. Your schema can be local or online. Your schema must be a relative path and not an absolute path.
 
 When associating a schema it should follow the format below
@@ -137,6 +137,37 @@ This extension allows you to specify json schemas that you want to validate agai
 ##### Developing the client side
 1. Open the client in vscode
 2. Make changes as neccessary and the run the code using F5
+
+##### Developing the client and server together
+1. Download both the [Yaml Language Server](https://github.com/redhat-developer/yaml-language-server) and this VSCode Yaml Client.
+
+2. Create a project with the directories in the following structure.
+  ```
+  ParentFolder/
+            ├──── vscode-yaml/
+            ├──── yaml-language-server/
+  ```
+3. Run `npm install` in both directories to initialize `node_modules` dependencies.
+4. In `vscode-yaml/src/extension.ts` set the `serverModule` variable to:
+    ```ts
+	serverModule = context.asAbsolutePath(path.join("..", "yaml-language-server", "out", "server", "src", "server.js"));
+	```
+	_This will redirect which YAML LS to use._
+
+5. In BOTH directories run:
+	```bash
+    npm run compile
+  	```
+
+6. To run the language server in VSCode, click `View -> Debug`, then from the drop down menu beside the green arrow select `Launch Extension (vscode-yaml)`, click the arrow, and a new VSCode window should load with the YAML LS running.
+
+7. To debug the language server in VSCode, from the same drop down menu
+   select
+   `Attach (yaml-language-server)`, and click the green arrow to start.
+   Ensure you've opened a YAML file or else the server would have not yet
+   started.
+
+**Note:** Disable or remove any existing implementations of the YAML Language server from VSCode or there will be conflicts.
 
 ##### Developing the server side
 1. To develop the language server visit https://github.com/redhat-developer/yaml-language-server
