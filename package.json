@@ -75,7 +75,7 @@
             "verbose"
           ],
           "default": "off",
-          "description": "Traces the communication between VSCode and the languageServerExample service."
+          "description": "Traces the communication between VSCode and the YAML language service."
         },
         "yaml.schemas": {
           "type": "object",
