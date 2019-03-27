@@ -1,3 +1,10 @@
+#### 0.4.0
+- Allow custom tags to have multiple types [#77](https://github.com/redhat-developer/yaml-language-server/issues/77)
+- Made the formatter respect the yaml.format.enable setting [#PR](https://github.com/redhat-developer/yaml-language-server/pull/126)
+- Updated the tmLanguage [#Commit](https://github.com/redhat-developer/vscode-yaml/commit/88b3715cc735a35ae83e5dfece42af8717cfc709)
+- Fixed the yaml.trace.server description
+- Added yaml.format.printWidth setting
+
 #### 0.3.0
 
 - Fixed custom tags crashing the language server [#112](https://github.com/redhat-developer/yaml-language-server/commit/4bcd36d629ef2c64641dc6edc948dbd02f35c437)
