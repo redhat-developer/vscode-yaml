@@ -85,7 +85,8 @@ yaml.schemas: {
 e.g.
 ```
 yaml.schemas: {
-    "http://json.schemastore.org/composer": "/*"
+    "http://json.schemastore.org/composer": "/*",
+	"../relative/path/schema.json": "/config*.yaml",
 }
 ```
 
