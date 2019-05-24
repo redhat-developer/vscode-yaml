@@ -53,7 +53,10 @@
           ".eyml",
           ".yaml"
         ],
-        "filenames": [],
+        "filenames": [
+          ".clang-format",
+          "_clang-format"
+        ],
         "firstLine": "^#cloud-config",
         "configuration": "./language-configuration.json"
       }
