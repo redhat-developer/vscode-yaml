@@ -1,3 +1,7 @@
+#### 0.4.1
+- Updated the kubernetes schema to be an upstream one [#PR](https://github.com/redhat-developer/yaml-language-server/pull/108)
+- .clang-format and _clang-format are now associated with YAML [#183](https://github.com/redhat-developer/vscode-yaml/issues/183)
+
 #### 0.4.0
 - Allow custom tags to have multiple types [#77](https://github.com/redhat-developer/yaml-language-server/issues/77)
 - Made the formatter respect the yaml.format.enable setting [#PR](https://github.com/redhat-developer/yaml-language-server/pull/126)
