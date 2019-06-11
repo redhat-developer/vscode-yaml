@@ -18,10 +18,11 @@ class SchemaContributor {
 	 */
     public registerContributor(schema: string,
             requestSchema: (resource: string) => string,
-            requestSchemaContent: (uri: string) => string) {
+            requestSchemaContent: (uri: string) => string): boolean {
         if (this._customSchemaContributors[schema]) {
             return false;
         }
+
         if (!requestSchema) {
             throw new Error("Illegal parameter for requestSchema.");
         }
@@ -30,6 +31,7 @@ class SchemaContributor {
             requestSchema,
             requestSchemaContent
         };
+
         return true;
     }
 
@@ -39,10 +41,11 @@ class SchemaContributor {
 	 * @param {string} resource
 	 * @returns {string} the schema uri
 	 */
-	public requestCustomSchema(resource: string) {
+	public requestCustomSchema(resource: string): string {
         for (let customKey of Object.keys(this._customSchemaContributors)) {
             const contributor = this._customSchemaContributors[customKey];
             const uri = contributor.requestSchema(resource);
+
             if (uri) {
                 return uri;
             }
@@ -55,9 +58,10 @@ class SchemaContributor {
 	 * @param {string} uri the schema uri returned from requestSchema.
 	 * @returns {string} the schema content
 	 */
-    public requestCustomSchemaContent(uri: string) {
+    public requestCustomSchemaContent(uri: string): string {
         if (uri) {
             let _uri = Uri.parse(uri);
+            
             if (_uri.scheme && this._customSchemaContributors[_uri.scheme] &&
                 this._customSchemaContributors[_uri.scheme].requestSchemaContent) {
                 return this._customSchemaContributors[_uri.scheme].requestSchemaContent(uri);

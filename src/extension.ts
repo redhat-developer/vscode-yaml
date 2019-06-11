@@ -25,12 +25,11 @@ namespace DynamicCustomSchemaRequestRegistration {
 }
 
 export function activate(context: ExtensionContext) {
-
-	// The server is implemented in node
+	// The YAML language server is implemented in node
 	let serverModule = context.asAbsolutePath(path.join('node_modules', 'yaml-language-server', 'out', 'server', 'src', 'server.js'));
 
 	// The debug options for the server
-	let debugOptions = { execArgv: ["--nolazy", "--inspect=6009"] };
+	let debugOptions = { execArgv: ['--nolazy', '--inspect=6009'] };
 
 	// If the extension is launched in debug mode then the debug server options are used
 	// Otherwise the run options are used
@@ -41,15 +40,15 @@ export function activate(context: ExtensionContext) {
 
 	// Options to control the language client
 	let clientOptions: LanguageClientOptions = {
-		// Register the server for plain text documents
+		// Register the server for on disk and newly created YAML documents
 		documentSelector: [
 			{ language: 'yaml', scheme: 'file' },
 			{ language: 'yaml', scheme: 'untitled' }
 		],
 		synchronize: {
-			// Synchronize the setting section 'languageServerExample' to the server
+			// Synchronize these setting sections with the server
 			configurationSection: ['yaml', 'http.proxy', 'http.proxyStrictSSL'],
-			// Notify the server about file changes to '.clientrc files contain in the workspace
+			// Notify the server about file changes to YAML and JSON files contained in the workspace
 			fileEvents: [
 				workspace.createFileSystemWatcher('**/*.?(e)y?(a)ml'),
 				workspace.createFileSystemWatcher('**/*.json')
@@ -57,8 +56,8 @@ export function activate(context: ExtensionContext) {
 		}
 	};
 
-	// Create the language client and start the client.
-	let client = new LanguageClient('yaml', 'Yaml Support', serverOptions, clientOptions);
+	// Create the language client and start it
+	let client = new LanguageClient('yaml', 'YAML Support', serverOptions, clientOptions);
 	let disposable = client.start();
 
 	// Push the disposable to the context's subscriptions so that the
@@ -66,12 +65,15 @@ export function activate(context: ExtensionContext) {
 	context.subscriptions.push(disposable);
 
 	client.onReady().then(() => {
+		// Send a notification to the server with any YAML schema associations in all extensions
 		client.sendNotification(SchemaAssociationNotification.type, getSchemaAssociation(context));
+		// If the extensions change, fire this notification again to pick up on any association changes
 		extensions.onDidChange(_ => {
 			client.sendNotification(SchemaAssociationNotification.type, getSchemaAssociation(context));
 		});
-
+		// Tell the server that the client is ready to provide custom schema content
 		client.sendNotification(DynamicCustomSchemaRequestRegistration.type);
+		// If the server asks for custom schema content, get it and send it back
 		client.onRequest(CUSTOM_SCHEMA_REQUEST, (resource) => {
 			return schemaContributor.requestCustomSchema(resource);
 		});
@@ -85,33 +87,44 @@ export function activate(context: ExtensionContext) {
 
 function getSchemaAssociation(context: ExtensionContext): ISchemaAssociations {
 	let associations: ISchemaAssociations = {};
+	// Scan all extensions
 	extensions.all.forEach(extension => {
 		let packageJSON = extension.packageJSON;
+		// Look for yamlValidation contribution point in the package.json
 		if (packageJSON && packageJSON.contributes && packageJSON.contributes.yamlValidation) {
 			let yamlValidation = packageJSON.contributes.yamlValidation;
+			// If the extension provides YAML validation
 			if (Array.isArray(yamlValidation)) {
 				yamlValidation.forEach(jv => {
+					// Get the extension's YAML schema associations
 					let { fileMatch, url } = jv;
+
 					if (fileMatch && url) {
+						// Convert relative file paths to absolute file URIs
 						if (url[0] === '.' && url[1] === '/') {
 							url = Uri.file(path.join(extension.extensionPath, url)).toString();
 						}
+						// Replace path variables
 						if (fileMatch[0] === '%') {
 							fileMatch = fileMatch.replace(/%APP_SETTINGS_HOME%/, '/User');
 							fileMatch = fileMatch.replace(/%APP_WORKSPACES_HOME%/, '/Workspaces');
 						} else if (fileMatch.charAt(0) !== '/' && !fileMatch.match(/\w+:\/\//)) {
 							fileMatch = '/' + fileMatch;
 						}
+						// Create a file-schema association
 						let association = associations[fileMatch];
+
 						if (!association) {
 							association = [];
 							associations[fileMatch] = association;
 						}
+						// Store the file-schema association
 						association.push(url);
 					}
 				});
 			}
 		}
 	});
+
 	return associations;
 }
