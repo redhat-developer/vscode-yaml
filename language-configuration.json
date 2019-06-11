@@ -31,5 +31,6 @@
 	"indentationRules": {
 		"increaseIndentPattern": "^\\s*.*(:|-) ?(&amp;\\w+)?(\\{[^}\"']*|\\([^)\"']*)?$",
 		"decreaseIndentPattern": "^\\s+\\}$"
-	}
+	},
+	"wordPattern": "/(\"(?:[^\\\\\"]*(?:\\\\.)?)*\"?)|[^\\s{}\\[\\],:]+/"
 }

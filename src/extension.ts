@@ -8,7 +8,7 @@
 
 import * as path from 'path';
 
-import { workspace, Disposable, ExtensionContext, commands, languages, extensions, Uri } from 'vscode';
+import { workspace, Disposable, ExtensionContext, commands, extensions, Uri } from 'vscode';
 import { LanguageClient, LanguageClientOptions, SettingMonitor, ServerOptions, TransportKind, NotificationType } from 'vscode-languageclient';
 import { schemaContributor, CUSTOM_SCHEMA_REQUEST, CUSTOM_CONTENT_REQUEST } from './schema-contributor'
 
@@ -78,10 +78,6 @@ export function activate(context: ExtensionContext) {
 		client.onRequest(CUSTOM_CONTENT_REQUEST, (uri) => {
 			return schemaContributor.requestCustomSchemaContent(uri);
 		});
-	});
-
-	languages.setLanguageConfiguration('yaml', {
-		wordPattern: /("(?:[^\\\"]*(?:\\.)?)*"?)|[^\s{}\[\],:]+/
 	});
 
 	return schemaContributor;
