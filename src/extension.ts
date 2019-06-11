@@ -8,8 +8,8 @@
 
 import * as path from 'path';
 
-import { workspace, Disposable, ExtensionContext, commands, extensions, Uri } from 'vscode';
-import { LanguageClient, LanguageClientOptions, SettingMonitor, ServerOptions, TransportKind, NotificationType } from 'vscode-languageclient';
+import { workspace, ExtensionContext, extensions, Uri } from 'vscode';
+import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind, NotificationType } from 'vscode-languageclient';
 import { schemaContributor, CUSTOM_SCHEMA_REQUEST, CUSTOM_CONTENT_REQUEST } from './schema-contributor'
 
 export interface ISchemaAssociations {

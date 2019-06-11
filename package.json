@@ -166,7 +166,7 @@
     "@types/mocha": "^2.2.33",
     "@types/node": "^6.0.52",
     "ts-node": "^3.3.0",
-    "typescript": "3.0.0-dev.20180626",
+    "typescript": "3.5.1",
     "vscode": "^1.1.29"
   },
   "dependencies": {
