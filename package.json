@@ -83,12 +83,12 @@
         "yaml.schemas": {
           "type": "object",
           "default": {},
-          "description": "Associate schemas to Yaml files in the current workspace"
+          "description": "Associate schemas to YAML files in the current workspace"
         },
         "yaml.format.enable": {
           "type": "boolean",
-          "default": false,
-          "description": "Enable/disable default YAML formatter (requires restart)"
+          "default": true,
+          "description": "Enable/disable default YAML formatter"
         },
         "yaml.format.singleQuote": {
           "type": "boolean",
