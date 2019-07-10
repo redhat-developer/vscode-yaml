@@ -8,8 +8,9 @@
 
 import * as path from 'path';
 
-import { workspace, ExtensionContext, extensions, Uri } from 'vscode';
+import { workspace, ExtensionContext, extensions } from 'vscode';
 import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind, NotificationType } from 'vscode-languageclient';
+import { URI } from 'vscode-uri';
 import { schemaContributor, CUSTOM_SCHEMA_REQUEST, CUSTOM_CONTENT_REQUEST } from './schema-contributor'
 
 export interface ISchemaAssociations {
@@ -74,10 +75,10 @@ export function activate(context: ExtensionContext) {
 		// Tell the server that the client is ready to provide custom schema content
 		client.sendNotification(DynamicCustomSchemaRequestRegistration.type);
 		// If the server asks for custom schema content, get it and send it back
-		client.onRequest(CUSTOM_SCHEMA_REQUEST, (resource) => {
+		client.onRequest(CUSTOM_SCHEMA_REQUEST, (resource: string) => {
 			return schemaContributor.requestCustomSchema(resource);
 		});
-		client.onRequest(CUSTOM_CONTENT_REQUEST, (uri) => {
+		client.onRequest(CUSTOM_CONTENT_REQUEST, (uri: string) => {
 			return schemaContributor.requestCustomSchemaContent(uri);
 		});
 	});
@@ -102,7 +103,7 @@ function getSchemaAssociation(context: ExtensionContext): ISchemaAssociations {
 					if (fileMatch && url) {
 						// Convert relative file paths to absolute file URIs
 						if (url[0] === '.' && url[1] === '/') {
-							url = Uri.file(path.join(extension.extensionPath, url)).toString();
+							url = URI.file(path.join(extension.extensionPath, url)).toString();
 						}
 						// Replace path variables
 						if (fileMatch[0] === '%') {
