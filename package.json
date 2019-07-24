@@ -172,7 +172,7 @@
   "dependencies": {
     "vscode-languageclient": "5.2.1",
     "vscode-nls": "^3.2.1",
-    "vscode-uri": "^1.0.5",
+    "vscode-uri": "^2.0.3",
     "yaml-language-server": "0.4.1"
   }
 }
