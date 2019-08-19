@@ -25,8 +25,6 @@ namespace DynamicCustomSchemaRequestRegistration {
 	export const type: NotificationType<{}, {}> = new NotificationType('yaml/registerCustomSchemaRequest');
 }
 
-const WORKSPACE_FILES_REQUEST = 'custom/workspace/yamlfiles';
-
 export function activate(context: ExtensionContext) {
 	// The YAML language server is implemented in node
 	let serverModule = context.asAbsolutePath(path.join('node_modules', 'yaml-language-server', 'out', 'server', 'src', 'server.js'));
@@ -82,12 +80,6 @@ export function activate(context: ExtensionContext) {
 		});
 		client.onRequest(CUSTOM_CONTENT_REQUEST, (uri: string) => {
 			return schemaContributor.requestCustomSchemaContent(uri);
-		});
-		// If the server asks, find all YAML files in the workspace and return an array of paths
-		client.onRequest(WORKSPACE_FILES_REQUEST, () => {
-			return workspace.findFiles('**/*.{ey,y}{m,am}l')
-							.then(yamlFiles => yamlFiles.map(yamlFile => yamlFile.fsPath),
-								  error => console.error('Failed to search workspace for YAML files: ' + error));
 		});
 	});
 
