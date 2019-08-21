@@ -1,3 +1,6 @@
+#### 0.5.1
+- Fix initialization problem that occurs when you write yaml without opening a folder/workspace/project
+
 #### 0.5.0
 - Fixed offset of undefined when hovering [#162](https://github.com/redhat-developer/yaml-language-server/issues/162)
 - Fixed relative path schema loading [#154](https://github.com/redhat-developer/yaml-language-server/issues/154)
