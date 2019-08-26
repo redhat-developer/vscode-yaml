@@ -11,7 +11,7 @@ import * as path from 'path';
 import { workspace, ExtensionContext, extensions } from 'vscode';
 import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind, NotificationType } from 'vscode-languageclient';
 import { URI } from 'vscode-uri';
-import { schemaContributor, CUSTOM_SCHEMA_REQUEST, CUSTOM_CONTENT_REQUEST } from './schema-contributor'
+import { schemaContributor, CUSTOM_SCHEMA_REQUEST, CUSTOM_CONTENT_REQUEST } from './schema-contributor';
 
 export interface ISchemaAssociations {
 	[pattern: string]: string[];

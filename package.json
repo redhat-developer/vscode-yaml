@@ -160,7 +160,7 @@
     "compile": "tsc -watch -p ./",
     "update-vscode": "node ./node_modules/vscode/bin/install",
     "postinstall": "node ./node_modules/vscode/bin/install",
-    "test": "mocha --ui tdd out/test/extension.test.js"
+    "test": "sh scripts/e2e.sh"
   },
   "devDependencies": {
     "@types/mocha": "^2.2.33",
