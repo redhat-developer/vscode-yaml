@@ -1,3 +1,8 @@
+#### 0.5.2
+- Fix issue with format on copy [#220](https://github.com/redhat-developer/vscode-yaml/issues/220)
+- Fix issue with custom schema provider where hover and validation weren't working [#216](https://github.com/redhat-developer/vscode-yaml/issues/216)
+- Support URL schemes other than file or untitled [#PR](https://github.com/redhat-developer/vscode-yaml/pull/224)
+
 #### 0.5.1
 - Fix initialization problem that occurs when you write yaml without opening a folder/workspace/project
 
