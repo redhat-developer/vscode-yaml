@@ -1,0 +1,13 @@
+{
+    "type":"object",
+    "properties":{
+       "my_key":{
+          "type": "string",
+          "description":"My string",
+          "enum": [
+             "my_value"
+          ]
+       }
+    }
+ }
+ 

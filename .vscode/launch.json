@@ -30,6 +30,19 @@
 				"${workspaceRoot}/test/*.test.ts"
 			],
 			"preLaunchTask": "compile typescript"
+		},
+		{
+			"name": "Extension Tests",
+			"type": "extensionHost",
+			"request": "launch",
+			"runtimeExecutable": "${execPath}",
+			"args": [
+				"--disable-extensions",
+				"--extensionDevelopmentPath=${workspaceFolder}",
+				"--extensionTestsPath=${workspaceFolder}/out/test",
+				"${workspaceRoot}/test/testFixture"
+			],
+			"outFiles": ["${workspaceFolder}/out/test/**/*.js"]
 		}
 	]
 }

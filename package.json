@@ -160,7 +160,7 @@
     "compile": "tsc -watch -p ./",
     "update-vscode": "node ./node_modules/vscode/bin/install",
     "postinstall": "node ./node_modules/vscode/bin/install",
-    "test": "mocha --ui tdd out/test/extension.test.js"
+    "test": "sh scripts/e2e.sh"
   },
   "devDependencies": {
     "@types/mocha": "^2.2.33",
@@ -173,6 +173,6 @@
     "vscode-languageclient": "5.2.1",
     "vscode-nls": "^3.2.1",
     "vscode-uri": "^2.0.3",
-    "yaml-language-server": "0.5.6"
+    "yaml-language-server": "0.5.7"
   }
 }
