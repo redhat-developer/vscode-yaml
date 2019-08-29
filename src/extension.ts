@@ -43,8 +43,7 @@ export function activate(context: ExtensionContext) {
 	let clientOptions: LanguageClientOptions = {
 		// Register the server for on disk and newly created YAML documents
 		documentSelector: [
-			{ language: 'yaml', scheme: 'file' },
-			{ language: 'yaml', scheme: 'untitled' }
+			{ language: 'yaml' }
 		],
 		synchronize: {
 			// Synchronize these setting sections with the server
