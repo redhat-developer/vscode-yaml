@@ -173,6 +173,6 @@
     "vscode-languageclient": "5.2.1",
     "vscode-nls": "^3.2.1",
     "vscode-uri": "^2.0.3",
-    "yaml-language-server": "0.5.6"
+    "yaml-language-server": "0.5.7"
   }
 }
