@@ -1,3 +1,8 @@
+#### 0.5.3
+- Remove document range formatter registration [#PR](https://github.com/redhat-developer/yaml-language-server/pull/179)
+- Catch errors that happen when schema store schemas cannot be grabbed [#PR](https://github.com/redhat-developer/yaml-language-server/pull/183)
+- Fix for selection operators [#227](https://github.com/redhat-developer/vscode-yaml/issues/227)
+
 #### 0.5.2
 - Fix issue with format on copy [#220](https://github.com/redhat-developer/vscode-yaml/issues/220)
 - Fix issue with custom schema provider where hover and validation weren't working [#216](https://github.com/redhat-developer/vscode-yaml/issues/216)
