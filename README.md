@@ -88,7 +88,7 @@ e.g.
 ```
 yaml.schemas: {
     "http://json.schemastore.org/composer": "/*",
-	"../relative/path/schema.json": "/config*.yaml",
+    "../relative/path/schema.json": "/config*.yaml",
 }
 ```
 
@@ -131,12 +131,12 @@ This extension allows you to specify json schemas that you want to validate agai
     ```
 3. Install the dependencies
     ```bash
-	$ npm install
-	```
+    $ npm install
+    ```
 4. Compile the Typescript to Javascript
     ```bash
-	$ npm run compile
-	```
+    $ npm run compile
+    ```
 
 ##### Developing the client side
 1. Open the client in vscode
@@ -154,14 +154,14 @@ This extension allows you to specify json schemas that you want to validate agai
 3. Run `npm install` in both directories to initialize `node_modules` dependencies.
 4. In `vscode-yaml/src/extension.ts` set the `serverModule` variable to:
     ```ts
-	serverModule = context.asAbsolutePath(path.join("..", "yaml-language-server", "out", "server", "src", "server.js"));
-	```
-	_This will redirect which YAML LS to use._
+    serverModule = context.asAbsolutePath(path.join("..", "yaml-language-server", "out", "server", "src", "server.js"));
+    ```
+    _This will redirect which YAML LS to use._
 
 5. In BOTH directories run:
-	```bash
+    ```bash
     npm run compile
-  	```
+    ```
 
 6. To run the language server in VSCode, click `View -> Debug`, then from the drop down menu beside the green arrow select `Launch Extension (vscode-yaml)`, click the arrow, and a new VSCode window should load with the YAML LS running.
 
