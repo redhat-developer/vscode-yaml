@@ -1,3 +1,6 @@
+#### 0.6.0
+- Fix for schema sequence custom property [#PR](https://github.com/redhat-developer/yaml-language-server/pull/197)
+
 #### 0.5.3
 - Remove document range formatter registration [#PR](https://github.com/redhat-developer/yaml-language-server/pull/179)
 - Catch errors that happen when schema store schemas cannot be grabbed [#PR](https://github.com/redhat-developer/yaml-language-server/pull/183)
