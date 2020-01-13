@@ -76,41 +76,42 @@ some_mapping: !Mapping-example
 yaml.schemas applies a schema to a file. In other words, the schema (placed on the left) is applied to the glob pattern on the right. Your schema can be local or online. Your schema must be a relative path and not an absolute path.
 
 When associating a schema it should follow the format below
-```
-yaml.schemas: {
+```JSON
+"yaml.schemas": {
     "url": "globPattern",
     "Kubernetes": "globPattern",
-    "kedge": "globPattern"
+    "kedge": ["globPattern", "globPattern2"]
 }
 ```
 
 e.g.
-```
-yaml.schemas: {
-    "http://json.schemastore.org/composer": "/*",
-    "../relative/path/schema.json": "/config*.yaml",
+```JSON
+"yaml.schemas": {
+    "http://json.schemastore.org/composer": ["/*"],
+    "file:///home/johnd/some-schema.json": ["some.yaml"],
+    "../relative/path/schema.json": ["/config*.yaml"],
 }
 ```
 
 e.g.
 
-```
-yaml.schemas: {
-    "kubernetes": "/myYamlFile.yaml"
+```JSON
+"yaml.schemas": {
+    "kubernetes": ["/myYamlFile.yaml"]
 }
 ```
 e.g.
-```
-yaml.schemas: {
-    "kedge": "/myKedgeApp.yaml"
+```JSON
+"yaml.schemas": {
+    "kedge": ["/myKedgeApp.yaml"]
 }
 ```
 
 e.g.
-```
-yaml.schemas: {
-    "http://json.schemastore.org/composer": "/*",
-    "kubernetes": "/myYamlFile.yaml"
+```JSON
+"yaml.schemas": {
+    "http://json.schemastore.org/composer": ["/*"],
+    "kubernetes": ["/myYamlFile.yaml"]
 }
 ```
 
