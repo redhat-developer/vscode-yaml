@@ -9,7 +9,7 @@
 import * as path from 'path';
 
 import { workspace, ExtensionContext, extensions, commands} from 'vscode';
-import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind, NotificationType } from 'vscode-languageclient';
+import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind, NotificationType, RequestType } from 'vscode-languageclient';
 import { URI } from 'vscode-uri';
 import { schemaContributor, CUSTOM_SCHEMA_REQUEST, CUSTOM_CONTENT_REQUEST } from './schema-contributor';
 import { Commands } from './commands';
@@ -43,7 +43,7 @@ namespace SchemaAssociationNotification {
 }
 
 namespace SchemaModificationNotification {
-    export const type: NotificationType<{}, {}> = new NotificationType('json/modify');
+    export const type: RequestType<SchemaAdditions | SchemaDeletions, void, { }, { }> = new RequestType('json/schema/modify');
 }
 
 namespace DynamicCustomSchemaRequestRegistration {
@@ -52,7 +52,7 @@ namespace DynamicCustomSchemaRequestRegistration {
 
 export function activate(context: ExtensionContext) {
 	// The YAML language server is implemented in node
-	let serverModule = context.asAbsolutePath(path.join('..', 'yaml-language-server', 'out', 'server', 'src', 'server.js'));
+	let serverModule = context.asAbsolutePath(path.join('node_modules', 'yaml-language-server', 'out', 'server', 'src', 'server.js'));
 
 	// The debug options for the server
 	let debugOptions = { execArgv: ['--nolazy', '--inspect=6009'] };
@@ -93,25 +93,6 @@ export function activate(context: ExtensionContext) {
 		// Send a notification to the server with any YAML schema associations in all extensions
 		client.sendNotification(SchemaAssociationNotification.type, getSchemaAssociation(context));
 
-		client.sendNotification(SchemaModificationNotification.type, {
-			action: MODIFICATION_ACTIONS.add,
-			path: 'oneOf/0/properties/kind',
-			key: 'enum',
-			content: [
-				"hello_world 5",
-				"testing 123",
-				"apple"
-			],
-			schema: 'https://raw.githubusercontent.com/garethr/kubernetes-json-schema/master/v1.14.0-standalone-strict/all.json'
-		});
-
-		client.sendNotification(SchemaModificationNotification.type, {
-			action: MODIFICATION_ACTIONS.delete,
-			path: 'oneOf/1/properties/kind',
-			schema: 'https://raw.githubusercontent.com/garethr/kubernetes-json-schema/master/v1.14.0-standalone-strict/all.json',
-			key: 'enum'
-		} as SchemaDeletions);
-
 		// If the extensions change, fire this notification again to pick up on any association changes
 		extensions.onDidChange(_ => {
 			client.sendNotification(SchemaAssociationNotification.type, getSchemaAssociation(context));
@@ -127,7 +108,7 @@ export function activate(context: ExtensionContext) {
 		});
 
 		context.subscriptions.push(commands.registerCommand(Commands.YAML_SCHEMA_MODIFY, (schemaModifications: SchemaAdditions | SchemaDeletions) => {
-			client.sendNotification(SchemaModificationNotification.type, schemaModifications);
+			return client.sendRequest(SchemaModificationNotification.type, schemaModifications);
 		}));
 	});
 
