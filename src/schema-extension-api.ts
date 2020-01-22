@@ -1,12 +1,47 @@
 import { URI } from 'vscode-uri'
+import { LanguageClient, RequestType } from 'vscode-languageclient';
 
 interface SchemaContributorProvider {
     readonly requestSchema: (resource: string) => string;
     readonly requestSchemaContent: (uri: string) => string;
 }
 
-class SchemaContributor {
+enum MODIFICATION_ACTIONS {
+    'delete',
+    'add'
+}
+
+interface SchemaAdditions {
+    schema: string,
+    action: MODIFICATION_ACTIONS.add,
+    path: string,
+    key: string,
+    content: any
+}
+
+interface SchemaDeletions {
+    schema: string,
+    action: MODIFICATION_ACTIONS.delete,
+    path: string,
+    key: string
+}
+
+namespace SchemaModificationNotification {
+    export const type: RequestType<SchemaAdditions | SchemaDeletions, void, { }, { }> = new RequestType('json/schema/modify');
+}
+
+export interface ExtensionAPI {
+    registerContributor(schema: string, requestSchema: (resource: string) => string, requestSchemaContent: (uri: string) => string): boolean;
+    modifySchemaContent(schemaModifications: SchemaAdditions | SchemaDeletions): Promise<void>;
+}
+
+class SchemaExtensionAPI implements ExtensionAPI {
     private _customSchemaContributors: { [index: string]: SchemaContributorProvider } = {};
+    private _yamlClient: LanguageClient;
+
+    constructor(client: LanguageClient) {
+        this._yamlClient = client;
+    }
 
 	/**
 	 * Register a custom schema provider
@@ -68,13 +103,14 @@ class SchemaContributor {
             }
         }
     }
-}
 
-// global instance
-const schemaContributor = new SchemaContributor();
+    public async modifySchemaContent(schemaModifications: SchemaAdditions | SchemaDeletions) {
+        return this._yamlClient.sendRequest(SchemaModificationNotification.type, schemaModifications);
+    }
+}
 
 // constants
 export const CUSTOM_SCHEMA_REQUEST = 'custom/schema/request';
 export const CUSTOM_CONTENT_REQUEST = 'custom/schema/content';
 
-export { schemaContributor } ;
+export { SchemaExtensionAPI };

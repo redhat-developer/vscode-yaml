@@ -5,8 +5,8 @@
 
 import * as vscode from 'vscode';
 import { getDocUri, activate, testCompletion, updateSettings, resetSettings } from './helper';
-import { Commands } from '../src/commands';
 import { MODIFICATION_ACTIONS } from '../src/extension';
+import { ExtensionAPI } from '../src/schema-extension-api';
 
 describe('Schema sections can be modified in memory', () => {
     const completionUri = getDocUri('completion/enum_completion.yaml');
@@ -17,7 +17,7 @@ describe('Schema sections can be modified in memory', () => {
     });
 
     it('Modified schema gets correct results', async () => {
-        await activate(completionUri);
+        const extensionAPI: ExtensionAPI = await activate(completionUri);
         
         // Insert the original schema
         await updateSettings("schemas", {
@@ -35,7 +35,7 @@ describe('Schema sections can be modified in memory', () => {
         });
         
         // Modify the schema
-        await vscode.commands.executeCommand(Commands.YAML_SCHEMA_MODIFY, {
+        await extensionAPI.modifySchemaContent({
 			action: MODIFICATION_ACTIONS.add,
 			path: 'properties/my_key',
 			key: 'enum',
@@ -66,7 +66,7 @@ describe('Schema sections can be modified in memory', () => {
     });
     
     it('Deleted schema gets correct results', async () => {
-        await activate(completionUri);
+        const extensionAPI: ExtensionAPI = await activate(completionUri);
         
         // Insert the original schema
         await updateSettings("schemas", {
@@ -88,7 +88,7 @@ describe('Schema sections can be modified in memory', () => {
         });
 
         // Modify the schema
-        await vscode.commands.executeCommand(Commands.YAML_SCHEMA_MODIFY, {
+        await extensionAPI.modifySchemaContent({
 			action: MODIFICATION_ACTIONS.delete,
 			path: 'properties/my_key',
 			schema: 'https://gist.githubusercontent.com/JPinkney/ee1caa73523b8e0574b9e9b241e2991e/raw/9569ef35a76ce5165b3c1b35abe878c44e861b33/sample.json',

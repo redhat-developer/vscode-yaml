@@ -8,11 +8,10 @@
 
 import * as path from 'path';
 
-import { workspace, ExtensionContext, extensions, commands} from 'vscode';
-import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind, NotificationType, RequestType } from 'vscode-languageclient';
+import { workspace, ExtensionContext, extensions } from 'vscode';
+import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind, NotificationType } from 'vscode-languageclient';
 import { URI } from 'vscode-uri';
-import { schemaContributor, CUSTOM_SCHEMA_REQUEST, CUSTOM_CONTENT_REQUEST } from './schema-contributor';
-import { Commands } from './commands';
+import { CUSTOM_SCHEMA_REQUEST, CUSTOM_CONTENT_REQUEST, SchemaExtensionAPI } from './schema-extension-api';
 
 export interface ISchemaAssociations {
 	[pattern: string]: string[];
@@ -40,10 +39,6 @@ export interface SchemaDeletions {
 
 namespace SchemaAssociationNotification {
 	export const type: NotificationType<ISchemaAssociations, any> = new NotificationType('json/schemaAssociations');
-}
-
-namespace SchemaModificationNotification {
-    export const type: RequestType<SchemaAdditions | SchemaDeletions, void, { }, { }> = new RequestType('json/schema/modify');
 }
 
 namespace DynamicCustomSchemaRequestRegistration {
@@ -85,6 +80,8 @@ export function activate(context: ExtensionContext) {
 	let client = new LanguageClient('yaml', 'YAML Support', serverOptions, clientOptions);
 	let disposable = client.start();
 
+	const schemaExtensionAPI = new SchemaExtensionAPI(client);
+
 	// Push the disposable to the context's subscriptions so that the
 	// client can be deactivated on extension deactivation
 	context.subscriptions.push(disposable);
@@ -101,18 +98,14 @@ export function activate(context: ExtensionContext) {
 		client.sendNotification(DynamicCustomSchemaRequestRegistration.type);
 		// If the server asks for custom schema content, get it and send it back
 		client.onRequest(CUSTOM_SCHEMA_REQUEST, (resource: string) => {
-			return schemaContributor.requestCustomSchema(resource);
+			return schemaExtensionAPI.requestCustomSchema(resource);
 		});
 		client.onRequest(CUSTOM_CONTENT_REQUEST, (uri: string) => {
-			return schemaContributor.requestCustomSchemaContent(uri);
+			return schemaExtensionAPI.requestCustomSchemaContent(uri);
 		});
-
-		context.subscriptions.push(commands.registerCommand(Commands.YAML_SCHEMA_MODIFY, (schemaModifications: SchemaAdditions | SchemaDeletions) => {
-			return client.sendRequest(SchemaModificationNotification.type, schemaModifications);
-		}));
 	});
 
-	return schemaContributor;
+	return schemaExtensionAPI;
 }
 
 function getSchemaAssociation(context: ExtensionContext): ISchemaAssociations {
