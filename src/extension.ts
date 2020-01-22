@@ -17,26 +17,6 @@ export interface ISchemaAssociations {
 	[pattern: string]: string[];
 }
 
-export enum MODIFICATION_ACTIONS {
-    'delete',
-    'add'
-}
-
-export interface SchemaAdditions {
-    schema: string,
-    action: MODIFICATION_ACTIONS.add,
-    path: string,
-    key: string,
-    content: string
-}
-
-export interface SchemaDeletions {
-    schema: string,
-    action: MODIFICATION_ACTIONS.delete,
-    path: string,
-    key: string
-}
-
 namespace SchemaAssociationNotification {
 	export const type: NotificationType<ISchemaAssociations, any> = new NotificationType('json/schemaAssociations');
 }
