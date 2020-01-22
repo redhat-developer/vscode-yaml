@@ -6,12 +6,12 @@ interface SchemaContributorProvider {
     readonly requestSchemaContent: (uri: string) => string;
 }
 
-enum MODIFICATION_ACTIONS {
+export enum MODIFICATION_ACTIONS {
     'delete',
     'add'
 }
 
-interface SchemaAdditions {
+export interface SchemaAdditions {
     schema: string,
     action: MODIFICATION_ACTIONS.add,
     path: string,
@@ -19,7 +19,7 @@ interface SchemaAdditions {
     content: any
 }
 
-interface SchemaDeletions {
+export interface SchemaDeletions {
     schema: string,
     action: MODIFICATION_ACTIONS.delete,
     path: string,

@@ -5,8 +5,7 @@
 
 import * as vscode from 'vscode';
 import { getDocUri, activate, testCompletion, updateSettings, resetSettings } from './helper';
-import { MODIFICATION_ACTIONS } from '../src/extension';
-import { ExtensionAPI } from '../src/schema-extension-api';
+import { ExtensionAPI, MODIFICATION_ACTIONS } from '../src/schema-extension-api';
 
 describe('Schema sections can be modified in memory', () => {
     const completionUri = getDocUri('completion/enum_completion.yaml');
