@@ -21,7 +21,8 @@ export async function activate(docUri: vscode.Uri) {
 	const activation = await ext.activate();
 	try {
 		doc = await vscode.workspace.openTextDocument(docUri);
-        editor = await vscode.window.showTextDocument(doc);
+		editor = await vscode.window.showTextDocument(doc);
+
 		await sleep(2000); // Wait for server activation
 		return activation;
 	} catch (e) {
@@ -72,9 +73,10 @@ export async function testCompletion(
 		position
 	)) as vscode.CompletionList;
 
+	const sortedActualCompletionList = actualCompletionList.items.sort((a, b) => (a.label > b.label) ? 1 : -1);
 	assert.equal(actualCompletionList.items.length, expectedCompletionList.items.length);
-	expectedCompletionList.items.forEach((expectedItem, i) => {
-		const actualItem = actualCompletionList.items[i];
+	expectedCompletionList.items.sort((a, b) => (a.label > b.label) ? 1 : -1).forEach((expectedItem, i) => {
+		const actualItem = sortedActualCompletionList[i];
 		assert.equal(actualItem.label, expectedItem.label);
 		assert.equal(actualItem.kind, expectedItem.kind);
 	});

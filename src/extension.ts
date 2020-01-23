@@ -11,7 +11,7 @@ import * as path from 'path';
 import { workspace, ExtensionContext, extensions } from 'vscode';
 import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind, NotificationType } from 'vscode-languageclient';
 import { URI } from 'vscode-uri';
-import { schemaContributor, CUSTOM_SCHEMA_REQUEST, CUSTOM_CONTENT_REQUEST } from './schema-contributor';
+import { CUSTOM_SCHEMA_REQUEST, CUSTOM_CONTENT_REQUEST, SchemaExtensionAPI } from './schema-extension-api';
 
 export interface ISchemaAssociations {
 	[pattern: string]: string[];
@@ -60,6 +60,8 @@ export function activate(context: ExtensionContext) {
 	let client = new LanguageClient('yaml', 'YAML Support', serverOptions, clientOptions);
 	let disposable = client.start();
 
+	const schemaExtensionAPI = new SchemaExtensionAPI(client);
+
 	// Push the disposable to the context's subscriptions so that the
 	// client can be deactivated on extension deactivation
 	context.subscriptions.push(disposable);
@@ -67,6 +69,7 @@ export function activate(context: ExtensionContext) {
 	client.onReady().then(() => {
 		// Send a notification to the server with any YAML schema associations in all extensions
 		client.sendNotification(SchemaAssociationNotification.type, getSchemaAssociation(context));
+
 		// If the extensions change, fire this notification again to pick up on any association changes
 		extensions.onDidChange(_ => {
 			client.sendNotification(SchemaAssociationNotification.type, getSchemaAssociation(context));
@@ -75,14 +78,14 @@ export function activate(context: ExtensionContext) {
 		client.sendNotification(DynamicCustomSchemaRequestRegistration.type);
 		// If the server asks for custom schema content, get it and send it back
 		client.onRequest(CUSTOM_SCHEMA_REQUEST, (resource: string) => {
-			return schemaContributor.requestCustomSchema(resource);
+			return schemaExtensionAPI.requestCustomSchema(resource);
 		});
 		client.onRequest(CUSTOM_CONTENT_REQUEST, (uri: string) => {
-			return schemaContributor.requestCustomSchemaContent(uri);
+			return schemaExtensionAPI.requestCustomSchemaContent(uri);
 		});
 	});
 
-	return schemaContributor;
+	return schemaExtensionAPI;
 }
 
 function getSchemaAssociation(context: ExtensionContext): ISchemaAssociations {
