@@ -71,20 +71,22 @@ class SchemaExtensionAPI implements ExtensionAPI {
     }
 
 	/**
-	 * Call requestSchema for each provider and find the first one who reports he can provide the schema.
+	 * Call requestSchema for each provider and finds all matches.
 	 *
 	 * @param {string} resource
 	 * @returns {string} the schema uri
 	 */
-	public requestCustomSchema(resource: string): string {
+	public requestCustomSchema(resource: string): string[] {
+        const matches = [];
         for (let customKey of Object.keys(this._customSchemaContributors)) {
             const contributor = this._customSchemaContributors[customKey];
             const uri = contributor.requestSchema(resource);
 
             if (uri) {
-                return uri;
+                matches.push(uri);
             }
         }
+        return matches;
     }
 
 	/**
