@@ -33,10 +33,12 @@ namespace SchemaModificationNotification {
 export interface ExtensionAPI {
     registerContributor(schema: string, requestSchema: (resource: string) => string, requestSchemaContent: (uri: string) => string): boolean;
     modifySchemaContent(schemaModifications: SchemaAdditions | SchemaDeletions): Promise<void>;
+    registerCustomSchemaContentModifier(uri: string, callback: (jsonSchema: any) => string): void;
 }
 
 class SchemaExtensionAPI implements ExtensionAPI {
     private _customSchemaContributors: { [index: string]: SchemaContributorProvider } = {};
+    private _customSchemaContentModifiers: { [index: string]: (jsonSchema: any) => string } = {};
     private _yamlClient: LanguageClient;
 
     constructor(client: LanguageClient) {
@@ -99,9 +101,25 @@ class SchemaExtensionAPI implements ExtensionAPI {
 
             if (_uri.scheme && this._customSchemaContributors[_uri.scheme] &&
                 this._customSchemaContributors[_uri.scheme].requestSchemaContent) {
-                return this._customSchemaContributors[_uri.scheme].requestSchemaContent(uri);
+                const schemaContent = this._customSchemaContributors[_uri.scheme].requestSchemaContent(uri);
+                const cb = this._customSchemaContentModifiers[_uri.scheme];
+                if (cb){
+                    return cb(schemaContent);
+                }
+                return schemaContent;
             }
         }
+    }
+
+    /**
+     * Call registerCustomSchemaContentModifier when you want to perform some schema modifications
+     * on a URI that is registered with registerContributor API before sending it back server side
+     *
+     * @param uri the uri of the schema you want to perform modifications on
+     * @param callback the actions you want to perform on the json object 
+     */
+    public registerCustomSchemaContentModifier(uri: string, callback: (jsonSchema: any) => string) {
+        this._customSchemaContentModifiers[uri] = callback;
     }
 
     public async modifySchemaContent(schemaModifications: SchemaAdditions | SchemaDeletions) {

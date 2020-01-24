@@ -28,7 +28,8 @@ describe('Schema sections can be modified in memory', () => {
 			items: [
 				{
                     label: "my_value",
-                    kind: 11
+                    kind: 11,
+                    documentation: 'My string'
                 }
 			]
         });
@@ -50,15 +51,18 @@ describe('Schema sections can be modified in memory', () => {
             items: [
                 {
                     label: "my_apple",
-                    kind: 11
+                    kind: 11,
+                    documentation: 'My string'
                 },
                 {
                     label: "my_banana",
-                    kind: 11
+                    kind: 11,
+                    documentation: 'My string'
                 },
                 {
                     label: "my_carrot",
-                    kind: 11
+                    kind: 11,
+                    documentation: 'My string'
                 }
             ]
         });
@@ -77,7 +81,8 @@ describe('Schema sections can be modified in memory', () => {
 			items: [
 				{
                     label: "my_test1",
-                    kind: 11
+                    kind: 11,
+                    documentation: 'My string'
                 },
                 {
                     label: "my_test2",

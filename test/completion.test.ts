@@ -25,7 +25,8 @@ describe('Completion should work in multiple different scenarios', () => {
 			items: [
 				{
                     label: "my_key",
-                    kind: 9
+                    kind: 9,
+                    documentation: "My string"
                 }
 			]
 		});
@@ -40,7 +41,8 @@ describe('Completion should work in multiple different scenarios', () => {
 			items: [
 				{
                     label: "version",
-                    kind: 9
+                    kind: 9,
+                    documentation: "A stringy string string"
                 }
 			]
 		});		

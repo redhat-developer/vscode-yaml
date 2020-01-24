@@ -4,7 +4,7 @@
  * ------------------------------------------------------------------------------------------ */
 
 import * as vscode from 'vscode';
-import { getDocUri, activate, testCompletion, testHover, testDiagnostics, sleep } from './helper';
+import { getDocUri, activate, testCompletion, testHover, testDiagnostics, sleep, schemaJSON } from './helper';
 import { Uri } from 'vscode';
 
 describe('Tests for schema provider feature', () => {
@@ -19,7 +19,8 @@ describe('Tests for schema provider feature', () => {
 			items: [
 				{
                     label: "version",
-                    kind: 9
+					kind: 9,
+					documentation: "A stringy string string"
                 }
 			]
 		});
@@ -59,27 +60,14 @@ describe('Tests for schema provider feature', () => {
 
 const SCHEMA = "myschema";
 
-const schemaJSON = JSON.stringify({
-	type: "object",
-	properties: {
-		version: {
-			type: "string",
-			description: "A stringy string string",
-			enum: [
-				"test"
-			]
-		}
-	}
-});
-
-function onRequestSchemaURI(resource: string): string | undefined {
-	if (resource.endsWith('.yaml')) {
+export function onRequestSchemaURI(resource: string): string | undefined {
+	if (resource.endsWith('basic.yaml') || resource.endsWith('completion.yaml')) {
 		return `${SCHEMA}://schema/porter`;
 	}
 	return undefined;
 }
 
-function onRequestSchemaContent(schemaUri: string): string | undefined {
+export function onRequestSchemaContent(schemaUri: string): string | undefined {
 	const parsedUri = Uri.parse(schemaUri);
 	if (parsedUri.scheme !== SCHEMA) {
 		return undefined;

@@ -79,6 +79,7 @@ export async function testCompletion(
 		const actualItem = sortedActualCompletionList[i];
 		assert.equal(actualItem.label, expectedItem.label);
 		assert.equal(actualItem.kind, expectedItem.kind);
+		assert.equal(actualItem.documentation, expectedItem.documentation);
 	});
 }
 
@@ -129,3 +130,16 @@ export async function testDiagnostics(docUri: vscode.Uri, expectedDiagnostics: v
 	  assert.equal(actualDiagnostic.severity, expectedDiagnostic.severity)
 	});
 }
+
+export const schemaJSON = JSON.stringify({
+	type: "object",
+	properties: {
+		version: {
+			type: "string",
+			description: "A stringy string string",
+			enum: [
+				"test"
+			]
+		}
+	}
+});
