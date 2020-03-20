@@ -9,9 +9,11 @@
 import * as path from 'path';
 
 import { workspace, ExtensionContext, extensions } from 'vscode';
+import * as vscode from 'vscode';
 import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind, NotificationType } from 'vscode-languageclient';
 import { URI } from 'vscode-uri';
 import { CUSTOM_SCHEMA_REQUEST, CUSTOM_CONTENT_REQUEST, SchemaExtensionAPI } from './schema-extension-api';
+import { Metrics } from './util/metrics';
 
 export interface ISchemaAssociations {
 	[pattern: string]: string[];
@@ -26,6 +28,7 @@ namespace DynamicCustomSchemaRequestRegistration {
 }
 
 export function activate(context: ExtensionContext) {
+	Metrics.publishUsageMetrics("Started using extension with yaml.schemas", workspace.getConfiguration().get("yaml.schemas"));
 	// The YAML language server is implemented in node
 	let serverModule = context.asAbsolutePath(path.join('node_modules', 'yaml-language-server', 'out', 'server', 'src', 'server.js'));
 
@@ -65,6 +68,7 @@ export function activate(context: ExtensionContext) {
 	// Push the disposable to the context's subscriptions so that the
 	// client can be deactivated on extension deactivation
 	context.subscriptions.push(disposable);
+    context.subscriptions.push(workspace.onDidChangeConfiguration(onDidChangeSettings));
 
 	client.onReady().then(() => {
 		// Send a notification to the server with any YAML schema associations in all extensions
@@ -86,6 +90,10 @@ export function activate(context: ExtensionContext) {
 	});
 
 	return schemaExtensionAPI;
+}
+
+function onDidChangeSettings(event: vscode.ConfigurationChangeEvent): void {
+	Metrics.publishUsageMetrics("Change in yaml.schemas", workspace.getConfiguration().get("yaml.schemas")	);
 }
 
 function getSchemaAssociation(context: ExtensionContext): ISchemaAssociations {
