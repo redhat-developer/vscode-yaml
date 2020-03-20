@@ -70,6 +70,12 @@
     ],
     "configuration": {
       "properties": {
+        "yaml.collectTelemetryData": {
+          "Title": "Enable Telemetry",
+          "type": "boolean",
+          "default": true,
+          "description": "Enable usage data and errors to be sent to Red Hat online services"
+        },
         "yaml.trace.server": {
           "type": "string",
           "enum": [
@@ -170,6 +176,8 @@
     "vscode": "^1.1.34"
   },
   "dependencies": {
+    "@types/analytics-node": "^3.1.2",
+    "analytics-node": "3.4.0-beta.1",
     "vscode-languageclient": "5.2.1",
     "vscode-nls": "^3.2.1",
     "vscode-uri": "^2.0.3",
