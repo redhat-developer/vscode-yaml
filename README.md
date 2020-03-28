@@ -90,7 +90,7 @@ e.g.
     "http://json.schemastore.org/composer": ["/*"],
     "file:///home/johnd/some-schema.json": ["some.yaml"],
     "../relative/path/schema.json": ["/config*.yaml"],
-	"/Users/johnd/some-schema.json": ["some.yaml"],
+    "/Users/johnd/some-schema.json": ["some.yaml"],
 }
 ```
 
