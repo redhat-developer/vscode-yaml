@@ -1,3 +1,10 @@
+#### 0.8.0
+- Support for textDocument/findDefinition [#PR](https://github.com/redhat-developer/yaml-language-server/pull/257)
+- Fix kubernetes schema back to 1.17.0 [#PR](https://github.com/redhat-developer/yaml-language-server/pull/236)
+- Fix for @ symbol in relative path [#PR](https://github.com/redhat-developer/yaml-language-server/pull/254)
+- Fix for null literals [#118](https://github.com/redhat-developer/yaml-language-server/issues/118)
+- Fix for autocompletion on default values [#281](https://github.com/redhat-developer/vscode-yaml/issues/281)
+
 #### 0.7.2
 - Fix the way default snippets is handled when we have boolean values [#PR](https://github.com/redhat-developer/yaml-language-server/pull/234)
 
