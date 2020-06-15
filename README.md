@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/redhat-developer/yaml-language-server.svg?branch=master)](https://travis-ci.org/redhat-developer/vscode-yaml) [![Marketplace Version](https://vsmarketplacebadge.apphb.com/version/redhat.vscode-yaml.svg "Current Release")](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml)
 
 # YAML Language Support by Red Hat
-Provides comprehensive YAML Language support to [Visual Studio Code](https://code.visualstudio.com/), via the [yaml-language-server](https://github.com/redhat-developer/yaml-language-server), with built-in Kubernetes and Kedge syntax support.
+Provides comprehensive YAML Language support to [Visual Studio Code](https://code.visualstudio.com/), via the [yaml-language-server](https://github.com/redhat-developer/yaml-language-server), with built-in Kubernetes syntax support.
 
 Supports JSON Schema 7 and below.
 
@@ -79,8 +79,7 @@ When associating a schema it should follow the format below
 ```JSON
 "yaml.schemas": {
     "url": "globPattern",
-    "Kubernetes": "globPattern",
-    "kedge": ["globPattern", "globPattern2"]
+    "Kubernetes": "globPattern"
 }
 ```
 
@@ -99,12 +98,6 @@ e.g.
 ```JSON
 "yaml.schemas": {
     "kubernetes": ["/myYamlFile.yaml"]
-}
-```
-e.g.
-```JSON
-"yaml.schemas": {
-    "kedge": ["/myKedgeApp.yaml"]
 }
 ```
 
@@ -133,7 +126,7 @@ e.g.
 }
 ```
 
-This extension allows you to specify json schemas that you want to validate against the yaml that you write. In the vscode user and workspace preferences you can set a url and a glob pattern that you want to validate against the schema. Kubernetes and kedge are optional fields. They do not require a url as the language server will provide that. You just need the keywords kubernetes/kedge and a glob pattern.
+This extension allows you to specify json schemas that you want to validate against the yaml that you write. In the vscode user and workspace preferences you can set a url and a glob pattern that you want to validate against the schema. Kubernetes is an optional field. They do not require a url as the language server will provide that. You just need the keyword kubernetes and a glob pattern.
 
 ## Developer Support
 ### Getting started
