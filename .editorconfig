@@ -7,3 +7,6 @@ trim_trailing_whitespace = true
 [{.travis.yml,npm-shrinkwrap.json,package.json}]
 indent_style = space
 indent_size = 2
+
+[*.camelk.yaml]
+trim_trailing_whitespace = false

@@ -1,0 +1,7027 @@
+{
+	"$schema" : "http://json-schema.org/draft-04/schema#",
+	"type" : "array",
+	"items" : {
+	  "definitions" : {
+		"expression-constant" : {
+		  "anyOf" : [ {
+			"type" : "string"
+		  }, {
+			"type" : "object",
+			"properties" : {
+			  "expression" : {
+				"type" : "string"
+			  },
+			  "id" : {
+				"type" : "string"
+			  },
+			  "trim" : {
+				"type" : "string"
+			  }
+			},
+			"required" : [ "expression" ]
+		  } ]
+		},
+		"expression-exchange-property" : {
+		  "anyOf" : [ {
+			"type" : "string"
+		  }, {
+			"type" : "object",
+			"properties" : {
+			  "expression" : {
+				"type" : "string"
+			  },
+			  "id" : {
+				"type" : "string"
+			  },
+			  "trim" : {
+				"type" : "string"
+			  }
+			},
+			"required" : [ "expression" ]
+		  } ]
+		},
+		"expression-groovy" : {
+		  "anyOf" : [ {
+			"type" : "string"
+		  }, {
+			"type" : "object",
+			"properties" : {
+			  "expression" : {
+				"type" : "string"
+			  },
+			  "id" : {
+				"type" : "string"
+			  },
+			  "trim" : {
+				"type" : "string"
+			  }
+			},
+			"required" : [ "expression" ]
+		  } ]
+		},
+		"expression-header" : {
+		  "anyOf" : [ {
+			"type" : "string"
+		  }, {
+			"type" : "object",
+			"properties" : {
+			  "expression" : {
+				"type" : "string"
+			  },
+			  "id" : {
+				"type" : "string"
+			  },
+			  "trim" : {
+				"type" : "string"
+			  }
+			},
+			"required" : [ "expression" ]
+		  } ]
+		},
+		"expression-hl7terser" : {
+		  "anyOf" : [ {
+			"type" : "string"
+		  }, {
+			"type" : "object",
+			"properties" : {
+			  "expression" : {
+				"type" : "string"
+			  },
+			  "id" : {
+				"type" : "string"
+			  },
+			  "trim" : {
+				"type" : "string"
+			  }
+			},
+			"required" : [ "expression" ]
+		  } ]
+		},
+		"expression-jsonpath" : {
+		  "anyOf" : [ {
+			"type" : "string"
+		  }, {
+			"type" : "object",
+			"properties" : {
+			  "allow-easy-predicate" : {
+				"type" : "string"
+			  },
+			  "allow-simple" : {
+				"type" : "string"
+			  },
+			  "header-name" : {
+				"type" : "string"
+			  },
+			  "result-type" : {
+				"type" : "string"
+			  },
+			  "suppress-exceptions" : {
+				"type" : "string"
+			  },
+			  "write-as-string" : {
+				"type" : "string"
+			  },
+			  "expression" : {
+				"type" : "string"
+			  },
+			  "id" : {
+				"type" : "string"
+			  },
+			  "trim" : {
+				"type" : "string"
+			  }
+			},
+			"required" : [ "expression" ]
+		  } ]
+		},
+		"expression-language" : {
+		  "type" : "object",
+		  "properties" : {
+			"language" : {
+			  "type" : "string"
+			},
+			"expression" : {
+			  "type" : "string"
+			},
+			"id" : {
+			  "type" : "string"
+			},
+			"trim" : {
+			  "type" : "string"
+			}
+		  },
+		  "required" : [ "expression" ]
+		},
+		"expression-method" : {
+		  "anyOf" : [ {
+			"type" : "string"
+		  }, {
+			"type" : "object",
+			"properties" : {
+			  "bean-type" : {
+				"type" : "string"
+			  },
+			  "method" : {
+				"type" : "string"
+			  },
+			  "ref" : {
+				"type" : "string"
+			  },
+			  "expression" : {
+				"type" : "string"
+			  },
+			  "id" : {
+				"type" : "string"
+			  },
+			  "trim" : {
+				"type" : "string"
+			  }
+			},
+			"required" : [ "expression" ]
+		  } ]
+		},
+		"expression-mvel" : {
+		  "anyOf" : [ {
+			"type" : "string"
+		  }, {
+			"type" : "object",
+			"properties" : {
+			  "expression" : {
+				"type" : "string"
+			  },
+			  "id" : {
+				"type" : "string"
+			  },
+			  "trim" : {
+				"type" : "string"
+			  }
+			},
+			"required" : [ "expression" ]
+		  } ]
+		},
+		"expression-ognl" : {
+		  "anyOf" : [ {
+			"type" : "string"
+		  }, {
+			"type" : "object",
+			"properties" : {
+			  "expression" : {
+				"type" : "string"
+			  },
+			  "id" : {
+				"type" : "string"
+			  },
+			  "trim" : {
+				"type" : "string"
+			  }
+			},
+			"required" : [ "expression" ]
+		  } ]
+		},
+		"expression-ref" : {
+		  "anyOf" : [ {
+			"type" : "string"
+		  }, {
+			"type" : "object",
+			"properties" : {
+			  "expression" : {
+				"type" : "string"
+			  },
+			  "id" : {
+				"type" : "string"
+			  },
+			  "trim" : {
+				"type" : "string"
+			  }
+			},
+			"required" : [ "expression" ]
+		  } ]
+		},
+		"expression-simple" : {
+		  "anyOf" : [ {
+			"type" : "string"
+		  }, {
+			"type" : "object",
+			"properties" : {
+			  "result-type" : {
+				"type" : "string"
+			  },
+			  "expression" : {
+				"type" : "string"
+			  },
+			  "id" : {
+				"type" : "string"
+			  },
+			  "trim" : {
+				"type" : "string"
+			  }
+			},
+			"required" : [ "expression" ]
+		  } ]
+		},
+		"expression-spel" : {
+		  "anyOf" : [ {
+			"type" : "string"
+		  }, {
+			"type" : "object",
+			"properties" : {
+			  "expression" : {
+				"type" : "string"
+			  },
+			  "id" : {
+				"type" : "string"
+			  },
+			  "trim" : {
+				"type" : "string"
+			  }
+			},
+			"required" : [ "expression" ]
+		  } ]
+		},
+		"expression-tokenize" : {
+		  "anyOf" : [ {
+			"type" : "string"
+		  }, {
+			"type" : "object",
+			"properties" : {
+			  "end-token" : {
+				"type" : "string"
+			  },
+			  "group" : {
+				"type" : "string"
+			  },
+			  "group-delimiter" : {
+				"type" : "string"
+			  },
+			  "header-name" : {
+				"type" : "string"
+			  },
+			  "include-tokens" : {
+				"type" : "string"
+			  },
+			  "inherit-namespace-tag-name" : {
+				"type" : "string"
+			  },
+			  "regex" : {
+				"type" : "string"
+			  },
+			  "skip-first" : {
+				"type" : "string"
+			  },
+			  "token" : {
+				"type" : "string"
+			  },
+			  "xml" : {
+				"type" : "string"
+			  },
+			  "expression" : {
+				"type" : "string"
+			  },
+			  "id" : {
+				"type" : "string"
+			  },
+			  "trim" : {
+				"type" : "string"
+			  }
+			},
+			"required" : [ "expression" ]
+		  } ]
+		},
+		"expression-xpath" : {
+		  "anyOf" : [ {
+			"type" : "string"
+		  }, {
+			"type" : "object",
+			"properties" : {
+			  "document-type" : {
+				"type" : "string"
+			  },
+			  "factory-ref" : {
+				"type" : "string"
+			  },
+			  "header-name" : {
+				"type" : "string"
+			  },
+			  "log-namespaces" : {
+				"type" : "string"
+			  },
+			  "object-model" : {
+				"type" : "string"
+			  },
+			  "result-type" : {
+				"type" : "string",
+				"enum" : [ "NUMBER", "STRING", "BOOLEAN", "NODESET", "NODE" ]
+			  },
+			  "saxon" : {
+				"type" : "string"
+			  },
+			  "thread-safety" : {
+				"type" : "string"
+			  },
+			  "expression" : {
+				"type" : "string"
+			  },
+			  "id" : {
+				"type" : "string"
+			  },
+			  "trim" : {
+				"type" : "string"
+			  }
+			},
+			"required" : [ "expression" ]
+		  } ]
+		},
+		"expression-xquery" : {
+		  "anyOf" : [ {
+			"type" : "string"
+		  }, {
+			"type" : "object",
+			"properties" : {
+			  "header-name" : {
+				"type" : "string"
+			  },
+			  "type" : {
+				"type" : "string"
+			  },
+			  "expression" : {
+				"type" : "string"
+			  },
+			  "id" : {
+				"type" : "string"
+			  },
+			  "trim" : {
+				"type" : "string"
+			  }
+			},
+			"required" : [ "expression" ]
+		  } ]
+		},
+		"expression-xtokenize" : {
+		  "anyOf" : [ {
+			"type" : "string"
+		  }, {
+			"type" : "object",
+			"properties" : {
+			  "group" : {
+				"type" : "string"
+			  },
+			  "header-name" : {
+				"type" : "string"
+			  },
+			  "mode" : {
+				"type" : "string"
+			  },
+			  "expression" : {
+				"type" : "string"
+			  },
+			  "id" : {
+				"type" : "string"
+			  },
+			  "trim" : {
+				"type" : "string"
+			  }
+			},
+			"required" : [ "expression" ]
+		  } ]
+		},
+		"dataformat-any23" : {
+		  "anyOf" : [ {
+			"type" : "string"
+		  }, {
+			"type" : "object",
+			"properties" : {
+			  "base-uri" : {
+				"type" : "string"
+			  },
+			  "output-format" : {
+				"type" : "string",
+				"enum" : [ "NTRIPLES", "TURTLE", "NQUADS", "RDFXML", "JSONLD", "RDFJSON", "RDF4JMODEL" ]
+			  },
+			  "content-type-header" : {
+				"type" : "string"
+			  },
+			  "id" : {
+				"type" : "string"
+			  }
+			}
+		  } ]
+		},
+		"dataformat-asn1" : {
+		  "anyOf" : [ {
+			"type" : "string"
+		  }, {
+			"type" : "object",
+			"properties" : {
+			  "clazz-name" : {
+				"type" : "string"
+			  },
+			  "using-iterator" : {
+				"type" : "string"
+			  },
+			  "content-type-header" : {
+				"type" : "string"
+			  },
+			  "id" : {
+				"type" : "string"
+			  }
+			}
+		  } ]
+		},
+		"dataformat-avro" : {
+		  "anyOf" : [ {
+			"type" : "string"
+		  }, {
+			"type" : "object",
+			"properties" : {
+			  "instance-class-name" : {
+				"type" : "string"
+			  },
+			  "content-type-header" : {
+				"type" : "string"
+			  },
+			  "id" : {
+				"type" : "string"
+			  }
+			}
+		  } ]
+		},
+		"dataformat-barcode" : {
+		  "type" : "object",
+		  "properties" : {
+			"barcode-format" : {
+			  "type" : "string"
+			},
+			"height" : {
+			  "type" : "string"
+			},
+			"image-type" : {
+			  "type" : "string"
+			},
+			"width" : {
+			  "type" : "string"
+			},
+			"content-type-header" : {
+			  "type" : "string"
+			},
+			"id" : {
+			  "type" : "string"
+			}
+		  }
+		},
+		"dataformat-base64" : {
+		  "type" : "object",
+		  "properties" : {
+			"line-length" : {
+			  "type" : "string"
+			},
+			"line-separator" : {
+			  "type" : "string"
+			},
+			"url-safe" : {
+			  "type" : "string"
+			},
+			"content-type-header" : {
+			  "type" : "string"
+			},
+			"id" : {
+			  "type" : "string"
+			}
+		  }
+		},
+		"dataformat-beanio" : {
+		  "type" : "object",
+		  "properties" : {
+			"bean-reader-error-handler-type" : {
+			  "type" : "string"
+			},
+			"encoding" : {
+			  "type" : "string"
+			},
+			"ignore-invalid-records" : {
+			  "type" : "string"
+			},
+			"ignore-unexpected-records" : {
+			  "type" : "string"
+			},
+			"ignore-unidentified-records" : {
+			  "type" : "string"
+			},
+			"mapping" : {
+			  "type" : "string"
+			},
+			"stream-name" : {
+			  "type" : "string"
+			},
+			"unmarshal-single-object" : {
+			  "type" : "string"
+			},
+			"content-type-header" : {
+			  "type" : "string"
+			},
+			"id" : {
+			  "type" : "string"
+			}
+		  }
+		},
+		"dataformat-bindy" : {
+		  "type" : "object",
+		  "properties" : {
+			"allow-empty-stream" : {
+			  "type" : "string"
+			},
+			"class-type" : {
+			  "type" : "string"
+			},
+			"locale" : {
+			  "type" : "string"
+			},
+			"type" : {
+			  "type" : "string",
+			  "enum" : [ "Csv", "Fixed", "KeyValue" ]
+			},
+			"unwrap-single-instance" : {
+			  "type" : "string"
+			},
+			"content-type-header" : {
+			  "type" : "string"
+			},
+			"id" : {
+			  "type" : "string"
+			}
+		  },
+		  "required" : [ "type" ]
+		},
+		"dataformat-cbor" : {
+		  "type" : "object",
+		  "properties" : {
+			"allow-jms-type" : {
+			  "type" : "string"
+			},
+			"allow-unmarshall-type" : {
+			  "type" : "string"
+			},
+			"collection-type-name" : {
+			  "type" : "string"
+			},
+			"disable-features" : {
+			  "type" : "string"
+			},
+			"enable-features" : {
+			  "type" : "string"
+			},
+			"object-mapper" : {
+			  "type" : "string"
+			},
+			"pretty-print" : {
+			  "type" : "string"
+			},
+			"unmarshal-type-name" : {
+			  "type" : "string"
+			},
+			"use-default-object-mapper" : {
+			  "type" : "string"
+			},
+			"use-list" : {
+			  "type" : "string"
+			},
+			"content-type-header" : {
+			  "type" : "string"
+			},
+			"id" : {
+			  "type" : "string"
+			}
+		  }
+		},
+		"dataformat-crypto" : {
+		  "type" : "object",
+		  "properties" : {
+			"algorithm" : {
+			  "type" : "string"
+			},
+			"algorithm-parameter-ref" : {
+			  "type" : "string"
+			},
+			"buffersize" : {
+			  "type" : "string"
+			},
+			"crypto-provider" : {
+			  "type" : "string"
+			},
+			"init-vector-ref" : {
+			  "type" : "string"
+			},
+			"inline" : {
+			  "type" : "string"
+			},
+			"key-ref" : {
+			  "type" : "string"
+			},
+			"mac-algorithm" : {
+			  "type" : "string"
+			},
+			"should-append-hmac" : {
+			  "type" : "string"
+			},
+			"content-type-header" : {
+			  "type" : "string"
+			},
+			"id" : {
+			  "type" : "string"
+			}
+		  }
+		},
+		"dataformat-csv" : {
+		  "anyOf" : [ {
+			"type" : "string"
+		  }, {
+			"type" : "object",
+			"properties" : {
+			  "allow-missing-column-names" : {
+				"type" : "string"
+			  },
+			  "comment-marker" : {
+				"type" : "string"
+			  },
+			  "comment-marker-disabled" : {
+				"type" : "string"
+			  },
+			  "delimiter" : {
+				"type" : "string"
+			  },
+			  "escape" : {
+				"type" : "string"
+			  },
+			  "escape-disabled" : {
+				"type" : "string"
+			  },
+			  "format-name" : {
+				"type" : "string",
+				"enum" : [ "DEFAULT", "EXCEL", "INFORMIX_UNLOAD", "INFORMIX_UNLOAD_CSV", "MYSQL", "RFC4180" ]
+			  },
+			  "format-ref" : {
+				"type" : "string"
+			  },
+			  "header-disabled" : {
+				"type" : "string"
+			  },
+			  "ignore-empty-lines" : {
+				"type" : "string"
+			  },
+			  "ignore-header-case" : {
+				"type" : "string"
+			  },
+			  "ignore-surrounding-spaces" : {
+				"type" : "string"
+			  },
+			  "lazy-load" : {
+				"type" : "string"
+			  },
+			  "marshaller-factory-ref" : {
+				"type" : "string"
+			  },
+			  "null-string" : {
+				"type" : "string"
+			  },
+			  "null-string-disabled" : {
+				"type" : "string"
+			  },
+			  "quote" : {
+				"type" : "string"
+			  },
+			  "quote-disabled" : {
+				"type" : "string"
+			  },
+			  "quote-mode" : {
+				"type" : "string"
+			  },
+			  "record-converter-ref" : {
+				"type" : "string"
+			  },
+			  "record-separator" : {
+				"type" : "string"
+			  },
+			  "record-separator-disabled" : {
+				"type" : "string"
+			  },
+			  "skip-header-record" : {
+				"type" : "string"
+			  },
+			  "trailing-delimiter" : {
+				"type" : "string"
+			  },
+			  "trim" : {
+				"type" : "string"
+			  },
+			  "use-maps" : {
+				"type" : "string"
+			  },
+			  "use-ordered-maps" : {
+				"type" : "string"
+			  },
+			  "content-type-header" : {
+				"type" : "string"
+			  },
+			  "id" : {
+				"type" : "string"
+			  }
+			}
+		  } ]
+		},
+		"dataformat-custom-data-format" : {
+		  "anyOf" : [ {
+			"type" : "string"
+		  }, {
+			"type" : "object",
+			"properties" : {
+			  "ref" : {
+				"type" : "string"
+			  },
+			  "content-type-header" : {
+				"type" : "string"
+			  },
+			  "id" : {
+				"type" : "string"
+			  }
+			}
+		  } ]
+		},
+		"dataformat-fhir-json" : {
+		  "type" : "object",
+		  "properties" : {
+			"dont-encode-elements" : {
+			  "type" : "array",
+			  "items" : {
+				"type" : "string"
+			  }
+			},
+			"dont-strip-versions-from-references-at-paths" : {
+			  "type" : "array",
+			  "items" : {
+				"type" : "string"
+			  }
+			},
+			"encode-elements" : {
+			  "type" : "array",
+			  "items" : {
+				"type" : "string"
+			  }
+			},
+			"encode-elements-applies-to-child-resources-only" : {
+			  "type" : "string"
+			},
+			"fhir-version" : {
+			  "type" : "string",
+			  "enum" : [ "DSTU2", "DSTU2_HL7ORG", "DSTU2_1", "DSTU3", "R4" ]
+			},
+			"omit-resource-id" : {
+			  "type" : "string"
+			},
+			"override-resource-id-with-bundle-entry-full-url" : {
+			  "type" : "string"
+			},
+			"pretty-print" : {
+			  "type" : "string"
+			},
+			"server-base-url" : {
+			  "type" : "string"
+			},
+			"strip-versions-from-references" : {
+			  "type" : "string"
+			},
+			"summary-mode" : {
+			  "type" : "string"
+			},
+			"suppress-narratives" : {
+			  "type" : "string"
+			},
+			"content-type-header" : {
+			  "type" : "string"
+			},
+			"id" : {
+			  "type" : "string"
+			}
+		  }
+		},
+		"dataformat-fhir-xml" : {
+		  "type" : "object",
+		  "properties" : {
+			"dont-encode-elements" : {
+			  "type" : "array",
+			  "items" : {
+				"type" : "string"
+			  }
+			},
+			"dont-strip-versions-from-references-at-paths" : {
+			  "type" : "array",
+			  "items" : {
+				"type" : "string"
+			  }
+			},
+			"encode-elements" : {
+			  "type" : "array",
+			  "items" : {
+				"type" : "string"
+			  }
+			},
+			"encode-elements-applies-to-child-resources-only" : {
+			  "type" : "string"
+			},
+			"fhir-version" : {
+			  "type" : "string",
+			  "enum" : [ "DSTU2", "DSTU2_HL7ORG", "DSTU2_1", "DSTU3", "R4" ]
+			},
+			"omit-resource-id" : {
+			  "type" : "string"
+			},
+			"override-resource-id-with-bundle-entry-full-url" : {
+			  "type" : "string"
+			},
+			"pretty-print" : {
+			  "type" : "string"
+			},
+			"server-base-url" : {
+			  "type" : "string"
+			},
+			"strip-versions-from-references" : {
+			  "type" : "string"
+			},
+			"summary-mode" : {
+			  "type" : "string"
+			},
+			"suppress-narratives" : {
+			  "type" : "string"
+			},
+			"content-type-header" : {
+			  "type" : "string"
+			},
+			"id" : {
+			  "type" : "string"
+			}
+		  }
+		},
+		"dataformat-flatpack" : {
+		  "type" : "object",
+		  "properties" : {
+			"allow-short-lines" : {
+			  "type" : "string"
+			},
+			"definition" : {
+			  "type" : "string"
+			},
+			"delimiter" : {
+			  "type" : "string"
+			},
+			"fixed" : {
+			  "type" : "string"
+			},
+			"ignore-extra-columns" : {
+			  "type" : "string"
+			},
+			"ignore-first-record" : {
+			  "type" : "string"
+			},
+			"parser-factory-ref" : {
+			  "type" : "string"
+			},
+			"text-qualifier" : {
+			  "type" : "string"
+			},
+			"content-type-header" : {
+			  "type" : "string"
+			},
+			"id" : {
+			  "type" : "string"
+			}
+		  }
+		},
+		"dataformat-grok" : {
+		  "type" : "object",
+		  "properties" : {
+			"allow-multiple-matches-per-line" : {
+			  "type" : "string"
+			},
+			"flattened" : {
+			  "type" : "string"
+			},
+			"named-only" : {
+			  "type" : "string"
+			},
+			"pattern" : {
+			  "type" : "string"
+			},
+			"content-type-header" : {
+			  "type" : "string"
+			},
+			"id" : {
+			  "type" : "string"
+			}
+		  }
+		},
+		"dataformat-gzipdeflater" : {
+		  "type" : "object",
+		  "properties" : {
+			"content-type-header" : {
+			  "type" : "string"
+			},
+			"id" : {
+			  "type" : "string"
+			}
+		  }
+		},
+		"dataformat-hl7" : {
+		  "type" : "object",
+		  "properties" : {
+			"validate" : {
+			  "type" : "string"
+			},
+			"content-type-header" : {
+			  "type" : "string"
+			},
+			"id" : {
+			  "type" : "string"
+			}
+		  }
+		},
+		"dataformat-ical" : {
+		  "type" : "object",
+		  "properties" : {
+			"validating" : {
+			  "type" : "string"
+			},
+			"content-type-header" : {
+			  "type" : "string"
+			},
+			"id" : {
+			  "type" : "string"
+			}
+		  }
+		},
+		"dataformat-jacksonxml" : {
+		  "type" : "object",
+		  "properties" : {
+			"allow-jms-type" : {
+			  "type" : "string"
+			},
+			"allow-unmarshall-type" : {
+			  "type" : "string"
+			},
+			"collection-type-name" : {
+			  "type" : "string"
+			},
+			"disable-features" : {
+			  "type" : "string"
+			},
+			"enable-features" : {
+			  "type" : "string"
+			},
+			"enable-jaxb-annotation-module" : {
+			  "type" : "string"
+			},
+			"include" : {
+			  "type" : "string"
+			},
+			"json-view" : {
+			  "type" : "string"
+			},
+			"module-class-names" : {
+			  "type" : "string"
+			},
+			"module-refs" : {
+			  "type" : "string"
+			},
+			"pretty-print" : {
+			  "type" : "string"
+			},
+			"unmarshal-type-name" : {
+			  "type" : "string"
+			},
+			"use-list" : {
+			  "type" : "string"
+			},
+			"xml-mapper" : {
+			  "type" : "string"
+			},
+			"content-type-header" : {
+			  "type" : "string"
+			},
+			"id" : {
+			  "type" : "string"
+			}
+		  }
+		},
+		"dataformat-jaxb" : {
+		  "type" : "object",
+		  "properties" : {
+			"context-path" : {
+			  "type" : "string"
+			},
+			"context-path-is-class-name" : {
+			  "type" : "string"
+			},
+			"encoding" : {
+			  "type" : "string"
+			},
+			"filter-non-xml-chars" : {
+			  "type" : "string"
+			},
+			"fragment" : {
+			  "type" : "string"
+			},
+			"ignore-jaxb-element" : {
+			  "type" : "string"
+			},
+			"jaxb-provider-properties" : {
+			  "type" : "string"
+			},
+			"must-be-jaxb-element" : {
+			  "type" : "string"
+			},
+			"namespace-prefix-ref" : {
+			  "type" : "string"
+			},
+			"no-namespace-schema-location" : {
+			  "type" : "string"
+			},
+			"object-factory" : {
+			  "type" : "string"
+			},
+			"part-class" : {
+			  "type" : "string"
+			},
+			"part-namespace" : {
+			  "type" : "string"
+			},
+			"pretty-print" : {
+			  "type" : "string"
+			},
+			"schema" : {
+			  "type" : "string"
+			},
+			"schema-location" : {
+			  "type" : "string"
+			},
+			"schema-severity-level" : {
+			  "type" : "string",
+			  "enum" : [ "0", "1", "2" ]
+			},
+			"xml-stream-writer-wrapper" : {
+			  "type" : "string"
+			},
+			"content-type-header" : {
+			  "type" : "string"
+			},
+			"id" : {
+			  "type" : "string"
+			}
+		  }
+		},
+		"dataformat-json" : {
+		  "type" : "object",
+		  "properties" : {
+			"allow-jms-type" : {
+			  "type" : "string"
+			},
+			"allow-unmarshall-type" : {
+			  "type" : "string"
+			},
+			"auto-discover-object-mapper" : {
+			  "type" : "string"
+			},
+			"collection-type-name" : {
+			  "type" : "string"
+			},
+			"disable-features" : {
+			  "type" : "string"
+			},
+			"drop-root-node" : {
+			  "type" : "string"
+			},
+			"enable-features" : {
+			  "type" : "string"
+			},
+			"include" : {
+			  "type" : "string"
+			},
+			"json-view" : {
+			  "type" : "string"
+			},
+			"library" : {
+			  "enum" : [ "XStream", "Jackson", "Johnzon", "Gson", "Fastjson" ]
+			},
+			"module-class-names" : {
+			  "type" : "string"
+			},
+			"module-refs" : {
+			  "type" : "string"
+			},
+			"object-mapper" : {
+			  "type" : "string"
+			},
+			"permissions" : {
+			  "type" : "string"
+			},
+			"pretty-print" : {
+			  "type" : "string"
+			},
+			"timezone" : {
+			  "type" : "string"
+			},
+			"unmarshal-type-name" : {
+			  "type" : "string"
+			},
+			"use-default-object-mapper" : {
+			  "type" : "string"
+			},
+			"use-list" : {
+			  "type" : "string"
+			},
+			"content-type-header" : {
+			  "type" : "string"
+			},
+			"id" : {
+			  "type" : "string"
+			}
+		  }
+		},
+		"dataformat-json-api" : {
+		  "type" : "object",
+		  "properties" : {
+			"data-format-types" : {
+			  "type" : "array",
+			  "items" : {
+				"type" : "string"
+			  }
+			},
+			"main-format-type" : {
+			  "type" : "string"
+			},
+			"content-type-header" : {
+			  "type" : "string"
+			},
+			"id" : {
+			  "type" : "string"
+			}
+		  }
+		},
+		"dataformat-lzf" : {
+		  "type" : "object",
+		  "properties" : {
+			"using-parallel-compression" : {
+			  "type" : "string"
+			},
+			"content-type-header" : {
+			  "type" : "string"
+			},
+			"id" : {
+			  "type" : "string"
+			}
+		  }
+		},
+		"dataformat-mime-multipart" : {
+		  "type" : "object",
+		  "properties" : {
+			"binary-content" : {
+			  "type" : "string"
+			},
+			"headers-inline" : {
+			  "type" : "string"
+			},
+			"include-headers" : {
+			  "type" : "string"
+			},
+			"multipart-sub-type" : {
+			  "type" : "string"
+			},
+			"multipart-without-attachment" : {
+			  "type" : "string"
+			},
+			"content-type-header" : {
+			  "type" : "string"
+			},
+			"id" : {
+			  "type" : "string"
+			}
+		  }
+		},
+		"dataformat-pgp" : {
+		  "type" : "object",
+		  "properties" : {
+			"algorithm" : {
+			  "type" : "string"
+			},
+			"armored" : {
+			  "type" : "string"
+			},
+			"compression-algorithm" : {
+			  "type" : "string"
+			},
+			"hash-algorithm" : {
+			  "type" : "string"
+			},
+			"integrity" : {
+			  "type" : "string"
+			},
+			"key-file-name" : {
+			  "type" : "string"
+			},
+			"key-userid" : {
+			  "type" : "string"
+			},
+			"password" : {
+			  "type" : "string"
+			},
+			"provider" : {
+			  "type" : "string"
+			},
+			"signature-key-file-name" : {
+			  "type" : "string"
+			},
+			"signature-key-ring" : {
+			  "type" : "string"
+			},
+			"signature-key-userid" : {
+			  "type" : "string"
+			},
+			"signature-password" : {
+			  "type" : "string"
+			},
+			"signature-verification-option" : {
+			  "type" : "string"
+			},
+			"content-type-header" : {
+			  "type" : "string"
+			},
+			"id" : {
+			  "type" : "string"
+			}
+		  }
+		},
+		"dataformat-protobuf" : {
+		  "anyOf" : [ {
+			"type" : "string"
+		  }, {
+			"type" : "object",
+			"properties" : {
+			  "content-type-format" : {
+				"type" : "string",
+				"enum" : [ "native", "json" ]
+			  },
+			  "instance-class" : {
+				"type" : "string"
+			  },
+			  "content-type-header" : {
+				"type" : "string"
+			  },
+			  "id" : {
+				"type" : "string"
+			  }
+			}
+		  } ]
+		},
+		"dataformat-rss" : {
+		  "type" : "object",
+		  "properties" : {
+			"content-type-header" : {
+			  "type" : "string"
+			},
+			"id" : {
+			  "type" : "string"
+			}
+		  }
+		},
+		"dataformat-secure-xml" : {
+		  "type" : "object",
+		  "properties" : {
+			"add-key-value-for-encrypted-key" : {
+			  "type" : "string"
+			},
+			"digest-algorithm" : {
+			  "type" : "string"
+			},
+			"key-cipher-algorithm" : {
+			  "type" : "string"
+			},
+			"key-or-trust-store-parameters-ref" : {
+			  "type" : "string"
+			},
+			"key-password" : {
+			  "type" : "string"
+			},
+			"mgf-algorithm" : {
+			  "type" : "string"
+			},
+			"pass-phrase" : {
+			  "type" : "string"
+			},
+			"pass-phrase-byte" : {
+			  "type" : "string",
+			  "format" : "binary"
+			},
+			"recipient-key-alias" : {
+			  "type" : "string"
+			},
+			"secure-tag" : {
+			  "type" : "string"
+			},
+			"secure-tag-contents" : {
+			  "type" : "string"
+			},
+			"xml-cipher-algorithm" : {
+			  "type" : "string"
+			},
+			"content-type-header" : {
+			  "type" : "string"
+			},
+			"id" : {
+			  "type" : "string"
+			}
+		  }
+		},
+		"dataformat-soapjaxb" : {
+		  "anyOf" : [ {
+			"type" : "string"
+		  }, {
+			"type" : "object",
+			"properties" : {
+			  "context-path" : {
+				"type" : "string"
+			  },
+			  "element-name-strategy-ref" : {
+				"type" : "string"
+			  },
+			  "encoding" : {
+				"type" : "string"
+			  },
+			  "namespace-prefix-ref" : {
+				"type" : "string"
+			  },
+			  "schema" : {
+				"type" : "string"
+			  },
+			  "version" : {
+				"type" : "string"
+			  },
+			  "content-type-header" : {
+				"type" : "string"
+			  },
+			  "id" : {
+				"type" : "string"
+			  }
+			}
+		  } ]
+		},
+		"dataformat-syslog" : {
+		  "type" : "object",
+		  "properties" : {
+			"content-type-header" : {
+			  "type" : "string"
+			},
+			"id" : {
+			  "type" : "string"
+			}
+		  }
+		},
+		"dataformat-tarfile" : {
+		  "type" : "object",
+		  "properties" : {
+			"allow-empty-directory" : {
+			  "type" : "string"
+			},
+			"preserve-path-elements" : {
+			  "type" : "string"
+			},
+			"using-iterator" : {
+			  "type" : "string"
+			},
+			"content-type-header" : {
+			  "type" : "string"
+			},
+			"id" : {
+			  "type" : "string"
+			}
+		  }
+		},
+		"dataformat-thrift" : {
+		  "anyOf" : [ {
+			"type" : "string"
+		  }, {
+			"type" : "object",
+			"properties" : {
+			  "content-type-format" : {
+				"type" : "string",
+				"enum" : [ "binary", "json", "sjson" ]
+			  },
+			  "instance-class" : {
+				"type" : "string"
+			  },
+			  "content-type-header" : {
+				"type" : "string"
+			  },
+			  "id" : {
+				"type" : "string"
+			  }
+			}
+		  } ]
+		},
+		"dataformat-tidy-markup" : {
+		  "type" : "object",
+		  "properties" : {
+			"data-object-type" : {
+			  "type" : "string"
+			},
+			"omit-xml-declaration" : {
+			  "type" : "string"
+			},
+			"content-type-header" : {
+			  "type" : "string"
+			},
+			"id" : {
+			  "type" : "string"
+			}
+		  }
+		},
+		"dataformat-univocity-csv" : {
+		  "type" : "object",
+		  "properties" : {
+			"delimiter" : {
+			  "type" : "string"
+			},
+			"quote" : {
+			  "type" : "string"
+			},
+			"quote-all-fields" : {
+			  "type" : "string"
+			},
+			"quote-escape" : {
+			  "type" : "string"
+			},
+			"as-map" : {
+			  "type" : "string"
+			},
+			"comment" : {
+			  "type" : "string"
+			},
+			"empty-value" : {
+			  "type" : "string"
+			},
+			"header-extraction-enabled" : {
+			  "type" : "string"
+			},
+			"headers-disabled" : {
+			  "type" : "string"
+			},
+			"ignore-leading-whitespaces" : {
+			  "type" : "string"
+			},
+			"ignore-trailing-whitespaces" : {
+			  "type" : "string"
+			},
+			"lazy-load" : {
+			  "type" : "string"
+			},
+			"line-separator" : {
+			  "type" : "string"
+			},
+			"normalized-line-separator" : {
+			  "type" : "string"
+			},
+			"null-value" : {
+			  "type" : "string"
+			},
+			"number-of-records-to-read" : {
+			  "type" : "string"
+			},
+			"skip-empty-lines" : {
+			  "type" : "string"
+			},
+			"content-type-header" : {
+			  "type" : "string"
+			},
+			"id" : {
+			  "type" : "string"
+			}
+		  }
+		},
+		"dataformat-univocity-fixed" : {
+		  "type" : "object",
+		  "properties" : {
+			"padding" : {
+			  "type" : "string"
+			},
+			"record-ends-on-newline" : {
+			  "type" : "string"
+			},
+			"skip-trailing-chars-until-newline" : {
+			  "type" : "string"
+			},
+			"as-map" : {
+			  "type" : "string"
+			},
+			"comment" : {
+			  "type" : "string"
+			},
+			"empty-value" : {
+			  "type" : "string"
+			},
+			"header-extraction-enabled" : {
+			  "type" : "string"
+			},
+			"headers-disabled" : {
+			  "type" : "string"
+			},
+			"ignore-leading-whitespaces" : {
+			  "type" : "string"
+			},
+			"ignore-trailing-whitespaces" : {
+			  "type" : "string"
+			},
+			"lazy-load" : {
+			  "type" : "string"
+			},
+			"line-separator" : {
+			  "type" : "string"
+			},
+			"normalized-line-separator" : {
+			  "type" : "string"
+			},
+			"null-value" : {
+			  "type" : "string"
+			},
+			"number-of-records-to-read" : {
+			  "type" : "string"
+			},
+			"skip-empty-lines" : {
+			  "type" : "string"
+			},
+			"content-type-header" : {
+			  "type" : "string"
+			},
+			"id" : {
+			  "type" : "string"
+			}
+		  }
+		},
+		"dataformat-univocity-tsv" : {
+		  "type" : "object",
+		  "properties" : {
+			"escape-char" : {
+			  "type" : "string"
+			},
+			"as-map" : {
+			  "type" : "string"
+			},
+			"comment" : {
+			  "type" : "string"
+			},
+			"empty-value" : {
+			  "type" : "string"
+			},
+			"header-extraction-enabled" : {
+			  "type" : "string"
+			},
+			"headers-disabled" : {
+			  "type" : "string"
+			},
+			"ignore-leading-whitespaces" : {
+			  "type" : "string"
+			},
+			"ignore-trailing-whitespaces" : {
+			  "type" : "string"
+			},
+			"lazy-load" : {
+			  "type" : "string"
+			},
+			"line-separator" : {
+			  "type" : "string"
+			},
+			"normalized-line-separator" : {
+			  "type" : "string"
+			},
+			"null-value" : {
+			  "type" : "string"
+			},
+			"number-of-records-to-read" : {
+			  "type" : "string"
+			},
+			"skip-empty-lines" : {
+			  "type" : "string"
+			},
+			"content-type-header" : {
+			  "type" : "string"
+			},
+			"id" : {
+			  "type" : "string"
+			}
+		  }
+		},
+		"dataformat-xmlrpc" : {
+		  "type" : "object",
+		  "properties" : {
+			"request" : {
+			  "type" : "string"
+			},
+			"content-type-header" : {
+			  "type" : "string"
+			},
+			"id" : {
+			  "type" : "string"
+			}
+		  }
+		},
+		"dataformat-xstream" : {
+		  "anyOf" : [ {
+			"type" : "string"
+		  }, {
+			"type" : "object",
+			"properties" : {
+			  "driver" : {
+				"type" : "string"
+			  },
+			  "driver-ref" : {
+				"type" : "string"
+			  },
+			  "encoding" : {
+				"type" : "string"
+			  },
+			  "mode" : {
+				"type" : "string"
+			  },
+			  "permissions" : {
+				"type" : "string"
+			  },
+			  "content-type-header" : {
+				"type" : "string"
+			  },
+			  "id" : {
+				"type" : "string"
+			  }
+			}
+		  } ]
+		},
+		"dataformat-yaml" : {
+		  "type" : "object",
+		  "properties" : {
+			"allow-any-type" : {
+			  "type" : "string"
+			},
+			"allow-recursive-keys" : {
+			  "type" : "string"
+			},
+			"constructor" : {
+			  "type" : "string"
+			},
+			"dumper-options" : {
+			  "type" : "string"
+			},
+			"library" : {
+			  "enum" : [ "SnakeYAML" ]
+			},
+			"max-aliases-for-collections" : {
+			  "type" : "string"
+			},
+			"pretty-flow" : {
+			  "type" : "string"
+			},
+			"representer" : {
+			  "type" : "string"
+			},
+			"resolver" : {
+			  "type" : "string"
+			},
+			"unmarshal-type-name" : {
+			  "type" : "string"
+			},
+			"use-application-context-class-loader" : {
+			  "type" : "string"
+			},
+			"content-type-header" : {
+			  "type" : "string"
+			},
+			"id" : {
+			  "type" : "string"
+			}
+		  }
+		},
+		"dataformat-zipdeflater" : {
+		  "type" : "object",
+		  "properties" : {
+			"compression-level" : {
+			  "type" : "string"
+			},
+			"content-type-header" : {
+			  "type" : "string"
+			},
+			"id" : {
+			  "type" : "string"
+			}
+		  }
+		},
+		"dataformat-zipfile" : {
+		  "type" : "object",
+		  "properties" : {
+			"allow-empty-directory" : {
+			  "type" : "string"
+			},
+			"preserve-path-elements" : {
+			  "type" : "string"
+			},
+			"using-iterator" : {
+			  "type" : "string"
+			},
+			"content-type-header" : {
+			  "type" : "string"
+			},
+			"id" : {
+			  "type" : "string"
+			}
+		  }
+		},
+		"org.apache.camel.k.loader.yaml.parser.AggregateStepParser$CorrelationExpression" : {
+		  "type" : "object",
+		  "anyOf" : [ {
+			"properties" : {
+			  "constant" : {
+				"$ref" : "#/items/definitions/expression-constant"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "exchange-property" : {
+				"$ref" : "#/items/definitions/expression-exchange-property"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "groovy" : {
+				"$ref" : "#/items/definitions/expression-groovy"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "header" : {
+				"$ref" : "#/items/definitions/expression-header"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "hl7terser" : {
+				"$ref" : "#/items/definitions/expression-hl7terser"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "jsonpath" : {
+				"$ref" : "#/items/definitions/expression-jsonpath"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "language" : {
+				"$ref" : "#/items/definitions/expression-language"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "method" : {
+				"$ref" : "#/items/definitions/expression-method"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "mvel" : {
+				"$ref" : "#/items/definitions/expression-mvel"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ognl" : {
+				"$ref" : "#/items/definitions/expression-ognl"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ref" : {
+				"$ref" : "#/items/definitions/expression-ref"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "simple" : {
+				"$ref" : "#/items/definitions/expression-simple"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "spel" : {
+				"$ref" : "#/items/definitions/expression-spel"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "tokenize" : {
+				"$ref" : "#/items/definitions/expression-tokenize"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xpath" : {
+				"$ref" : "#/items/definitions/expression-xpath"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xquery" : {
+				"$ref" : "#/items/definitions/expression-xquery"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xtokenize" : {
+				"$ref" : "#/items/definitions/expression-xtokenize"
+			  }
+			}
+		  } ]
+		},
+		"org.apache.camel.k.loader.yaml.parser.AggregateStepParser$Definition" : {
+		  "type" : "object",
+		  "properties" : {
+			"aggregate-controller-ref" : {
+			  "type" : "string"
+			},
+			"aggregation-repository-ref" : {
+			  "type" : "string"
+			},
+			"close-correlation-key-on-completion" : {
+			  "type" : "string"
+			},
+			"complete-all-on-stop" : {
+			  "type" : "string"
+			},
+			"completion-from-batch-consumer" : {
+			  "type" : "string"
+			},
+			"completion-interval" : {
+			  "type" : "string"
+			},
+			"completion-on-new-correlation-group" : {
+			  "type" : "string"
+			},
+			"completion-size" : {
+			  "type" : "string"
+			},
+			"completion-timeout" : {
+			  "type" : "string"
+			},
+			"completion-timeout-checker-interval" : {
+			  "type" : "string"
+			},
+			"discard-on-aggregation-failure" : {
+			  "type" : "string"
+			},
+			"discard-on-completion-timeout" : {
+			  "type" : "string"
+			},
+			"eager-check-completion" : {
+			  "type" : "string"
+			},
+			"executor-service-ref" : {
+			  "type" : "string"
+			},
+			"force-completion-on-stop" : {
+			  "type" : "string"
+			},
+			"ignore-invalid-correlation-keys" : {
+			  "type" : "string"
+			},
+			"optimistic-locking" : {
+			  "type" : "string"
+			},
+			"parallel-processing" : {
+			  "type" : "string"
+			},
+			"strategy-method-allow-null" : {
+			  "type" : "string"
+			},
+			"strategy-method-name" : {
+			  "type" : "string"
+			},
+			"strategy-ref" : {
+			  "type" : "string"
+			},
+			"timeout-checker-executor-service-ref" : {
+			  "type" : "string"
+			},
+			"inherit-error-handler" : {
+			  "type" : "boolean"
+			}
+		  },
+		  "anyOf" : [ {
+			"properties" : {
+			  "constant" : {
+				"$ref" : "#/items/definitions/expression-constant"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "exchange-property" : {
+				"$ref" : "#/items/definitions/expression-exchange-property"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "groovy" : {
+				"$ref" : "#/items/definitions/expression-groovy"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "header" : {
+				"$ref" : "#/items/definitions/expression-header"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "hl7terser" : {
+				"$ref" : "#/items/definitions/expression-hl7terser"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "jsonpath" : {
+				"$ref" : "#/items/definitions/expression-jsonpath"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "language" : {
+				"$ref" : "#/items/definitions/expression-language"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "method" : {
+				"$ref" : "#/items/definitions/expression-method"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "mvel" : {
+				"$ref" : "#/items/definitions/expression-mvel"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ognl" : {
+				"$ref" : "#/items/definitions/expression-ognl"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ref" : {
+				"$ref" : "#/items/definitions/expression-ref"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "simple" : {
+				"$ref" : "#/items/definitions/expression-simple"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "spel" : {
+				"$ref" : "#/items/definitions/expression-spel"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "tokenize" : {
+				"$ref" : "#/items/definitions/expression-tokenize"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xpath" : {
+				"$ref" : "#/items/definitions/expression-xpath"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xquery" : {
+				"$ref" : "#/items/definitions/expression-xquery"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xtokenize" : {
+				"$ref" : "#/items/definitions/expression-xtokenize"
+			  }
+			}
+		  } ]
+		},
+		"org.apache.camel.k.loader.yaml.parser.ChoiceStepParser$Definition" : {
+		  "type" : "object",
+		  "properties" : {
+			"otherwise" : {
+			  "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.ChoiceStepParser$Definition$Otherwise"
+			},
+			"when" : {
+			  "type" : "array",
+			  "items" : {
+				"$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.ChoiceStepParser$Definition$When"
+			  }
+			}
+		  }
+		},
+		"org.apache.camel.k.loader.yaml.parser.ChoiceStepParser$Definition$Otherwise" : {
+		  "type" : "object",
+		  "properties" : {
+			"steps" : {
+			  "type" : "array",
+			  "items" : {
+				"$ref" : "#/items/definitions/step"
+			  }
+			},
+			"inherit-error-handler" : {
+			  "type" : "boolean"
+			}
+		  }
+		},
+		"org.apache.camel.k.loader.yaml.parser.ChoiceStepParser$Definition$When" : {
+		  "type" : "object",
+		  "properties" : {
+			"steps" : {
+			  "type" : "array",
+			  "items" : {
+				"$ref" : "#/items/definitions/step"
+			  }
+			},
+			"inherit-error-handler" : {
+			  "type" : "boolean"
+			}
+		  },
+		  "anyOf" : [ {
+			"properties" : {
+			  "constant" : {
+				"$ref" : "#/items/definitions/expression-constant"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "exchange-property" : {
+				"$ref" : "#/items/definitions/expression-exchange-property"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "groovy" : {
+				"$ref" : "#/items/definitions/expression-groovy"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "header" : {
+				"$ref" : "#/items/definitions/expression-header"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "hl7terser" : {
+				"$ref" : "#/items/definitions/expression-hl7terser"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "jsonpath" : {
+				"$ref" : "#/items/definitions/expression-jsonpath"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "language" : {
+				"$ref" : "#/items/definitions/expression-language"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "method" : {
+				"$ref" : "#/items/definitions/expression-method"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "mvel" : {
+				"$ref" : "#/items/definitions/expression-mvel"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ognl" : {
+				"$ref" : "#/items/definitions/expression-ognl"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ref" : {
+				"$ref" : "#/items/definitions/expression-ref"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "simple" : {
+				"$ref" : "#/items/definitions/expression-simple"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "spel" : {
+				"$ref" : "#/items/definitions/expression-spel"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "tokenize" : {
+				"$ref" : "#/items/definitions/expression-tokenize"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xpath" : {
+				"$ref" : "#/items/definitions/expression-xpath"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xquery" : {
+				"$ref" : "#/items/definitions/expression-xquery"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xtokenize" : {
+				"$ref" : "#/items/definitions/expression-xtokenize"
+			  }
+			}
+		  } ]
+		},
+		"org.apache.camel.k.loader.yaml.parser.CircuitBreakerStepParser$CBDefinition" : {
+		  "type" : "object",
+		  "properties" : {
+			"on-fallback" : {
+			  "$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.CircuitBreakerStepParser$FBDefinition"
+			},
+			"steps" : {
+			  "type" : "array",
+			  "items" : {
+				"$ref" : "#/items/definitions/step"
+			  }
+			}
+		  }
+		},
+		"org.apache.camel.k.loader.yaml.parser.CircuitBreakerStepParser$FBDefinition" : {
+		  "type" : "object",
+		  "properties" : {
+			"steps" : {
+			  "type" : "array",
+			  "items" : {
+				"$ref" : "#/items/definitions/step"
+			  }
+			},
+			"fallback-via-network" : {
+			  "type" : "string"
+			},
+			"inherit-error-handler" : {
+			  "type" : "boolean"
+			}
+		  }
+		},
+		"org.apache.camel.k.loader.yaml.parser.DelayStepParser$Definition" : {
+		  "type" : "object",
+		  "properties" : {
+			"async-delayed" : {
+			  "type" : "string"
+			},
+			"caller-runs-when-rejected" : {
+			  "type" : "string"
+			},
+			"executor-service-ref" : {
+			  "type" : "string"
+			},
+			"inherit-error-handler" : {
+			  "type" : "boolean"
+			}
+		  },
+		  "anyOf" : [ {
+			"properties" : {
+			  "constant" : {
+				"$ref" : "#/items/definitions/expression-constant"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "exchange-property" : {
+				"$ref" : "#/items/definitions/expression-exchange-property"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "groovy" : {
+				"$ref" : "#/items/definitions/expression-groovy"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "header" : {
+				"$ref" : "#/items/definitions/expression-header"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "hl7terser" : {
+				"$ref" : "#/items/definitions/expression-hl7terser"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "jsonpath" : {
+				"$ref" : "#/items/definitions/expression-jsonpath"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "language" : {
+				"$ref" : "#/items/definitions/expression-language"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "method" : {
+				"$ref" : "#/items/definitions/expression-method"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "mvel" : {
+				"$ref" : "#/items/definitions/expression-mvel"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ognl" : {
+				"$ref" : "#/items/definitions/expression-ognl"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ref" : {
+				"$ref" : "#/items/definitions/expression-ref"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "simple" : {
+				"$ref" : "#/items/definitions/expression-simple"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "spel" : {
+				"$ref" : "#/items/definitions/expression-spel"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "tokenize" : {
+				"$ref" : "#/items/definitions/expression-tokenize"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xpath" : {
+				"$ref" : "#/items/definitions/expression-xpath"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xquery" : {
+				"$ref" : "#/items/definitions/expression-xquery"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xtokenize" : {
+				"$ref" : "#/items/definitions/expression-xtokenize"
+			  }
+			}
+		  } ]
+		},
+		"org.apache.camel.k.loader.yaml.parser.DoTryStepParser$DoCatchDefinition" : {
+		  "type" : "object",
+		  "properties" : {
+			"steps" : {
+			  "type" : "array",
+			  "items" : {
+				"$ref" : "#/items/definitions/step"
+			  }
+			},
+			"inherit-error-handler" : {
+			  "type" : "boolean"
+			}
+		  }
+		},
+		"org.apache.camel.k.loader.yaml.parser.DoTryStepParser$DoFinallyDefinition" : {
+		  "type" : "object",
+		  "properties" : {
+			"inherit-error-handler" : {
+			  "type" : "boolean"
+			}
+		  }
+		},
+		"org.apache.camel.k.loader.yaml.parser.DoTryStepParser$DoTryDefinition" : {
+		  "type" : "object",
+		  "properties" : {
+			"steps" : {
+			  "type" : "array",
+			  "items" : {
+				"$ref" : "#/items/definitions/step"
+			  }
+			}
+		  }
+		},
+		"org.apache.camel.k.loader.yaml.parser.DynamicRouterStepParser$Definition" : {
+		  "type" : "object",
+		  "properties" : {
+			"cache-size" : {
+			  "type" : "string"
+			},
+			"ignore-invalid-endpoints" : {
+			  "type" : "string"
+			},
+			"uri-delimiter" : {
+			  "type" : "string"
+			},
+			"inherit-error-handler" : {
+			  "type" : "boolean"
+			}
+		  },
+		  "anyOf" : [ {
+			"properties" : {
+			  "constant" : {
+				"$ref" : "#/items/definitions/expression-constant"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "exchange-property" : {
+				"$ref" : "#/items/definitions/expression-exchange-property"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "groovy" : {
+				"$ref" : "#/items/definitions/expression-groovy"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "header" : {
+				"$ref" : "#/items/definitions/expression-header"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "hl7terser" : {
+				"$ref" : "#/items/definitions/expression-hl7terser"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "jsonpath" : {
+				"$ref" : "#/items/definitions/expression-jsonpath"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "language" : {
+				"$ref" : "#/items/definitions/expression-language"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "method" : {
+				"$ref" : "#/items/definitions/expression-method"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "mvel" : {
+				"$ref" : "#/items/definitions/expression-mvel"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ognl" : {
+				"$ref" : "#/items/definitions/expression-ognl"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ref" : {
+				"$ref" : "#/items/definitions/expression-ref"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "simple" : {
+				"$ref" : "#/items/definitions/expression-simple"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "spel" : {
+				"$ref" : "#/items/definitions/expression-spel"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "tokenize" : {
+				"$ref" : "#/items/definitions/expression-tokenize"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xpath" : {
+				"$ref" : "#/items/definitions/expression-xpath"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xquery" : {
+				"$ref" : "#/items/definitions/expression-xquery"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xtokenize" : {
+				"$ref" : "#/items/definitions/expression-xtokenize"
+			  }
+			}
+		  } ]
+		},
+		"org.apache.camel.k.loader.yaml.parser.EnrichStepParser$Definition" : {
+		  "type" : "object",
+		  "properties" : {
+			"aggregate-on-exception" : {
+			  "type" : "string"
+			},
+			"strategy-method-allow-null" : {
+			  "type" : "string"
+			},
+			"strategy-method-name" : {
+			  "type" : "string"
+			},
+			"strategy-ref" : {
+			  "type" : "string"
+			},
+			"cache-size" : {
+			  "type" : "string"
+			},
+			"ignore-invalid-endpoint" : {
+			  "type" : "string"
+			},
+			"share-unit-of-work" : {
+			  "type" : "string"
+			},
+			"inherit-error-handler" : {
+			  "type" : "boolean"
+			}
+		  },
+		  "anyOf" : [ {
+			"properties" : {
+			  "constant" : {
+				"$ref" : "#/items/definitions/expression-constant"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "exchange-property" : {
+				"$ref" : "#/items/definitions/expression-exchange-property"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "groovy" : {
+				"$ref" : "#/items/definitions/expression-groovy"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "header" : {
+				"$ref" : "#/items/definitions/expression-header"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "hl7terser" : {
+				"$ref" : "#/items/definitions/expression-hl7terser"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "jsonpath" : {
+				"$ref" : "#/items/definitions/expression-jsonpath"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "language" : {
+				"$ref" : "#/items/definitions/expression-language"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "method" : {
+				"$ref" : "#/items/definitions/expression-method"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "mvel" : {
+				"$ref" : "#/items/definitions/expression-mvel"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ognl" : {
+				"$ref" : "#/items/definitions/expression-ognl"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ref" : {
+				"$ref" : "#/items/definitions/expression-ref"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "simple" : {
+				"$ref" : "#/items/definitions/expression-simple"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "spel" : {
+				"$ref" : "#/items/definitions/expression-spel"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "tokenize" : {
+				"$ref" : "#/items/definitions/expression-tokenize"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xpath" : {
+				"$ref" : "#/items/definitions/expression-xpath"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xquery" : {
+				"$ref" : "#/items/definitions/expression-xquery"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xtokenize" : {
+				"$ref" : "#/items/definitions/expression-xtokenize"
+			  }
+			}
+		  } ]
+		},
+		"org.apache.camel.k.loader.yaml.parser.ErrorHandlerStepParser$Definition" : {
+		  "type" : "object"
+		},
+		"org.apache.camel.k.loader.yaml.parser.FilterStepParser$Definition" : {
+		  "type" : "object",
+		  "properties" : {
+			"steps" : {
+			  "type" : "array",
+			  "items" : {
+				"$ref" : "#/items/definitions/step"
+			  }
+			},
+			"inherit-error-handler" : {
+			  "type" : "boolean"
+			}
+		  },
+		  "anyOf" : [ {
+			"properties" : {
+			  "constant" : {
+				"$ref" : "#/items/definitions/expression-constant"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "exchange-property" : {
+				"$ref" : "#/items/definitions/expression-exchange-property"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "groovy" : {
+				"$ref" : "#/items/definitions/expression-groovy"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "header" : {
+				"$ref" : "#/items/definitions/expression-header"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "hl7terser" : {
+				"$ref" : "#/items/definitions/expression-hl7terser"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "jsonpath" : {
+				"$ref" : "#/items/definitions/expression-jsonpath"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "language" : {
+				"$ref" : "#/items/definitions/expression-language"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "method" : {
+				"$ref" : "#/items/definitions/expression-method"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "mvel" : {
+				"$ref" : "#/items/definitions/expression-mvel"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ognl" : {
+				"$ref" : "#/items/definitions/expression-ognl"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ref" : {
+				"$ref" : "#/items/definitions/expression-ref"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "simple" : {
+				"$ref" : "#/items/definitions/expression-simple"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "spel" : {
+				"$ref" : "#/items/definitions/expression-spel"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "tokenize" : {
+				"$ref" : "#/items/definitions/expression-tokenize"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xpath" : {
+				"$ref" : "#/items/definitions/expression-xpath"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xquery" : {
+				"$ref" : "#/items/definitions/expression-xquery"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xtokenize" : {
+				"$ref" : "#/items/definitions/expression-xtokenize"
+			  }
+			}
+		  } ]
+		},
+		"org.apache.camel.k.loader.yaml.parser.FromStepParser$Definition" : {
+		  "type" : "object",
+		  "properties" : {
+			"parameters" : {
+			  "type" : "object"
+			},
+			"steps" : {
+			  "type" : "array",
+			  "items" : {
+				"$ref" : "#/items/definitions/step"
+			  }
+			},
+			"uri" : {
+			  "type" : "string"
+			}
+		  },
+		  "required" : [ "steps", "uri" ]
+		},
+		"org.apache.camel.k.loader.yaml.parser.IdempotentConsumerParser$Definition" : {
+		  "type" : "object",
+		  "properties" : {
+			"steps" : {
+			  "type" : "array",
+			  "items" : {
+				"$ref" : "#/items/definitions/step"
+			  }
+			},
+			"completion-eager" : {
+			  "type" : "string"
+			},
+			"eager" : {
+			  "type" : "string"
+			},
+			"message-id-repository-ref" : {
+			  "type" : "string"
+			},
+			"remove-on-failure" : {
+			  "type" : "string"
+			},
+			"skip-duplicate" : {
+			  "type" : "string"
+			},
+			"inherit-error-handler" : {
+			  "type" : "boolean"
+			}
+		  },
+		  "anyOf" : [ {
+			"properties" : {
+			  "constant" : {
+				"$ref" : "#/items/definitions/expression-constant"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "exchange-property" : {
+				"$ref" : "#/items/definitions/expression-exchange-property"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "groovy" : {
+				"$ref" : "#/items/definitions/expression-groovy"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "header" : {
+				"$ref" : "#/items/definitions/expression-header"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "hl7terser" : {
+				"$ref" : "#/items/definitions/expression-hl7terser"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "jsonpath" : {
+				"$ref" : "#/items/definitions/expression-jsonpath"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "language" : {
+				"$ref" : "#/items/definitions/expression-language"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "method" : {
+				"$ref" : "#/items/definitions/expression-method"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "mvel" : {
+				"$ref" : "#/items/definitions/expression-mvel"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ognl" : {
+				"$ref" : "#/items/definitions/expression-ognl"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ref" : {
+				"$ref" : "#/items/definitions/expression-ref"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "simple" : {
+				"$ref" : "#/items/definitions/expression-simple"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "spel" : {
+				"$ref" : "#/items/definitions/expression-spel"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "tokenize" : {
+				"$ref" : "#/items/definitions/expression-tokenize"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xpath" : {
+				"$ref" : "#/items/definitions/expression-xpath"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xquery" : {
+				"$ref" : "#/items/definitions/expression-xquery"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xtokenize" : {
+				"$ref" : "#/items/definitions/expression-xtokenize"
+			  }
+			}
+		  } ]
+		},
+		"org.apache.camel.k.loader.yaml.parser.LoadBalanceStepParser$Definition" : {
+		  "type" : "object",
+		  "properties" : {
+			"steps" : {
+			  "type" : "array",
+			  "items" : {
+				"$ref" : "#/items/definitions/step"
+			  }
+			},
+			"inherit-error-handler" : {
+			  "type" : "boolean"
+			}
+		  }
+		},
+		"org.apache.camel.k.loader.yaml.parser.LoadBalanceStepParser$Definition$Sticky" : {
+		  "type" : "object",
+		  "properties" : {
+			"id" : {
+			  "type" : "string"
+			}
+		  },
+		  "anyOf" : [ {
+			"properties" : {
+			  "constant" : {
+				"$ref" : "#/items/definitions/expression-constant"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "exchange-property" : {
+				"$ref" : "#/items/definitions/expression-exchange-property"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "groovy" : {
+				"$ref" : "#/items/definitions/expression-groovy"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "header" : {
+				"$ref" : "#/items/definitions/expression-header"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "hl7terser" : {
+				"$ref" : "#/items/definitions/expression-hl7terser"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "jsonpath" : {
+				"$ref" : "#/items/definitions/expression-jsonpath"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "language" : {
+				"$ref" : "#/items/definitions/expression-language"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "method" : {
+				"$ref" : "#/items/definitions/expression-method"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "mvel" : {
+				"$ref" : "#/items/definitions/expression-mvel"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ognl" : {
+				"$ref" : "#/items/definitions/expression-ognl"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ref" : {
+				"$ref" : "#/items/definitions/expression-ref"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "simple" : {
+				"$ref" : "#/items/definitions/expression-simple"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "spel" : {
+				"$ref" : "#/items/definitions/expression-spel"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "tokenize" : {
+				"$ref" : "#/items/definitions/expression-tokenize"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xpath" : {
+				"$ref" : "#/items/definitions/expression-xpath"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xquery" : {
+				"$ref" : "#/items/definitions/expression-xquery"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xtokenize" : {
+				"$ref" : "#/items/definitions/expression-xtokenize"
+			  }
+			}
+		  } ]
+		},
+		"org.apache.camel.k.loader.yaml.parser.LoopStepParser$Definition" : {
+		  "type" : "object",
+		  "properties" : {
+			"steps" : {
+			  "type" : "array",
+			  "items" : {
+				"$ref" : "#/items/definitions/step"
+			  }
+			},
+			"copy" : {
+			  "type" : "string"
+			},
+			"do-while" : {
+			  "type" : "string"
+			},
+			"inherit-error-handler" : {
+			  "type" : "boolean"
+			}
+		  },
+		  "anyOf" : [ {
+			"properties" : {
+			  "constant" : {
+				"$ref" : "#/items/definitions/expression-constant"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "exchange-property" : {
+				"$ref" : "#/items/definitions/expression-exchange-property"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "groovy" : {
+				"$ref" : "#/items/definitions/expression-groovy"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "header" : {
+				"$ref" : "#/items/definitions/expression-header"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "hl7terser" : {
+				"$ref" : "#/items/definitions/expression-hl7terser"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "jsonpath" : {
+				"$ref" : "#/items/definitions/expression-jsonpath"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "language" : {
+				"$ref" : "#/items/definitions/expression-language"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "method" : {
+				"$ref" : "#/items/definitions/expression-method"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "mvel" : {
+				"$ref" : "#/items/definitions/expression-mvel"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ognl" : {
+				"$ref" : "#/items/definitions/expression-ognl"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ref" : {
+				"$ref" : "#/items/definitions/expression-ref"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "simple" : {
+				"$ref" : "#/items/definitions/expression-simple"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "spel" : {
+				"$ref" : "#/items/definitions/expression-spel"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "tokenize" : {
+				"$ref" : "#/items/definitions/expression-tokenize"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xpath" : {
+				"$ref" : "#/items/definitions/expression-xpath"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xquery" : {
+				"$ref" : "#/items/definitions/expression-xquery"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xtokenize" : {
+				"$ref" : "#/items/definitions/expression-xtokenize"
+			  }
+			}
+		  } ]
+		},
+		"org.apache.camel.k.loader.yaml.parser.MarshalStepParser$Definition" : {
+		  "type" : "object",
+		  "properties" : {
+			"inherit-error-handler" : {
+			  "type" : "boolean"
+			}
+		  },
+		  "anyOf" : [ {
+			"properties" : {
+			  "any23" : {
+				"$ref" : "#/items/definitions/dataformat-any23"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "asn1" : {
+				"$ref" : "#/items/definitions/dataformat-asn1"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "avro" : {
+				"$ref" : "#/items/definitions/dataformat-avro"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "barcode" : {
+				"$ref" : "#/items/definitions/dataformat-barcode"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "base64" : {
+				"$ref" : "#/items/definitions/dataformat-base64"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "beanio" : {
+				"$ref" : "#/items/definitions/dataformat-beanio"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "bindy" : {
+				"$ref" : "#/items/definitions/dataformat-bindy"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "cbor" : {
+				"$ref" : "#/items/definitions/dataformat-cbor"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "crypto" : {
+				"$ref" : "#/items/definitions/dataformat-crypto"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "csv" : {
+				"$ref" : "#/items/definitions/dataformat-csv"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "custom-data-format" : {
+				"$ref" : "#/items/definitions/dataformat-custom-data-format"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "fhir-json" : {
+				"$ref" : "#/items/definitions/dataformat-fhir-json"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "fhir-xml" : {
+				"$ref" : "#/items/definitions/dataformat-fhir-xml"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "flatpack" : {
+				"$ref" : "#/items/definitions/dataformat-flatpack"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "grok" : {
+				"$ref" : "#/items/definitions/dataformat-grok"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "gzipdeflater" : {
+				"$ref" : "#/items/definitions/dataformat-gzipdeflater"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "hl7" : {
+				"$ref" : "#/items/definitions/dataformat-hl7"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ical" : {
+				"$ref" : "#/items/definitions/dataformat-ical"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "jacksonxml" : {
+				"$ref" : "#/items/definitions/dataformat-jacksonxml"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "jaxb" : {
+				"$ref" : "#/items/definitions/dataformat-jaxb"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "json" : {
+				"$ref" : "#/items/definitions/dataformat-json"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "json-api" : {
+				"$ref" : "#/items/definitions/dataformat-json-api"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "lzf" : {
+				"$ref" : "#/items/definitions/dataformat-lzf"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "mime-multipart" : {
+				"$ref" : "#/items/definitions/dataformat-mime-multipart"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "pgp" : {
+				"$ref" : "#/items/definitions/dataformat-pgp"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "protobuf" : {
+				"$ref" : "#/items/definitions/dataformat-protobuf"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "rss" : {
+				"$ref" : "#/items/definitions/dataformat-rss"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "secure-xml" : {
+				"$ref" : "#/items/definitions/dataformat-secure-xml"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "soapjaxb" : {
+				"$ref" : "#/items/definitions/dataformat-soapjaxb"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "syslog" : {
+				"$ref" : "#/items/definitions/dataformat-syslog"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "tarfile" : {
+				"$ref" : "#/items/definitions/dataformat-tarfile"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "thrift" : {
+				"$ref" : "#/items/definitions/dataformat-thrift"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "tidy-markup" : {
+				"$ref" : "#/items/definitions/dataformat-tidy-markup"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "univocity-csv" : {
+				"$ref" : "#/items/definitions/dataformat-univocity-csv"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "univocity-fixed" : {
+				"$ref" : "#/items/definitions/dataformat-univocity-fixed"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "univocity-tsv" : {
+				"$ref" : "#/items/definitions/dataformat-univocity-tsv"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xmlrpc" : {
+				"$ref" : "#/items/definitions/dataformat-xmlrpc"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xstream" : {
+				"$ref" : "#/items/definitions/dataformat-xstream"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "yaml" : {
+				"$ref" : "#/items/definitions/dataformat-yaml"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "zipdeflater" : {
+				"$ref" : "#/items/definitions/dataformat-zipdeflater"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "zipfile" : {
+				"$ref" : "#/items/definitions/dataformat-zipfile"
+			  }
+			}
+		  } ]
+		},
+		"org.apache.camel.k.loader.yaml.parser.MulticastStepParser$Definition" : {
+		  "type" : "object",
+		  "properties" : {
+			"steps" : {
+			  "type" : "array",
+			  "items" : {
+				"$ref" : "#/items/definitions/step"
+			  }
+			},
+			"executor-service-ref" : {
+			  "type" : "string"
+			},
+			"on-prepare-ref" : {
+			  "type" : "string"
+			},
+			"parallel-aggregate" : {
+			  "type" : "string"
+			},
+			"parallel-processing" : {
+			  "type" : "string"
+			},
+			"share-unit-of-work" : {
+			  "type" : "string"
+			},
+			"stop-on-aggregate-exception" : {
+			  "type" : "string"
+			},
+			"stop-on-exception" : {
+			  "type" : "string"
+			},
+			"strategy-method-allow-null" : {
+			  "type" : "string"
+			},
+			"strategy-method-name" : {
+			  "type" : "string"
+			},
+			"strategy-ref" : {
+			  "type" : "string"
+			},
+			"streaming" : {
+			  "type" : "string"
+			},
+			"timeout" : {
+			  "type" : "string"
+			},
+			"inherit-error-handler" : {
+			  "type" : "boolean"
+			}
+		  }
+		},
+		"org.apache.camel.k.loader.yaml.parser.OnExceptionStepParser$Definition" : {
+		  "type" : "object",
+		  "properties" : {
+			"steps" : {
+			  "type" : "array",
+			  "items" : {
+				"$ref" : "#/items/definitions/step"
+			  }
+			}
+		  }
+		},
+		"org.apache.camel.k.loader.yaml.parser.OnExceptionStepParser$Definition$ExpressionElement" : {
+		  "type" : "object",
+		  "anyOf" : [ {
+			"properties" : {
+			  "constant" : {
+				"$ref" : "#/items/definitions/expression-constant"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "exchange-property" : {
+				"$ref" : "#/items/definitions/expression-exchange-property"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "groovy" : {
+				"$ref" : "#/items/definitions/expression-groovy"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "header" : {
+				"$ref" : "#/items/definitions/expression-header"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "hl7terser" : {
+				"$ref" : "#/items/definitions/expression-hl7terser"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "jsonpath" : {
+				"$ref" : "#/items/definitions/expression-jsonpath"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "language" : {
+				"$ref" : "#/items/definitions/expression-language"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "method" : {
+				"$ref" : "#/items/definitions/expression-method"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "mvel" : {
+				"$ref" : "#/items/definitions/expression-mvel"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ognl" : {
+				"$ref" : "#/items/definitions/expression-ognl"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ref" : {
+				"$ref" : "#/items/definitions/expression-ref"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "simple" : {
+				"$ref" : "#/items/definitions/expression-simple"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "spel" : {
+				"$ref" : "#/items/definitions/expression-spel"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "tokenize" : {
+				"$ref" : "#/items/definitions/expression-tokenize"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xpath" : {
+				"$ref" : "#/items/definitions/expression-xpath"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xquery" : {
+				"$ref" : "#/items/definitions/expression-xquery"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xtokenize" : {
+				"$ref" : "#/items/definitions/expression-xtokenize"
+			  }
+			}
+		  } ]
+		},
+		"org.apache.camel.k.loader.yaml.parser.OnExceptionStepParser$Definition$MaybeBooleanExpressionElement" : {
+		  "type" : "object",
+		  "anyOf" : [ {
+			"properties" : {
+			  "constant" : {
+				"$ref" : "#/items/definitions/expression-constant"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "exchange-property" : {
+				"$ref" : "#/items/definitions/expression-exchange-property"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "groovy" : {
+				"$ref" : "#/items/definitions/expression-groovy"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "header" : {
+				"$ref" : "#/items/definitions/expression-header"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "hl7terser" : {
+				"$ref" : "#/items/definitions/expression-hl7terser"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "jsonpath" : {
+				"$ref" : "#/items/definitions/expression-jsonpath"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "language" : {
+				"$ref" : "#/items/definitions/expression-language"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "method" : {
+				"$ref" : "#/items/definitions/expression-method"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "mvel" : {
+				"$ref" : "#/items/definitions/expression-mvel"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ognl" : {
+				"$ref" : "#/items/definitions/expression-ognl"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ref" : {
+				"$ref" : "#/items/definitions/expression-ref"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "simple" : {
+				"$ref" : "#/items/definitions/expression-simple"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "spel" : {
+				"$ref" : "#/items/definitions/expression-spel"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "tokenize" : {
+				"$ref" : "#/items/definitions/expression-tokenize"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xpath" : {
+				"$ref" : "#/items/definitions/expression-xpath"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xquery" : {
+				"$ref" : "#/items/definitions/expression-xquery"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xtokenize" : {
+				"$ref" : "#/items/definitions/expression-xtokenize"
+			  }
+			}
+		  } ]
+		},
+		"org.apache.camel.k.loader.yaml.parser.OnExceptionStepParser$Definition$When" : {
+		  "type" : "object",
+		  "properties" : {
+			"steps" : {
+			  "type" : "array",
+			  "items" : {
+				"$ref" : "#/items/definitions/step"
+			  }
+			},
+			"inherit-error-handler" : {
+			  "type" : "boolean"
+			}
+		  },
+		  "anyOf" : [ {
+			"properties" : {
+			  "constant" : {
+				"$ref" : "#/items/definitions/expression-constant"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "exchange-property" : {
+				"$ref" : "#/items/definitions/expression-exchange-property"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "groovy" : {
+				"$ref" : "#/items/definitions/expression-groovy"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "header" : {
+				"$ref" : "#/items/definitions/expression-header"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "hl7terser" : {
+				"$ref" : "#/items/definitions/expression-hl7terser"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "jsonpath" : {
+				"$ref" : "#/items/definitions/expression-jsonpath"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "language" : {
+				"$ref" : "#/items/definitions/expression-language"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "method" : {
+				"$ref" : "#/items/definitions/expression-method"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "mvel" : {
+				"$ref" : "#/items/definitions/expression-mvel"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ognl" : {
+				"$ref" : "#/items/definitions/expression-ognl"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ref" : {
+				"$ref" : "#/items/definitions/expression-ref"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "simple" : {
+				"$ref" : "#/items/definitions/expression-simple"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "spel" : {
+				"$ref" : "#/items/definitions/expression-spel"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "tokenize" : {
+				"$ref" : "#/items/definitions/expression-tokenize"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xpath" : {
+				"$ref" : "#/items/definitions/expression-xpath"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xquery" : {
+				"$ref" : "#/items/definitions/expression-xquery"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xtokenize" : {
+				"$ref" : "#/items/definitions/expression-xtokenize"
+			  }
+			}
+		  } ]
+		},
+		"org.apache.camel.k.loader.yaml.parser.PipelineStepParser$Definition" : {
+		  "type" : "object",
+		  "properties" : {
+			"steps" : {
+			  "type" : "array",
+			  "items" : {
+				"$ref" : "#/items/definitions/step"
+			  }
+			}
+		  }
+		},
+		"org.apache.camel.k.loader.yaml.parser.PollEnrichStepParser$Definition" : {
+		  "type" : "object",
+		  "properties" : {
+			"aggregate-on-exception" : {
+			  "type" : "string"
+			},
+			"strategy-method-allow-null" : {
+			  "type" : "string"
+			},
+			"strategy-method-name" : {
+			  "type" : "string"
+			},
+			"strategy-ref" : {
+			  "type" : "string"
+			},
+			"cache-size" : {
+			  "type" : "string"
+			},
+			"ignore-invalid-endpoint" : {
+			  "type" : "string"
+			},
+			"timeout" : {
+			  "type" : "string"
+			},
+			"inherit-error-handler" : {
+			  "type" : "boolean"
+			}
+		  },
+		  "anyOf" : [ {
+			"properties" : {
+			  "constant" : {
+				"$ref" : "#/items/definitions/expression-constant"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "exchange-property" : {
+				"$ref" : "#/items/definitions/expression-exchange-property"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "groovy" : {
+				"$ref" : "#/items/definitions/expression-groovy"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "header" : {
+				"$ref" : "#/items/definitions/expression-header"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "hl7terser" : {
+				"$ref" : "#/items/definitions/expression-hl7terser"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "jsonpath" : {
+				"$ref" : "#/items/definitions/expression-jsonpath"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "language" : {
+				"$ref" : "#/items/definitions/expression-language"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "method" : {
+				"$ref" : "#/items/definitions/expression-method"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "mvel" : {
+				"$ref" : "#/items/definitions/expression-mvel"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ognl" : {
+				"$ref" : "#/items/definitions/expression-ognl"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ref" : {
+				"$ref" : "#/items/definitions/expression-ref"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "simple" : {
+				"$ref" : "#/items/definitions/expression-simple"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "spel" : {
+				"$ref" : "#/items/definitions/expression-spel"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "tokenize" : {
+				"$ref" : "#/items/definitions/expression-tokenize"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xpath" : {
+				"$ref" : "#/items/definitions/expression-xpath"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xquery" : {
+				"$ref" : "#/items/definitions/expression-xquery"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xtokenize" : {
+				"$ref" : "#/items/definitions/expression-xtokenize"
+			  }
+			}
+		  } ]
+		},
+		"org.apache.camel.k.loader.yaml.parser.ProcessStepParser$Definition" : {
+		  "type" : "object",
+		  "properties" : {
+			"ref" : {
+			  "type" : "string"
+			},
+			"inherit-error-handler" : {
+			  "type" : "boolean"
+			}
+		  }
+		},
+		"org.apache.camel.k.loader.yaml.parser.RecipientListStepParser$Definition" : {
+		  "type" : "object",
+		  "properties" : {
+			"cache-size" : {
+			  "type" : "string"
+			},
+			"delimiter" : {
+			  "type" : "string"
+			},
+			"executor-service-ref" : {
+			  "type" : "string"
+			},
+			"ignore-invalid-endpoints" : {
+			  "type" : "string"
+			},
+			"on-prepare-ref" : {
+			  "type" : "string"
+			},
+			"parallel-aggregate" : {
+			  "type" : "string"
+			},
+			"parallel-processing" : {
+			  "type" : "string"
+			},
+			"share-unit-of-work" : {
+			  "type" : "string"
+			},
+			"stop-on-aggregate-exception" : {
+			  "type" : "string"
+			},
+			"stop-on-exception" : {
+			  "type" : "string"
+			},
+			"strategy-method-allow-null" : {
+			  "type" : "string"
+			},
+			"strategy-method-name" : {
+			  "type" : "string"
+			},
+			"strategy-ref" : {
+			  "type" : "string"
+			},
+			"streaming" : {
+			  "type" : "string"
+			},
+			"timeout" : {
+			  "type" : "string"
+			},
+			"inherit-error-handler" : {
+			  "type" : "boolean"
+			}
+		  },
+		  "anyOf" : [ {
+			"properties" : {
+			  "constant" : {
+				"$ref" : "#/items/definitions/expression-constant"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "exchange-property" : {
+				"$ref" : "#/items/definitions/expression-exchange-property"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "groovy" : {
+				"$ref" : "#/items/definitions/expression-groovy"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "header" : {
+				"$ref" : "#/items/definitions/expression-header"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "hl7terser" : {
+				"$ref" : "#/items/definitions/expression-hl7terser"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "jsonpath" : {
+				"$ref" : "#/items/definitions/expression-jsonpath"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "language" : {
+				"$ref" : "#/items/definitions/expression-language"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "method" : {
+				"$ref" : "#/items/definitions/expression-method"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "mvel" : {
+				"$ref" : "#/items/definitions/expression-mvel"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ognl" : {
+				"$ref" : "#/items/definitions/expression-ognl"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ref" : {
+				"$ref" : "#/items/definitions/expression-ref"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "simple" : {
+				"$ref" : "#/items/definitions/expression-simple"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "spel" : {
+				"$ref" : "#/items/definitions/expression-spel"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "tokenize" : {
+				"$ref" : "#/items/definitions/expression-tokenize"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xpath" : {
+				"$ref" : "#/items/definitions/expression-xpath"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xquery" : {
+				"$ref" : "#/items/definitions/expression-xquery"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xtokenize" : {
+				"$ref" : "#/items/definitions/expression-xtokenize"
+			  }
+			}
+		  } ]
+		},
+		"org.apache.camel.k.loader.yaml.parser.ResequenceStepParser$Definition" : {
+		  "type" : "object",
+		  "properties" : {
+			"steps" : {
+			  "type" : "array",
+			  "items" : {
+				"$ref" : "#/items/definitions/step"
+			  }
+			},
+			"inherit-error-handler" : {
+			  "type" : "boolean"
+			}
+		  },
+		  "anyOf" : [ {
+			"properties" : {
+			  "constant" : {
+				"$ref" : "#/items/definitions/expression-constant"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "exchange-property" : {
+				"$ref" : "#/items/definitions/expression-exchange-property"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "groovy" : {
+				"$ref" : "#/items/definitions/expression-groovy"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "header" : {
+				"$ref" : "#/items/definitions/expression-header"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "hl7terser" : {
+				"$ref" : "#/items/definitions/expression-hl7terser"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "jsonpath" : {
+				"$ref" : "#/items/definitions/expression-jsonpath"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "language" : {
+				"$ref" : "#/items/definitions/expression-language"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "method" : {
+				"$ref" : "#/items/definitions/expression-method"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "mvel" : {
+				"$ref" : "#/items/definitions/expression-mvel"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ognl" : {
+				"$ref" : "#/items/definitions/expression-ognl"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ref" : {
+				"$ref" : "#/items/definitions/expression-ref"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "simple" : {
+				"$ref" : "#/items/definitions/expression-simple"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "spel" : {
+				"$ref" : "#/items/definitions/expression-spel"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "tokenize" : {
+				"$ref" : "#/items/definitions/expression-tokenize"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xpath" : {
+				"$ref" : "#/items/definitions/expression-xpath"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xquery" : {
+				"$ref" : "#/items/definitions/expression-xquery"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xtokenize" : {
+				"$ref" : "#/items/definitions/expression-xtokenize"
+			  }
+			}
+		  } ]
+		},
+		"org.apache.camel.k.loader.yaml.parser.RestStepParser$Definition" : {
+		  "type" : "object",
+		  "properties" : {
+			"api-docs" : {
+			  "type" : "boolean"
+			},
+			"binding-mode" : {
+			  "enum" : [ "auto", "off", "json", "xml", "json_xml" ]
+			},
+			"consumes" : {
+			  "type" : "string"
+			},
+			"description" : {
+			  "type" : "string"
+			},
+			"enable-cors" : {
+			  "type" : "boolean"
+			},
+			"id" : {
+			  "type" : "string"
+			},
+			"out-type" : {
+			  "type" : "string"
+			},
+			"produces" : {
+			  "type" : "string"
+			},
+			"steps" : {
+			  "type" : "array",
+			  "items" : {
+				"$ref" : "#/items/definitions/step"
+			  }
+			},
+			"type" : {
+			  "type" : "string"
+			},
+			"uri" : {
+			  "type" : "string"
+			},
+			"verb" : {
+			  "type" : "string"
+			}
+		  }
+		},
+		"org.apache.camel.k.loader.yaml.parser.RouteStepParser$Definition" : {
+		  "type" : "object"
+		},
+		"org.apache.camel.k.loader.yaml.parser.RoutingSlipStepParser$Definition" : {
+		  "type" : "object",
+		  "properties" : {
+			"cache-size" : {
+			  "type" : "string"
+			},
+			"ignore-invalid-endpoints" : {
+			  "type" : "string"
+			},
+			"uri-delimiter" : {
+			  "type" : "string"
+			},
+			"inherit-error-handler" : {
+			  "type" : "boolean"
+			}
+		  },
+		  "anyOf" : [ {
+			"properties" : {
+			  "constant" : {
+				"$ref" : "#/items/definitions/expression-constant"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "exchange-property" : {
+				"$ref" : "#/items/definitions/expression-exchange-property"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "groovy" : {
+				"$ref" : "#/items/definitions/expression-groovy"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "header" : {
+				"$ref" : "#/items/definitions/expression-header"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "hl7terser" : {
+				"$ref" : "#/items/definitions/expression-hl7terser"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "jsonpath" : {
+				"$ref" : "#/items/definitions/expression-jsonpath"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "language" : {
+				"$ref" : "#/items/definitions/expression-language"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "method" : {
+				"$ref" : "#/items/definitions/expression-method"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "mvel" : {
+				"$ref" : "#/items/definitions/expression-mvel"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ognl" : {
+				"$ref" : "#/items/definitions/expression-ognl"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ref" : {
+				"$ref" : "#/items/definitions/expression-ref"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "simple" : {
+				"$ref" : "#/items/definitions/expression-simple"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "spel" : {
+				"$ref" : "#/items/definitions/expression-spel"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "tokenize" : {
+				"$ref" : "#/items/definitions/expression-tokenize"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xpath" : {
+				"$ref" : "#/items/definitions/expression-xpath"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xquery" : {
+				"$ref" : "#/items/definitions/expression-xquery"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xtokenize" : {
+				"$ref" : "#/items/definitions/expression-xtokenize"
+			  }
+			}
+		  } ]
+		},
+		"org.apache.camel.k.loader.yaml.parser.SagaStepParser$Definition" : {
+		  "type" : "object",
+		  "properties" : {
+			"steps" : {
+			  "type" : "array",
+			  "items" : {
+				"$ref" : "#/items/definitions/step"
+			  }
+			},
+			"completion-mode" : {
+			  "type" : "string",
+			  "enum" : [ "AUTO", "MANUAL" ]
+			},
+			"propagation" : {
+			  "type" : "string",
+			  "enum" : [ "REQUIRED", "REQUIRES_NEW", "MANDATORY", "SUPPORTS", "NOT_SUPPORTED", "NEVER" ]
+			},
+			"saga-service-ref" : {
+			  "type" : "string"
+			},
+			"timeout-in-milliseconds" : {
+			  "type" : "string"
+			},
+			"inherit-error-handler" : {
+			  "type" : "boolean"
+			}
+		  }
+		},
+		"org.apache.camel.k.loader.yaml.parser.SampleStepParser$Definition" : {
+		  "type" : "object",
+		  "properties" : {
+			"steps" : {
+			  "type" : "array",
+			  "items" : {
+				"$ref" : "#/items/definitions/step"
+			  }
+			},
+			"message-frequency" : {
+			  "type" : "string"
+			},
+			"sample-period" : {
+			  "type" : "string"
+			},
+			"units" : {
+			  "type" : "string",
+			  "enum" : [ "NANOSECONDS", "MICROSECONDS", "MILLISECONDS", "SECONDS", "MINUTES", "HOURS", "DAYS" ]
+			},
+			"inherit-error-handler" : {
+			  "type" : "boolean"
+			}
+		  }
+		},
+		"org.apache.camel.k.loader.yaml.parser.ScriptStepParser$Definition" : {
+		  "type" : "object",
+		  "properties" : {
+			"inherit-error-handler" : {
+			  "type" : "boolean"
+			}
+		  },
+		  "anyOf" : [ {
+			"properties" : {
+			  "constant" : {
+				"$ref" : "#/items/definitions/expression-constant"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "exchange-property" : {
+				"$ref" : "#/items/definitions/expression-exchange-property"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "groovy" : {
+				"$ref" : "#/items/definitions/expression-groovy"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "header" : {
+				"$ref" : "#/items/definitions/expression-header"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "hl7terser" : {
+				"$ref" : "#/items/definitions/expression-hl7terser"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "jsonpath" : {
+				"$ref" : "#/items/definitions/expression-jsonpath"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "language" : {
+				"$ref" : "#/items/definitions/expression-language"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "method" : {
+				"$ref" : "#/items/definitions/expression-method"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "mvel" : {
+				"$ref" : "#/items/definitions/expression-mvel"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ognl" : {
+				"$ref" : "#/items/definitions/expression-ognl"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ref" : {
+				"$ref" : "#/items/definitions/expression-ref"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "simple" : {
+				"$ref" : "#/items/definitions/expression-simple"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "spel" : {
+				"$ref" : "#/items/definitions/expression-spel"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "tokenize" : {
+				"$ref" : "#/items/definitions/expression-tokenize"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xpath" : {
+				"$ref" : "#/items/definitions/expression-xpath"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xquery" : {
+				"$ref" : "#/items/definitions/expression-xquery"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xtokenize" : {
+				"$ref" : "#/items/definitions/expression-xtokenize"
+			  }
+			}
+		  } ]
+		},
+		"org.apache.camel.k.loader.yaml.parser.ServiceCallStepParser$Definition" : {
+		  "anyOf" : [ {
+			"type" : "string"
+		  }, {
+			"type" : "object",
+			"anyOf" : [ {
+			  "properties" : {
+				"constant" : {
+				  "$ref" : "#/items/definitions/expression-constant"
+				}
+			  }
+			}, {
+			  "properties" : {
+				"exchange-property" : {
+				  "$ref" : "#/items/definitions/expression-exchange-property"
+				}
+			  }
+			}, {
+			  "properties" : {
+				"groovy" : {
+				  "$ref" : "#/items/definitions/expression-groovy"
+				}
+			  }
+			}, {
+			  "properties" : {
+				"header" : {
+				  "$ref" : "#/items/definitions/expression-header"
+				}
+			  }
+			}, {
+			  "properties" : {
+				"hl7terser" : {
+				  "$ref" : "#/items/definitions/expression-hl7terser"
+				}
+			  }
+			}, {
+			  "properties" : {
+				"jsonpath" : {
+				  "$ref" : "#/items/definitions/expression-jsonpath"
+				}
+			  }
+			}, {
+			  "properties" : {
+				"language" : {
+				  "$ref" : "#/items/definitions/expression-language"
+				}
+			  }
+			}, {
+			  "properties" : {
+				"method" : {
+				  "$ref" : "#/items/definitions/expression-method"
+				}
+			  }
+			}, {
+			  "properties" : {
+				"mvel" : {
+				  "$ref" : "#/items/definitions/expression-mvel"
+				}
+			  }
+			}, {
+			  "properties" : {
+				"ognl" : {
+				  "$ref" : "#/items/definitions/expression-ognl"
+				}
+			  }
+			}, {
+			  "properties" : {
+				"ref" : {
+				  "$ref" : "#/items/definitions/expression-ref"
+				}
+			  }
+			}, {
+			  "properties" : {
+				"simple" : {
+				  "$ref" : "#/items/definitions/expression-simple"
+				}
+			  }
+			}, {
+			  "properties" : {
+				"spel" : {
+				  "$ref" : "#/items/definitions/expression-spel"
+				}
+			  }
+			}, {
+			  "properties" : {
+				"tokenize" : {
+				  "$ref" : "#/items/definitions/expression-tokenize"
+				}
+			  }
+			}, {
+			  "properties" : {
+				"xpath" : {
+				  "$ref" : "#/items/definitions/expression-xpath"
+				}
+			  }
+			}, {
+			  "properties" : {
+				"xquery" : {
+				  "$ref" : "#/items/definitions/expression-xquery"
+				}
+			  }
+			}, {
+			  "properties" : {
+				"xtokenize" : {
+				  "$ref" : "#/items/definitions/expression-xtokenize"
+				}
+			  }
+			} ]
+		  } ]
+		},
+		"org.apache.camel.k.loader.yaml.parser.ServiceCallStepParser$ServiceCallExpressionDefinition" : {
+		  "type" : "object",
+		  "properties" : {
+			"host-header" : {
+			  "type" : "string"
+			},
+			"port-header" : {
+			  "type" : "string"
+			},
+			"id" : {
+			  "type" : "string"
+			}
+		  },
+		  "anyOf" : [ {
+			"properties" : {
+			  "constant" : {
+				"$ref" : "#/items/definitions/expression-constant"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "exchange-property" : {
+				"$ref" : "#/items/definitions/expression-exchange-property"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "groovy" : {
+				"$ref" : "#/items/definitions/expression-groovy"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "header" : {
+				"$ref" : "#/items/definitions/expression-header"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "hl7terser" : {
+				"$ref" : "#/items/definitions/expression-hl7terser"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "jsonpath" : {
+				"$ref" : "#/items/definitions/expression-jsonpath"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "language" : {
+				"$ref" : "#/items/definitions/expression-language"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "method" : {
+				"$ref" : "#/items/definitions/expression-method"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "mvel" : {
+				"$ref" : "#/items/definitions/expression-mvel"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ognl" : {
+				"$ref" : "#/items/definitions/expression-ognl"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ref" : {
+				"$ref" : "#/items/definitions/expression-ref"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "simple" : {
+				"$ref" : "#/items/definitions/expression-simple"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "spel" : {
+				"$ref" : "#/items/definitions/expression-spel"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "tokenize" : {
+				"$ref" : "#/items/definitions/expression-tokenize"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xpath" : {
+				"$ref" : "#/items/definitions/expression-xpath"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xquery" : {
+				"$ref" : "#/items/definitions/expression-xquery"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xtokenize" : {
+				"$ref" : "#/items/definitions/expression-xtokenize"
+			  }
+			}
+		  } ]
+		},
+		"org.apache.camel.k.loader.yaml.parser.SetBodyStepParser$Definition" : {
+		  "type" : "object",
+		  "properties" : {
+			"inherit-error-handler" : {
+			  "type" : "boolean"
+			}
+		  },
+		  "anyOf" : [ {
+			"properties" : {
+			  "constant" : {
+				"$ref" : "#/items/definitions/expression-constant"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "exchange-property" : {
+				"$ref" : "#/items/definitions/expression-exchange-property"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "groovy" : {
+				"$ref" : "#/items/definitions/expression-groovy"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "header" : {
+				"$ref" : "#/items/definitions/expression-header"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "hl7terser" : {
+				"$ref" : "#/items/definitions/expression-hl7terser"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "jsonpath" : {
+				"$ref" : "#/items/definitions/expression-jsonpath"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "language" : {
+				"$ref" : "#/items/definitions/expression-language"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "method" : {
+				"$ref" : "#/items/definitions/expression-method"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "mvel" : {
+				"$ref" : "#/items/definitions/expression-mvel"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ognl" : {
+				"$ref" : "#/items/definitions/expression-ognl"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ref" : {
+				"$ref" : "#/items/definitions/expression-ref"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "simple" : {
+				"$ref" : "#/items/definitions/expression-simple"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "spel" : {
+				"$ref" : "#/items/definitions/expression-spel"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "tokenize" : {
+				"$ref" : "#/items/definitions/expression-tokenize"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xpath" : {
+				"$ref" : "#/items/definitions/expression-xpath"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xquery" : {
+				"$ref" : "#/items/definitions/expression-xquery"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xtokenize" : {
+				"$ref" : "#/items/definitions/expression-xtokenize"
+			  }
+			}
+		  } ]
+		},
+		"org.apache.camel.k.loader.yaml.parser.SetExchangePatternStepParser$Definition" : {
+		  "type" : "object",
+		  "properties" : {
+			"pattern" : {
+			  "type" : "string",
+			  "enum" : [ "InOnly", "InOut", "InOptionalOut" ]
+			},
+			"inherit-error-handler" : {
+			  "type" : "boolean"
+			}
+		  },
+		  "required" : [ "pattern" ]
+		},
+		"org.apache.camel.k.loader.yaml.parser.SetHeaderStepParser$Definition" : {
+		  "type" : "object",
+		  "properties" : {
+			"name" : {
+			  "type" : "string"
+			},
+			"inherit-error-handler" : {
+			  "type" : "boolean"
+			}
+		  },
+		  "anyOf" : [ {
+			"properties" : {
+			  "constant" : {
+				"$ref" : "#/items/definitions/expression-constant"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "exchange-property" : {
+				"$ref" : "#/items/definitions/expression-exchange-property"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "groovy" : {
+				"$ref" : "#/items/definitions/expression-groovy"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "header" : {
+				"$ref" : "#/items/definitions/expression-header"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "hl7terser" : {
+				"$ref" : "#/items/definitions/expression-hl7terser"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "jsonpath" : {
+				"$ref" : "#/items/definitions/expression-jsonpath"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "language" : {
+				"$ref" : "#/items/definitions/expression-language"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "method" : {
+				"$ref" : "#/items/definitions/expression-method"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "mvel" : {
+				"$ref" : "#/items/definitions/expression-mvel"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ognl" : {
+				"$ref" : "#/items/definitions/expression-ognl"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ref" : {
+				"$ref" : "#/items/definitions/expression-ref"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "simple" : {
+				"$ref" : "#/items/definitions/expression-simple"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "spel" : {
+				"$ref" : "#/items/definitions/expression-spel"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "tokenize" : {
+				"$ref" : "#/items/definitions/expression-tokenize"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xpath" : {
+				"$ref" : "#/items/definitions/expression-xpath"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xquery" : {
+				"$ref" : "#/items/definitions/expression-xquery"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xtokenize" : {
+				"$ref" : "#/items/definitions/expression-xtokenize"
+			  }
+			}
+		  } ]
+		},
+		"org.apache.camel.k.loader.yaml.parser.SetPropertyStepParser$Definition" : {
+		  "type" : "object",
+		  "properties" : {
+			"name" : {
+			  "type" : "string"
+			},
+			"inherit-error-handler" : {
+			  "type" : "boolean"
+			}
+		  },
+		  "anyOf" : [ {
+			"properties" : {
+			  "constant" : {
+				"$ref" : "#/items/definitions/expression-constant"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "exchange-property" : {
+				"$ref" : "#/items/definitions/expression-exchange-property"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "groovy" : {
+				"$ref" : "#/items/definitions/expression-groovy"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "header" : {
+				"$ref" : "#/items/definitions/expression-header"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "hl7terser" : {
+				"$ref" : "#/items/definitions/expression-hl7terser"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "jsonpath" : {
+				"$ref" : "#/items/definitions/expression-jsonpath"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "language" : {
+				"$ref" : "#/items/definitions/expression-language"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "method" : {
+				"$ref" : "#/items/definitions/expression-method"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "mvel" : {
+				"$ref" : "#/items/definitions/expression-mvel"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ognl" : {
+				"$ref" : "#/items/definitions/expression-ognl"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ref" : {
+				"$ref" : "#/items/definitions/expression-ref"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "simple" : {
+				"$ref" : "#/items/definitions/expression-simple"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "spel" : {
+				"$ref" : "#/items/definitions/expression-spel"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "tokenize" : {
+				"$ref" : "#/items/definitions/expression-tokenize"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xpath" : {
+				"$ref" : "#/items/definitions/expression-xpath"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xquery" : {
+				"$ref" : "#/items/definitions/expression-xquery"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xtokenize" : {
+				"$ref" : "#/items/definitions/expression-xtokenize"
+			  }
+			}
+		  } ]
+		},
+		"org.apache.camel.k.loader.yaml.parser.SortStepParser$Definition" : {
+		  "type" : "object",
+		  "properties" : {
+			"comparator-ref" : {
+			  "type" : "string"
+			},
+			"inherit-error-handler" : {
+			  "type" : "boolean"
+			}
+		  },
+		  "anyOf" : [ {
+			"properties" : {
+			  "constant" : {
+				"$ref" : "#/items/definitions/expression-constant"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "exchange-property" : {
+				"$ref" : "#/items/definitions/expression-exchange-property"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "groovy" : {
+				"$ref" : "#/items/definitions/expression-groovy"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "header" : {
+				"$ref" : "#/items/definitions/expression-header"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "hl7terser" : {
+				"$ref" : "#/items/definitions/expression-hl7terser"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "jsonpath" : {
+				"$ref" : "#/items/definitions/expression-jsonpath"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "language" : {
+				"$ref" : "#/items/definitions/expression-language"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "method" : {
+				"$ref" : "#/items/definitions/expression-method"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "mvel" : {
+				"$ref" : "#/items/definitions/expression-mvel"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ognl" : {
+				"$ref" : "#/items/definitions/expression-ognl"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ref" : {
+				"$ref" : "#/items/definitions/expression-ref"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "simple" : {
+				"$ref" : "#/items/definitions/expression-simple"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "spel" : {
+				"$ref" : "#/items/definitions/expression-spel"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "tokenize" : {
+				"$ref" : "#/items/definitions/expression-tokenize"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xpath" : {
+				"$ref" : "#/items/definitions/expression-xpath"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xquery" : {
+				"$ref" : "#/items/definitions/expression-xquery"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xtokenize" : {
+				"$ref" : "#/items/definitions/expression-xtokenize"
+			  }
+			}
+		  } ]
+		},
+		"org.apache.camel.k.loader.yaml.parser.SplitStepParser$Definition" : {
+		  "type" : "object",
+		  "properties" : {
+			"steps" : {
+			  "type" : "array",
+			  "items" : {
+				"$ref" : "#/items/definitions/step"
+			  }
+			},
+			"executor-service-ref" : {
+			  "type" : "string"
+			},
+			"on-prepare-ref" : {
+			  "type" : "string"
+			},
+			"parallel-aggregate" : {
+			  "type" : "string"
+			},
+			"parallel-processing" : {
+			  "type" : "string"
+			},
+			"share-unit-of-work" : {
+			  "type" : "string"
+			},
+			"stop-on-aggregate-exception" : {
+			  "type" : "string"
+			},
+			"stop-on-exception" : {
+			  "type" : "string"
+			},
+			"strategy-method-allow-null" : {
+			  "type" : "string"
+			},
+			"strategy-method-name" : {
+			  "type" : "string"
+			},
+			"strategy-ref" : {
+			  "type" : "string"
+			},
+			"streaming" : {
+			  "type" : "string"
+			},
+			"timeout" : {
+			  "type" : "string"
+			},
+			"inherit-error-handler" : {
+			  "type" : "boolean"
+			}
+		  },
+		  "anyOf" : [ {
+			"properties" : {
+			  "constant" : {
+				"$ref" : "#/items/definitions/expression-constant"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "exchange-property" : {
+				"$ref" : "#/items/definitions/expression-exchange-property"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "groovy" : {
+				"$ref" : "#/items/definitions/expression-groovy"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "header" : {
+				"$ref" : "#/items/definitions/expression-header"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "hl7terser" : {
+				"$ref" : "#/items/definitions/expression-hl7terser"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "jsonpath" : {
+				"$ref" : "#/items/definitions/expression-jsonpath"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "language" : {
+				"$ref" : "#/items/definitions/expression-language"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "method" : {
+				"$ref" : "#/items/definitions/expression-method"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "mvel" : {
+				"$ref" : "#/items/definitions/expression-mvel"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ognl" : {
+				"$ref" : "#/items/definitions/expression-ognl"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ref" : {
+				"$ref" : "#/items/definitions/expression-ref"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "simple" : {
+				"$ref" : "#/items/definitions/expression-simple"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "spel" : {
+				"$ref" : "#/items/definitions/expression-spel"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "tokenize" : {
+				"$ref" : "#/items/definitions/expression-tokenize"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xpath" : {
+				"$ref" : "#/items/definitions/expression-xpath"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xquery" : {
+				"$ref" : "#/items/definitions/expression-xquery"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xtokenize" : {
+				"$ref" : "#/items/definitions/expression-xtokenize"
+			  }
+			}
+		  } ]
+		},
+		"org.apache.camel.k.loader.yaml.parser.StepStepParser$Definition" : {
+		  "type" : "object",
+		  "properties" : {
+			"steps" : {
+			  "type" : "array",
+			  "items" : {
+				"$ref" : "#/items/definitions/step"
+			  }
+			}
+		  }
+		},
+		"org.apache.camel.k.loader.yaml.parser.ThrottleStepParser$Definition" : {
+		  "type" : "object",
+		  "properties" : {
+			"async-delayed" : {
+			  "type" : "string"
+			},
+			"caller-runs-when-rejected" : {
+			  "type" : "string"
+			},
+			"executor-service-ref" : {
+			  "type" : "string"
+			},
+			"reject-execution" : {
+			  "type" : "string"
+			},
+			"time-period-millis" : {
+			  "type" : "string"
+			},
+			"inherit-error-handler" : {
+			  "type" : "boolean"
+			}
+		  },
+		  "anyOf" : [ {
+			"properties" : {
+			  "constant" : {
+				"$ref" : "#/items/definitions/expression-constant"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "exchange-property" : {
+				"$ref" : "#/items/definitions/expression-exchange-property"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "groovy" : {
+				"$ref" : "#/items/definitions/expression-groovy"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "header" : {
+				"$ref" : "#/items/definitions/expression-header"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "hl7terser" : {
+				"$ref" : "#/items/definitions/expression-hl7terser"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "jsonpath" : {
+				"$ref" : "#/items/definitions/expression-jsonpath"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "language" : {
+				"$ref" : "#/items/definitions/expression-language"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "method" : {
+				"$ref" : "#/items/definitions/expression-method"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "mvel" : {
+				"$ref" : "#/items/definitions/expression-mvel"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ognl" : {
+				"$ref" : "#/items/definitions/expression-ognl"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ref" : {
+				"$ref" : "#/items/definitions/expression-ref"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "simple" : {
+				"$ref" : "#/items/definitions/expression-simple"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "spel" : {
+				"$ref" : "#/items/definitions/expression-spel"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "tokenize" : {
+				"$ref" : "#/items/definitions/expression-tokenize"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xpath" : {
+				"$ref" : "#/items/definitions/expression-xpath"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xquery" : {
+				"$ref" : "#/items/definitions/expression-xquery"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xtokenize" : {
+				"$ref" : "#/items/definitions/expression-xtokenize"
+			  }
+			}
+		  } ]
+		},
+		"org.apache.camel.k.loader.yaml.parser.ThrowExceptionStepParser$Definition" : {
+		  "type" : "object",
+		  "properties" : {
+			"exception-type" : {
+			  "type" : "string"
+			},
+			"message" : {
+			  "type" : "string"
+			},
+			"ref" : {
+			  "type" : "string"
+			},
+			"inherit-error-handler" : {
+			  "type" : "boolean"
+			}
+		  }
+		},
+		"org.apache.camel.k.loader.yaml.parser.ToDynamicStepParser$Definition" : {
+		  "anyOf" : [ {
+			"type" : "string"
+		  }, {
+			"type" : "object",
+			"properties" : {
+			  "parameters" : {
+				"type" : "object"
+			  },
+			  "allow-optimised-components" : {
+				"type" : "string"
+			  },
+			  "auto-start-components" : {
+				"type" : "string"
+			  },
+			  "cache-size" : {
+				"type" : "string"
+			  },
+			  "ignore-invalid-endpoint" : {
+				"type" : "string"
+			  },
+			  "pattern" : {
+				"type" : "string",
+				"enum" : [ "InOnly", "InOut", "InOptionalOut" ]
+			  },
+			  "uri" : {
+				"type" : "string"
+			  },
+			  "inherit-error-handler" : {
+				"type" : "boolean"
+			  }
+			},
+			"required" : [ "uri" ]
+		  } ]
+		},
+		"org.apache.camel.k.loader.yaml.parser.ToStepParser$Definition" : {
+		  "anyOf" : [ {
+			"type" : "string"
+		  }, {
+			"type" : "object",
+			"properties" : {
+			  "parameters" : {
+				"type" : "object"
+			  },
+			  "pattern" : {
+				"type" : "string",
+				"enum" : [ "InOnly", "InOut", "InOptionalOut" ]
+			  },
+			  "uri" : {
+				"type" : "string"
+			  },
+			  "inherit-error-handler" : {
+				"type" : "boolean"
+			  }
+			},
+			"required" : [ "uri" ]
+		  } ]
+		},
+		"org.apache.camel.k.loader.yaml.parser.TransactedStepParser$Definition" : {
+		  "type" : "object",
+		  "properties" : {
+			"ref" : {
+			  "type" : "string"
+			},
+			"inherit-error-handler" : {
+			  "type" : "boolean"
+			}
+		  }
+		},
+		"org.apache.camel.k.loader.yaml.parser.TransformStepParser$Definition" : {
+		  "type" : "object",
+		  "properties" : {
+			"inherit-error-handler" : {
+			  "type" : "boolean"
+			}
+		  },
+		  "anyOf" : [ {
+			"properties" : {
+			  "constant" : {
+				"$ref" : "#/items/definitions/expression-constant"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "exchange-property" : {
+				"$ref" : "#/items/definitions/expression-exchange-property"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "groovy" : {
+				"$ref" : "#/items/definitions/expression-groovy"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "header" : {
+				"$ref" : "#/items/definitions/expression-header"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "hl7terser" : {
+				"$ref" : "#/items/definitions/expression-hl7terser"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "jsonpath" : {
+				"$ref" : "#/items/definitions/expression-jsonpath"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "language" : {
+				"$ref" : "#/items/definitions/expression-language"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "method" : {
+				"$ref" : "#/items/definitions/expression-method"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "mvel" : {
+				"$ref" : "#/items/definitions/expression-mvel"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ognl" : {
+				"$ref" : "#/items/definitions/expression-ognl"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ref" : {
+				"$ref" : "#/items/definitions/expression-ref"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "simple" : {
+				"$ref" : "#/items/definitions/expression-simple"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "spel" : {
+				"$ref" : "#/items/definitions/expression-spel"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "tokenize" : {
+				"$ref" : "#/items/definitions/expression-tokenize"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xpath" : {
+				"$ref" : "#/items/definitions/expression-xpath"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xquery" : {
+				"$ref" : "#/items/definitions/expression-xquery"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xtokenize" : {
+				"$ref" : "#/items/definitions/expression-xtokenize"
+			  }
+			}
+		  } ]
+		},
+		"org.apache.camel.k.loader.yaml.parser.UnmarshalStepParser$Definition" : {
+		  "type" : "object",
+		  "properties" : {
+			"inherit-error-handler" : {
+			  "type" : "boolean"
+			}
+		  },
+		  "anyOf" : [ {
+			"properties" : {
+			  "any23" : {
+				"$ref" : "#/items/definitions/dataformat-any23"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "asn1" : {
+				"$ref" : "#/items/definitions/dataformat-asn1"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "avro" : {
+				"$ref" : "#/items/definitions/dataformat-avro"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "barcode" : {
+				"$ref" : "#/items/definitions/dataformat-barcode"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "base64" : {
+				"$ref" : "#/items/definitions/dataformat-base64"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "beanio" : {
+				"$ref" : "#/items/definitions/dataformat-beanio"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "bindy" : {
+				"$ref" : "#/items/definitions/dataformat-bindy"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "cbor" : {
+				"$ref" : "#/items/definitions/dataformat-cbor"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "crypto" : {
+				"$ref" : "#/items/definitions/dataformat-crypto"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "csv" : {
+				"$ref" : "#/items/definitions/dataformat-csv"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "custom-data-format" : {
+				"$ref" : "#/items/definitions/dataformat-custom-data-format"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "fhir-json" : {
+				"$ref" : "#/items/definitions/dataformat-fhir-json"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "fhir-xml" : {
+				"$ref" : "#/items/definitions/dataformat-fhir-xml"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "flatpack" : {
+				"$ref" : "#/items/definitions/dataformat-flatpack"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "grok" : {
+				"$ref" : "#/items/definitions/dataformat-grok"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "gzipdeflater" : {
+				"$ref" : "#/items/definitions/dataformat-gzipdeflater"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "hl7" : {
+				"$ref" : "#/items/definitions/dataformat-hl7"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ical" : {
+				"$ref" : "#/items/definitions/dataformat-ical"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "jacksonxml" : {
+				"$ref" : "#/items/definitions/dataformat-jacksonxml"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "jaxb" : {
+				"$ref" : "#/items/definitions/dataformat-jaxb"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "json" : {
+				"$ref" : "#/items/definitions/dataformat-json"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "json-api" : {
+				"$ref" : "#/items/definitions/dataformat-json-api"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "lzf" : {
+				"$ref" : "#/items/definitions/dataformat-lzf"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "mime-multipart" : {
+				"$ref" : "#/items/definitions/dataformat-mime-multipart"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "pgp" : {
+				"$ref" : "#/items/definitions/dataformat-pgp"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "protobuf" : {
+				"$ref" : "#/items/definitions/dataformat-protobuf"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "rss" : {
+				"$ref" : "#/items/definitions/dataformat-rss"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "secure-xml" : {
+				"$ref" : "#/items/definitions/dataformat-secure-xml"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "soapjaxb" : {
+				"$ref" : "#/items/definitions/dataformat-soapjaxb"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "syslog" : {
+				"$ref" : "#/items/definitions/dataformat-syslog"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "tarfile" : {
+				"$ref" : "#/items/definitions/dataformat-tarfile"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "thrift" : {
+				"$ref" : "#/items/definitions/dataformat-thrift"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "tidy-markup" : {
+				"$ref" : "#/items/definitions/dataformat-tidy-markup"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "univocity-csv" : {
+				"$ref" : "#/items/definitions/dataformat-univocity-csv"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "univocity-fixed" : {
+				"$ref" : "#/items/definitions/dataformat-univocity-fixed"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "univocity-tsv" : {
+				"$ref" : "#/items/definitions/dataformat-univocity-tsv"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xmlrpc" : {
+				"$ref" : "#/items/definitions/dataformat-xmlrpc"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xstream" : {
+				"$ref" : "#/items/definitions/dataformat-xstream"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "yaml" : {
+				"$ref" : "#/items/definitions/dataformat-yaml"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "zipdeflater" : {
+				"$ref" : "#/items/definitions/dataformat-zipdeflater"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "zipfile" : {
+				"$ref" : "#/items/definitions/dataformat-zipfile"
+			  }
+			}
+		  } ]
+		},
+		"org.apache.camel.k.loader.yaml.parser.ValidateStepParser$Definition" : {
+		  "type" : "object",
+		  "properties" : {
+			"inherit-error-handler" : {
+			  "type" : "boolean"
+			}
+		  },
+		  "anyOf" : [ {
+			"properties" : {
+			  "constant" : {
+				"$ref" : "#/items/definitions/expression-constant"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "exchange-property" : {
+				"$ref" : "#/items/definitions/expression-exchange-property"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "groovy" : {
+				"$ref" : "#/items/definitions/expression-groovy"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "header" : {
+				"$ref" : "#/items/definitions/expression-header"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "hl7terser" : {
+				"$ref" : "#/items/definitions/expression-hl7terser"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "jsonpath" : {
+				"$ref" : "#/items/definitions/expression-jsonpath"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "language" : {
+				"$ref" : "#/items/definitions/expression-language"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "method" : {
+				"$ref" : "#/items/definitions/expression-method"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "mvel" : {
+				"$ref" : "#/items/definitions/expression-mvel"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ognl" : {
+				"$ref" : "#/items/definitions/expression-ognl"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ref" : {
+				"$ref" : "#/items/definitions/expression-ref"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "simple" : {
+				"$ref" : "#/items/definitions/expression-simple"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "spel" : {
+				"$ref" : "#/items/definitions/expression-spel"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "tokenize" : {
+				"$ref" : "#/items/definitions/expression-tokenize"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xpath" : {
+				"$ref" : "#/items/definitions/expression-xpath"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xquery" : {
+				"$ref" : "#/items/definitions/expression-xquery"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xtokenize" : {
+				"$ref" : "#/items/definitions/expression-xtokenize"
+			  }
+			}
+		  } ]
+		},
+		"org.apache.camel.k.loader.yaml.parser.WireTapStepParser$Definition" : {
+		  "type" : "object",
+		  "properties" : {
+			"allow-optimised-components" : {
+			  "type" : "string"
+			},
+			"auto-start-components" : {
+			  "type" : "string"
+			},
+			"cache-size" : {
+			  "type" : "string"
+			},
+			"ignore-invalid-endpoint" : {
+			  "type" : "string"
+			},
+			"pattern" : {
+			  "type" : "string",
+			  "enum" : [ "InOnly", "InOut", "InOptionalOut" ]
+			},
+			"uri" : {
+			  "type" : "string"
+			},
+			"inherit-error-handler" : {
+			  "type" : "boolean"
+			}
+		  },
+		  "required" : [ "uri" ]
+		},
+		"org.apache.camel.k.loader.yaml.parser.WireTapStepParser$HeaderDefinition" : {
+		  "type" : "object",
+		  "properties" : {
+			"name" : {
+			  "type" : "string"
+			},
+			"inherit-error-handler" : {
+			  "type" : "boolean"
+			}
+		  },
+		  "anyOf" : [ {
+			"properties" : {
+			  "constant" : {
+				"$ref" : "#/items/definitions/expression-constant"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "exchange-property" : {
+				"$ref" : "#/items/definitions/expression-exchange-property"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "groovy" : {
+				"$ref" : "#/items/definitions/expression-groovy"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "header" : {
+				"$ref" : "#/items/definitions/expression-header"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "hl7terser" : {
+				"$ref" : "#/items/definitions/expression-hl7terser"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "jsonpath" : {
+				"$ref" : "#/items/definitions/expression-jsonpath"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "language" : {
+				"$ref" : "#/items/definitions/expression-language"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "method" : {
+				"$ref" : "#/items/definitions/expression-method"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "mvel" : {
+				"$ref" : "#/items/definitions/expression-mvel"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ognl" : {
+				"$ref" : "#/items/definitions/expression-ognl"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ref" : {
+				"$ref" : "#/items/definitions/expression-ref"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "simple" : {
+				"$ref" : "#/items/definitions/expression-simple"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "spel" : {
+				"$ref" : "#/items/definitions/expression-spel"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "tokenize" : {
+				"$ref" : "#/items/definitions/expression-tokenize"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xpath" : {
+				"$ref" : "#/items/definitions/expression-xpath"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xquery" : {
+				"$ref" : "#/items/definitions/expression-xquery"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xtokenize" : {
+				"$ref" : "#/items/definitions/expression-xtokenize"
+			  }
+			}
+		  } ]
+		},
+		"org.apache.camel.k.loader.yaml.parser.WireTapStepParser$NewExchangeDefinition" : {
+		  "type" : "object",
+		  "anyOf" : [ {
+			"properties" : {
+			  "constant" : {
+				"$ref" : "#/items/definitions/expression-constant"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "exchange-property" : {
+				"$ref" : "#/items/definitions/expression-exchange-property"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "groovy" : {
+				"$ref" : "#/items/definitions/expression-groovy"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "header" : {
+				"$ref" : "#/items/definitions/expression-header"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "hl7terser" : {
+				"$ref" : "#/items/definitions/expression-hl7terser"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "jsonpath" : {
+				"$ref" : "#/items/definitions/expression-jsonpath"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "language" : {
+				"$ref" : "#/items/definitions/expression-language"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "method" : {
+				"$ref" : "#/items/definitions/expression-method"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "mvel" : {
+				"$ref" : "#/items/definitions/expression-mvel"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ognl" : {
+				"$ref" : "#/items/definitions/expression-ognl"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "ref" : {
+				"$ref" : "#/items/definitions/expression-ref"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "simple" : {
+				"$ref" : "#/items/definitions/expression-simple"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "spel" : {
+				"$ref" : "#/items/definitions/expression-spel"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "tokenize" : {
+				"$ref" : "#/items/definitions/expression-tokenize"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xpath" : {
+				"$ref" : "#/items/definitions/expression-xpath"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xquery" : {
+				"$ref" : "#/items/definitions/expression-xquery"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "xtokenize" : {
+				"$ref" : "#/items/definitions/expression-xtokenize"
+			  }
+			}
+		  } ]
+		},
+		"step" : {
+		  "type" : "object",
+		  "anyOf" : [ {
+			"properties" : {
+			  "aggregate" : {
+				"$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.AggregateStepParser$Definition"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "choice" : {
+				"$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.ChoiceStepParser$Definition"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "circuit-breaker" : {
+				"$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.CircuitBreakerStepParser$CBDefinition"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "delay" : {
+				"$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.DelayStepParser$Definition"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "do-try" : {
+				"$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.DoTryStepParser$DoTryDefinition"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "dynamic-router" : {
+				"$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.DynamicRouterStepParser$Definition"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "enrich" : {
+				"$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.EnrichStepParser$Definition"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "error-handler" : {
+				"$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.ErrorHandlerStepParser$Definition"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "filter" : {
+				"$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.FilterStepParser$Definition"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "idempotent-consumer" : {
+				"$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.IdempotentConsumerParser$Definition"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "load-balance" : {
+				"$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.LoadBalanceStepParser$Definition"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "loop" : {
+				"$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.LoopStepParser$Definition"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "marshal" : {
+				"$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.MarshalStepParser$Definition"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "multicast" : {
+				"$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.MulticastStepParser$Definition"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "on-exception" : {
+				"$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.OnExceptionStepParser$Definition"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "pipeline" : {
+				"$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.PipelineStepParser$Definition"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "poll-enrich" : {
+				"$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.PollEnrichStepParser$Definition"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "process" : {
+				"$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.ProcessStepParser$Definition"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "recipient-list" : {
+				"$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.RecipientListStepParser$Definition"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "resequence" : {
+				"$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.ResequenceStepParser$Definition"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "routing-slip" : {
+				"$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.RoutingSlipStepParser$Definition"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "saga" : {
+				"$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.SagaStepParser$Definition"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "sample" : {
+				"$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.SampleStepParser$Definition"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "script" : {
+				"$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.ScriptStepParser$Definition"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "service-call" : {
+				"$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.ServiceCallStepParser$Definition"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "set-body" : {
+				"$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.SetBodyStepParser$Definition"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "set-exchange-pattern" : {
+				"$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.SetExchangePatternStepParser$Definition"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "set-header" : {
+				"$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.SetHeaderStepParser$Definition"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "set-property" : {
+				"$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.SetPropertyStepParser$Definition"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "sort" : {
+				"$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.SortStepParser$Definition"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "split" : {
+				"$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.SplitStepParser$Definition"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "step" : {
+				"$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.StepStepParser$Definition"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "throttle" : {
+				"$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.ThrottleStepParser$Definition"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "throw-exception" : {
+				"$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.ThrowExceptionStepParser$Definition"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "tod" : {
+				"$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.ToDynamicStepParser$Definition"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "to" : {
+				"$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.ToStepParser$Definition"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "transacted" : {
+				"$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.TransactedStepParser$Definition"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "transform" : {
+				"$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.TransformStepParser$Definition"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "unmarshal" : {
+				"$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.UnmarshalStepParser$Definition"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "validate" : {
+				"$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.ValidateStepParser$Definition"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "wiretap" : {
+				"$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.WireTapStepParser$Definition"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "to-d" : {
+				"$ref" : "#/items/definitions/org.apache.camel.model.ToDynamicDefinition"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "rollback" : {
+				"$ref" : "#/items/definitions/org.apache.camel.model.RollbackDefinition"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "remove-property" : {
+				"$ref" : "#/items/definitions/org.apache.camel.model.RemovePropertyDefinition"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "remove-header" : {
+				"$ref" : "#/items/definitions/org.apache.camel.model.RemoveHeaderDefinition"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "claim-check" : {
+				"$ref" : "#/items/definitions/org.apache.camel.model.ClaimCheckDefinition"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "convert-body-to" : {
+				"$ref" : "#/items/definitions/org.apache.camel.model.ConvertBodyDefinition"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "bean" : {
+				"$ref" : "#/items/definitions/org.apache.camel.model.BeanDefinition"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "remove-headers" : {
+				"$ref" : "#/items/definitions/org.apache.camel.model.RemoveHeadersDefinition"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "stop" : {
+				"$ref" : "#/items/definitions/org.apache.camel.model.StopDefinition"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "remove-properties" : {
+				"$ref" : "#/items/definitions/org.apache.camel.model.RemovePropertiesDefinition"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "log" : {
+				"$ref" : "#/items/definitions/org.apache.camel.model.LogDefinition"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "threads" : {
+				"$ref" : "#/items/definitions/org.apache.camel.model.ThreadsDefinition"
+			  }
+			}
+		  }, {
+			"properties" : {
+			  "wire-tap" : {
+				"$ref" : "#/items/definitions/org.apache.camel.model.WireTapDefinition"
+			  }
+			}
+		  } ]
+		},
+		"org.apache.camel.model.ToDynamicDefinition" : {
+		  "anyOf" : [ {
+			"type" : "string"
+		  }, {
+			"type" : "object",
+			"properties" : {
+			  "allow-optimised-components" : {
+				"type" : "string"
+			  },
+			  "auto-start-components" : {
+				"type" : "string"
+			  },
+			  "cache-size" : {
+				"type" : "string"
+			  },
+			  "ignore-invalid-endpoint" : {
+				"type" : "string"
+			  },
+			  "pattern" : {
+				"type" : "string",
+				"enum" : [ "InOnly", "InOut", "InOptionalOut" ]
+			  },
+			  "uri" : {
+				"type" : "string"
+			  },
+			  "inherit-error-handler" : {
+				"type" : "boolean"
+			  }
+			},
+			"required" : [ "uri" ]
+		  } ]
+		},
+		"org.apache.camel.model.RollbackDefinition" : {
+		  "anyOf" : [ {
+			"type" : "string"
+		  }, {
+			"type" : "object",
+			"properties" : {
+			  "mark-rollback-only" : {
+				"type" : "string"
+			  },
+			  "mark-rollback-only-last" : {
+				"type" : "string"
+			  },
+			  "message" : {
+				"type" : "string"
+			  },
+			  "inherit-error-handler" : {
+				"type" : "boolean"
+			  }
+			}
+		  } ]
+		},
+		"org.apache.camel.model.RemovePropertyDefinition" : {
+		  "anyOf" : [ {
+			"type" : "string"
+		  }, {
+			"type" : "object",
+			"properties" : {
+			  "property-name" : {
+				"type" : "string"
+			  },
+			  "inherit-error-handler" : {
+				"type" : "boolean"
+			  }
+			}
+		  } ]
+		},
+		"org.apache.camel.model.RemoveHeaderDefinition" : {
+		  "anyOf" : [ {
+			"type" : "string"
+		  }, {
+			"type" : "object",
+			"properties" : {
+			  "header-name" : {
+				"type" : "string"
+			  },
+			  "inherit-error-handler" : {
+				"type" : "boolean"
+			  }
+			}
+		  } ]
+		},
+		"org.apache.camel.model.ClaimCheckDefinition" : {
+		  "type" : "object",
+		  "properties" : {
+			"strategy-method-name" : {
+			  "type" : "string"
+			},
+			"strategy-ref" : {
+			  "type" : "string"
+			},
+			"filter" : {
+			  "type" : "string"
+			},
+			"key" : {
+			  "type" : "string"
+			},
+			"operation" : {
+			  "type" : "string",
+			  "enum" : [ "Get", "GetAndRemove", "Set", "Push", "Pop" ]
+			},
+			"inherit-error-handler" : {
+			  "type" : "boolean"
+			}
+		  }
+		},
+		"org.apache.camel.model.ConvertBodyDefinition" : {
+		  "anyOf" : [ {
+			"type" : "string"
+		  }, {
+			"type" : "object",
+			"properties" : {
+			  "charset" : {
+				"type" : "string"
+			  },
+			  "type" : {
+				"type" : "string"
+			  },
+			  "inherit-error-handler" : {
+				"type" : "boolean"
+			  }
+			}
+		  } ]
+		},
+		"org.apache.camel.model.BeanDefinition" : {
+		  "anyOf" : [ {
+			"type" : "string"
+		  }, {
+			"type" : "object",
+			"properties" : {
+			  "bean-type" : {
+				"type" : "string"
+			  },
+			  "cache" : {
+				"type" : "string"
+			  },
+			  "method" : {
+				"type" : "string"
+			  },
+			  "ref" : {
+				"type" : "string"
+			  },
+			  "scope" : {
+				"type" : "string",
+				"enum" : [ "Singleton", "Request", "Prototype" ]
+			  },
+			  "inherit-error-handler" : {
+				"type" : "boolean"
+			  }
+			}
+		  } ]
+		},
+		"org.apache.camel.model.RemoveHeadersDefinition" : {
+		  "anyOf" : [ {
+			"type" : "string"
+		  }, {
+			"type" : "object",
+			"properties" : {
+			  "exclude-pattern" : {
+				"type" : "string"
+			  },
+			  "pattern" : {
+				"type" : "string"
+			  },
+			  "inherit-error-handler" : {
+				"type" : "boolean"
+			  }
+			}
+		  } ]
+		},
+		"org.apache.camel.model.StopDefinition" : {
+		  "type" : "object",
+		  "properties" : {
+			"inherit-error-handler" : {
+			  "type" : "boolean"
+			}
+		  }
+		},
+		"org.apache.camel.model.RemovePropertiesDefinition" : {
+		  "anyOf" : [ {
+			"type" : "string"
+		  }, {
+			"type" : "object",
+			"properties" : {
+			  "exclude-pattern" : {
+				"type" : "string"
+			  },
+			  "pattern" : {
+				"type" : "string"
+			  },
+			  "inherit-error-handler" : {
+				"type" : "boolean"
+			  }
+			}
+		  } ]
+		},
+		"org.apache.camel.model.LogDefinition" : {
+		  "anyOf" : [ {
+			"type" : "string"
+		  }, {
+			"type" : "object",
+			"properties" : {
+			  "log-name" : {
+				"type" : "string"
+			  },
+			  "logger-ref" : {
+				"type" : "string"
+			  },
+			  "logging-level" : {
+				"type" : "string",
+				"enum" : [ "TRACE", "DEBUG", "INFO", "WARN", "ERROR", "OFF" ]
+			  },
+			  "marker" : {
+				"type" : "string"
+			  },
+			  "message" : {
+				"type" : "string"
+			  },
+			  "inherit-error-handler" : {
+				"type" : "boolean"
+			  }
+			}
+		  } ]
+		},
+		"org.apache.camel.model.ThreadsDefinition" : {
+		  "type" : "object",
+		  "properties" : {
+			"allow-core-thread-time-out" : {
+			  "type" : "string"
+			},
+			"caller-runs-when-rejected" : {
+			  "type" : "string"
+			},
+			"executor-service-ref" : {
+			  "type" : "string"
+			},
+			"keep-alive-time" : {
+			  "type" : "string"
+			},
+			"max-pool-size" : {
+			  "type" : "string"
+			},
+			"max-queue-size" : {
+			  "type" : "string"
+			},
+			"pool-size" : {
+			  "type" : "string"
+			},
+			"rejected-policy" : {
+			  "type" : "string",
+			  "enum" : [ "Abort", "CallerRuns", "DiscardOldest", "Discard" ]
+			},
+			"thread-name" : {
+			  "type" : "string"
+			},
+			"time-unit" : {
+			  "type" : "string",
+			  "enum" : [ "NANOSECONDS", "MICROSECONDS", "MILLISECONDS", "SECONDS", "MINUTES", "HOURS", "DAYS" ]
+			},
+			"inherit-error-handler" : {
+			  "type" : "boolean"
+			}
+		  }
+		},
+		"org.apache.camel.model.WireTapDefinition" : {
+		  "type" : "object",
+		  "properties" : {
+			"copy" : {
+			  "type" : "string"
+			},
+			"dynamic-uri" : {
+			  "type" : "string"
+			},
+			"executor-service-ref" : {
+			  "type" : "string"
+			},
+			"processor-ref" : {
+			  "type" : "string"
+			},
+			"on-prepare-ref" : {
+			  "type" : "string"
+			},
+			"allow-optimised-components" : {
+			  "type" : "string"
+			},
+			"auto-start-components" : {
+			  "type" : "string"
+			},
+			"cache-size" : {
+			  "type" : "string"
+			},
+			"ignore-invalid-endpoint" : {
+			  "type" : "string"
+			},
+			"pattern" : {
+			  "type" : "string",
+			  "enum" : [ "InOnly", "InOut", "InOptionalOut" ]
+			},
+			"uri" : {
+			  "type" : "string"
+			},
+			"inherit-error-handler" : {
+			  "type" : "boolean"
+			}
+		  },
+		  "required" : [ "uri" ]
+		}
+	  },
+	  "anyOf" : [ {
+		"properties" : {
+		  "error-handler" : {
+			"$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.ErrorHandlerStepParser$Definition"
+		  }
+		}
+	  }, {
+		"properties" : {
+		  "from" : {
+			"$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.FromStepParser$Definition"
+		  }
+		}
+	  }, {
+		"properties" : {
+		  "on-exception" : {
+			"$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.OnExceptionStepParser$Definition"
+		  }
+		}
+	  }, {
+		"properties" : {
+		  "rest" : {
+			"$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.RestStepParser$Definition"
+		  }
+		}
+	  }, {
+		"properties" : {
+		  "route" : {
+			"$ref" : "#/items/definitions/org.apache.camel.k.loader.yaml.parser.RouteStepParser$Definition"
+		  }
+		}
+	  } ]
+	}
+  }
