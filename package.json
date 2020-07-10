@@ -157,17 +157,18 @@
   "scripts": {
     "vscode:prepublish": "tsc -p ./",
     "compile": "tsc -watch -p ./",
-    "update-vscode": "node ./node_modules/vscode/bin/install",
-    "postinstall": "node ./node_modules/vscode/bin/install",
     "test": "sh scripts/e2e.sh"
   },
   "devDependencies": {
-    "@types/mocha": "^2.2.33",
+    "@types/mocha": "^2.2.48",
     "@types/node": "^6.0.52",
+    "@types/vscode": "^1.31.0",
     "eslint-plugin-prettier": "^3.1.3",
+    "mocha": "^8.0.1",
     "ts-node": "^3.3.0",
     "typescript": "3.5.1",
-    "vscode": "^1.1.34"
+    "vscode-test": "^1.4.0",
+    "glob": "^7.1.6"
   },
   "dependencies": {
     "vscode-languageclient": "5.2.1",

@@ -4,8 +4,9 @@
  * ------------------------------------------------------------------------------------------ */
 
 import * as vscode from 'vscode';
-import { getDocUri, activate, testCompletion, updateSettings, testCompletionNotEmpty, resetSettings } from './helper';
-
+import { getDocUri, activate, testCompletion, updateSettings, testCompletionNotEmpty, resetSettings, sleep } from './helper';
+const fs = require('fs');
+const path = require('path');
 
 describe('Completion should work in multiple different scenarios', () => {
     const docUri = getDocUri('completion/completion.yaml');
@@ -18,8 +19,9 @@ describe('Completion should work in multiple different scenarios', () => {
 
     it('completion works with local schema', async () => {
         await activate(docUri);
+        const schemaPath = path.join(__dirname, '..', '..', 'test', 'testFixture', 'schemas', 'basic_completion_schema.json')
         await updateSettings("schemas", {
-            "./schemas/basic_completion_schema.json": "completion.yaml"
+            [schemaPath]: "completion.yaml"
         });
 		await testCompletion(docUri, new vscode.Position(0, 0), {
 			items: [
