@@ -1,9 +1,9 @@
 #!/usr/bin/env groovy
 
 def installBuildRequirements(){
-	def nodeHome = tool 'nodejs-7.7.4'
+	def nodeHome = tool 'nodejs-10.9.0'
 	env.PATH="${env.PATH}:${nodeHome}/bin"
-	sh "npm install -g typescript@3.0.0-dev.20180626"
+	sh "npm install -g typescript"
 	sh "npm install -g vsce"
 }
 
@@ -12,7 +12,7 @@ def buildVscodeExtension(){
 	sh "npm run vscode:prepublish"
 }
 
-node('rhel7'){
+node('rhel8'){
 
 	stage 'Checkout vscode-yaml code'
 	deleteDir()
@@ -40,7 +40,7 @@ node('rhel7'){
 	stash name:'vsix', includes:vsix[0].path
 }
 
-node('rhel7'){
+node('rhel8'){
 	timeout(time:5, unit:'DAYS') {
 		input message:'Approve deployment?', submitter: 'jpinkney'
 	}
