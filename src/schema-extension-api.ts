@@ -1,6 +1,6 @@
 import { URI } from 'vscode-uri'
 import { LanguageClient, RequestType } from 'vscode-languageclient';
-import * as vscode from 'vscode';
+import { workspace } from 'vscode';
 
 interface SchemaContributorProvider {
 	readonly requestSchema: (resource: string) => string;
@@ -94,9 +94,9 @@ class SchemaExtensionAPI implements ExtensionAPI {
 		for (let customKey of Object.keys(this._customSchemaContributors)) {
 			const contributor = this._customSchemaContributors[customKey];
 			let uri: string;
-			if (contributor.label && vscode.workspace.textDocuments) {
+			if (contributor.label && workspace.textDocuments) {
 				const labelRegexp = new RegExp(contributor.label, 'g');
-				for (const doc of vscode.workspace.textDocuments) {
+				for (const doc of workspace.textDocuments) {
 					if (doc.uri.toString() === resource) {
 						if (labelRegexp.test(doc.getText())) {
 							uri = contributor.requestSchema(resource);
