@@ -5,7 +5,8 @@
 		"moduleResolution": "node",
 		"outDir": "out",
 		"lib": [ "es2016" ],
-		"sourceMap": true
+		"sourceMap": true,
+		"skipLibCheck": true
 	},
 	"exclude": [
 		"node_modules",
