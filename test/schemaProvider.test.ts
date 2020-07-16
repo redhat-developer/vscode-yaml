@@ -10,6 +10,7 @@ import { Uri } from 'vscode';
 describe('Tests for schema provider feature', () => {
 	const docUri = getDocUri('completion/completion.yaml');
 	const hoverUri = getDocUri('hover/basic.yaml');
+	const schemaProviderUri = getDocUri('completion/schemaProvider.yaml');
 
     it('completion, hover, and validation work with registered contributor schema', async () => {
 		const client = await activate(docUri);
@@ -39,9 +40,9 @@ describe('Tests for schema provider feature', () => {
 				severity: 0
 			}
 		]);
-		
+
 	});
-	
+
 	it('Validation occurs automatically with registered contributor schema', async () => {
 		const client = await activate(hoverUri);
 		client.registerContributor(SCHEMA, onRequestSchema1URI, onRequestSchema1Content);
@@ -58,10 +59,64 @@ describe('Tests for schema provider feature', () => {
 
 	it('Multiple contributors can match one file', async () => {
 		const client = await activate(docUri);
-		client.registerContributor(SCHEMA2, onRequestSchema2URI, onRequestSchema2Content);
+
+		client.registerContributor(SCHEMA2, onRequestSchema2URI, onRequestSchema2Content, "apple: tastes_good");
 		client.registerContributor(SCHEMA3, onRequestSchema3URI, onRequestSchema3Content);
 
 		await testCompletion(docUri, new vscode.Position(0, 0), {
+			items: [
+				{
+                    label: "apple",
+					kind: 9,
+					documentation: "An apple"
+				},
+				{
+                    label: "version",
+					kind: 9,
+					documentation: "A stringy string string"
+                }
+			]
+		});
+	});
+
+	it('Multiple contributors with one label matches', async () => {
+		const client = await activate(schemaProviderUri);
+		client.registerContributor(SCHEMA2, onRequestSchema2URI, onRequestSchema2Content, "apple: tastes_good");
+		client.registerContributor(SCHEMA3, onRequestSchema3URI, onRequestSchema3Content);
+
+		await testCompletion(schemaProviderUri, new vscode.Position(0, 0), {
+			items: [
+				{
+                    label: "apple",
+					kind: 9,
+					documentation: "An apple"
+				}
+			]
+		});
+    });
+
+	it('Multiple contributors with labels but only one label matches', async () => {
+		const client = await activate(schemaProviderUri);
+		client.registerContributor(SCHEMA2, onRequestSchema2URI, onRequestSchema2Content, "apple: tastes_good");
+		client.registerContributor(SCHEMA3, onRequestSchema3URI, onRequestSchema3Content, "apple: bad");
+
+		await testCompletion(schemaProviderUri, new vscode.Position(0, 0), {
+			items: [
+				{
+                    label: "apple",
+					kind: 9,
+					documentation: "An apple"
+				}
+			]
+		});
+	});
+
+	it('Multiple contributors with labels but no label matches', async () => {
+		const client = await activate(schemaProviderUri);
+		client.registerContributor(SCHEMA2, onRequestSchema2URI, onRequestSchema2Content, "apple: tastes_good");
+		client.registerContributor(SCHEMA3, onRequestSchema3URI, onRequestSchema3Content, "apple: bad");
+
+		await testCompletion(schemaProviderUri, new vscode.Position(0, 0), {
 			items: [
 				{
                     label: "apple",
