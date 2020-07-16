@@ -14,7 +14,7 @@ describe('Tests for schema provider feature', () => {
 
     it('completion, hover, and validation work with registered contributor schema', async () => {
 		const client = await activate(docUri);
-
+		client._customSchemaContributors = {};
 		client.registerContributor(SCHEMA, onRequestSchema1URI, onRequestSchema1Content);
 		await testCompletion(docUri, new vscode.Position(0, 0), {
 			items: [
@@ -45,6 +45,7 @@ describe('Tests for schema provider feature', () => {
 
 	it('Validation occurs automatically with registered contributor schema', async () => {
 		const client = await activate(hoverUri);
+		client._customSchemaContributors = {};
 		client.registerContributor(SCHEMA, onRequestSchema1URI, onRequestSchema1Content);
 
 		await sleep(2000); // Wait for the diagnostics to compute on this file
@@ -59,7 +60,7 @@ describe('Tests for schema provider feature', () => {
 
 	it('Multiple contributors can match one file', async () => {
 		const client = await activate(docUri);
-
+		client._customSchemaContributors = {};
 		client.registerContributor(SCHEMA2, onRequestSchema2URI, onRequestSchema2Content, "apple: tastes_good");
 		client.registerContributor(SCHEMA3, onRequestSchema3URI, onRequestSchema3Content);
 
@@ -81,6 +82,7 @@ describe('Tests for schema provider feature', () => {
 
 	it('Multiple contributors with one label matches', async () => {
 		const client = await activate(schemaProviderUri);
+		client._customSchemaContributors = {};
 		client.registerContributor(SCHEMA2, onRequestSchema2URI, onRequestSchema2Content, "apple: tastes_good");
 		client.registerContributor(SCHEMA3, onRequestSchema3URI, onRequestSchema3Content);
 
@@ -97,6 +99,7 @@ describe('Tests for schema provider feature', () => {
 
 	it('Multiple contributors with labels but only one label matches', async () => {
 		const client = await activate(schemaProviderUri);
+		client._customSchemaContributors = {};
 		client.registerContributor(SCHEMA2, onRequestSchema2URI, onRequestSchema2Content, "apple: tastes_good");
 		client.registerContributor(SCHEMA3, onRequestSchema3URI, onRequestSchema3Content, "apple: bad");
 
@@ -113,6 +116,7 @@ describe('Tests for schema provider feature', () => {
 
 	it('Multiple contributors with labels but no label matches', async () => {
 		const client = await activate(schemaProviderUri);
+		client._customSchemaContributors = {};
 		client.registerContributor(SCHEMA2, onRequestSchema2URI, onRequestSchema2Content, "apple: not_bad");
 		client.registerContributor(SCHEMA3, onRequestSchema3URI, onRequestSchema3Content, "apple: bad");
 
