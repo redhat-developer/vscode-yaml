@@ -113,7 +113,7 @@ describe('Tests for schema provider feature', () => {
 
 	it('Multiple contributors with labels but no label matches', async () => {
 		const client = await activate(schemaProviderUri);
-		client.registerContributor(SCHEMA2, onRequestSchema2URI, onRequestSchema2Content, "apple: tastes_good");
+		client.registerContributor(SCHEMA2, onRequestSchema2URI, onRequestSchema2Content, "apple: not_bad");
 		client.registerContributor(SCHEMA3, onRequestSchema3URI, onRequestSchema3Content, "apple: bad");
 
 		await testCompletion(schemaProviderUri, new vscode.Position(0, 0), {
