@@ -144,7 +144,7 @@ describe('Tests for schema provider feature', () => {
 		await testCompletion(docUri, new vscode.Position(0, 0), {
 			items: [
 				{
-                    label: "apple",
+                  label: "apple",
 					kind: 9,
 					documentation: "An apple"
 				}
@@ -178,11 +178,11 @@ function onRequestSchema1URI(resource: string): string | undefined {
 }
 
 function onRequestSchemaURIThrowError(resource: string): string | undefined {
-	throw new Error('test what happens when an error is trhown and not caught');
+	throw new Error('test what happens when an error is thrown and not caught');
 }
 
 function onRequestSchemaContentThrowError(schemaUri: string): string | undefined {
-	throw new Error('test what happens when an error is trhown and not caught');
+	throw new Error('test what happens when an error is thrown and not caught');
 }
 
 function onRequestSchema1Content(schemaUri: string): string | undefined {
