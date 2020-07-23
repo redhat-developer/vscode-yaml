@@ -1,6 +1,7 @@
 import { URI } from 'vscode-uri'
 import { LanguageClient, RequestType } from 'vscode-languageclient';
 import { workspace } from 'vscode';
+import { logToExtensionOutputChannel } from './extension';
 
 interface SchemaContributorProvider {
 	readonly requestSchema: (resource: string) => string;
@@ -113,7 +114,7 @@ class SchemaExtensionAPI implements ExtensionAPI {
 					matches.push(uri);
 				}
 			} catch (error) {
-				console.log(`Error thrown while requesting schema ` + error);
+				logToExtensionOutputChannel(`Error thrown while requesting schema "${error}" when calling the registered contributor "${customKey}"`);
 			}
 		}
 		return matches;
