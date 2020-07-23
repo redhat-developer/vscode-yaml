@@ -25,7 +25,7 @@ namespace DynamicCustomSchemaRequestRegistration {
 	export const type: NotificationType<{}, {}> = new NotificationType('yaml/registerCustomSchemaRequest');
 }
 
-let outputChannel: OutputChannel;
+let client: LanguageClient;
 
 export function activate(context: ExtensionContext) {
 	// The YAML language server is implemented in node
@@ -59,7 +59,7 @@ export function activate(context: ExtensionContext) {
 	};
 
 	// Create the language client and start it
-	let client = new LanguageClient('yaml', 'YAML Support', serverOptions, clientOptions);
+	client = new LanguageClient('yaml', 'YAML Support', serverOptions, clientOptions);
 	let disposable = client.start();
 
 	const schemaExtensionAPI = new SchemaExtensionAPI(client);
@@ -135,8 +135,5 @@ function getSchemaAssociation(context: ExtensionContext): ISchemaAssociations {
 }
 
 export function logToExtensionOutputChannel(message: string) {
-	if(outputChannel === undefined){
-		outputChannel = window.createOutputChannel('VS Code Yaml extension');
-	}
-	outputChannel.appendLine(message);
+	client.outputChannel.appendLine(message);
 }
