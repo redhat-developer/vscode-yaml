@@ -134,6 +134,23 @@ describe('Tests for schema provider feature', () => {
                 }
 			]
 		});
+	});
+
+	it('Multiple contributors with one throwing an error', async () => {
+		const client = await activate(docUri);
+		client._customSchemaContributors = {};
+		client.registerContributor(SCHEMA2, onRequestSchema2URI, onRequestSchema2Content);
+		client.registerContributor("schemathrowingerror", onRequestSchemaURIThrowError, onRequestSchemaContentThrowError);
+
+		await testCompletion(docUri, new vscode.Position(0, 0), {
+			items: [
+				{
+                  label: "apple",
+					kind: 9,
+					documentation: "An apple"
+				}
+			]
+		});
     });
 });
 
@@ -163,6 +180,14 @@ function onRequestSchema1URI(resource: string): string | undefined {
 
 function onRequestSchema1Content(schemaUri: string): string | undefined {
 	return schemaJSON;
+}
+
+function onRequestSchemaURIThrowError(resource: string): string | undefined {
+	throw new Error('test what happens when an error is thrown and not caught');
+}
+
+function onRequestSchemaContentThrowError(schemaUri: string): string | undefined {
+	throw new Error('test what happens when an error is thrown and not caught');
 }
 
 const schemaJSON2 = JSON.stringify({
