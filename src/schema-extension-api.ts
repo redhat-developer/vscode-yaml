@@ -92,28 +92,24 @@ class SchemaExtensionAPI implements ExtensionAPI {
 	public requestCustomSchema(resource: string): string[] {
 		const matches = [];
 		for (let customKey of Object.keys(this._customSchemaContributors)) {
-			try {
-				const contributor = this._customSchemaContributors[customKey];
-				let uri: string;
-				if (contributor.label && workspace.textDocuments) {
-					const labelRegexp = new RegExp(contributor.label, 'g');
-					for (const doc of workspace.textDocuments) {
-						if (doc.uri.toString() === resource) {
-							if (labelRegexp.test(doc.getText())) {
-								uri = contributor.requestSchema(resource);
-								return [uri];
-							}
+			const contributor = this._customSchemaContributors[customKey];
+			let uri: string;
+			if (contributor.label && workspace.textDocuments) {
+				const labelRegexp = new RegExp(contributor.label, 'g');
+				for (const doc of workspace.textDocuments) {
+					if (doc.uri.toString() === resource) {
+						if (labelRegexp.test(doc.getText())) {
+							uri = contributor.requestSchema(resource);
+							return [uri];
 						}
 					}
 				}
+			}
 
-				uri = contributor.requestSchema(resource);
+			uri = contributor.requestSchema(resource);
 
-				if (uri) {
-					matches.push(uri);
-				}
-			} catch (error) {
-				console.log(`Error thrown while requesting schema ` + error);
+			if (uri) {
+				matches.push(uri);
 			}
 		}
 		return matches;
