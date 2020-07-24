@@ -8,7 +8,7 @@
 
 import * as path from 'path';
 
-import { workspace, ExtensionContext, extensions } from 'vscode';
+import { workspace, ExtensionContext, extensions, OutputChannel, window } from 'vscode';
 import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind, NotificationType } from 'vscode-languageclient';
 import { URI } from 'vscode-uri';
 import { CUSTOM_SCHEMA_REQUEST, CUSTOM_CONTENT_REQUEST, SchemaExtensionAPI } from './schema-extension-api';
@@ -24,6 +24,8 @@ namespace SchemaAssociationNotification {
 namespace DynamicCustomSchemaRequestRegistration {
 	export const type: NotificationType<{}, {}> = new NotificationType('yaml/registerCustomSchemaRequest');
 }
+
+let client: LanguageClient;
 
 export function activate(context: ExtensionContext) {
 	// The YAML language server is implemented in node
@@ -57,7 +59,7 @@ export function activate(context: ExtensionContext) {
 	};
 
 	// Create the language client and start it
-	let client = new LanguageClient('yaml', 'YAML Support', serverOptions, clientOptions);
+	client = new LanguageClient('yaml', 'YAML Support', serverOptions, clientOptions);
 	let disposable = client.start();
 
 	const schemaExtensionAPI = new SchemaExtensionAPI(client);
@@ -130,4 +132,8 @@ function getSchemaAssociation(context: ExtensionContext): ISchemaAssociations {
 	});
 
 	return associations;
+}
+
+export function logToExtensionOutputChannel(message: string) {
+	client.outputChannel.appendLine(message);
 }
