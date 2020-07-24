@@ -5,7 +5,6 @@
 
 import * as vscode from 'vscode';
 import { getDocUri, activate, testCompletion, testHover, testDiagnostics, sleep } from './helper';
-import { Uri } from 'vscode';
 
 describe('Tests for schema provider feature', () => {
 	const docUri = getDocUri('completion/completion.yaml');
@@ -134,6 +133,23 @@ describe('Tests for schema provider feature', () => {
                 }
 			]
 		});
+	});
+
+	it('Multiple contributors with one throwing an error', async () => {
+		const client = await activate(docUri);
+		client._customSchemaContributors = {};
+		client.registerContributor(SCHEMA2, onRequestSchema2URI, onRequestSchema2Content);
+		client.registerContributor("schemathrowingerror", onRequestSchemaURIThrowError, onRequestSchemaContentThrowError);
+
+		await testCompletion(docUri, new vscode.Position(0, 0), {
+			items: [
+				{
+                  label: "apple",
+					kind: 9,
+					documentation: "An apple"
+				}
+			]
+		});
     });
 });
 
@@ -159,6 +175,14 @@ function onRequestSchema1URI(resource: string): string | undefined {
 		return `${SCHEMA}://schema/porter`;
 	}
 	return undefined;
+}
+
+function onRequestSchemaURIThrowError(resource: string): string | undefined {
+	throw new Error('test what happens when an error is thrown and not caught');
+}
+
+function onRequestSchemaContentThrowError(schemaUri: string): string | undefined {
+	throw new Error('test what happens when an error is thrown and not caught');
 }
 
 function onRequestSchema1Content(schemaUri: string): string | undefined {
