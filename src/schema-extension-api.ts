@@ -1,4 +1,4 @@
-import { URI } from 'vscode-uri'
+import { URI } from 'vscode-uri';
 import { LanguageClient, RequestType } from 'vscode-languageclient';
 import { workspace } from 'vscode';
 import { logToExtensionOutputChannel } from './extension';
@@ -11,30 +11,37 @@ interface SchemaContributorProvider {
 
 export enum MODIFICATION_ACTIONS {
 	'delete',
-	'add'
+	'add',
 }
 
 export interface SchemaAdditions {
-	schema: string,
-	action: MODIFICATION_ACTIONS.add,
-	path: string,
-	key: string,
-	content: any
+	schema: string;
+	action: MODIFICATION_ACTIONS.add;
+	path: string;
+	key: string;
+	content: any;
 }
 
 export interface SchemaDeletions {
-	schema: string,
-	action: MODIFICATION_ACTIONS.delete,
-	path: string,
-	key: string
+	schema: string;
+	action: MODIFICATION_ACTIONS.delete;
+	path: string;
+	key: string;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-namespace
 namespace SchemaModificationNotification {
+	// eslint-disable-next-line @typescript-eslint/ban-types
 	export const type: RequestType<SchemaAdditions | SchemaDeletions, void, {}, {}> = new RequestType('json/schema/modify');
 }
 
 export interface ExtensionAPI {
-	registerContributor(schema: string, requestSchema: (resource: string) => string, requestSchemaContent: (uri: string) => string, label?: string): boolean;
+	registerContributor(
+		schema: string,
+		requestSchema: (resource: string) => string,
+		requestSchemaContent: (uri: string) => string,
+		label?: string
+	): boolean;
 	modifySchemaContent(schemaModifications: SchemaAdditions | SchemaDeletions): Promise<void>;
 }
 
@@ -55,19 +62,22 @@ class SchemaExtensionAPI implements ExtensionAPI {
 	 * @param label the content label, yaml key value pair, like 'apiVersion:some.api/v1'
 	 * @returns {boolean}
 	 */
-	public registerContributor(schema: string,
+	public registerContributor(
+		schema: string,
 		requestSchema: (resource: string) => string,
 		requestSchemaContent: (uri: string) => string,
-		label?: string): boolean {
+		label?: string
+	): boolean {
 		if (this._customSchemaContributors[schema]) {
 			return false;
 		}
 
 		if (!requestSchema) {
-			throw new Error("Illegal parameter for requestSchema.");
+			throw new Error('Illegal parameter for requestSchema.');
 		}
 
 		if (label) {
+			// eslint-disable-next-line prefer-const
 			let [first, second] = label.split(':');
 			if (first && second) {
 				second = second.trim();
@@ -78,7 +88,7 @@ class SchemaExtensionAPI implements ExtensionAPI {
 		this._customSchemaContributors[schema] = <SchemaContributorProvider>{
 			requestSchema,
 			requestSchemaContent,
-			label
+			label,
 		};
 
 		return true;
@@ -92,7 +102,7 @@ class SchemaExtensionAPI implements ExtensionAPI {
 	 */
 	public requestCustomSchema(resource: string): string[] {
 		const matches = [];
-		for (let customKey of Object.keys(this._customSchemaContributors)) {
+		for (const customKey of Object.keys(this._customSchemaContributors)) {
 			try {
 				const contributor = this._customSchemaContributors[customKey];
 				let uri: string;
@@ -114,7 +124,9 @@ class SchemaExtensionAPI implements ExtensionAPI {
 					matches.push(uri);
 				}
 			} catch (error) {
-				logToExtensionOutputChannel(`Error thrown while requesting schema "${error}" when calling the registered contributor "${customKey}"`);
+				logToExtensionOutputChannel(
+					`Error thrown while requesting schema "${error}" when calling the registered contributor "${customKey}"`
+				);
 			}
 		}
 		return matches;
@@ -128,10 +140,13 @@ class SchemaExtensionAPI implements ExtensionAPI {
 	 */
 	public requestCustomSchemaContent(uri: string): string {
 		if (uri) {
-			let _uri = URI.parse(uri);
+			const _uri = URI.parse(uri);
 
-			if (_uri.scheme && this._customSchemaContributors[_uri.scheme] &&
-				this._customSchemaContributors[_uri.scheme].requestSchemaContent) {
+			if (
+				_uri.scheme &&
+				this._customSchemaContributors[_uri.scheme] &&
+				this._customSchemaContributors[_uri.scheme].requestSchemaContent
+			) {
 				return this._customSchemaContributors[_uri.scheme].requestSchemaContent(uri);
 			}
 		}

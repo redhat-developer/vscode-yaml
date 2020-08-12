@@ -23,7 +23,7 @@ node('rhel8'){
 
 	stage 'Build vscode-yaml'
 	sh "npm install"
-	sh "npm run vscode:prepublish"
+	sh "npm run build"
 
 	stage 'Test vscode-yaml for staging'
 	wrap([$class: 'Xvnc']) {

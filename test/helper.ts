@@ -17,7 +17,7 @@ export let platformEol: string;
  * Activates the redhat.vscode-yaml extension
  */
 export async function activate(docUri: vscode.Uri) {
-    const ext = vscode.extensions.getExtension('redhat.vscode-yaml')!;
+	const ext = vscode.extensions.getExtension('redhat.vscode-yaml')!;
 	const activation = await ext.activate();
 	try {
 		doc = await vscode.workspace.openTextDocument(docUri);
@@ -31,7 +31,7 @@ export async function activate(docUri: vscode.Uri) {
 }
 
 export async function sleep(ms: number) {
-	return new Promise(resolve => setTimeout(resolve, ms));
+	return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 export const getDocPath = (p: string) => {
@@ -43,21 +43,18 @@ export const getDocUri = (p: string) => {
 };
 
 export const updateSettings = (setting: any, value: any) => {
-	const yamlConfiguration = vscode.workspace.getConfiguration("yaml");
-    return yamlConfiguration.update(setting, value, false);
-}
+	const yamlConfiguration = vscode.workspace.getConfiguration('yaml');
+	return yamlConfiguration.update(setting, value, false);
+};
 
 export const resetSettings = (setting: any, value: any) => {
-	const yamlConfiguration = vscode.workspace.getConfiguration("yaml");
-    return yamlConfiguration.update(setting, value, false);
-}
+	const yamlConfiguration = vscode.workspace.getConfiguration('yaml');
+	return yamlConfiguration.update(setting, value, false);
+};
 
 export async function setTestContent(content: string): Promise<boolean> {
-	const all = new vscode.Range(
-		doc.positionAt(0),
-		doc.positionAt(doc.getText().length)
-	);
-	return editor.edit(eb => eb.replace(all, content));
+	const all = new vscode.Range(doc.positionAt(0), doc.positionAt(doc.getText().length));
+	return editor.edit((eb) => eb.replace(all, content));
 }
 
 export async function testCompletion(
@@ -65,7 +62,6 @@ export async function testCompletion(
 	position: vscode.Position,
 	expectedCompletionList: vscode.CompletionList
 ) {
-
 	// Executing the command `vscode.executeCompletionItemProvider` to simulate triggering completion
 	const actualCompletionList = (await vscode.commands.executeCommand(
 		'vscode.executeCompletionItemProvider',
@@ -73,20 +69,18 @@ export async function testCompletion(
 		position
 	)) as vscode.CompletionList;
 
-	const sortedActualCompletionList = actualCompletionList.items.sort((a, b) => (a.label > b.label) ? 1 : -1);
+	const sortedActualCompletionList = actualCompletionList.items.sort((a, b) => (a.label > b.label ? 1 : -1));
 	assert.equal(actualCompletionList.items.length, expectedCompletionList.items.length);
-	expectedCompletionList.items.sort((a, b) => (a.label > b.label) ? 1 : -1).forEach((expectedItem, i) => {
-		const actualItem = sortedActualCompletionList[i];
-		assert.equal(actualItem.label, expectedItem.label);
-		assert.equal(actualItem.kind, expectedItem.kind);
-	});
+	expectedCompletionList.items
+		.sort((a, b) => (a.label > b.label ? 1 : -1))
+		.forEach((expectedItem, i) => {
+			const actualItem = sortedActualCompletionList[i];
+			assert.equal(actualItem.label, expectedItem.label);
+			assert.equal(actualItem.kind, expectedItem.kind);
+		});
 }
 
-export async function testCompletionNotEmpty(
-	docUri: vscode.Uri,
-	position: vscode.Position
-) {
-
+export async function testCompletionNotEmpty(docUri: vscode.Uri, position: vscode.Position) {
 	// Executing the command `vscode.executeCompletionItemProvider` to simulate triggering completion
 	const actualCompletionList = (await vscode.commands.executeCommand(
 		'vscode.executeCompletionItemProvider',
@@ -97,12 +91,7 @@ export async function testCompletionNotEmpty(
 	assert.notEqual(actualCompletionList.items.length, 0);
 }
 
-export async function testHover(
-	docUri: vscode.Uri,
-	position: vscode.Position,
-	expectedHover: vscode.Hover[]
-) {
-
+export async function testHover(docUri: vscode.Uri, position: vscode.Position, expectedHover: vscode.Hover[]) {
 	// Executing the command `vscode.executeCompletionItemProvider` to simulate triggering completion
 	const actualHoverResults = (await vscode.commands.executeCommand(
 		'vscode.executeHoverProvider',
@@ -117,15 +106,15 @@ export async function testHover(
 	});
 }
 
-export async function testDiagnostics(docUri: vscode.Uri, expectedDiagnostics: vscode.Diagnostic[]) {  
+export async function testDiagnostics(docUri: vscode.Uri, expectedDiagnostics: vscode.Diagnostic[]) {
 	const actualDiagnostics = vscode.languages.getDiagnostics(docUri);
-  
+
 	assert.equal(actualDiagnostics.length, expectedDiagnostics.length);
-  
+
 	expectedDiagnostics.forEach((expectedDiagnostic, i) => {
-	  const actualDiagnostic = actualDiagnostics[i]
-	  assert.equal(actualDiagnostic.message, expectedDiagnostic.message)
-	  assert.deepEqual(actualDiagnostic.range, expectedDiagnostic.range)
-	  assert.equal(actualDiagnostic.severity, expectedDiagnostic.severity)
+		const actualDiagnostic = actualDiagnostics[i];
+		assert.equal(actualDiagnostic.message, expectedDiagnostic.message);
+		assert.deepEqual(actualDiagnostic.range, expectedDiagnostic.range);
+		assert.equal(actualDiagnostic.severity, expectedDiagnostic.severity);
 	});
 }

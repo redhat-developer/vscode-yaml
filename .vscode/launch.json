@@ -10,7 +10,7 @@
 			"args": ["--extensionDevelopmentPath=${workspaceRoot}"],
 			"stopOnEntry": false,
 			"sourceMaps": true,
-			"outFiles": [ "${workspaceRoot}/out/src/**/*.js" ],
+			"outFiles": ["${workspaceRoot}/out/src/**/*.js"],
 			"preLaunchTask": "compile typescript"
 		},
 		{
@@ -19,16 +19,7 @@
 			"request": "launch",
 			"name": "Launch Tests",
 			"program": "${workspaceRoot}/node_modules/mocha/bin/_mocha",
-			"args": [
-				"-u",
-				"tdd",
-				"--timeout",
-				"999999",
-				"--colors",
-				"-r",
-				"ts-node/register",
-				"${workspaceRoot}/test/*.test.ts"
-			],
+			"args": ["-u", "tdd", "--timeout", "999999", "--colors", "-r", "ts-node/register", "${workspaceRoot}/test/*.test.ts"],
 			"preLaunchTask": "compile typescript"
 		},
 		{

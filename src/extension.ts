@@ -17,11 +17,14 @@ export interface ISchemaAssociations {
 	[pattern: string]: string[];
 }
 
+// eslint-disable-next-line @typescript-eslint/no-namespace
 namespace SchemaAssociationNotification {
 	export const type: NotificationType<ISchemaAssociations, any> = new NotificationType('json/schemaAssociations');
 }
 
+// eslint-disable-next-line @typescript-eslint/no-namespace
 namespace DynamicCustomSchemaRequestRegistration {
+	// eslint-disable-next-line @typescript-eslint/ban-types
 	export const type: NotificationType<{}, {}> = new NotificationType('yaml/registerCustomSchemaRequest');
 }
 
@@ -29,38 +32,35 @@ let client: LanguageClient;
 
 export function activate(context: ExtensionContext) {
 	// The YAML language server is implemented in node
-	let serverModule = context.asAbsolutePath(path.join('node_modules', 'yaml-language-server', 'out', 'server', 'src', 'server.js'));
+	const serverModule = context.asAbsolutePath(
+		path.join('node_modules', 'yaml-language-server', 'out', 'server', 'src', 'server.js')
+	);
 
 	// The debug options for the server
-	let debugOptions = { execArgv: ['--nolazy', '--inspect=6009'] };
+	const debugOptions = { execArgv: ['--nolazy', '--inspect=6009'] };
 
 	// If the extension is launched in debug mode then the debug server options are used
 	// Otherwise the run options are used
-	let serverOptions: ServerOptions = {
-		run : { module: serverModule, transport: TransportKind.ipc },
-		debug: { module: serverModule, transport: TransportKind.ipc, options: debugOptions }
+	const serverOptions: ServerOptions = {
+		run: { module: serverModule, transport: TransportKind.ipc },
+		debug: { module: serverModule, transport: TransportKind.ipc, options: debugOptions },
 	};
 
 	// Options to control the language client
-	let clientOptions: LanguageClientOptions = {
+	const clientOptions: LanguageClientOptions = {
 		// Register the server for on disk and newly created YAML documents
-		documentSelector: [
-			{ language: 'yaml' }
-		],
+		documentSelector: [{ language: 'yaml' }],
 		synchronize: {
 			// Synchronize these setting sections with the server
 			configurationSection: ['yaml', 'http.proxy', 'http.proxyStrictSSL'],
 			// Notify the server about file changes to YAML and JSON files contained in the workspace
-			fileEvents: [
-				workspace.createFileSystemWatcher('**/*.?(e)y?(a)ml'),
-				workspace.createFileSystemWatcher('**/*.json')
-			]
-		}
+			fileEvents: [workspace.createFileSystemWatcher('**/*.?(e)y?(a)ml'), workspace.createFileSystemWatcher('**/*.json')],
+		},
 	};
 
 	// Create the language client and start it
 	client = new LanguageClient('yaml', 'YAML Support', serverOptions, clientOptions);
-	let disposable = client.start();
+	const disposable = client.start();
 
 	const schemaExtensionAPI = new SchemaExtensionAPI(client);
 
@@ -73,7 +73,7 @@ export function activate(context: ExtensionContext) {
 		client.sendNotification(SchemaAssociationNotification.type, getSchemaAssociation(context));
 
 		// If the extensions change, fire this notification again to pick up on any association changes
-		extensions.onDidChange(_ => {
+		extensions.onDidChange((_) => {
 			client.sendNotification(SchemaAssociationNotification.type, getSchemaAssociation(context));
 		});
 		// Tell the server that the client is ready to provide custom schema content
@@ -91,16 +91,16 @@ export function activate(context: ExtensionContext) {
 }
 
 function getSchemaAssociation(context: ExtensionContext): ISchemaAssociations {
-	let associations: ISchemaAssociations = {};
+	const associations: ISchemaAssociations = {};
 	// Scan all extensions
-	extensions.all.forEach(extension => {
-		let packageJSON = extension.packageJSON;
+	extensions.all.forEach((extension) => {
+		const packageJSON = extension.packageJSON;
 		// Look for yamlValidation contribution point in the package.json
 		if (packageJSON && packageJSON.contributes && packageJSON.contributes.yamlValidation) {
-			let yamlValidation = packageJSON.contributes.yamlValidation;
+			const yamlValidation = packageJSON.contributes.yamlValidation;
 			// If the extension provides YAML validation
 			if (Array.isArray(yamlValidation)) {
-				yamlValidation.forEach(jv => {
+				yamlValidation.forEach((jv) => {
 					// Get the extension's YAML schema associations
 					let { fileMatch, url } = jv;
 

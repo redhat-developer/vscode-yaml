@@ -12,7 +12,7 @@
 			"command": "npm run compile --loglevel silent",
 			// show the output window only if unrecognized errors occur.
 			"presentation": {
-				"reveal": "silent",
+				"reveal": "silent"
 			},
 			// The tsc compiler is started in watching mode
 			"isBackground": true,
