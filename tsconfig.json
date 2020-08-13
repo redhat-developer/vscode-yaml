@@ -1,13 +1,13 @@
 {
-	"compilerOptions": {
-		"lib": ["es2016"],
-		"module": "commonjs",
-		"moduleResolution": "node",
-		"outDir": "out",
-		"skipLibCheck": true,
-		"sourceMap": true,
-		"target": "es6"
-	},
-	"exclude": ["node_modules", "server"],
-	"include": ["src", "test"]
+  "compilerOptions": {
+    "lib": ["es2016"],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "outDir": "out",
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "target": "es6"
+  },
+  "exclude": ["node_modules", "server"],
+  "include": ["src", "test"]
 }
