@@ -1,12 +1,12 @@
 {
 	"compilerOptions": {
-		"target": "es6",
+		"lib": ["es2016"],
 		"module": "commonjs",
 		"moduleResolution": "node",
 		"outDir": "out",
-		"lib": ["es2016"],
+		"skipLibCheck": true,
 		"sourceMap": true,
-		"skipLibCheck": true
+		"target": "es6"
 	},
 	"exclude": ["node_modules", "server"],
 	"include": ["src", "test"]

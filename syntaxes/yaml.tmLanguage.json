@@ -248,7 +248,7 @@
 					"name": "invalid.illegal.character.anchor.yaml"
 				}
 			},
-			"match": "((\\*))([^\\s\\[\\]/{/},]+)([^\\s\\]},]\\S*)?"
+			"match": "((\\*))([^\\s\\[\\]\/{\/},]+)([^\\s\\]},]\\S*)?"
 		},
 		"flow-collection": {
 			"patterns": [

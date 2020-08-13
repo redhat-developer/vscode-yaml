@@ -77,12 +77,11 @@ class SchemaExtensionAPI implements ExtensionAPI {
 		}
 
 		if (label) {
-			// eslint-disable-next-line prefer-const
-			let [first, second] = label.split(':');
+			const [first, second] = label.split(':');
 			if (first && second) {
-				second = second.trim();
-				second = second.replace('.', '\\.');
-				label = `${first}:[\t ]+${second}`;
+				label = second.trim();
+				label = label.replace('.', '\\.');
+				label = `${first}:[\t ]+${label}`;
 			}
 		}
 		this._customSchemaContributors[schema] = <SchemaContributorProvider>{
