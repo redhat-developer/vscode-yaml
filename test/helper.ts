@@ -61,7 +61,7 @@ export async function testCompletion(
   docUri: vscode.Uri,
   position: vscode.Position,
   expectedCompletionList: vscode.CompletionList
-) {
+): Promise<void> {
   // Executing the command `vscode.executeCompletionItemProvider` to simulate triggering completion
   const actualCompletionList = (await vscode.commands.executeCommand(
     'vscode.executeCompletionItemProvider',
@@ -70,7 +70,11 @@ export async function testCompletion(
   )) as vscode.CompletionList;
 
   const sortedActualCompletionList = actualCompletionList.items.sort((a, b) => (a.label > b.label ? 1 : -1));
-  assert.equal(actualCompletionList.items.length, expectedCompletionList.items.length);
+  assert.equal(
+    actualCompletionList.items.length,
+    expectedCompletionList.items.length,
+    "Completion List doesn't have expected size"
+  );
   expectedCompletionList.items
     .sort((a, b) => (a.label > b.label ? 1 : -1))
     .forEach((expectedItem, i) => {
