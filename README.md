@@ -156,12 +156,12 @@ This extension allows you to specify json schemas that you want to validate agai
    $ npm run compile
    ```
 
-##### Developing the client side
+#### Developing the client side
 
 1. Open the client in vscode
 2. Make changes as neccessary and the run the code using F5
 
-##### Developing the client and server together
+#### Developing the client and server together
 
 1. Download both the [Yaml Language Server](https://github.com/redhat-developer/yaml-language-server) and this VSCode Yaml Client.
 
