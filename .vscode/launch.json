@@ -1,48 +1,39 @@
 {
-	"version": "0.2.0",
-	"configurations": [
-		{
-			// A launch configuration that compiles the extension and then opens it inside a new window
-			"name": "Launch Extension",
-			"type": "extensionHost",
-			"request": "launch",
-			"runtimeExecutable": "${execPath}",
-			"args": ["--extensionDevelopmentPath=${workspaceRoot}"],
-			"stopOnEntry": false,
-			"sourceMaps": true,
-			"outFiles": [ "${workspaceRoot}/out/src/**/*.js" ],
-			"preLaunchTask": "compile typescript"
-		},
-		{
-			// A launch configuration that compiles the extension and runs mocha unit tests
-			"type": "node",
-			"request": "launch",
-			"name": "Launch Tests",
-			"program": "${workspaceRoot}/node_modules/mocha/bin/_mocha",
-			"args": [
-				"-u",
-				"tdd",
-				"--timeout",
-				"999999",
-				"--colors",
-				"-r",
-				"ts-node/register",
-				"${workspaceRoot}/test/*.test.ts"
-			],
-			"preLaunchTask": "compile typescript"
-		},
-		{
-			"name": "Extension Tests",
-			"type": "extensionHost",
-			"request": "launch",
-			"runtimeExecutable": "${execPath}",
-			"args": [
-				"--disable-extensions",
-				"--extensionDevelopmentPath=${workspaceFolder}",
-				"--extensionTestsPath=${workspaceFolder}/out/test",
-				"${workspaceRoot}/test/testFixture"
-			],
-			"outFiles": ["${workspaceFolder}/out/test/**/*.js"]
-		}
-	]
+  "version": "0.2.0",
+  "configurations": [
+    {
+      // A launch configuration that compiles the extension and then opens it inside a new window
+      "name": "Launch Extension",
+      "type": "extensionHost",
+      "request": "launch",
+      "runtimeExecutable": "${execPath}",
+      "args": ["--extensionDevelopmentPath=${workspaceRoot}"],
+      "stopOnEntry": false,
+      "sourceMaps": true,
+      "outFiles": ["${workspaceRoot}/out/src/**/*.js"],
+      "preLaunchTask": "compile typescript"
+    },
+    {
+      // A launch configuration that compiles the extension and runs mocha unit tests
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Tests",
+      "program": "${workspaceRoot}/node_modules/mocha/bin/_mocha",
+      "args": ["-u", "tdd", "--timeout", "999999", "--colors", "-r", "ts-node/register", "${workspaceRoot}/test/*.test.ts"],
+      "preLaunchTask": "compile typescript"
+    },
+    {
+      "name": "Extension Tests",
+      "type": "extensionHost",
+      "request": "launch",
+      "runtimeExecutable": "${execPath}",
+      "args": [
+        "--disable-extensions",
+        "--extensionDevelopmentPath=${workspaceFolder}",
+        "--extensionTestsPath=${workspaceFolder}/out/test",
+        "${workspaceRoot}/test/testFixture"
+      ],
+      "outFiles": ["${workspaceFolder}/out/test/**/*.js"]
+    }
+  ]
 }
