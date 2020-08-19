@@ -20,7 +20,7 @@ describe('Completion should work in multiple different scenarios', () => {
     await activate(docUri);
     const schemaPath = path.join(__dirname, '..', '..', 'test', 'testFixture', 'schemas', 'basic_completion_schema.json');
     await updateSettings('schemas', {
-      [schemaPath]: 'completion.yaml',
+      [vscode.Uri.file(schemaPath).toString()]: 'completion.yaml',
     });
     await testCompletion(docUri, new vscode.Position(0, 0), {
       items: [
