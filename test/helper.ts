@@ -35,7 +35,7 @@ export async function sleep(ms: number) {
 }
 
 export const getDocPath = (p: string) => {
-  return path.resolve(__dirname, '../../test/testFixture', p);
+  return path.resolve(__dirname, path.join('..', '..', 'test', 'testFixture', p));
 };
 
 export const getDocUri = (p: string) => {
