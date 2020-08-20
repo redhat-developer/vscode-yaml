@@ -4,12 +4,12 @@
  * ------------------------------------------------------------------------------------------ */
 
 import * as vscode from 'vscode';
-import { getDocUri, activate, testCompletion, updateSettings, testCompletionNotEmpty, resetSettings, sleep } from './helper';
+import { getDocUri, activate, testCompletion, updateSettings, testCompletionNotEmpty, resetSettings } from './helper';
 import * as path from 'path';
 
 describe('Completion should work in multiple different scenarios', () => {
-  const docUri = getDocUri('completion/completion.yaml');
-  const travisUri = getDocUri('completion/.travis.yml');
+  const docUri = getDocUri(path.join('completion', 'completion.yaml'));
+  const travisUri = getDocUri(path.join('completion', '.travis.yml'));
 
   afterEach(async () => {
     await resetSettings('schemas', {});
@@ -20,7 +20,7 @@ describe('Completion should work in multiple different scenarios', () => {
     await activate(docUri);
     const schemaPath = path.join(__dirname, '..', '..', 'test', 'testFixture', 'schemas', 'basic_completion_schema.json');
     await updateSettings('schemas', {
-      [schemaPath]: 'completion.yaml',
+      [vscode.Uri.file(schemaPath).toString()]: 'completion.yaml',
     });
     await testCompletion(docUri, new vscode.Position(0, 0), {
       items: [
