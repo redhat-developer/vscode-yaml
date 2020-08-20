@@ -8,7 +8,7 @@
 
 import * as path from 'path';
 
-import { workspace, ExtensionContext, extensions, OutputChannel, window } from 'vscode';
+import { workspace, ExtensionContext, extensions } from 'vscode';
 import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind, NotificationType } from 'vscode-languageclient';
 import { URI } from 'vscode-uri';
 import { CUSTOM_SCHEMA_REQUEST, CUSTOM_CONTENT_REQUEST, SchemaExtensionAPI } from './schema-extension-api';
@@ -19,7 +19,7 @@ export interface ISchemaAssociations {
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 namespace SchemaAssociationNotification {
-  export const type: NotificationType<ISchemaAssociations, any> = new NotificationType('json/schemaAssociations');
+  export const type: NotificationType<ISchemaAssociations, unknown> = new NotificationType('json/schemaAssociations');
 }
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -30,7 +30,7 @@ namespace DynamicCustomSchemaRequestRegistration {
 
 let client: LanguageClient;
 
-export function activate(context: ExtensionContext) {
+export function activate(context: ExtensionContext): SchemaExtensionAPI {
   // The YAML language server is implemented in node
   const serverModule = context.asAbsolutePath(
     path.join('node_modules', 'yaml-language-server', 'out', 'server', 'src', 'server.js')
@@ -70,11 +70,11 @@ export function activate(context: ExtensionContext) {
 
   client.onReady().then(() => {
     // Send a notification to the server with any YAML schema associations in all extensions
-    client.sendNotification(SchemaAssociationNotification.type, getSchemaAssociation(context));
+    client.sendNotification(SchemaAssociationNotification.type, getSchemaAssociation());
 
     // If the extensions change, fire this notification again to pick up on any association changes
-    extensions.onDidChange((_) => {
-      client.sendNotification(SchemaAssociationNotification.type, getSchemaAssociation(context));
+    extensions.onDidChange(() => {
+      client.sendNotification(SchemaAssociationNotification.type, getSchemaAssociation());
     });
     // Tell the server that the client is ready to provide custom schema content
     client.sendNotification(DynamicCustomSchemaRequestRegistration.type);
@@ -90,7 +90,7 @@ export function activate(context: ExtensionContext) {
   return schemaExtensionAPI;
 }
 
-function getSchemaAssociation(context: ExtensionContext): ISchemaAssociations {
+function getSchemaAssociation(): ISchemaAssociations {
   const associations: ISchemaAssociations = {};
   // Scan all extensions
   extensions.all.forEach((extension) => {
@@ -134,6 +134,6 @@ function getSchemaAssociation(context: ExtensionContext): ISchemaAssociations {
   return associations;
 }
 
-export function logToExtensionOutputChannel(message: string) {
+export function logToExtensionOutputChannel(message: string): void {
   client.outputChannel.appendLine(message);
 }

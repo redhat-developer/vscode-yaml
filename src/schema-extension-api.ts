@@ -19,7 +19,7 @@ export interface SchemaAdditions {
   action: MODIFICATION_ACTIONS.add;
   path: string;
   key: string;
-  content: any;
+  content: unknown;
 }
 
 export interface SchemaDeletions {
@@ -151,7 +151,7 @@ class SchemaExtensionAPI implements ExtensionAPI {
     }
   }
 
-  public async modifySchemaContent(schemaModifications: SchemaAdditions | SchemaDeletions) {
+  public async modifySchemaContent(schemaModifications: SchemaAdditions | SchemaDeletions): Promise<void> {
     return this._yamlClient.sendRequest(SchemaModificationNotification.type, schemaModifications);
   }
 }

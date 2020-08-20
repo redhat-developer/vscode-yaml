@@ -16,8 +16,9 @@ export let platformEol: string;
 /**
  * Activates the redhat.vscode-yaml extension
  */
-export async function activate(docUri: vscode.Uri) {
-  const ext = vscode.extensions.getExtension('redhat.vscode-yaml')!;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function activate(docUri: vscode.Uri): Promise<any> {
+  const ext = vscode.extensions.getExtension('redhat.vscode-yaml');
   const activation = await ext.activate();
   try {
     doc = await vscode.workspace.openTextDocument(docUri);
@@ -30,24 +31,24 @@ export async function activate(docUri: vscode.Uri) {
   }
 }
 
-export async function sleep(ms: number) {
+export async function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-export const getDocPath = (p: string) => {
+export const getDocPath = (p: string): string => {
   return path.resolve(__dirname, path.join('..', '..', 'test', 'testFixture', p));
 };
 
-export const getDocUri = (p: string) => {
+export const getDocUri = (p: string): vscode.Uri => {
   return vscode.Uri.file(getDocPath(p));
 };
 
-export const updateSettings = (setting: any, value: any) => {
+export const updateSettings = (setting: string, value: unknown): Thenable<void> => {
   const yamlConfiguration = vscode.workspace.getConfiguration('yaml');
   return yamlConfiguration.update(setting, value, false);
 };
 
-export const resetSettings = (setting: any, value: any) => {
+export const resetSettings = (setting: string, value: unknown): Thenable<void> => {
   const yamlConfiguration = vscode.workspace.getConfiguration('yaml');
   return yamlConfiguration.update(setting, value, false);
 };
@@ -84,7 +85,7 @@ export async function testCompletion(
     });
 }
 
-export async function testCompletionNotEmpty(docUri: vscode.Uri, position: vscode.Position) {
+export async function testCompletionNotEmpty(docUri: vscode.Uri, position: vscode.Position): Promise<void> {
   // Executing the command `vscode.executeCompletionItemProvider` to simulate triggering completion
   const actualCompletionList = (await vscode.commands.executeCommand(
     'vscode.executeCompletionItemProvider',
@@ -95,7 +96,7 @@ export async function testCompletionNotEmpty(docUri: vscode.Uri, position: vscod
   assert.notEqual(actualCompletionList.items.length, 0);
 }
 
-export async function testHover(docUri: vscode.Uri, position: vscode.Position, expectedHover: vscode.Hover[]) {
+export async function testHover(docUri: vscode.Uri, position: vscode.Position, expectedHover: vscode.Hover[]): Promise<void> {
   // Executing the command `vscode.executeCompletionItemProvider` to simulate triggering completion
   const actualHoverResults = (await vscode.commands.executeCommand(
     'vscode.executeHoverProvider',
@@ -110,7 +111,7 @@ export async function testHover(docUri: vscode.Uri, position: vscode.Position, e
   });
 }
 
-export async function testDiagnostics(docUri: vscode.Uri, expectedDiagnostics: vscode.Diagnostic[]) {
+export async function testDiagnostics(docUri: vscode.Uri, expectedDiagnostics: vscode.Diagnostic[]): Promise<void> {
   const actualDiagnostics = vscode.languages.getDiagnostics(docUri);
 
   assert.equal(actualDiagnostics.length, expectedDiagnostics.length);
