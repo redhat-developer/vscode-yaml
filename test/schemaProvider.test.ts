@@ -174,15 +174,15 @@ function onRequestSchema1URI(resource: string): string | undefined {
   return undefined;
 }
 
-function onRequestSchema1Content(schemaUri: string): string | undefined {
+function onRequestSchema1Content(): string | undefined {
   return schemaJSON;
 }
 
-function onRequestSchemaURIThrowError(resource: string): string | undefined {
+function onRequestSchemaURIThrowError(): string | undefined {
   throw new Error('test what happens when an error is thrown and not caught');
 }
 
-function onRequestSchemaContentThrowError(schemaUri: string): string | undefined {
+function onRequestSchemaContentThrowError(): string | undefined {
   throw new Error('test what happens when an error is thrown and not caught');
 }
 
@@ -196,18 +196,18 @@ const schemaJSON2 = JSON.stringify({
   },
 });
 
-function onRequestSchema2URI(resource: string): string | undefined {
+function onRequestSchema2URI(): string | undefined {
   return `${SCHEMA2}://schema/porter`;
 }
 
-function onRequestSchema2Content(schemaUri: string): string | undefined {
+function onRequestSchema2Content(): string | undefined {
   return schemaJSON2;
 }
 
-function onRequestSchema3URI(resource: string): string | undefined {
+function onRequestSchema3URI(): string | undefined {
   return `${SCHEMA3}://schema/porter`;
 }
 
-function onRequestSchema3Content(schemaUri: string): string | undefined {
+function onRequestSchema3Content(): string | undefined {
   return schemaJSON;
 }
