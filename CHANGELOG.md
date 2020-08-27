@@ -1,3 +1,7 @@
+#### 0.10.1
+
+- Fix for cannot read property 'lineComments' of undefined Code: -32603 [#312](https://github.com/redhat-developer/vscode-yaml/issues/358)
+
 #### 0.10.0
 
 - Log all errors in to 'YAML Support' output channel [#327](https://github.com/redhat-developer/vscode-yaml/pull/327)
