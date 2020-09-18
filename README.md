@@ -116,7 +116,7 @@ e.g.
 }
 ```
 
-Since `0.11.0` schemas in yaml are supported:
+Since `0.11.0` YAML Schemas can be used for validation:
 
 ```json
  "/home/user/custom_schema.yaml": "someFilePattern.yaml"
