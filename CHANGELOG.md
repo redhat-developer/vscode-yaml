@@ -1,3 +1,8 @@
+#### 0.11.0
+- Fix: `yaml.schemas` configuration doesn't work on windows with full path [#347](https://github.com/redhat-developer/vscode-yaml/issues/347)
+- Completion text use space instead of tab for indentation [#283](https://github.com/redhat-developer/yaml-language-server/issues/283)
+- YAML Schemas can now be used for validation [#318](https://github.com/redhat-developer/yaml-language-server/pull/318)
+
 #### 0.10.1
 
 - Fix for cannot read property 'lineComments' of undefined Code: -32603 [#312](https://github.com/redhat-developer/vscode-yaml/issues/358)
