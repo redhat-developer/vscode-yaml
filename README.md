@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/redhat-developer/yaml-language-server.svg?branch=master)](https://travis-ci.org/redhat-developer/vscode-yaml) [![Marketplace Version](https://vsmarketplacebadge.apphb.com/version/redhat.vscode-yaml.svg 'Current Release')](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml)
+![CI](https://github.com/redhat-developer/vscode-yaml/workflows/CI/badge.svg) [![Build Status](https://travis-ci.org/redhat-developer/yaml-language-server.svg?branch=master)](https://travis-ci.org/redhat-developer/vscode-yaml) [![Marketplace Version](https://vsmarketplacebadge.apphb.com/version/redhat.vscode-yaml.svg 'Current Release')](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml)
 
 # YAML Language Support by Red Hat
 
@@ -114,6 +114,12 @@ e.g.
     "http://json.schemastore.org/composer": ["/*"],
     "kubernetes": ["/myYamlFile.yaml"]
 }
+```
+
+Since `0.11.0` schemas in yaml are supported:
+
+```json
+ "/home/user/custom_schema.yaml": "someFilePattern.yaml"
 ```
 
 - The entrance point for `yaml.schemas` is location in [user and workspace settings](https://code.visualstudio.com/docs/getstarted/settings#_creating-user-and-workspace-settings)
