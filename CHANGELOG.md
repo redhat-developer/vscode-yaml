@@ -1,4 +1,9 @@
+#### 0.11.1
+
+- Fix: Latest version breaks auto-save formatting [#366](https://github.com/redhat-developer/vscode-yaml/issues/366)
+
 #### 0.11.0
+
 - Fix: `yaml.schemas` configuration doesn't work on windows with full path [#347](https://github.com/redhat-developer/vscode-yaml/issues/347)
 - Completion text use space instead of tab for indentation [#283](https://github.com/redhat-developer/yaml-language-server/issues/283)
 - YAML Schemas can now be used for validation [#318](https://github.com/redhat-developer/yaml-language-server/pull/318)
