@@ -24,6 +24,7 @@ node('rhel8'){
 	stage 'Build vscode-yaml'
 	sh "npm install"
 	sh "npm run build"
+  sh "npm run check-dependencies"
 
 	stage 'Test vscode-yaml for staging'
 	wrap([$class: 'Xvnc']) {
