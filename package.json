@@ -156,12 +156,12 @@
   },
   "scripts": {
     "build": "npm run clean && npm run lint && npm run vscode:prepublish",
+    "check-dependencies": "node .scripts/check-dependencies.js",
     "clean": "rimraf out",
     "compile": "tsc -watch -p ./",
     "format": "prettier --write .",
     "lint": "eslint -c .eslintrc.js --ext .ts src test",
     "test": "sh scripts/e2e.sh",
-    "check-dependencies": "node ./scripts/check-dependencies.js",
     "vscode:prepublish": "tsc -p ./"
   },
   "devDependencies": {
