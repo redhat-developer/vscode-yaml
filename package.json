@@ -156,6 +156,7 @@
   },
   "scripts": {
     "build": "npm run clean && npm run lint && npm run vscode:prepublish",
+    "check-dependencies": "node .scripts/check-dependencies.js",
     "clean": "rimraf out",
     "compile": "tsc -watch -p ./",
     "format": "prettier --write .",
@@ -184,6 +185,6 @@
     "vscode-languageclient": "5.2.1",
     "vscode-nls": "^3.2.1",
     "vscode-uri": "^2.0.3",
-    "yaml-language-server": "0.11.1"
+    "yaml-language-server": "next"
   }
 }
