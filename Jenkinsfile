@@ -16,7 +16,7 @@ node('rhel8'){
 
 	stage 'Checkout vscode-yaml code'
 	deleteDir()
-	git url: 'https://github.com/redhat-developer/vscode-yaml.git'
+	git branch: 'release', url: 'https://github.com/redhat-developer/vscode-yaml.git'
 
 	stage 'install vscode-yaml build requirements'
 	installBuildRequirements()
