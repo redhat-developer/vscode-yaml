@@ -10,16 +10,24 @@ import * as path from 'path';
 
 import { workspace, ExtensionContext, extensions } from 'vscode';
 import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind, NotificationType } from 'vscode-languageclient';
-import { URI } from 'vscode-uri';
 import { CUSTOM_SCHEMA_REQUEST, CUSTOM_CONTENT_REQUEST, SchemaExtensionAPI } from './schema-extension-api';
+import { joinPath } from './paths';
 
 export interface ISchemaAssociations {
   [pattern: string]: string[];
 }
 
+export interface ISchemaAssociation {
+  fileMatch: string[];
+  uri: string;
+}
+
 // eslint-disable-next-line @typescript-eslint/no-namespace
 namespace SchemaAssociationNotification {
-  export const type: NotificationType<ISchemaAssociations, unknown> = new NotificationType('json/schemaAssociations');
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  export const type: NotificationType<ISchemaAssociations | ISchemaAssociation[], any> = new NotificationType(
+    'json/schemaAssociations'
+  );
 }
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -70,11 +78,11 @@ export function activate(context: ExtensionContext): SchemaExtensionAPI {
 
   client.onReady().then(() => {
     // Send a notification to the server with any YAML schema associations in all extensions
-    client.sendNotification(SchemaAssociationNotification.type, getSchemaAssociation());
+    client.sendNotification(SchemaAssociationNotification.type, getSchemaAssociations());
 
     // If the extensions change, fire this notification again to pick up on any association changes
     extensions.onDidChange(() => {
-      client.sendNotification(SchemaAssociationNotification.type, getSchemaAssociation());
+      client.sendNotification(SchemaAssociationNotification.type, getSchemaAssociations());
     });
     // Tell the server that the client is ready to provide custom schema content
     client.sendNotification(DynamicCustomSchemaRequestRegistration.type);
@@ -90,47 +98,40 @@ export function activate(context: ExtensionContext): SchemaExtensionAPI {
   return schemaExtensionAPI;
 }
 
-function getSchemaAssociation(): ISchemaAssociations {
-  const associations: ISchemaAssociations = {};
-  // Scan all extensions
+function getSchemaAssociations(): ISchemaAssociation[] {
+  const associations: ISchemaAssociation[] = [];
   extensions.all.forEach((extension) => {
     const packageJSON = extension.packageJSON;
-    // Look for yamlValidation contribution point in the package.json
     if (packageJSON && packageJSON.contributes && packageJSON.contributes.yamlValidation) {
       const yamlValidation = packageJSON.contributes.yamlValidation;
-      // If the extension provides YAML validation
       if (Array.isArray(yamlValidation)) {
         yamlValidation.forEach((jv) => {
-          // Get the extension's YAML schema associations
+          // eslint-disable-next-line prefer-const
           let { fileMatch, url } = jv;
-
-          if (fileMatch && url) {
-            // Convert relative file paths to absolute file URIs
-            if (url[0] === '.' && url[1] === '/') {
-              url = URI.file(path.join(extension.extensionPath, url)).toString();
+          if (typeof fileMatch === 'string') {
+            fileMatch = [fileMatch];
+          }
+          if (Array.isArray(fileMatch) && typeof url === 'string') {
+            let uri: string = url;
+            if (uri[0] === '.' && uri[1] === '/') {
+              uri = joinPath(extension.extensionUri, uri).toString();
             }
-            // Replace path variables
-            if (fileMatch[0] === '%') {
-              fileMatch = fileMatch.replace(/%APP_SETTINGS_HOME%/, '/User');
-              fileMatch = fileMatch.replace(/%APP_WORKSPACES_HOME%/, '/Workspaces');
-            } else if (fileMatch.charAt(0) !== '/' && !fileMatch.match(/\w+:\/\//)) {
-              fileMatch = '/' + fileMatch;
-            }
-            // Create a file-schema association
-            let association = associations[fileMatch];
-
-            if (!association) {
-              association = [];
-              associations[fileMatch] = association;
-            }
-            // Store the file-schema association
-            association.push(url);
+            fileMatch = fileMatch.map((fm) => {
+              if (fm[0] === '%') {
+                fm = fm.replace(/%APP_SETTINGS_HOME%/, '/User');
+                fm = fm.replace(/%MACHINE_SETTINGS_HOME%/, '/Machine');
+                fm = fm.replace(/%APP_WORKSPACES_HOME%/, '/Workspaces');
+              } else if (!fm.match(/^(\w+:\/\/|\/|!)/)) {
+                fm = '/' + fm;
+              }
+              return fm;
+            });
+            associations.push({ fileMatch, uri });
           }
         });
       }
     }
   });
-
   return associations;
 }
 
