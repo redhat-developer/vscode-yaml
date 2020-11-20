@@ -186,6 +186,7 @@
     "vscode-test": "^1.4.0"
   },
   "dependencies": {
+    "request-light": "^0.4.0",
     "vscode-languageclient": "5.2.1",
     "vscode-nls": "^3.2.1",
     "vscode-uri": "^2.0.3",
