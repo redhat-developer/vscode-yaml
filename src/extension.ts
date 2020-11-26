@@ -39,9 +39,9 @@ namespace SchemaAssociationNotification {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
-namespace ContentRequestRegistration {
+namespace VSCodeContentRequestRegistration {
   // eslint-disable-next-line @typescript-eslint/ban-types
-  export const type: NotificationType<{}, {}> = new NotificationType('yaml/registerContentRequest');
+  export const type: NotificationType<{}, {}> = new NotificationType('yaml/registerVSCodeContentRequest');
 }
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -107,7 +107,7 @@ export function activate(context: ExtensionContext): SchemaExtensionAPI {
     // Tell the server that the client is ready to provide custom schema content
     client.sendNotification(DynamicCustomSchemaRequestRegistration.type);
     // Tell the server that the client supports schema requests sent directly to it
-    client.sendNotification(ContentRequestRegistration.type);
+    client.sendNotification(VSCodeContentRequestRegistration.type);
     // If the server asks for custom schema content, get it and send it back
     client.onRequest(CUSTOM_SCHEMA_REQUEST, (resource: string) => {
       return schemaExtensionAPI.requestCustomSchema(resource);
