@@ -9,9 +9,17 @@
 import * as path from 'path';
 
 import { workspace, ExtensionContext, extensions } from 'vscode';
-import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind, NotificationType } from 'vscode-languageclient';
+import {
+  LanguageClient,
+  LanguageClientOptions,
+  ServerOptions,
+  TransportKind,
+  NotificationType,
+  RequestType,
+} from 'vscode-languageclient';
 import { CUSTOM_SCHEMA_REQUEST, CUSTOM_CONTENT_REQUEST, SchemaExtensionAPI } from './schema-extension-api';
 import { joinPath } from './paths';
+import { xhr, configure as configureHttpRequests, getErrorStatusDescription, XHRResponse } from 'request-light';
 
 export interface ISchemaAssociations {
   [pattern: string]: string[];
@@ -28,6 +36,18 @@ namespace SchemaAssociationNotification {
   export const type: NotificationType<ISchemaAssociations | ISchemaAssociation[], any> = new NotificationType(
     'json/schemaAssociations'
   );
+}
+
+// eslint-disable-next-line @typescript-eslint/no-namespace
+namespace VSCodeContentRequestRegistration {
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  export const type: NotificationType<{}, {}> = new NotificationType('yaml/registerVSCodeContentRequest');
+}
+
+// eslint-disable-next-line @typescript-eslint/no-namespace
+namespace VSCodeContentRequest {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  export const type: RequestType<string, string, any, any> = new RequestType('vscode/content');
 }
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -86,12 +106,28 @@ export function activate(context: ExtensionContext): SchemaExtensionAPI {
     });
     // Tell the server that the client is ready to provide custom schema content
     client.sendNotification(DynamicCustomSchemaRequestRegistration.type);
+    // Tell the server that the client supports schema requests sent directly to it
+    client.sendNotification(VSCodeContentRequestRegistration.type);
     // If the server asks for custom schema content, get it and send it back
     client.onRequest(CUSTOM_SCHEMA_REQUEST, (resource: string) => {
       return schemaExtensionAPI.requestCustomSchema(resource);
     });
     client.onRequest(CUSTOM_CONTENT_REQUEST, (uri: string) => {
       return schemaExtensionAPI.requestCustomSchemaContent(uri);
+    });
+    client.onRequest(VSCodeContentRequest.type, (uri: string) => {
+      const httpSettings = workspace.getConfiguration('http');
+      configureHttpRequests(httpSettings.http && httpSettings.http.proxy, httpSettings.http && httpSettings.http.proxyStrictSSL);
+
+      const headers = { 'Accept-Encoding': 'gzip, deflate' };
+      return xhr({ url: uri, followRedirects: 5, headers }).then(
+        (response) => {
+          return response.responseText;
+        },
+        (error: XHRResponse) => {
+          return Promise.reject(error.responseText || getErrorStatusDescription(error.status) || error.toString());
+        }
+      );
     });
   });
 
