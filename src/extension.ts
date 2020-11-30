@@ -8,10 +8,11 @@
 
 import * as path from 'path';
 
-import { workspace, ExtensionContext, extensions } from 'vscode';
-import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind, NotificationType } from 'vscode-languageclient';
+import { workspace, ExtensionContext, extensions, commands } from 'vscode';
+import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind, NotificationType, ExecuteCommandParams, ExecuteCommandRequest } from 'vscode-languageclient';
 import { CUSTOM_SCHEMA_REQUEST, CUSTOM_CONTENT_REQUEST, SchemaExtensionAPI } from './schema-extension-api';
 import { joinPath } from './paths';
+import { Commands } from './commands';
 
 export interface ISchemaAssociations {
   [pattern: string]: string[];
@@ -64,6 +65,9 @@ export function activate(context: ExtensionContext): SchemaExtensionAPI {
       // Notify the server about file changes to YAML and JSON files contained in the workspace
       fileEvents: [workspace.createFileSystemWatcher('**/*.?(e)y?(a)ml'), workspace.createFileSystemWatcher('**/*.json')],
     },
+    initializationOptions: {
+      bundles: gatherYAMLLanguageServerExtensions()
+    },
   };
 
   // Create the language client and start it
@@ -93,9 +97,34 @@ export function activate(context: ExtensionContext): SchemaExtensionAPI {
     client.onRequest(CUSTOM_CONTENT_REQUEST, (uri: string) => {
       return schemaExtensionAPI.requestCustomSchemaContent(uri);
     });
+
+    commands.registerCommand(Commands.EXECUTE_WORKSPACE_COMMAND, (command, ...rest) => {
+      const params: ExecuteCommandParams = {
+        command: command[0],
+        arguments: rest
+      }
+      return client.sendRequest(ExecuteCommandRequest.type, params);
+    });
   });
 
   return schemaExtensionAPI;
+}
+
+function gatherYAMLLanguageServerExtensions(): string[] {
+  const yamlExtensionsArray = [];
+  for (const extInd in extensions.all) {
+    const currExtension = extensions.all[extInd];
+    const contributes = currExtension.packageJSON["contributes"];
+    if (contributes) {
+      const yamlExtension = contributes["yamlExtensions"];
+      if (yamlExtension && Array.isArray(yamlExtension)) {
+        for (const ext of yamlExtension) {
+          yamlExtensionsArray.push(path.resolve(currExtension.extensionPath, ext));
+        }
+      }
+    }
+  }
+  return yamlExtensionsArray;
 }
 
 function getSchemaAssociations(): ISchemaAssociation[] {
