@@ -37,7 +37,7 @@ node('rhel8'){
 
 	stage 'Upload vscode-yaml to staging'
 	def vsix = findFiles(glob: '**.vsix')
-	sh "rsync -Pzrlt --rsh=ssh --protocol=28 ${vsix[0].path} ${UPLOAD_LOCATION}"
+	sh "rsync -Pzrlt --rsh=ssh --protocol=28 ${vsix[0].path} ${UPLOAD_LOCATION}/snapshots/vscode-yaml/"
 	stash name:'vsix', includes:vsix[0].path
 }
 
@@ -61,5 +61,9 @@ node('rhel8'){
 	  	sh 'ovsx publish -p ${OVSX_TOKEN}' + " ${vsix[0].path}"
 	  }
 	  archive includes:"**.vsix"
+
+	  stage ("Promote the build to stable") {
+		sh "rsync -Pzrlt --rsh=ssh --protocol=28 *.vsix* ${UPLOAD_LOCATION}/stable/vscode-yaml/"
+	  }
   }
 }
