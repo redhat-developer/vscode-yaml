@@ -16,10 +16,11 @@ import {
   TransportKind,
   NotificationType,
   RequestType,
-} from 'vscode-languageclient';
+} from 'vscode-languageclient/node';
 import { CUSTOM_SCHEMA_REQUEST, CUSTOM_CONTENT_REQUEST, SchemaExtensionAPI } from './schema-extension-api';
 import { joinPath } from './paths';
 import { xhr, configure as configureHttpRequests, getErrorStatusDescription, XHRResponse } from 'request-light';
+import { getJsonSchemaContent, JSONSchemaDocumentContentProvider } from './json-schema-content-provider';
 
 export interface ISchemaAssociations {
   [pattern: string]: string[];
@@ -33,7 +34,7 @@ export interface ISchemaAssociation {
 // eslint-disable-next-line @typescript-eslint/no-namespace
 namespace SchemaAssociationNotification {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  export const type: NotificationType<ISchemaAssociations | ISchemaAssociation[], any> = new NotificationType(
+  export const type: NotificationType<ISchemaAssociations | ISchemaAssociation[]> = new NotificationType(
     'json/schemaAssociations'
   );
 }
@@ -41,19 +42,19 @@ namespace SchemaAssociationNotification {
 // eslint-disable-next-line @typescript-eslint/no-namespace
 namespace VSCodeContentRequestRegistration {
   // eslint-disable-next-line @typescript-eslint/ban-types
-  export const type: NotificationType<{}, {}> = new NotificationType('yaml/registerVSCodeContentRequest');
+  export const type: NotificationType<{}> = new NotificationType('yaml/registerVSCodeContentRequest');
 }
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 namespace VSCodeContentRequest {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  export const type: RequestType<string, string, any, any> = new RequestType('vscode/content');
+  export const type: RequestType<string, string, any> = new RequestType('vscode/content');
 }
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 namespace DynamicCustomSchemaRequestRegistration {
   // eslint-disable-next-line @typescript-eslint/ban-types
-  export const type: NotificationType<{}, {}> = new NotificationType('yaml/registerCustomSchemaRequest');
+  export const type: NotificationType<{}> = new NotificationType('yaml/registerCustomSchemaRequest');
 }
 
 let client: LanguageClient;
@@ -95,6 +96,9 @@ export function activate(context: ExtensionContext): SchemaExtensionAPI {
   // Push the disposable to the context's subscriptions so that the
   // client can be deactivated on extension deactivation
   context.subscriptions.push(disposable);
+  context.subscriptions.push(
+    workspace.registerTextDocumentContentProvider('json-schema', new JSONSchemaDocumentContentProvider())
+  );
 
   client.onReady().then(() => {
     // Send a notification to the server with any YAML schema associations in all extensions
@@ -116,18 +120,7 @@ export function activate(context: ExtensionContext): SchemaExtensionAPI {
       return schemaExtensionAPI.requestCustomSchemaContent(uri);
     });
     client.onRequest(VSCodeContentRequest.type, (uri: string) => {
-      const httpSettings = workspace.getConfiguration('http');
-      configureHttpRequests(httpSettings.http && httpSettings.http.proxy, httpSettings.http && httpSettings.http.proxyStrictSSL);
-
-      const headers = { 'Accept-Encoding': 'gzip, deflate' };
-      return xhr({ url: uri, followRedirects: 5, headers }).then(
-        (response) => {
-          return response.responseText;
-        },
-        (error: XHRResponse) => {
-          return Promise.reject(error.responseText || getErrorStatusDescription(error.status) || error.toString());
-        }
-      );
+      return getJsonSchemaContent(uri);
     });
   });
 
