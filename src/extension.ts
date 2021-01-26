@@ -19,8 +19,8 @@ import {
 } from 'vscode-languageclient/node';
 import { CUSTOM_SCHEMA_REQUEST, CUSTOM_CONTENT_REQUEST, SchemaExtensionAPI } from './schema-extension-api';
 import { joinPath } from './paths';
-import { xhr, configure as configureHttpRequests, getErrorStatusDescription, XHRResponse } from 'request-light';
 import { getJsonSchemaContent, JSONSchemaDocumentContentProvider } from './json-schema-content-provider';
+import { JSONSchemaCache } from './json-schema-cache';
 
 export interface ISchemaAssociations {
   [pattern: string]: string[];
@@ -42,7 +42,7 @@ namespace SchemaAssociationNotification {
 // eslint-disable-next-line @typescript-eslint/no-namespace
 namespace VSCodeContentRequestRegistration {
   // eslint-disable-next-line @typescript-eslint/ban-types
-  export const type: NotificationType<{}> = new NotificationType('yaml/registerVSCodeContentRequest');
+  export const type: NotificationType<{}> = new NotificationType('yaml/registerContentRequest');
 }
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -87,6 +87,8 @@ export function activate(context: ExtensionContext): SchemaExtensionAPI {
     },
   };
 
+  const schemaCache = new JSONSchemaCache(context.globalStoragePath);
+
   // Create the language client and start it
   client = new LanguageClient('yaml', 'YAML Support', serverOptions, clientOptions);
   const disposable = client.start();
@@ -97,7 +99,7 @@ export function activate(context: ExtensionContext): SchemaExtensionAPI {
   // client can be deactivated on extension deactivation
   context.subscriptions.push(disposable);
   context.subscriptions.push(
-    workspace.registerTextDocumentContentProvider('json-schema', new JSONSchemaDocumentContentProvider())
+    workspace.registerTextDocumentContentProvider('json-schema', new JSONSchemaDocumentContentProvider(schemaCache))
   );
 
   client.onReady().then(() => {
@@ -120,7 +122,7 @@ export function activate(context: ExtensionContext): SchemaExtensionAPI {
       return schemaExtensionAPI.requestCustomSchemaContent(uri);
     });
     client.onRequest(VSCodeContentRequest.type, (uri: string) => {
-      return getJsonSchemaContent(uri);
+      return getJsonSchemaContent(uri, schemaCache);
     });
   });
 

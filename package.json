@@ -169,6 +169,7 @@
     "vscode:prepublish": "tsc -p ./"
   },
   "devDependencies": {
+    "@types/fs-extra": "^9.0.6",
     "@types/mocha": "^2.2.48",
     "@types/node": "^6.0.52",
     "@types/vscode": "^1.31.0",
@@ -186,6 +187,7 @@
     "vscode-test": "^1.4.0"
   },
   "dependencies": {
+    "fs-extra": "^9.1.0",
     "request-light": "^0.4.0",
     "vscode-languageclient": "7.0.0",
     "vscode-nls": "^3.2.1",
