@@ -87,7 +87,7 @@ export function activate(context: ExtensionContext): SchemaExtensionAPI {
     },
   };
 
-  const schemaCache = new JSONSchemaCache(context.globalStoragePath);
+  const schemaCache = new JSONSchemaCache(context.globalStoragePath, context.globalState);
 
   // Create the language client and start it
   client = new LanguageClient('yaml', 'YAML Support', serverOptions, clientOptions);

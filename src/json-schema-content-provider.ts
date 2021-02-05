@@ -15,23 +15,35 @@ export class JSONSchemaDocumentContentProvider implements TextDocumentContentPro
 }
 
 export async function getJsonSchemaContent(uri: string, schemaCache: JSONSchemaCache): Promise<string> {
-  const cachedSchema = await schemaCache.getSchema(uri);
-  if (cachedSchema) {
-    return cachedSchema;
-  }
+  const cachedETag = schemaCache.getETag(uri);
+
   const httpSettings = workspace.getConfiguration('http');
   configureHttpRequests(httpSettings.http && httpSettings.http.proxy, httpSettings.http && httpSettings.http.proxyStrictSSL);
 
-  const headers = { 'Accept-Encoding': 'gzip, deflate' };
+  const headers: { [key: string]: string } = { 'Accept-Encoding': 'gzip, deflate' };
+  if (cachedETag) {
+    headers['If-None-Match'] = cachedETag;
+  }
   return xhr({ url: uri, followRedirects: 5, headers })
     .then(async (response) => {
-      await schemaCache.putSchema(uri, response.responseText);
+      // cache only if server supports 'etag' header
+      if (response.headers['etag']) {
+        await schemaCache.putSchema(uri, response.headers['etag'], response.responseText);
+      }
       return response.responseText;
     })
     .then((text) => {
       return text;
     })
     .catch((error: XHRResponse) => {
+      // content not changed, return cached
+      if (error.status === 304) {
+        return schemaCache.getSchema(uri);
+      }
+      // in case of some error, like Internet connection issue, check if cached version exist ant return it
+      if (schemaCache.getETag(uri)) {
+        return schemaCache.getSchema(uri);
+      }
       return Promise.reject(error.responseText || getErrorStatusDescription(error.status) || error.toString());
     });
 }

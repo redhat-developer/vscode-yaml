@@ -6,16 +6,29 @@
 import * as fs from 'fs-extra';
 import * as path from 'path';
 import * as crypto from 'crypto';
+import { Memento } from 'vscode';
 
 const CACHE_DIR = 'schemas_cache';
-const CACHE_HOURS = 5 * 24; // 5 days
+const CACHE_KEY = 'json-schema-key';
+
+interface CacheEntry {
+  eTag: string;
+  schemaPath: string;
+}
+
+interface SchemaCache {
+  [uri: string]: CacheEntry;
+}
+
 export class JSONSchemaCache {
   private readonly cachePath: string;
+  private readonly cache: SchemaCache;
 
   private isInitialized = false;
 
-  constructor(globalStoragePath: string) {
+  constructor(globalStoragePath: string, private memento: Memento) {
     this.cachePath = path.join(globalStoragePath, CACHE_DIR);
+    this.cache = memento.get(CACHE_KEY, {});
     this.init();
   }
 
@@ -31,28 +44,33 @@ export class JSONSchemaCache {
     return path.join(this.cachePath, hashedURI);
   }
 
-  async putSchema(schemaUri: string, schemaContent: string): Promise<void> {
-    const cacheFile = this.getCacheFilePath(schemaUri);
-    if (await fs.pathExists(cacheFile)) {
-      await fs.remove(cacheFile);
-    }
+  getETag(schemaUri: string): string | undefined {
+    return this.cache[schemaUri]?.eTag;
+  }
 
-    await fs.writeFile(cacheFile, schemaContent);
+  async putSchema(schemaUri: string, eTag: string, schemaContent: string): Promise<void> {
+    if (!this.cache[schemaUri]) {
+      this.cache[schemaUri] = { eTag, schemaPath: this.getCacheFilePath(schemaUri) };
+    } else {
+      this.cache[schemaUri].eTag = eTag;
+    }
+    try {
+      const cacheFile = this.cache[schemaUri].schemaPath;
+      await fs.writeFile(cacheFile, schemaContent);
+
+      await this.memento.update(CACHE_KEY, this.cache);
+    } catch (err) {
+      delete this.cache[schemaUri];
+      console.error(err);
+    }
   }
 
   async getSchema(schemaUri: string): Promise<string | undefined> {
     if (!this.isInitialized) {
       return undefined;
     }
-    const cacheFile = this.getCacheFilePath(schemaUri);
+    const cacheFile = this.cache[schemaUri]?.schemaPath;
     if (await fs.pathExists(cacheFile)) {
-      const stat = await fs.stat(cacheFile);
-      const cacheTTLDate = new Date();
-      cacheTTLDate.setHours(cacheTTLDate.getHours() - CACHE_HOURS);
-      if (stat.mtime <= cacheTTLDate) {
-        await fs.remove(cacheFile);
-        return undefined;
-      }
       return await fs.readFile(cacheFile, { encoding: 'UTF8' });
     }
 
