@@ -16,6 +16,7 @@ import {
   TransportKind,
   NotificationType,
   RequestType,
+  RevealOutputChannelOn,
 } from 'vscode-languageclient';
 import { CUSTOM_SCHEMA_REQUEST, CUSTOM_CONTENT_REQUEST, SchemaExtensionAPI } from './schema-extension-api';
 import { joinPath } from './paths';
@@ -84,6 +85,7 @@ export function activate(context: ExtensionContext): SchemaExtensionAPI {
       // Notify the server about file changes to YAML and JSON files contained in the workspace
       fileEvents: [workspace.createFileSystemWatcher('**/*.?(e)y?(a)ml'), workspace.createFileSystemWatcher('**/*.json')],
     },
+    revealOutputChannelOn: RevealOutputChannelOn.Never,
   };
 
   // Create the language client and start it
