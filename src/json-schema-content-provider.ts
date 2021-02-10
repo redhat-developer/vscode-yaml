@@ -40,7 +40,7 @@ export async function getJsonSchemaContent(uri: string, schemaCache: JSONSchemaC
       if (error.status === 304) {
         return schemaCache.getSchema(uri);
       }
-      // in case of some error, like Internet connection issue, check if cached version exist ant return it
+      // in case of some error, like internet connection issue, check if cached version exist and return it
       if (schemaCache.getETag(uri)) {
         return schemaCache.getSchema(uri);
       }
