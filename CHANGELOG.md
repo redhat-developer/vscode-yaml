@@ -1,3 +1,19 @@
+### 0.15.0
+
+- Fix: Array new line ending with no indent [#384](https://github.com/redhat-developer/yaml-language-server/pull/384)
+- Fix: Code Completion with defaultSnippet and markdown [#385](https://github.com/redhat-developer/yaml-language-server/pull/385)
+- Fix: Test yaml-schema package [#386](https://github.com/redhat-developer/yaml-language-server/pull/386)
+- Fix: Completion with default snippet when node is array [#387](https://github.com/redhat-developer/yaml-language-server/pull/387)
+- Auto formatting for list, with `onTypeFormatting` implementation [#179](https://github.com/redhat-developer/vscode-yaml/issues/179)
+- Fix: Completion array anyOf [#390](https://github.com/redhat-developer/yaml-language-server/pull/390)
+- Fix CodeCompletion with defaultSnippet and markdown [#393](https://github.com/redhat-developer/yaml-language-server/pull/393)
+- Update kubernetes schema to 1.18.1 [#401](https://github.com/redhat-developer/yaml-language-server/pull/401)
+- Fix: Folding misbehaves in version 0.14.0 [#400](https://github.com/redhat-developer/yaml-language-server/issues/400)
+- Add backtick to surroundingPairs [#144](https://github.com/redhat-developer/vscode-yaml/issues/144)
+- Fix: Extension is stealing focus [#359](https://github.com/redhat-developer/vscode-yaml/issues/359)
+
+Thanks to Petr Spacek and tonypai for contribution in `yaml-language-server`
+
 ### 0.14.0
 
 - yaml-language-server use a non-standard LSP request to resolve schemas content on client [#359](https://github.com/redhat-developer/yaml-language-server/pull/359)
