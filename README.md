@@ -26,6 +26,7 @@ Supports JSON Schema 7 and below.
    - Hovering over a node shows description _if provided by schema_
 5. Formatter:
    - Allows for formatting the current file
+   - On type formatting auto indent for array items
 
 _Auto completion and hover support are provided by the schema. Please refer to Language Server Settings to setup a schema_
 
@@ -44,10 +45,11 @@ The following settings are supported:
 - `yaml.schemas`: Helps you associate schemas with files in a glob pattern
 - `yaml.schemaStore.enable`: When set to true the YAML language server will pull in all available schemas from [JSON Schema Store](http://schemastore.org/json/)
 - `yaml.customTags`: Array of custom tags that the parser will validate against. It has two ways to be used. Either an item in the array is a custom tag such as "!Ref" and it will automatically map !Ref to scalar or you can specify the type of the object !Ref should be e.g. "!Ref sequence". The type of object can be either scalar (for strings and booleans), sequence (for arrays), mapping (for objects).
-- `[yaml]`: VSCode-YAML adds default configuration for all yaml files. More specifically it converts tabs to spaces to ensure valid yaml, sets the tab size, and allows live typing autocompletion. These settings can be modified via the corresponding settings inside the `[yaml]` section in the settings:
+- `[yaml]`: VSCode-YAML adds default configuration for all yaml files. More specifically it converts tabs to spaces to ensure valid yaml, sets the tab size, and allows live typing autocompletion and formatting. These settings can be modified via the corresponding settings inside the `[yaml]` section in the settings:
   - `editor.insertSpaces`
   - `editor.tabSize`
   - `editor.quickSuggestions`
+  - `editor.formatOnType`
 
 ##### Adding custom tags
 
