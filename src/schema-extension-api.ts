@@ -1,5 +1,5 @@
 import { URI } from 'vscode-uri';
-import { LanguageClient, RequestType } from 'vscode-languageclient';
+import { LanguageClient, RequestType } from 'vscode-languageclient/node';
 import { workspace } from 'vscode';
 import { logToExtensionOutputChannel } from './extension';
 
@@ -32,7 +32,7 @@ export interface SchemaDeletions {
 // eslint-disable-next-line @typescript-eslint/no-namespace
 namespace SchemaModificationNotification {
   // eslint-disable-next-line @typescript-eslint/ban-types
-  export const type: RequestType<SchemaAdditions | SchemaDeletions, void, {}, {}> = new RequestType('json/schema/modify');
+  export const type: RequestType<SchemaAdditions | SchemaDeletions, void, {}> = new RequestType('json/schema/modify');
 }
 
 export interface ExtensionAPI {
