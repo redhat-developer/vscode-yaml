@@ -44,12 +44,12 @@ export const getDocUri = (p: string): vscode.Uri => {
 };
 
 export const updateSettings = (setting: string, value: unknown): Thenable<void> => {
-  const yamlConfiguration = vscode.workspace.getConfiguration('yaml');
+  const yamlConfiguration = vscode.workspace.getConfiguration('yaml', null);
   return yamlConfiguration.update(setting, value, false);
 };
 
 export const resetSettings = (setting: string, value: unknown): Thenable<void> => {
-  const yamlConfiguration = vscode.workspace.getConfiguration('yaml');
+  const yamlConfiguration = vscode.workspace.getConfiguration('yaml', null);
   return yamlConfiguration.update(setting, value, false);
 };
 
