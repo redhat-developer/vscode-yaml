@@ -150,7 +150,7 @@ This extension allows you to specify json schemas that you want to validate agai
 
 1. Install prerequisites:
    - latest [Visual Studio Code](https://code.visualstudio.com/)
-   - [Node.js](https://nodejs.org/) v6.0.0 or higher
+   - [Node.js](https://nodejs.org/) v12.0.0 or higher
 2. Fork and clone this repository and go into the folder
    ```bash
     $ cd vscode-yaml
@@ -161,7 +161,7 @@ This extension allows you to specify json schemas that you want to validate agai
    ```
 4. Compile the Typescript to Javascript
    ```bash
-   $ npm run compile
+   $ npm run build
    ```
 
 #### Developing the client side
