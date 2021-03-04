@@ -192,6 +192,6 @@
     "vscode-languageclient": "7.0.0",
     "vscode-nls": "^3.2.1",
     "vscode-uri": "^2.0.3",
-    "yaml-language-server": "next"
+    "yaml-language-server": "0.16.0"
   }
 }
