@@ -5,7 +5,11 @@
 import { commands, Extension, extensions, window } from 'vscode';
 
 // A set of VSCode extension ID's that conflict with VSCode-YAML
-const conflictingIDs = new Set(['vscoss.vscode-ansible', 'ms-vscode-deploy-azure.azure-deploy']);
+const azureDeploy = 'ms-vscode-deploy-azure.azure-deploy';
+const conflictingIDs = new Set(['vscoss.vscode-ansible', azureDeploy]);
+
+// A set of VSCode extension ID's that are currently uninstalling
+const uninstallingIDs = new Set();
 
 /**
  * Get all of the installed extensions that currently conflict with VSCode-YAML
@@ -15,7 +19,7 @@ export function getConflictingExtensions(): Extension<any>[] {
   const conflictingExtensions = [];
   conflictingIDs.forEach((extension) => {
     const ext = extensions.getExtension(extension);
-    if (ext) {
+    if (ext && !uninstallingIDs.has(ext.id)) {
       conflictingExtensions.push(ext);
     }
   });
@@ -27,6 +31,12 @@ export function getConflictingExtensions(): Extension<any>[] {
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function showUninstallConflictsNotification(conflictingExts: Extension<any>[]): void {
+  // Add all available conflicting extensions to the uninstalling IDs map
+  for (const extIndex in conflictingExts) {
+    const ext = conflictingExts[extIndex];
+    uninstallingIDs.add(ext.id);
+  }
+
   const uninstallMsg = 'Uninstall';
 
   // Gather all the conflicting display names
@@ -41,11 +51,20 @@ export function showUninstallConflictsNotification(conflictingExts: Extension<an
     conflictMsg = `The ${extNames.join(', ')} extensions are incompatible with VSCode-YAML. Please uninstall them.`;
   }
 
-  window.showInformationMessage(conflictMsg, uninstallMsg).then((clickedMsg) => {
-    if (clickedMsg === uninstallMsg) {
-      conflictingExts.forEach((ext) => {
-        commands.executeCommand('workbench.extensions.uninstallExtension', ext.id);
-      });
-    }
-  });
+  if (conflictingExts.length > 0) {
+    window.showInformationMessage(conflictMsg, uninstallMsg).then((clickedMsg) => {
+      if (clickedMsg === uninstallMsg) {
+        conflictingExts.forEach((ext) => {
+          commands.executeCommand('workbench.extensions.uninstallExtension', ext.id);
+          uninstallingIDs.delete(ext.id);
+        });
+
+        // The azure deploy extension must be reloaded in order to be completely uninstalled
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        if (conflictingExts.findIndex((ext: any) => ext.id === azureDeploy) !== -1) {
+          commands.executeCommand('workbench.action.reloadWindow');
+        }
+      }
+    });
+  }
 }
