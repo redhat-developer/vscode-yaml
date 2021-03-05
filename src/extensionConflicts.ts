@@ -6,7 +6,7 @@ import { commands, Extension, extensions, window } from 'vscode';
 
 // A set of VSCode extension ID's that conflict with VSCode-YAML
 const azureDeploy = 'ms-vscode-deploy-azure.azure-deploy';
-const conflictingIDs = new Set(['vscoss.vscode-ansible', azureDeploy]);
+const conflictingIDs = new Set(['vscoss.vscode-ansible', azureDeploy, 'sysninja.vscode-ansible-mod', 'haaaad.ansible']);
 
 // A set of VSCode extension ID's that are currently uninstalling
 const uninstallingIDs = new Set();
