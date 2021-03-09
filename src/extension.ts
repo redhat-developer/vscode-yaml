@@ -22,6 +22,7 @@ import { CUSTOM_SCHEMA_REQUEST, CUSTOM_CONTENT_REQUEST, SchemaExtensionAPI } fro
 import { joinPath } from './paths';
 import { getJsonSchemaContent, JSONSchemaDocumentContentProvider } from './json-schema-content-provider';
 import { JSONSchemaCache } from './json-schema-cache';
+import { getConflictingExtensions, showUninstallConflictsNotification } from './extensionConflicts';
 
 export interface ISchemaAssociations {
   [pattern: string]: string[];
@@ -104,6 +105,7 @@ export function activate(context: ExtensionContext): SchemaExtensionAPI {
     workspace.registerTextDocumentContentProvider('json-schema', new JSONSchemaDocumentContentProvider(schemaCache))
   );
 
+  findConflicts();
   client.onReady().then(() => {
     // Send a notification to the server with any YAML schema associations in all extensions
     client.sendNotification(SchemaAssociationNotification.type, getSchemaAssociations());
@@ -111,6 +113,7 @@ export function activate(context: ExtensionContext): SchemaExtensionAPI {
     // If the extensions change, fire this notification again to pick up on any association changes
     extensions.onDidChange(() => {
       client.sendNotification(SchemaAssociationNotification.type, getSchemaAssociations());
+      findConflicts();
     });
     // Tell the server that the client is ready to provide custom schema content
     client.sendNotification(DynamicCustomSchemaRequestRegistration.type);
@@ -129,6 +132,18 @@ export function activate(context: ExtensionContext): SchemaExtensionAPI {
   });
 
   return schemaExtensionAPI;
+}
+
+/**
+ * Finds extensions that conflict with VSCode-YAML.
+ * If one or more conflicts are found then show an uninstall notification
+ * If no conflicts are found then do nothing
+ */
+function findConflicts(): void {
+  const conflictingExtensions = getConflictingExtensions();
+  if (conflictingExtensions.length > 0) {
+    showUninstallConflictsNotification(conflictingExtensions);
+  }
 }
 
 function getSchemaAssociations(): ISchemaAssociation[] {
