@@ -154,7 +154,7 @@
           "comments": false,
           "strings": true
         },
-        "editor.autoIndent": false
+        "editor.autoIndent": "keep"
       }
     }
   },
