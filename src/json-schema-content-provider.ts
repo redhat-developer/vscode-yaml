@@ -3,14 +3,37 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-import { TextDocumentContentProvider, Uri, ProviderResult, workspace } from 'vscode';
+import { TextDocumentContentProvider, Uri, workspace, window } from 'vscode';
 import { xhr, configure as configureHttpRequests, getErrorStatusDescription, XHRResponse } from 'request-light';
 import { JSONSchemaCache } from './json-schema-cache';
+import { SchemaExtensionAPI } from './schema-extension-api';
 
 export class JSONSchemaDocumentContentProvider implements TextDocumentContentProvider {
-  constructor(private readonly schemaCache: JSONSchemaCache) {}
-  provideTextDocumentContent(uri: Uri): ProviderResult<string> {
-    return getJsonSchemaContent(uri.toString().replace('json-schema://', 'https://'), this.schemaCache);
+  constructor(private readonly schemaCache: JSONSchemaCache, private readonly schemaApi: SchemaExtensionAPI) {}
+  async provideTextDocumentContent(uri: Uri): Promise<string> {
+    if (uri.fragment) {
+      const origUri = uri.fragment;
+      const schemaUri = Uri.parse(origUri);
+      if (origUri.startsWith('https') || origUri.startsWith('http')) {
+        return getJsonSchemaContent(origUri, this.schemaCache);
+      } else if (this.schemaApi.hasProvider(schemaUri.scheme)) {
+        let content = this.schemaApi.requestCustomSchemaContent(origUri);
+
+        content = await Promise.resolve(content);
+        // prettify JSON
+        if (content.indexOf('\n') === -1) {
+          content = JSON.stringify(JSON.parse(content), null, 2);
+        }
+
+        return content;
+      } else {
+        window.showErrorMessage(`Cannot Load content for: ${origUri}. Unknown schema: '${schemaUri.scheme}'`);
+        return null;
+      }
+    } else {
+      window.showErrorMessage(`Cannot Load content for: '${uri.toString()}' `);
+      return null;
+    }
   }
 }
 

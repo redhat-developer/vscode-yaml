@@ -102,7 +102,10 @@ export function activate(context: ExtensionContext): SchemaExtensionAPI {
   // client can be deactivated on extension deactivation
   context.subscriptions.push(disposable);
   context.subscriptions.push(
-    workspace.registerTextDocumentContentProvider('json-schema', new JSONSchemaDocumentContentProvider(schemaCache))
+    workspace.registerTextDocumentContentProvider(
+      'json-schema',
+      new JSONSchemaDocumentContentProvider(schemaCache, schemaExtensionAPI)
+    )
   );
 
   findConflicts();
