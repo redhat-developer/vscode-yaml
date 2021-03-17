@@ -14,7 +14,8 @@ export class JSONSchemaDocumentContentProvider implements TextDocumentContentPro
     if (uri.fragment) {
       const origUri = uri.fragment;
       const schemaUri = Uri.parse(origUri);
-      if (origUri.startsWith('https') || origUri.startsWith('http')) {
+      // handle both 'http' and 'https'
+      if (origUri.startsWith('http')) {
         return getJsonSchemaContent(origUri, this.schemaCache);
       } else if (this.schemaApi.hasProvider(schemaUri.scheme)) {
         let content = this.schemaApi.requestCustomSchemaContent(origUri);
