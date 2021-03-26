@@ -62,12 +62,29 @@ export async function getJsonSchemaContent(uri: string, schemaCache: JSONSchemaC
     .catch((error: XHRResponse) => {
       // content not changed, return cached
       if (error.status === 304) {
-        return schemaCache.getSchema(uri);
+        const content = schemaCache.getSchema(uri);
+        // ensure that we return content even if cache doesn't have it
+        if (content === undefined) {
+          console.error(`Cannot read cached content for: ${uri}, trying to load again`);
+          delete headers['If-None-Match'];
+          return xhr({ url: uri, followRedirects: 5, headers })
+            .then((response) => {
+              return response.responseText;
+            })
+            .catch((err: XHRResponse) => {
+              return creteReject(err);
+            });
+        }
+        return content;
       }
       // in case of some error, like internet connection issue, check if cached version exist and return it
       if (schemaCache.getETag(uri)) {
         return schemaCache.getSchema(uri);
       }
-      return Promise.reject(error.responseText || getErrorStatusDescription(error.status) || error.toString());
+      return creteReject(error);
     });
+}
+
+function creteReject(error: XHRResponse): Promise<string> {
+  return Promise.reject(error.responseText || getErrorStatusDescription(error.status) || error.toString());
 }

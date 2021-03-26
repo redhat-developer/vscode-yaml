@@ -90,10 +90,10 @@ export function activate(context: ExtensionContext): SchemaExtensionAPI {
     revealOutputChannelOn: RevealOutputChannelOn.Never,
   };
 
-  const schemaCache = new JSONSchemaCache(context.globalStoragePath, context.globalState);
-
   // Create the language client and start it
   client = new LanguageClient('yaml', 'YAML Support', serverOptions, clientOptions);
+
+  const schemaCache = new JSONSchemaCache(context.globalStoragePath, context.globalState, client.outputChannel);
   const disposable = client.start();
 
   const schemaExtensionAPI = new SchemaExtensionAPI(client);
