@@ -85,6 +85,6 @@ export async function getJsonSchemaContent(uri: string, schemaCache: JSONSchemaC
     });
 }
 
-function creteReject(error: XHRResponse): Promise<string> {
+function createReject(error: XHRResponse): Promise<string> {
   return Promise.reject(error.responseText || getErrorStatusDescription(error.status) || error.toString());
 }
