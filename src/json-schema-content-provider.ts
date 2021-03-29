@@ -72,16 +72,19 @@ export async function getJsonSchemaContent(uri: string, schemaCache: JSONSchemaC
               return response.responseText;
             })
             .catch((err: XHRResponse) => {
-              return creteReject(err);
+              return createReject(err);
             });
         }
         return content;
       }
       // in case of some error, like internet connection issue, check if cached version exist and return it
       if (schemaCache.getETag(uri)) {
-        return schemaCache.getSchema(uri);
+        const content = schemaCache.getSchema(uri);
+        if (content) {
+          return content;
+        }
       }
-      return creteReject(error);
+      return createReject(error);
     });
 }
 
