@@ -59,7 +59,7 @@ export async function getJsonSchemaContent(uri: string, schemaCache: JSONSchemaC
     .then((text) => {
       return text;
     })
-    .catch((error: XHRResponse) => {
+    .catch(async (error: XHRResponse) => {
       // content not changed, return cached
       if (error.status === 304) {
         const content = await schemaCache.getSchema(uri);
