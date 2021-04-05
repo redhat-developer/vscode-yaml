@@ -62,7 +62,7 @@ export async function getJsonSchemaContent(uri: string, schemaCache: JSONSchemaC
     .catch((error: XHRResponse) => {
       // content not changed, return cached
       if (error.status === 304) {
-        const content = schemaCache.getSchema(uri);
+        const content = await schemaCache.getSchema(uri);
         // ensure that we return content even if cache doesn't have it
         if (content === undefined) {
           console.error(`Cannot read cached content for: ${uri}, trying to load again`);
