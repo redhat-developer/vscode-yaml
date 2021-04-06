@@ -24,7 +24,7 @@
   },
   "icon": "icon/icon128.png",
   "engines": {
-    "vscode": "^1.31.0"
+    "vscode": "^1.52.0"
   },
   "categories": [
     "Programming Languages",
@@ -172,7 +172,7 @@
     "@types/fs-extra": "^9.0.6",
     "@types/mocha": "^2.2.48",
     "@types/node": "^12.12.6",
-    "@types/vscode": "^1.31.0",
+    "@types/vscode": "^1.52.0",
     "@typescript-eslint/eslint-plugin": "^4.16.1",
     "@typescript-eslint/parser": "^4.16.1",
     "eslint": "^7.6.0",
