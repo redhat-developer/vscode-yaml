@@ -6,7 +6,7 @@
 import * as fs from 'fs-extra';
 import * as path from 'path';
 import * as crypto from 'crypto';
-import { Memento } from 'vscode';
+import { Memento, OutputChannel } from 'vscode';
 
 const CACHE_DIR = 'schemas_cache';
 const CACHE_KEY = 'json-schema-key';
@@ -26,10 +26,9 @@ export class JSONSchemaCache {
 
   private isInitialized = false;
 
-  constructor(globalStoragePath: string, private memento: Memento) {
+  constructor(globalStoragePath: string, private memento: Memento, private output: OutputChannel) {
     this.cachePath = path.join(globalStoragePath, CACHE_DIR);
     this.cache = memento.get(CACHE_KEY, {});
-    this.init();
   }
 
   private async init(): Promise<void> {
@@ -49,6 +48,9 @@ export class JSONSchemaCache {
   }
 
   async putSchema(schemaUri: string, eTag: string, schemaContent: string): Promise<void> {
+    if (!this.isInitialized) {
+      await this.init();
+    }
     if (!this.cache[schemaUri]) {
       this.cache[schemaUri] = { eTag, schemaPath: this.getCacheFilePath(schemaUri) };
     } else {
@@ -61,13 +63,13 @@ export class JSONSchemaCache {
       await this.memento.update(CACHE_KEY, this.cache);
     } catch (err) {
       delete this.cache[schemaUri];
-      console.error(err);
+      this.output.appendLine(err);
     }
   }
 
   async getSchema(schemaUri: string): Promise<string | undefined> {
     if (!this.isInitialized) {
-      return undefined;
+      await this.init();
     }
     const cacheFile = this.cache[schemaUri]?.schemaPath;
     if (await fs.pathExists(cacheFile)) {
