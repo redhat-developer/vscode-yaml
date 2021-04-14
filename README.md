@@ -1,4 +1,5 @@
-[![CI](https://github.com/redhat-developer/vscode-yaml/actions/workflows/CI.yaml/badge.svg)](https://github.com/redhat-developer/vscode-yaml/actions/workflows/CI.yaml)[![Marketplace Version](https://vsmarketplacebadge.apphb.com/version/redhat.vscode-yaml.svg 'Current Release')](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml)
+[![CI](https://github.com/redhat-developer/vscode-yaml/workflows/CI/badge.svg)](https://github.com/redhat-developer/vscode-yaml/actions/workflows/CI.yaml)
+[![Marketplace Version](https://vsmarketplacebadge.apphb.com/version/redhat.vscode-yaml.svg 'Current Release')](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml)
 
 # YAML Language Support by Red Hat
 Provides comprehensive YAML Language support to [Visual Studio Code](https://code.visualstudio.com/), via the [yaml-language-server](https://github.com/redhat-developer/yaml-language-server), with built-in Kubernetes syntax support.
