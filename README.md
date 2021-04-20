@@ -41,6 +41,7 @@ The following settings are supported:
 * `yaml.schemas`: Helps you associate schemas with files in a glob pattern
 * `yaml.schemaStore.enable`: When set to true the YAML language server will pull in all available schemas from [JSON Schema Store](http://schemastore.org/json/)
 * `yaml.customTags`: Array of custom tags that the parser will validate against. It has two ways to be used. Either an item in the array is a custom tag such as "!Ref" and it will automatically map !Ref to scalar or you can specify the type of the object !Ref should be e.g. "!Ref sequence". The type of object can be either scalar (for strings and booleans), sequence (for arrays), mapping (for objects).
+* `yaml.maxComputedItems`: The maximum number of outline symbols and folding regions computed (limited for performance reasons).
 - `[yaml]`: VSCode-YAML adds default configuration for all yaml files. More specifically it converts tabs to spaces to ensure valid yaml, sets the tab size, and allows live typing autocompletion and formatting, also allows code lens. These settings can be modified via the corresponding settings inside the `[yaml]` section in the settings:
   - `editor.tabSize`
   - `editor.formatOnType`

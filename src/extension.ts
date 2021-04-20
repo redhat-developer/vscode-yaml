@@ -8,7 +8,7 @@
 
 import * as path from 'path';
 
-import { workspace, ExtensionContext, extensions } from 'vscode';
+import { workspace, ExtensionContext, extensions, window, commands } from 'vscode';
 import {
   LanguageClient,
   LanguageClientOptions,
@@ -31,6 +31,16 @@ export interface ISchemaAssociations {
 export interface ISchemaAssociation {
   fileMatch: string[];
   uri: string;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-namespace
+namespace SettingIds {
+  export const maxItemsComputed = 'yaml.maxItemsComputed';
+}
+
+// eslint-disable-next-line @typescript-eslint/no-namespace
+namespace StorageIds {
+  export const maxItemsExceededInformation = 'yaml.maxItemsExceededInformation';
 }
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -57,6 +67,12 @@ namespace VSCodeContentRequest {
 namespace DynamicCustomSchemaRequestRegistration {
   // eslint-disable-next-line @typescript-eslint/ban-types
   export const type: NotificationType<{}> = new NotificationType('yaml/registerCustomSchemaRequest');
+}
+
+// eslint-disable-next-line @typescript-eslint/no-namespace
+namespace ResultLimitReachedNotification {
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  export const type: NotificationType<string> = new NotificationType('yaml/resultLimitReached');
 }
 
 let client: LanguageClient;
@@ -131,6 +147,28 @@ export function activate(context: ExtensionContext): SchemaExtensionAPI {
     });
     client.onRequest(VSCodeContentRequest.type, (uri: string) => {
       return getJsonSchemaContent(uri, schemaCache);
+    });
+
+    // Adapted from:
+    // https://github.com/microsoft/vscode/blob/94c9ea46838a9a619aeafb7e8afd1170c967bb55/extensions/json-language-features/client/src/jsonClient.ts#L305-L318
+    client.onNotification(ResultLimitReachedNotification.type, async (message) => {
+      const shouldPrompt = context.globalState.get<boolean>(StorageIds.maxItemsExceededInformation) !== false;
+      if (shouldPrompt) {
+        const ok = 'Ok';
+        const openSettings = 'Open Settings';
+        const neverAgain = "Don't Show Again";
+        const pick = await window.showInformationMessage(
+          `${message}\nUse setting '${SettingIds.maxItemsComputed}' to configure the limit.`,
+          ok,
+          openSettings,
+          neverAgain
+        );
+        if (pick === neverAgain) {
+          await context.globalState.update(StorageIds.maxItemsExceededInformation, false);
+        } else if (pick === openSettings) {
+          await commands.executeCommand('workbench.action.openSettings', SettingIds.maxItemsComputed);
+        }
+      }
     });
   });
 
