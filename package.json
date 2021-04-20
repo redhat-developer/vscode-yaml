@@ -143,6 +143,11 @@
           "type": "boolean",
           "default": true,
           "description": "Automatically pull available YAML schemas from JSON Schema Store"
+        },
+        "yaml.maxItemsComputed": {
+          "type": "integer",
+          "default": 5000,
+          "description": "The maximum number of outline symbols and folding regions computed (limited for performance reasons)."
         }
       }
     },
