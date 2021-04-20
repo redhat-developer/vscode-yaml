@@ -49,6 +49,19 @@ The following settings are supported:
 
 - `http.proxyStrictSSL`: If true the proxy server certificate should be verified against the list of supplied CAs. Default is false.
 
+### CodeLens disabling
+
+If you want to disable code lens for yaml files, you need to add:
+
+```json
+"[yaml]": {
+  "editor.codeLens": false
+}
+
+```
+
+in to your settings.
+
 ## Adding custom tags
 
 In order to use the custom tags in your YAML file you need to first specify the custom tags in the setting of your code editor. For example, you can have the following custom tags:
