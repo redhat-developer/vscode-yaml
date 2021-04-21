@@ -44,21 +44,11 @@ The following settings are supported:
 - `[yaml]`: VSCode-YAML adds default configuration for all yaml files. More specifically it converts tabs to spaces to ensure valid yaml, sets the tab size, and allows live typing autocompletion and formatting, also allows code lens. These settings can be modified via the corresponding settings inside the `[yaml]` section in the settings:
   - `editor.tabSize`
   - `editor.formatOnType`
+  - `editor.codeLens`
 
 * `http.proxy`: The URL of the proxy server that will be used when attempting to download a schema. If it is not set or it is undefined no proxy server will be used.
 
 - `http.proxyStrictSSL`: If true the proxy server certificate should be verified against the list of supplied CAs. Default is false.
-
-### CodeLens disabling
-
-If you want to disable code lens for yaml files, you need to add:
-
-```json
-"[yaml]": {
-  "editor.codeLens": false
-}
-
-```
 
 in to your settings.
 
