@@ -12,7 +12,7 @@ async function main(): Promise<void> {
     const cliPath = resolveCliPathFromVSCodeExecutablePath(executable);
     const dependencies = ['redhat.vscode-commons'];
     for (const dep of dependencies) {
-      const installLog = cp.execSync(`${cliPath} --install-extension ${dep}`);
+      const installLog = cp.execSync(`"${cliPath}" --install-extension ${dep}`);
       console.log(installLog.toString());
     }
     // The folder containing the Extension Manifest package.json
