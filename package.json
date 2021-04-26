@@ -24,6 +24,7 @@
   },
   "icon": "icon/icon128.png",
   "engines": {
+    "npm": ">=7.0.0",
     "vscode": "^1.52.0"
   },
   "categories": [
