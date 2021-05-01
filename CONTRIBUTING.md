@@ -46,7 +46,7 @@ All contributions are welcome!
             ├──── yaml-language-server/
   ```
 
-3. Run `npm install` in both directories to initialize `node_modules` dependencies.
+3. Run `yarn install` in both directories to initialize `node_modules` dependencies.
 
 4. In `vscode-yaml/src/extension.ts` set the `serverModule` variable to:
 
@@ -59,7 +59,7 @@ All contributions are welcome!
 5. In BOTH directories run:
 
    ```bash
-   npm run compile
+   yarn run compile
    ```
 
 6. To run the language server in VSCode, click `View -> Debug`, then from the drop down menu beside the green arrow select `Launch Extension (vscode-yaml)`, click the arrow, and a new VSCode window should load with the YAML LS running.

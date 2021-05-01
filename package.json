@@ -160,7 +160,7 @@
     }
   },
   "scripts": {
-    "build": "npm run clean && npm run lint && npm run vscode:prepublish",
+    "build": "yarn run clean && yarn run lint && yarn run vscode:prepublish",
     "check-dependencies": "node ./scripts/check-dependencies.js",
     "clean": "rimraf out",
     "compile": "tsc -watch -p ./",
