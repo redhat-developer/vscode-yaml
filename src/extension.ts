@@ -167,7 +167,7 @@ export async function activate(context: ExtensionContext): Promise<SchemaExtensi
       return getJsonSchemaContent(uri, schemaCache);
     });
 
-    telemetry.send({ name: 'server_initialized', type: 'track' });
+    telemetry.send({ name: 'yaml.server.initialized'});
     // Adapted from:
     // https://github.com/microsoft/vscode/blob/94c9ea46838a9a619aeafb7e8afd1170c967bb55/extensions/json-language-features/client/src/jsonClient.ts#L305-L318
     client.onNotification(ResultLimitReachedNotification.type, async (message) => {

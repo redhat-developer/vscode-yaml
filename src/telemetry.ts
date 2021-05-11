@@ -16,7 +16,7 @@ export class TelemetryErrorHandler implements ErrorHandler {
   ) {}
 
   error(error: Error, message: Message, count: number): ErrorAction {
-    this.telemetry.send({ name: 'LSP Error', properties: { jsonrpc: message.jsonrpc, error: error.message } });
+    this.telemetry.send({ name: 'yaml.lsp.error', properties: { jsonrpc: message.jsonrpc, error: error.message } });
     if (count && count <= 3) {
       return ErrorAction.Continue;
     }
@@ -60,7 +60,7 @@ export class TelemetryOutputChannel implements vscode.OutputChannel {
 
   private checkError(value: string): void {
     if (value.startsWith('[Error') || value.startsWith('  Message: Request')) {
-      this.telemetry.send({ name: 'server_error', properties: { error_message: value } });
+      this.telemetry.send({ name: 'yaml.server.error', properties: { error: value } });
     }
   }
   clear(): void {
