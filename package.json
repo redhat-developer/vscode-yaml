@@ -24,6 +24,7 @@
   },
   "icon": "icon/icon128.png",
   "engines": {
+    "npm": ">=7.0.0",
     "vscode": "^1.52.0"
   },
   "categories": [
@@ -142,6 +143,11 @@
           "type": "boolean",
           "default": true,
           "description": "Automatically pull available YAML schemas from JSON Schema Store"
+        },
+        "yaml.maxItemsComputed": {
+          "type": "integer",
+          "default": 5000,
+          "description": "The maximum number of outline symbols and folding regions computed (limited for performance reasons)."
         }
       }
     },
@@ -162,7 +168,7 @@
     "redhat.vscode-commons"
   ],
   "scripts": {
-    "build": "npm run clean && npm run lint && npm run vscode:prepublish",
+    "build": "yarn run clean && yarn run lint && yarn run vscode:prepublish",
     "check-dependencies": "node ./scripts/check-dependencies.js",
     "clean": "rimraf out",
     "compile": "tsc -watch -p ./",
