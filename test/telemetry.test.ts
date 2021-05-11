@@ -80,12 +80,12 @@ describe('Telemetry Test', () => {
 
     it('should send telemetry if log error', () => {
       telemetryChannel.append('[Error Some');
-      expect(telemetry.send).calledOnceWith({ name: 'server_error', properties: { error_message: '[Error Some' } });
+      expect(telemetry.send).calledOnceWith({ name: 'yaml.server.error', properties: { error: '[Error Some' } });
     });
 
     it('should send telemetry if log error2', () => {
       telemetryChannel.appendLine('[Error Some');
-      expect(telemetry.send).calledOnceWith({ name: 'server_error', properties: { error_message: '[Error Some' } });
+      expect(telemetry.send).calledOnceWith({ name: 'yaml.server.error', properties: { error: '[Error Some' } });
     });
   });
 
@@ -101,7 +101,7 @@ describe('Telemetry Test', () => {
     it('should log telemetry on error', () => {
       errorHandler.error(new Error('Some'), { jsonrpc: 'Error message' }, 3);
       expect(telemetry.send).calledOnceWith({
-        name: 'LSP Error',
+        name: 'yaml.lsp.error',
         properties: { jsonrpc: 'Error message', error: 'Some' },
       });
     });
