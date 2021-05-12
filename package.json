@@ -148,6 +148,11 @@
           "type": "boolean",
           "default": false,
           "description": "Globally set additionalProperties to false for all objects. So if its true, no extra properties are allowed inside yaml."
+        },
+        "yaml.maxItemsComputed": {
+          "type": "integer",
+          "default": 5000,
+          "description": "The maximum number of outline symbols and folding regions computed (limited for performance reasons)."
         }
       }
     },
@@ -165,7 +170,7 @@
     }
   },
   "scripts": {
-    "build": "npm run clean && npm run lint && npm run vscode:prepublish",
+    "build": "yarn run clean && yarn run lint && yarn run vscode:prepublish",
     "check-dependencies": "node ./scripts/check-dependencies.js",
     "clean": "rimraf out",
     "compile": "tsc -watch -p ./",

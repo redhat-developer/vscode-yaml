@@ -3,13 +3,13 @@
 def installBuildRequirements(){
 	def nodeHome = tool 'nodejs-12.20.0'
 	env.PATH="${env.PATH}:${nodeHome}/bin"
-	sh "npm install -g typescript"
-	sh "npm install -g vsce"
+	sh "yarn install -g typescript"
+	sh "yarn install -g vsce"
 }
 
 def buildVscodeExtension(){
-	sh "npm install"
-	sh "npm run vscode:prepublish"
+	sh "yarn install"
+	sh "yarn run vscode:prepublish"
 }
 
 node('rhel8'){
@@ -22,13 +22,13 @@ node('rhel8'){
 	installBuildRequirements()
 
 	stage 'Build vscode-yaml'
-	sh "npm install"
-	sh "npm run build"
-  sh "npm run check-dependencies"
+	sh "yarn install"
+	sh "yarn run build"
+  sh "yarn run check-dependencies"
 
 	stage 'Test vscode-yaml for staging'
 	wrap([$class: 'Xvnc']) {
-		sh "npm test --silent"
+		sh "yarn test --silent"
 	}
 
 	stage "Package vscode-yaml"
@@ -56,7 +56,7 @@ node('rhel8'){
 	  }
 
 	  // Open-vsx Marketplace
-	  sh "npm install -g ovsx"
+	  sh "yarn install -g ovsx"
 	  withCredentials([[$class: 'StringBinding', credentialsId: 'open-vsx-access-token', variable: 'OVSX_TOKEN']]) {
 	  	sh 'ovsx publish -p ${OVSX_TOKEN}' + " ${vsix[0].path}"
 	  }

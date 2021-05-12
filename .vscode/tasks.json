@@ -9,7 +9,7 @@
       // the command is a shell script
       "type": "shell",
       // we run the custom npm script "compile" as defined in package.json
-      "command": "npm run compile --loglevel silent",
+      "command": "yarn run compile",
       // show the output window only if unrecognized errors occur.
       "presentation": {
         "reveal": "silent"
