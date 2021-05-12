@@ -79,7 +79,7 @@ namespace ResultLimitReachedNotification {
 
 let client: LanguageClient;
 
-const LS_NAME = 'YAML Support';
+const lsName = 'YAML Support';
 
 export async function activate(context: ExtensionContext): Promise<SchemaExtensionAPI> {
   // Create Telemetry Service
@@ -101,8 +101,8 @@ export async function activate(context: ExtensionContext): Promise<SchemaExtensi
     debug: { module: serverModule, transport: TransportKind.ipc, options: debugOptions },
   };
 
-  const telemetryErrorHandler = new TelemetryErrorHandler(telemetry, LS_NAME, 4);
-  const outputChannel = window.createOutputChannel(LS_NAME);
+  const telemetryErrorHandler = new TelemetryErrorHandler(telemetry, lsName, 4);
+  const outputChannel = window.createOutputChannel(lsName);
   // Options to control the language client
   const clientOptions: LanguageClientOptions = {
     // Register the server for on disk and newly created YAML documents
@@ -119,7 +119,7 @@ export async function activate(context: ExtensionContext): Promise<SchemaExtensi
   };
 
   // Create the language client and start it
-  client = new LanguageClient('yaml', LS_NAME, serverOptions, clientOptions);
+  client = new LanguageClient('yaml', lsName, serverOptions, clientOptions);
 
   const schemaCache = new JSONSchemaCache(context.globalStoragePath, context.globalState, client.outputChannel);
   const disposable = client.start();

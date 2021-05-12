@@ -78,12 +78,12 @@ describe('Telemetry Test', () => {
       expect(outputChannel.show).calledOnce;
     });
 
-    it('should send telemetry if log error', () => {
+    it('should send telemetry if log error in "append"', () => {
       telemetryChannel.append('[Error Some');
       expect(telemetry.send).calledOnceWith({ name: 'yaml.server.error', properties: { error: '[Error Some' } });
     });
 
-    it('should send telemetry if log error2', () => {
+    it('should send telemetry if log error on "appendLine"', () => {
       telemetryChannel.appendLine('[Error Some');
       expect(telemetry.send).calledOnceWith({ name: 'yaml.server.error', properties: { error: '[Error Some' } });
     });
