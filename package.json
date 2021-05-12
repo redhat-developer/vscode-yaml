@@ -147,7 +147,7 @@
         "yaml.disableAdditionalProperties": {
           "type": "boolean",
           "default": false,
-          "description": "Globally set additionalProperties to false to all objects. So if its true, no extra properties are allowed inside yaml."
+          "description": "Globally set additionalProperties to false for all objects. So if its true, no extra properties are allowed inside yaml."
         }
       }
     },
