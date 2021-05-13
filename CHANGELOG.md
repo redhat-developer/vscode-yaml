@@ -1,3 +1,19 @@
+### 0.19.0
+
+- Fix: Inconsistent way to generate whole property snippet and value snippet, when it contains `\"` [#353](https://github.com/redhat-developer/yaml-language-server/issues/353)
+- Upgrade to `4.1.0` version of `vscode-json-languageservice` which enables used of the extended glob patterns. [#448](https://github.com/redhat-developer/yaml-language-server/pull/448)
+- Fix: Anchor on property which uses alias fails validation [#273](https://github.com/redhat-developer/yaml-language-server/issues/273)
+- Update `js-yaml` to `4.1.0` [#454](https://github.com/redhat-developer/yaml-language-server/pull/454)
+- Add monaco-yaml in the readme under clients [#455](https://github.com/redhat-developer/yaml-language-server/pull/455)
+- Add support for `maxItemsComputed` for document symbols and folding ranges [#444](https://github.com/redhat-developer/yaml-language-server/pull/444)
+- Add config parameter to disable additional properties [#452](https://github.com/redhat-developer/yaml-language-server/pull/452)
+- add safety measure for preventing use of npm instead of yarn (engines version trick) [#458](https://github.com/redhat-developer/yaml-language-server/pull/458)
+- Require minimal npm version [#494](https://github.com/redhat-developer/vscode-yaml/pull/494)
+- This project now use `yarn` instead of `npm` [#498](https://github.com/redhat-developer/vscode-yaml/pull/498)
+- New `disableAdditionalProperties` preference option for yaml, for more strict validation [#499](https://github.com/redhat-developer/vscode-yaml/pull/499)
+
+Thanks to Andrew Metcalf, Remco Haszing, Petr Spacek and Sorin Sbarnea
+
 ### 0.18.0
 
 - Fix: Loading JSON Schemas [#462](https://github.com/redhat-developer/vscode-yaml/issues/462)
