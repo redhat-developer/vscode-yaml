@@ -7,7 +7,7 @@
 - Add monaco-yaml in the readme under clients [#455](https://github.com/redhat-developer/yaml-language-server/pull/455)
 - Add support for `maxItemsComputed` for document symbols and folding ranges [#444](https://github.com/redhat-developer/yaml-language-server/pull/444)
 - Add config parameter to disable additional properties [#452](https://github.com/redhat-developer/yaml-language-server/pull/452)
-- add safety measure for preventing use of npm instead of yarn (engines version trick) [#458](https://github.com/redhat-developer/yaml-language-server/pull/458)
+- Add safety measure for preventing use of npm instead of yarn (engines version trick) [#458](https://github.com/redhat-developer/yaml-language-server/pull/458)
 - Require minimal npm version [#494](https://github.com/redhat-developer/vscode-yaml/pull/494)
 - This project now use `yarn` instead of `npm` [#498](https://github.com/redhat-developer/vscode-yaml/pull/498)
 - New `disableAdditionalProperties` preference option for yaml, for more strict validation [#499](https://github.com/redhat-developer/vscode-yaml/pull/499)
