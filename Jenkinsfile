@@ -2,8 +2,8 @@
 
 def installBuildRequirements(){
 	def nodeHome = tool 'nodejs-12.20.0'
-	env.PATH="${env.PATH}:${nodeHome}/bin"
   sh "npm install --global yarn"
+	env.PATH="${env.PATH}:${nodeHome}/bin:`yarn global bin`"
 	sh "yarn global add typescript"
 	sh "yarn global add vsce"
 }
