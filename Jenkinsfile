@@ -56,7 +56,7 @@ node('rhel8'){
 	  }
 
 	  // Open-vsx Marketplace
-	  sh "yarn install -g ovsx"
+	  sh "npm install -g ovsx"
 	  withCredentials([[$class: 'StringBinding', credentialsId: 'open-vsx-access-token', variable: 'OVSX_TOKEN']]) {
 	  	sh 'ovsx publish -p ${OVSX_TOKEN}' + " ${vsix[0].path}"
 	  }
