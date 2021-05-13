@@ -144,6 +144,11 @@
           "default": true,
           "description": "Automatically pull available YAML schemas from JSON Schema Store"
         },
+        "yaml.disableAdditionalProperties": {
+          "type": "boolean",
+          "default": false,
+          "description": "Globally set additionalProperties to false for all objects. So if its true, no extra properties are allowed inside yaml."
+        },
         "yaml.maxItemsComputed": {
           "type": "integer",
           "default": 5000,
