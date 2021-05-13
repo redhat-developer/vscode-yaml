@@ -4,8 +4,8 @@ def installBuildRequirements(){
 	def nodeHome = tool 'nodejs-12.20.0'
 	env.PATH="${env.PATH}:${nodeHome}/bin"
   sh "npm install --global yarn"
-	sh "yarn install -g typescript"
-	sh "yarn install -g vsce"
+	sh "yarn global add typescript"
+	sh "yarn global add vsce"
 }
 
 def buildVscodeExtension(){
