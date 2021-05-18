@@ -144,6 +144,11 @@
           "default": true,
           "description": "Automatically pull available YAML schemas from JSON Schema Store"
         },
+        "yaml.schemaStore.url": {
+          "type": "string",
+          "default": "https://www.schemastore.org/api/json/catalog.json",
+          "description": "URL of schema store catalog to use"
+        },
         "yaml.disableAdditionalProperties": {
           "type": "boolean",
           "default": false,
