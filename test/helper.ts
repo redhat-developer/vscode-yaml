@@ -127,10 +127,12 @@ export async function testDiagnostics(docUri: vscode.Uri, expectedDiagnostics: v
 export class TestMemento implements vscode.Memento {
   get<T>(key: string): T;
   get<T>(key: string, defaultValue: T): T;
-  get(key: any, defaultValue?: any) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  get<T>(key: string, defaultValue?: T): T | undefined {
     throw new Error('Method not implemented.');
   }
-  update(key: string, value: any): Thenable<void> {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  update(key: string, value: unknown): Thenable<void> {
     throw new Error('Method not implemented.');
   }
 }
