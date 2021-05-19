@@ -123,3 +123,16 @@ export async function testDiagnostics(docUri: vscode.Uri, expectedDiagnostics: v
     assert.equal(actualDiagnostic.severity, expectedDiagnostic.severity);
   });
 }
+
+export class TestMemento implements vscode.Memento {
+  get<T>(key: string): T;
+  get<T>(key: string, defaultValue: T): T;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  get<T>(key: string, defaultValue?: T): T | undefined {
+    throw new Error('Method not implemented.');
+  }
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  update(key: string, value: unknown): Thenable<void> {
+    throw new Error('Method not implemented.');
+  }
+}

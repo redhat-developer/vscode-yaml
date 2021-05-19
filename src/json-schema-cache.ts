@@ -33,6 +33,18 @@ export class JSONSchemaCache {
 
   private async init(): Promise<void> {
     await fs.ensureDir(this.cachePath);
+    const cachedFiles = await fs.readdir(this.cachePath);
+    // clean up memento if cached files was deleted from fs
+    const cachedValues = cachedFiles.map((it) => path.join(this.cachePath, it));
+    for (const key in this.cache) {
+      if (Object.prototype.hasOwnProperty.call(this.cache, key)) {
+        const cacheEntry = this.cache[key];
+        if (!cachedValues.includes(cacheEntry.schemaPath)) {
+          delete this.cache[key];
+        }
+      }
+    }
+    await this.memento.update(CACHE_KEY, this.cache);
     this.isInitialized = true;
   }
 
@@ -44,6 +56,9 @@ export class JSONSchemaCache {
   }
 
   getETag(schemaUri: string): string | undefined {
+    if (!this.isInitialized) {
+      return undefined;
+    }
     return this.cache[schemaUri]?.eTag;
   }
 
