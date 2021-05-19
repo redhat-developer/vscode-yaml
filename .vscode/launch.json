@@ -28,7 +28,7 @@
       "request": "launch",
       "runtimeExecutable": "${execPath}",
       "args": [
-        "--disable-extensions",
+        "--disable-extension=ms-kubernetes-tools.vscode-kubernetes-tools",
         "--extensionDevelopmentPath=${workspaceFolder}",
         "--extensionTestsPath=${workspaceFolder}/out/test",
         "${workspaceRoot}/test/testFixture"

@@ -23,6 +23,8 @@ import { joinPath } from './paths';
 import { getJsonSchemaContent, JSONSchemaDocumentContentProvider } from './json-schema-content-provider';
 import { JSONSchemaCache } from './json-schema-cache';
 import { getConflictingExtensions, showUninstallConflictsNotification } from './extensionConflicts';
+import { getTelemetryService } from '@redhat-developer/vscode-redhat-telemetry';
+import { TelemetryErrorHandler, TelemetryOutputChannel } from './telemetry';
 
 export interface ISchemaAssociations {
   [pattern: string]: string[];
@@ -77,7 +79,13 @@ namespace ResultLimitReachedNotification {
 
 let client: LanguageClient;
 
-export function activate(context: ExtensionContext): SchemaExtensionAPI {
+const lsName = 'YAML Support';
+
+export async function activate(context: ExtensionContext): Promise<SchemaExtensionAPI> {
+  // Create Telemetry Service
+  const telemetry = await getTelemetryService('redhat.vscode-yaml');
+  telemetry.sendStartupEvent();
+
   // The YAML language server is implemented in node
   const serverModule = context.asAbsolutePath(
     path.join('node_modules', 'yaml-language-server', 'out', 'server', 'src', 'server.js')
@@ -93,6 +101,8 @@ export function activate(context: ExtensionContext): SchemaExtensionAPI {
     debug: { module: serverModule, transport: TransportKind.ipc, options: debugOptions },
   };
 
+  const telemetryErrorHandler = new TelemetryErrorHandler(telemetry, lsName, 4);
+  const outputChannel = window.createOutputChannel(lsName);
   // Options to control the language client
   const clientOptions: LanguageClientOptions = {
     // Register the server for on disk and newly created YAML documents
@@ -104,10 +114,12 @@ export function activate(context: ExtensionContext): SchemaExtensionAPI {
       fileEvents: [workspace.createFileSystemWatcher('**/*.?(e)y?(a)ml'), workspace.createFileSystemWatcher('**/*.json')],
     },
     revealOutputChannelOn: RevealOutputChannelOn.Never,
+    errorHandler: telemetryErrorHandler,
+    outputChannel: new TelemetryOutputChannel(outputChannel, telemetry),
   };
 
   // Create the language client and start it
-  client = new LanguageClient('yaml', 'YAML Support', serverOptions, clientOptions);
+  client = new LanguageClient('yaml', lsName, serverOptions, clientOptions);
 
   const schemaCache = new JSONSchemaCache(context.globalStoragePath, context.globalState, client.outputChannel);
   const disposable = client.start();
@@ -122,6 +134,12 @@ export function activate(context: ExtensionContext): SchemaExtensionAPI {
       'json-schema',
       new JSONSchemaDocumentContentProvider(schemaCache, schemaExtensionAPI)
     )
+  );
+
+  context.subscriptions.push(
+    client.onTelemetry((e) => {
+      telemetry.send(e);
+    })
   );
 
   findConflicts();
@@ -149,6 +167,7 @@ export function activate(context: ExtensionContext): SchemaExtensionAPI {
       return getJsonSchemaContent(uri, schemaCache);
     });
 
+    telemetry.send({ name: 'yaml.server.initialized' });
     // Adapted from:
     // https://github.com/microsoft/vscode/blob/94c9ea46838a9a619aeafb7e8afd1170c967bb55/extensions/json-language-features/client/src/jsonClient.ts#L305-L318
     client.onNotification(ResultLimitReachedNotification.type, async (message) => {
