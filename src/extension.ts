@@ -121,7 +121,7 @@ export async function activate(context: ExtensionContext): Promise<SchemaExtensi
   // Create the language client and start it
   client = new LanguageClient('yaml', lsName, serverOptions, clientOptions);
 
-  const schemaCache = new JSONSchemaCache(context.globalStoragePath, context.globalState, client.outputChannel);
+  const schemaCache = new JSONSchemaCache(context.globalStorageUri.fsPath, context.globalState, client.outputChannel);
   const disposable = client.start();
 
   const schemaExtensionAPI = new SchemaExtensionAPI(client);

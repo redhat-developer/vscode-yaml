@@ -123,3 +123,14 @@ export async function testDiagnostics(docUri: vscode.Uri, expectedDiagnostics: v
     assert.equal(actualDiagnostic.severity, expectedDiagnostic.severity);
   });
 }
+
+export class TestMemento implements vscode.Memento {
+  get<T>(key: string): T;
+  get<T>(key: string, defaultValue: T): T;
+  get(key: any, defaultValue?: any) {
+    throw new Error('Method not implemented.');
+  }
+  update(key: string, value: any): Thenable<void> {
+    throw new Error('Method not implemented.');
+  }
+}

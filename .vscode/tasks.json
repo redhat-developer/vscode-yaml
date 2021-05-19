@@ -12,7 +12,7 @@
       "command": "yarn run compile",
       // show the output window only if unrecognized errors occur.
       "presentation": {
-        "reveal": "silent"
+        "reveal": "never"
       },
       // The tsc compiler is started in watching mode
       "isBackground": true,

@@ -14,15 +14,6 @@
       "preLaunchTask": "compile typescript"
     },
     {
-      // A launch configuration that compiles the extension and runs mocha unit tests
-      "type": "node",
-      "request": "launch",
-      "name": "Launch Tests",
-      "program": "${workspaceRoot}/node_modules/mocha/bin/_mocha",
-      "args": ["-u", "tdd", "--timeout", "999999", "--colors", "-r", "ts-node/register", "${workspaceRoot}/test/*.test.ts"],
-      "preLaunchTask": "compile typescript"
-    },
-    {
       "name": "Extension Tests",
       "type": "extensionHost",
       "request": "launch",
