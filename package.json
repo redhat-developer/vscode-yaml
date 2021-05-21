@@ -175,7 +175,6 @@
     }
   },
   "extensionDependencies": [
-    "redhat.vscode-commons"
   ],
   "scripts": {
     "build": "yarn run clean && yarn run lint && yarn run vscode:prepublish",
@@ -212,7 +211,6 @@
     "vscode-test": "^1.4.0"
   },
   "dependencies": {
-    "@redhat-developer/vscode-redhat-telemetry": "0.0.18",
     "fs-extra": "^9.1.0",
     "request-light": "^0.4.0",
     "vscode-languageclient": "7.0.0",
