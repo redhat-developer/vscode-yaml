@@ -33,14 +33,29 @@ jobs:
 
       # Run install dependencies
       - name: Install dependencies
-        run: npm install
+        run: yarn
 
       # Build extension
       - name: Run build
-        run: npm run build
+        run: yarn build
 
       # Run tests
       - name: Run Test
         uses: GabrielBB/xvfb-action@v1.0
         with:
-          run: npm test
+          run: yarn test
+
+      #Package vsix
+      - name: Build .vsix package on Linux
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          npx vsce package -o vscode-yaml-${VERSION}-${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}.vsix
+
+      #Upload vsix
+      - name: Upload linux-built vsix
+        if: matrix.os == 'ubuntu-latest'
+        uses: actions/upload-artifact@v2
+        with:
+          name: vscode-yaml
+          path: vscode-yaml*.vsix
