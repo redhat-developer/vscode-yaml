@@ -14,7 +14,7 @@
     }
   ],
   "license": "MIT",
-  "version": "0.19.1",
+  "version": "0.19.2",
   "publisher": "redhat",
   "preview": true,
   "bugs": "https://github.com/redhat-developer/vscode-yaml/issues",
@@ -174,8 +174,7 @@
       }
     }
   },
-  "extensionDependencies": [
-  ],
+  "extensionDependencies": [],
   "scripts": {
     "build": "yarn run clean && yarn run lint && yarn run vscode:prepublish",
     "check-dependencies": "node ./scripts/check-dependencies.js",
