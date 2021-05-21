@@ -233,10 +233,6 @@ e.g.
 }
 ```
 
-## Data and Telemetry
-
-The `vscode-yaml` extension collects anonymous [usage data](USAGE_DATA.md) and sends it to Red Hat servers to help improve our products and services. Read our [privacy statement](https://developers.redhat.com/article/tool-data-collection) to learn more. This extension respects the `redhat.telemetry.enabled` setting which you can learn more about at https://github.com/redhat-developer/vscode-commons#how-to-disable-telemetry-reporting
-
 ## How to contribute
 
 The instructions are available in the [contribution guide](CONTRIBUTING.md).

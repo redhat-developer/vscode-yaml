@@ -10,7 +10,7 @@ async function main(): Promise<void> {
   try {
     const executable = await downloadAndUnzipVSCode();
     const cliPath = resolveCliPathFromVSCodeExecutablePath(executable);
-    const dependencies = ['redhat.vscode-commons'];
+    const dependencies = [];
     for (const dep of dependencies) {
       const installLog = cp.execSync(`"${cliPath}" --install-extension ${dep}`);
       console.log(installLog.toString());
