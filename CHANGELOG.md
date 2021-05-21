@@ -1,3 +1,8 @@
+### 0.19.2
+
+- Revert/delete telemetry [#515](https://github.com/redhat-developer/vscode-yaml/issues/515)
+- Remove fileMatch workaround, now glob patterns should work as expected [#467](https://github.com/redhat-developer/yaml-language-server/pull/467)
+
 ### 0.19.1
 
 - Fix: "Billion Laughs" attack [#463](https://github.com/redhat-developer/yaml-language-server/issues/463)
