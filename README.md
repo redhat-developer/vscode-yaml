@@ -35,6 +35,8 @@ The following settings are supported:
 * `yaml.format.bracketSpacing`: Print spaces between brackets in objects
 * `yaml.format.proseWrap`: Always: wrap prose if it exeeds the print width, Never: never wrap the prose, Preserve: wrap prose as-is
 * `yaml.format.printWidth`: Specify the line length that the printer will wrap on
+* `yaml.format.doNotIndent`: Enabled do-not-indent style for sequence in mapping
+* `yaml.format.commentSpacesFromContent`: Specify the amount of spaces before content and trailing comments on line
 * `yaml.validate`: Enable/disable validation feature
 * `yaml.hover`: Enable/disable hover
 * `yaml.completion`: Enable/disable autocompletion

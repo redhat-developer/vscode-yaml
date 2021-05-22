@@ -119,6 +119,16 @@
           "default": 80,
           "description": "Specify the line length that the printer will wrap on"
         },
+        "yaml.format.doNotIndent": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enabled do-not-indent style for sequence in mapping"
+        },
+        "yaml.format.commentSpacesFromContent": {
+          "type": "integer",
+          "default": 1,
+          "description": "Specify the amount of spaces before content and trailing comments on line"
+        },
         "yaml.validate": {
           "type": "boolean",
           "default": true,
@@ -201,7 +211,7 @@
     "eslint-plugin-prettier": "^3.1.4",
     "glob": "^7.1.6",
     "mocha": "^8.0.1",
-    "prettier": "^2.0.5",
+    "prettier": "^2.4.0",
     "rimraf": "^3.0.2",
     "sinon": "^9.0.3",
     "sinon-chai": "^3.5.0",
