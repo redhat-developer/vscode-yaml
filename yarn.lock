@@ -1119,6 +1119,13 @@ js-yaml@^3.13.1:
     argparse "^1.0.7"
     esprima "^4.0.0"
 
+js-yaml@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-4.1.0.tgz#c1fb65f8f5017901cdd2c951864ba18458a10602"
+  integrity sha512-wpxZs9NoxZaJESJGIZTyDEaYpl0FKSA+FB9aJiyemKhMwkxQg63h4T1KJgUGHpTqPDNRcmmYLugrRjJlBtWvRA==
+  dependencies:
+    argparse "^2.0.1"
+
 json-schema-traverse@^0.4.1:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/json-schema-traverse/-/json-schema-traverse-0.4.1.tgz#69f6a87d9513ab8bb8fe63bdb0979c448e684660"
@@ -1843,9 +1850,9 @@ v8flags@^3.0.0:
     homedir-polyfill "^1.0.1"
 
 vscode-json-languageservice@^4.1.0:
-  version "4.1.2"
-  resolved "https://registry.yarnpkg.com/vscode-json-languageservice/-/vscode-json-languageservice-4.1.2.tgz#c3873f791e23488a8b373e02c85c232bd625e27a"
-  integrity sha512-atAz6m4UZCslB7yk03Qb3/MKn1E5l07063syAEUfKRcVKTVN3t1+/KDlGu1nVCRUFAgz5+18gKidQvO4PVPLdg==
+  version "4.1.4"
+  resolved "https://registry.yarnpkg.com/vscode-json-languageservice/-/vscode-json-languageservice-4.1.4.tgz#c83d3d812f8f17ab525724c611d8ff5e8834fc84"
+  integrity sha512-/UqaE58BVFdePM9l971L6xPRLlCLNk01aovf1Pp9hB/8pytmd2s9ZNEnS1JqYyQEJ1k5/fEBsWOdhQlNo4H7VA==
   dependencies:
     jsonc-parser "^3.0.0"
     minimatch "^3.0.4"
@@ -1982,11 +1989,11 @@ yaml-language-server-parser@next:
   integrity sha512-0QPUSsmMXHDpqj00xUrlMyqlEAwHHIAuz3wPMyprcCVYx7jh7oo91Z0nC/jhott4XAKp3iY3vjBsMxqszoZosA==
 
 yaml-language-server@next:
-  version "0.18.1-3992663.0"
-  resolved "https://registry.yarnpkg.com/yaml-language-server/-/yaml-language-server-0.18.1-3992663.0.tgz#a19a99ec48fbc1dd6f02806e8aada7233a18c30f"
-  integrity sha512-zEBawqVqiyfvSUKKrii/M1Eygfq7vrxGYTfIckzte4+oe8N/uWp/eEvglWmONqSX5vDMiotK1KfWZRUY0VCtyw==
+  version "0.19.3-1254d6b.0"
+  resolved "https://registry.yarnpkg.com/yaml-language-server/-/yaml-language-server-0.19.3-1254d6b.0.tgz#54a65949e209863c28e6cc4fb3d3d0f680e27e27"
+  integrity sha512-WUr9g5LfNypD0dwkTw1WMcS0bVQux51mFYbhvlqYpK/GDKM9qq7rrXJRduECEmh/+rSAiqV+kqpyIro+zxlUXg==
   dependencies:
-    js-yaml "^3.13.1"
+    js-yaml "^4.1.0"
     jsonc-parser "^2.2.1"
     request-light "^0.2.4"
     vscode-json-languageservice "^4.1.0"
