@@ -11,7 +11,10 @@
       "stopOnEntry": false,
       "sourceMaps": true,
       "outFiles": ["${workspaceRoot}/out/src/**/*.js"],
-      "preLaunchTask": "compile typescript"
+      "preLaunchTask": "compile typescript",
+      "env": {
+        "VSCODE_REDHAT_TELEMETRY_DEBUG":"true"
+      }
     },
     {
       "name": "Extension Tests",
