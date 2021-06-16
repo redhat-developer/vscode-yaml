@@ -1,3 +1,5 @@
+### 0.21.0
+
 ### 0.20.0
 
 - Restore telemetry [#528](https://github.com/redhat-developer/vscode-yaml/pull/528)
