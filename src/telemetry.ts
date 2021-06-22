@@ -3,9 +3,33 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-import { TelemetryService } from '@redhat-developer/vscode-redhat-telemetry';
+import { TelemetryEvent, TelemetryService } from '@redhat-developer/vscode-redhat-telemetry';
 import { CloseAction, ErrorAction, ErrorHandler, Message } from 'vscode-languageclient/node';
 import * as vscode from 'vscode';
+
+export class DummyTelemetryService implements TelemetryService {
+  async sendStartupEvent(): Promise<void> {
+    // do nothing
+    return;
+  }
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async send(event: TelemetryEvent): Promise<void> {
+    // do nothing
+    return;
+  }
+  async sendShutdownEvent(): Promise<void> {
+    // do nothing
+    return;
+  }
+  async flushQueue(): Promise<void> {
+    // do nothing
+    return;
+  }
+  async dispose(): Promise<void> {
+    // do nothing
+    return;
+  }
+}
 
 export class TelemetryErrorHandler implements ErrorHandler {
   private restarts: number[] = [];

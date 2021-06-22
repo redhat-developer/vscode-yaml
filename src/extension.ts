@@ -23,8 +23,8 @@ import { joinPath } from './paths';
 import { getJsonSchemaContent, JSONSchemaDocumentContentProvider } from './json-schema-content-provider';
 import { JSONSchemaCache } from './json-schema-cache';
 import { getConflictingExtensions, showUninstallConflictsNotification } from './extensionConflicts';
-import { getRedHatService } from '@redhat-developer/vscode-redhat-telemetry';
-import { TelemetryErrorHandler, TelemetryOutputChannel } from './telemetry';
+import { getRedHatService, TelemetryService } from '@redhat-developer/vscode-redhat-telemetry';
+import { DummyTelemetryService, TelemetryErrorHandler, TelemetryOutputChannel } from './telemetry';
 
 export interface ISchemaAssociations {
   [pattern: string]: string[];
@@ -83,9 +83,15 @@ const lsName = 'YAML Support';
 
 export async function activate(context: ExtensionContext): Promise<SchemaExtensionAPI> {
   // Create Telemetry Service
-  const telemetry = await (await getRedHatService(context)).getTelemetryService();
+  let telemetry: TelemetryService;
+  try {
+    const rhService = await getRedHatService(context);
+    telemetry = await rhService.getTelemetryService();
+  } catch (err) {
+    console.error('Cannot initialize telemetry service', err);
+    telemetry = new DummyTelemetryService();
+  }
   telemetry.sendStartupEvent();
-
   // The YAML language server is implemented in node
   const serverModule = context.asAbsolutePath(
     path.join('node_modules', 'yaml-language-server', 'out', 'server', 'src', 'server.js')
