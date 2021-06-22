@@ -33,6 +33,11 @@
     "Snippets",
     "Formatters"
   ],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": true
+    }
+  },
   "activationEvents": [
     "onLanguage:yaml"
   ],
