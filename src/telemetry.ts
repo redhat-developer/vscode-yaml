@@ -88,7 +88,7 @@ export class TelemetryOutputChannel implements vscode.OutputChannel {
 
   private createErrorMessage(value: string): string {
     if (value.startsWith('[Error')) {
-      value = value.substr(0, value.indexOf(']')).trim();
+      value = value.substr(value.indexOf(']'), value.length).trim();
     }
 
     return value;
