@@ -59,10 +59,10 @@
     "@nodelib/fs.scandir" "2.1.4"
     fastq "^1.6.0"
 
-"@redhat-developer/vscode-redhat-telemetry@0.1.1":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@redhat-developer/vscode-redhat-telemetry/-/vscode-redhat-telemetry-0.1.1.tgz#ddf7fff968274d558caed56c1ea3d9454bd15ee8"
-  integrity sha512-uMJNiFNUXCYy/4KZaX+Ctueq+KXIWyS5Cfv2wqHNNzpV9+EhPLHUJoZKbCMY/P+IlgqTWYfpDkghZHiq5ChvEA==
+"@redhat-developer/vscode-redhat-telemetry@0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@redhat-developer/vscode-redhat-telemetry/-/vscode-redhat-telemetry-0.2.0.tgz#16aa424e9603c0402d2be82a4d9748ba2240a92a"
+  integrity sha512-qS9p+iXpdMwCzhVRr/Ft5dMQQXB+6CxBRnpp3NDUuxYP1s/K/B1dPlIW5lKncjPUwYaKvPbpMgGGDmsosOzT8A==
   dependencies:
     "@types/analytics-node" "^3.1.4"
     analytics-node "^3.5.0"

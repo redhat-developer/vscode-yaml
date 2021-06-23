@@ -216,7 +216,7 @@
     "vscode-test": "^1.4.0"
   },
   "dependencies": {
-    "@redhat-developer/vscode-redhat-telemetry": "0.1.1",
+    "@redhat-developer/vscode-redhat-telemetry": "0.2.0",
     "fs-extra": "^9.1.0",
     "request-light": "^0.4.0",
     "vscode-languageclient": "7.0.0",
