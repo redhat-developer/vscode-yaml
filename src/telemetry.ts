@@ -78,17 +78,17 @@ export class TelemetryOutputChannel implements vscode.OutputChannel {
       } else {
         const starts = value.startsWith(skip.text);
         if (starts) {
-          return false;
+          return true;
         }
       }
     }
 
-    return true;
+    return false;
   }
 
   private createErrorMessage(value: string): string {
     if (value.startsWith('[Error')) {
-      value = value.substr(value.indexOf(']'), value.length).trim();
+      value = value.substr(value.indexOf(']') + 1, value.length).trim();
     }
 
     return value;
