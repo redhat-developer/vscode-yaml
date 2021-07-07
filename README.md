@@ -4,6 +4,8 @@
 # YAML Language Support by Red Hat
 Provides comprehensive YAML Language support to [Visual Studio Code](https://code.visualstudio.com/), via the [yaml-language-server](https://github.com/redhat-developer/yaml-language-server), with built-in Kubernetes syntax support.
 
+Also available for [VSCodium](https://vscodium.com), a FOSS build without telemetry/tracking.
+
 ## Features
 ![screencast](https://raw.githubusercontent.com/redhat-developer/vscode-yaml/main/images/demo.gif)
 
