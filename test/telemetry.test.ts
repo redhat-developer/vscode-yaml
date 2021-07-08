@@ -79,13 +79,20 @@ describe('Telemetry Test', () => {
     });
 
     it('should send telemetry if log error in "append"', () => {
-      telemetryChannel.append('[Error Some');
-      expect(telemetry.send).calledOnceWith({ name: 'yaml.server.error', properties: { error: '[Error Some' } });
+      telemetryChannel.append('[Error] Some');
+      expect(telemetry.send).calledOnceWith({ name: 'yaml.server.error', properties: { error: 'Some' } });
     });
 
     it('should send telemetry if log error on "appendLine"', () => {
-      telemetryChannel.appendLine('[Error Some');
-      expect(telemetry.send).calledOnceWith({ name: 'yaml.server.error', properties: { error: '[Error Some' } });
+      telemetryChannel.appendLine('[Error] Some error');
+      expect(telemetry.send).calledOnceWith({ name: 'yaml.server.error', properties: { error: 'Some error' } });
+    });
+
+    it("shouldn't send telemetry if error should be skipped", () => {
+      telemetryChannel.append(
+        "[Error - 15:10:33] (node:25052) Warning: Setting the NODE_TLS_REJECT_UNAUTHORIZED environment variable to '0' makes TLS connections and HTTPS requests insecure by disabling certificate verification."
+      );
+      expect(telemetry.send).not.called;
     });
   });
 
