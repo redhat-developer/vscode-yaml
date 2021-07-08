@@ -1,5 +1,13 @@
 ### 0.21.0
 
+- Upgrade jsonc-parser to latest version [#492](https://github.com/redhat-developer/yaml-language-server/pull/492)
+- Fix: Request textDocument/completion failed with message: label.replace is not a function [#536](https://github.com/redhat-developer/vscode-yaml/issues/536)
+- Fix: `TypeError: customTags.filter is not a function` [#495](https://github.com/redhat-developer/yaml-language-server/pull/495)
+- Support relative path in inline schema comment [#499](https://github.com/redhat-developer/yaml-language-server/pull/499)
+- Improve hover to include title, description and source schema link [#480](https://github.com/redhat-developer/yaml-language-server/issues/480)
+- feat: support workspace trust [#538](https://github.com/redhat-developer/vscode-yaml/pull/538)
+- Improve telemetry [#543](https://github.com/redhat-developer/vscode-yaml/pull/543)
+
 ### 0.20.0
 
 - Restore telemetry [#528](https://github.com/redhat-developer/vscode-yaml/pull/528)
