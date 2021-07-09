@@ -61,14 +61,18 @@ export class TelemetryOutputChannel implements vscode.OutputChannel {
   }
 
   private checkError(value: string): void {
-    if (!value || value === 'null') {
-      return; // ignore messages with 'null' text
+    if (!value) {
+      return;
     }
     if (value.startsWith('[Error') || value.startsWith('  Message: Request')) {
       if (this.isNeedToSkip(value)) {
         return;
       }
-      this.telemetry.send({ name: 'yaml.server.error', properties: { error: this.createErrorMessage(value) } });
+      const errorMessage = this.createErrorMessage(value);
+      if (errorMessage === 'null') {
+        return; // ignore messages with 'null' text
+      }
+      this.telemetry.send({ name: 'yaml.server.error', properties: { error: errorMessage } });
     }
   }
 
@@ -94,7 +98,7 @@ export class TelemetryOutputChannel implements vscode.OutputChannel {
       value = value.substr(value.indexOf(']') + 1, value.length).trim();
     }
 
-    return value;
+    return value.trim();
   }
 
   clear(): void {

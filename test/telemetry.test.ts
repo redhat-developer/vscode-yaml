@@ -94,6 +94,11 @@ describe('Telemetry Test', () => {
       );
       expect(telemetry.send).not.called;
     });
+
+    it("shouldn't send telemetry if message is 'null'", () => {
+      telemetryChannel.append('[Error - 15:10:33] null');
+      expect(telemetry.send).not.called;
+    });
   });
 
   describe('TelemetryErrorHandler', () => {
