@@ -61,6 +61,9 @@ export class TelemetryOutputChannel implements vscode.OutputChannel {
   }
 
   private checkError(value: string): void {
+    if (!value || value === 'null') {
+      return; // ignore messages with 'null' text
+    }
     if (value.startsWith('[Error') || value.startsWith('  Message: Request')) {
       if (this.isNeedToSkip(value)) {
         return;
