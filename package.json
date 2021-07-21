@@ -36,7 +36,8 @@
   "capabilities": {
     "untrustedWorkspaces": {
       "supported": true
-    }
+    },
+    "virtualWorkspaces": true
   },
   "activationEvents": [
     "onLanguage:yaml"
