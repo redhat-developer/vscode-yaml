@@ -1,9 +1,13 @@
 .vscode/**
 typings/**
-out/test/**
+out/**
 test/**
 src/**
 images/**
+node_modules/**
+scripts/**
+Jenkinsfile
+prettier*
 **/*.map
 .gitignore
 .github/**

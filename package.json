@@ -48,7 +48,7 @@
     "autocompletion",
     "validation"
   ],
-  "main": "./out/src/extension",
+  "main": "./dist/extension",
   "contributes": {
     "languages": [
       {
@@ -191,11 +191,13 @@
     "build": "yarn run clean && yarn run lint && yarn run vscode:prepublish",
     "check-dependencies": "node ./scripts/check-dependencies.js",
     "clean": "rimraf out",
-    "compile": "tsc -watch -p ./",
+    "compile": "webpack --mode none",
     "format": "prettier --write .",
     "lint": "eslint -c .eslintrc.js --ext .ts src test",
     "test": "sh scripts/e2e.sh",
-    "vscode:prepublish": "tsc -p ./"
+    "vscode:prepublish": "webpack --mode production",
+    "watch": "webpack --mode development --watch --info-verbosity verbose",
+    "test-compile": "tsc -p ./"
   },
   "devDependencies": {
     "@types/chai": "^4.2.12",
@@ -219,7 +221,10 @@
     "sinon-chai": "^3.5.0",
     "ts-node": "^3.3.0",
     "typescript": "4.1.2",
-    "vscode-test": "^1.4.0"
+    "vscode-test": "^1.4.0",
+    "webpack": "^5.52.1",
+    "webpack-cli": "^4.8.0",
+    "ts-loader": "^9.2.5"
   },
   "dependencies": {
     "@redhat-developer/vscode-redhat-telemetry": "0.2.0",
