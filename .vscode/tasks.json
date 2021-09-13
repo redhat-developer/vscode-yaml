@@ -18,6 +18,13 @@
       "isBackground": true,
       // use the standard tsc in watch mode problem matcher to find compile problems in the output.
       "problemMatcher": "$tsc-watch"
+    },
+    {
+      "type": "npm",
+      "script": "compile-webworker",
+      "group": "build",
+      "isBackground": true,
+      "problemMatcher": ["$ts-webpack-watch"]
     }
   ]
 }

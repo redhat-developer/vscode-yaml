@@ -12,5 +12,7 @@ vsc-extension-quickstart.md
 undefined/**
 CONTRIBUTING.md
 .vscode-test/**
+.vscode-test-web/**
 **/**.vsix
 **/**.tar.gz
+build/

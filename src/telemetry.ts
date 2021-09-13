@@ -3,8 +3,8 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-import { TelemetryService } from '@redhat-developer/vscode-redhat-telemetry';
-import { CloseAction, ErrorAction, ErrorHandler, Message } from 'vscode-languageclient/node';
+import { TelemetryService } from './extension';
+import { CloseAction, ErrorAction, ErrorHandler, Message } from 'vscode-languageclient';
 import * as vscode from 'vscode';
 
 export class TelemetryErrorHandler implements ErrorHandler {

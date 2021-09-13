@@ -6,7 +6,9 @@
 import * as fs from 'fs-extra';
 import * as path from 'path';
 import * as crypto from 'crypto';
-import { Memento, OutputChannel } from 'vscode';
+import { Memento } from 'vscode';
+import { logToExtensionOutputChannel } from './extension';
+import { IJSONSchemaCache } from './json-schema-content-provider';
 
 const CACHE_DIR = 'schemas_cache';
 const CACHE_KEY = 'json-schema-key';
@@ -20,13 +22,13 @@ interface SchemaCache {
   [uri: string]: CacheEntry;
 }
 
-export class JSONSchemaCache {
+export class JSONSchemaCache implements IJSONSchemaCache {
   private readonly cachePath: string;
   private readonly cache: SchemaCache;
 
   private isInitialized = false;
 
-  constructor(globalStoragePath: string, private memento: Memento, private output: OutputChannel) {
+  constructor(globalStoragePath: string, private memento: Memento) {
     this.cachePath = path.join(globalStoragePath, CACHE_DIR);
     this.cache = memento.get(CACHE_KEY, {});
   }
@@ -78,7 +80,7 @@ export class JSONSchemaCache {
       await this.memento.update(CACHE_KEY, this.cache);
     } catch (err) {
       delete this.cache[schemaUri];
-      this.output.appendLine(err);
+      logToExtensionOutputChannel(err);
     }
   }
 

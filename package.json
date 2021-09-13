@@ -48,7 +48,8 @@
     "autocompletion",
     "validation"
   ],
-  "main": "./out/src/extension",
+  "main": "./out/src/node/yamlClientMain",
+  "browser": "./out/src/webworker/yamlClientMain",
   "contributes": {
     "languages": [
       {
@@ -192,10 +193,12 @@
     "check-dependencies": "node ./scripts/check-dependencies.js",
     "clean": "rimraf out",
     "compile": "tsc -watch -p ./",
+    "compile-webworker": "webpack --config ./build/extension-browser.webpack.config.js",
+    "run-in-chromium": "npm run compile-webworker && vscode-test-web --browserType=chromium --extensionDevelopmentPath=. .",
     "format": "prettier --write .",
     "lint": "eslint -c .eslintrc.js --ext .ts src test",
     "test": "sh scripts/e2e.sh",
-    "vscode:prepublish": "tsc -p ./"
+    "vscode:prepublish": "tsc -p ./ && npm run compile-webworker"
   },
   "devDependencies": {
     "@types/chai": "^4.2.12",
@@ -205,6 +208,7 @@
     "@types/sinon": "^9.0.5",
     "@types/sinon-chai": "^3.2.5",
     "@types/vscode": "^1.52.0",
+    "@types/webpack": "^4.4.10",
     "@typescript-eslint/eslint-plugin": "^4.16.1",
     "@typescript-eslint/parser": "^4.16.1",
     "chai": "^4.2.0",
@@ -217,9 +221,13 @@
     "rimraf": "^3.0.2",
     "sinon": "^9.0.3",
     "sinon-chai": "^3.5.0",
+    "ts-loader": "^4.4.2",
     "ts-node": "^3.3.0",
     "typescript": "4.1.2",
-    "vscode-test": "^1.4.0"
+    "vscode-test": "^1.4.0",
+    "@vscode/test-web": "0.0.11",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12"
   },
   "dependencies": {
     "@redhat-developer/vscode-redhat-telemetry": "0.2.0",

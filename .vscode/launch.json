@@ -28,6 +28,18 @@
         "${workspaceRoot}/test/testFixture"
       ],
       "outFiles": ["${workspaceFolder}/out/test/**/*.js"]
+    },
+    {
+      "name": "Launch Web Extension",
+      "type": "pwa-extensionHost",
+      "debugWebWorkerHost": true,
+      "request": "launch",
+      "args": [
+        "--extensionDevelopmentPath=${workspaceFolder}",
+        "--extensionDevelopmentKind=web"
+      ],
+      "outFiles": ["${workspaceRoot}/out/src/**/*.js"],
+      "preLaunchTask": "npm: compile-webworker"
     }
   ]
 }

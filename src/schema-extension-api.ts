@@ -1,5 +1,5 @@
 import { URI } from 'vscode-uri';
-import { LanguageClient, RequestType } from 'vscode-languageclient/node';
+import { CommonLanguageClient as LanguageClient, RequestType } from 'vscode-languageclient/node';
 import { workspace } from 'vscode';
 import { logToExtensionOutputChannel } from './extension';
 

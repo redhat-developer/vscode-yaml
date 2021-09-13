@@ -8,6 +8,6 @@
     "sourceMap": true,
     "target": "es6"
   },
-  "exclude": ["node_modules", "server"],
+  "exclude": ["node_modules", "server", "src/webworker"],
   "include": ["src", "test"]
 }
