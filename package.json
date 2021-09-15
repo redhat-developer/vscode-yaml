@@ -190,11 +190,11 @@
   "scripts": {
     "build": "yarn run clean && yarn run lint && yarn run vscode:prepublish",
     "check-dependencies": "node ./scripts/check-dependencies.js",
-    "clean": "rimraf out",
+    "clean": "rimraf out && rimraf dist",
     "compile": "webpack --mode none",
     "format": "prettier --write .",
     "lint": "eslint -c .eslintrc.js --ext .ts src test",
-    "test": "sh scripts/e2e.sh",
+    "test": "yarn test-compile && sh scripts/e2e.sh",
     "vscode:prepublish": "webpack --mode production",
     "watch": "webpack --mode development --watch --info-verbosity verbose",
     "test-compile": "tsc -p ./"

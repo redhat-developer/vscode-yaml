@@ -18,6 +18,21 @@
       "isBackground": true,
       // use the standard tsc in watch mode problem matcher to find compile problems in the output.
       "problemMatcher": "$tsc-watch"
+    },
+    {
+      "label": "compile test",
+      // the command is a shell script
+      "type": "shell",
+      // we run the custom npm script "compile" as defined in package.json
+      "command": "yarn test-compile",
+      // show the output window only if unrecognized errors occur.
+      "presentation": {
+        "reveal": "never"
+      },
+      // The tsc compiler is started in watching mode
+      "isBackground": true,
+      // use the standard tsc in watch mode problem matcher to find compile problems in the output.
+      "problemMatcher": "$tsc-watch"
     }
   ]
 }
