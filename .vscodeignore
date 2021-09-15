@@ -18,3 +18,4 @@ CONTRIBUTING.md
 .vscode-test/**
 **/**.vsix
 **/**.tar.gz
+!node_modules/prettier
