@@ -18,4 +18,6 @@ CONTRIBUTING.md
 .vscode-test/**
 **/**.vsix
 **/**.tar.gz
-!node_modules/prettier
+!node_modules/prettier/index.js
+!node_modules/prettier/third-party.js
+!node_modules/prettier/parser-yaml.js
