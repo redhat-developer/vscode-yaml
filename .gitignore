@@ -1,4 +1,7 @@
 node_modules/
 out/
+dist/
 .vscode-test/
 test/testFixture/.vscode
+*.vsix
+.DS_Store

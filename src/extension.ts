@@ -87,10 +87,7 @@ export async function activate(context: ExtensionContext): Promise<SchemaExtensi
   telemetry.sendStartupEvent();
 
   // The YAML language server is implemented in node
-  const serverModule = context.asAbsolutePath(
-    path.join('node_modules', 'yaml-language-server', 'out', 'server', 'src', 'server.js')
-  );
-
+  const serverModule = context.asAbsolutePath(path.join('.', 'dist', 'languageserver.js'));
   // The debug options for the server
   const debugOptions = { execArgv: ['--nolazy', '--inspect=6009'] };
 
