@@ -39,8 +39,8 @@
         "--extensionDevelopmentPath=${workspaceFolder}",
         "--extensionDevelopmentKind=web"
       ],
-      "outFiles": ["${workspaceRoot}/out/src/**/*.js"],
-      "preLaunchTask": "npm: compile-webworker"
+      "outFiles": ["${workspaceRoot}/dist/**/*.js"],
+      "preLaunchTask": "compile webpack"
     }
   ]
 }

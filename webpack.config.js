@@ -137,7 +137,7 @@ const serverWeb = {
     fallback: {
       path: require.resolve('path-browserify/'),
       url: require.resolve('url/'),
-      //buffer: require.resolve('buffer/'),
+      buffer: require.resolve('buffer/'),
     },
   },
   plugins: [
