@@ -48,8 +48,8 @@
     "autocompletion",
     "validation"
   ],
-  "main": "./out/src/node/yamlClientMain",
-  "browser": "./out/src/webworker/yamlClientMain",
+  "main": "./dist/extension",
+  "browser": "./dist/extension-web",
   "contributes": {
     "languages": [
       {
@@ -191,14 +191,15 @@
   "scripts": {
     "build": "yarn run clean && yarn run lint && yarn run vscode:prepublish",
     "check-dependencies": "node ./scripts/check-dependencies.js",
-    "clean": "rimraf out",
-    "compile": "tsc -watch -p ./",
-    "compile-webworker": "webpack --config ./build/extension-browser.webpack.config.js",
-    "run-in-chromium": "npm run compile-webworker && vscode-test-web --browserType=chromium --extensionDevelopmentPath=. .",
+    "clean": "rimraf out && rimraf dist",
+    "compile": "webpack --mode none",
     "format": "prettier --write .",
     "lint": "eslint -c .eslintrc.js --ext .ts src test",
-    "test": "sh scripts/e2e.sh",
-    "vscode:prepublish": "tsc -p ./ && npm run compile-webworker"
+    "test": "yarn test-compile && sh scripts/e2e.sh",
+    "vscode:prepublish": "webpack --mode production",
+    "watch": "webpack --mode development --watch --info-verbosity verbose",
+    "test-compile": "tsc -p ./",
+    "run-in-chromium": "npm run compile && vscode-test-web --browserType=chromium --extensionDevelopmentPath=. ."
   },
   "devDependencies": {
     "@types/chai": "^4.2.12",
@@ -221,18 +222,24 @@
     "rimraf": "^3.0.2",
     "sinon": "^9.0.3",
     "sinon-chai": "^3.5.0",
-    "ts-loader": "^4.4.2",
+    "ts-loader": "^9.2.5",
     "ts-node": "^3.3.0",
     "typescript": "4.1.2",
+    "umd-compat-loader": "^2.1.2",
     "vscode-test": "^1.4.0",
     "@vscode/test-web": "0.0.11",
-    "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.12"
+    "webpack": "^5.52.1",
+    "webpack-cli": "^4.8.0",
+    "path-browserify": "^1.0.1",
+    "buffer": "^6.0.3",
+    "util": "^0.12.4",
+    "url": "^0.11.0",
+    "process": "^0.11.10"
   },
   "dependencies": {
-    "@redhat-developer/vscode-redhat-telemetry": "0.2.0",
+    "@redhat-developer/vscode-redhat-telemetry": "0.4.2",
     "fs-extra": "^9.1.0",
-    "request-light": "^0.4.0",
+    "request-light": "^0.5.4",
     "vscode-languageclient": "7.0.0",
     "vscode-nls": "^3.2.1",
     "vscode-uri": "^2.0.3",

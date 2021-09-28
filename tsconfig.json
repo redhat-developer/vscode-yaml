@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "lib": ["es2016"],
+    "lib": ["es2016","WebWorker"],
     "module": "commonjs",
     "moduleResolution": "node",
     "outDir": "out",

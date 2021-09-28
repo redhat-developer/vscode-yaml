@@ -56,8 +56,9 @@ export async function getJsonSchemaContent(uri: string, schemaCache: IJSONSchema
   return xhr({ url: uri, followRedirects: 5, headers })
     .then(async (response) => {
       // cache only if server supports 'etag' header
-      if (response.headers['etag']) {
-        await schemaCache.putSchema(uri, response.headers['etag'], response.responseText);
+      const etag = response.headers['etag'];
+      if (typeof etag === 'string') {
+        await schemaCache.putSchema(uri, etag, response.responseText);
       }
       return response.responseText;
     })

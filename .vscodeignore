@@ -1,9 +1,14 @@
 .vscode/**
 typings/**
-out/test/**
+out/**
 test/**
 src/**
 images/**
+node_modules/**
+scripts/**
+build/**
+Jenkinsfile
+prettier*
 **/*.map
 .gitignore
 .github/**
@@ -15,4 +20,6 @@ CONTRIBUTING.md
 .vscode-test-web/**
 **/**.vsix
 **/**.tar.gz
-build/
+!node_modules/prettier/index.js
+!node_modules/prettier/third-party.js
+!node_modules/prettier/parser-yaml.js
