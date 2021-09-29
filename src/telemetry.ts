@@ -76,6 +76,7 @@ export class TelemetryOutputChannel implements vscode.OutputChannel {
       this.errors.push(value);
       this.throttleTimeout = setTimeout(() => {
         this.telemetry.send({ name: 'yaml.server.error', properties: { error: this.createErrorMessage() } });
+        this.errors = undefined;
       }, 50);
     }
   }
@@ -102,6 +103,8 @@ export class TelemetryOutputChannel implements vscode.OutputChannel {
     for (const value of this.errors) {
       if (value.startsWith('[Error')) {
         result.push(value.substr(value.indexOf(']') + 1, value.length).trim());
+      } else {
+        result.push(value);
       }
     }
 
