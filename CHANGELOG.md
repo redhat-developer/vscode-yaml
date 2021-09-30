@@ -1,3 +1,16 @@
+### 0.23.0
+- Replace js-yaml with yaml [#526](https://github.com/redhat-developer/yaml-language-server/pull/526)
+- Update monaco-yaml link in docs [#527](https://github.com/redhat-developer/yaml-language-server/pull/527)
+- Update vscode-nls and vscode-uri dependencies [#531](https://github.com/redhat-developer/yaml-language-server/pull/531)
+- Fix: error handling in hover and codelens [#534](https://github.com/redhat-developer/yaml-language-server/pull/534)
+- Fix: 'label.replace is not a function' error [#544](https://github.com/redhat-developer/yaml-language-server/pull/544)
+- Fix: Fragment resolution from #512 doesn't always work [#522](https://github.com/redhat-developer/yaml-language-server/issues/522)
+- Optimize packaging with webpack [#521](https://github.com/redhat-developer/vscode-yaml/issues/521)
+- Throttle LSP error telemetry reporting [#599](https://github.com/redhat-developer/vscode-yaml/pull/599)
+- Update vscode-redhat-telemetry to 0.4.2 [#598](https://github.com/redhat-developer/vscode-yaml/pull/598)
+
+Thanks to Remco Haszing and Fred Bricon
+
 ### 0.22.0
 
 - Fix: fetching nested http settings [#511](https://github.com/redhat-developer/yaml-language-server/pull/511)
