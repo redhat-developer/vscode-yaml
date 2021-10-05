@@ -27,9 +27,14 @@ Provides comprehensive YAML Language support to [Visual Studio Code](https://cod
 
 *Auto completion and hover support are provided by the schema. Please refer to Language Server Settings to setup a schema*
 
+## YAML version support
+Starting from `0.24.0` the extension uses [eemeli/yaml](https://github.com/eemeli/yaml) as the new YAML parser, which strictly enforces the specified YAML spec version.
+Default YAML spec version is `1.2`, it can be changed with `yaml.yamlVersion` setting.
+
 ## Extension Settings
 
 The following settings are supported:
+* `yaml.yamlVersion`: Set default YAML spec version (`1.2` or `1.1`)
 * `yaml.format.enable`: Enable/disable default YAML formatter (requires restart)
 * `yaml.format.singleQuote`: Use single quotes instead of double quotes
 * `yaml.format.bracketSpacing`: Print spaces between brackets in objects

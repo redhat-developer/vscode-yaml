@@ -86,6 +86,12 @@
           "markdownDescription": "Enable usage data and errors to be sent to Red Hat servers. Read our [privacy statement](https://developers.redhat.com/article/tool-data-collection).",
           "scope": "window"
         },
+        "yaml.yamlVersion": {
+          "type": "string",
+          "default": "1.2",
+          "enum": ["1.1", "1.2"],
+          "markdownDescription": "Default YAML spec version"
+        },
         "yaml.trace.server": {
           "type": "string",
           "enum": [

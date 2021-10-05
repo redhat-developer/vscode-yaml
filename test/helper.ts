@@ -125,6 +125,9 @@ export async function testDiagnostics(docUri: vscode.Uri, expectedDiagnostics: v
 }
 
 export class TestMemento implements vscode.Memento {
+  keys(): readonly string[] {
+    throw new Error('Method not implemented.');
+  }
   get<T>(key: string): T;
   get<T>(key: string, defaultValue: T): T;
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

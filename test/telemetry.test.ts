@@ -45,8 +45,8 @@ describe('Telemetry Test', () => {
       outputChannel = sandbox.stub(testOutputChannel);
       telemetry = sandbox.stub(new TelemetryStub());
       telemetryChannel = new TelemetryOutputChannel(
-        (outputChannel as unknown) as vscode.OutputChannel,
-        (telemetry as unknown) as TelemetryService
+        outputChannel as unknown as vscode.OutputChannel,
+        telemetry as unknown as TelemetryService
       );
       clock = sinon.useFakeTimers();
     });
