@@ -47,7 +47,7 @@ const errorMassagesToSkip = [{ text: 'Warning: Setting the NODE_TLS_REJECT_UNAUT
 
 export class TelemetryOutputChannel implements vscode.OutputChannel {
   private errors: string[] | undefined;
-  private throttleTimeout: NodeJS.Timeout | undefined;
+  private throttleTimeout: vscode.Disposable | undefined;
   constructor(private readonly delegate: vscode.OutputChannel, private readonly telemetry: TelemetryService) {}
 
   get name(): string {
@@ -71,13 +71,14 @@ export class TelemetryOutputChannel implements vscode.OutputChannel {
         this.errors = [];
       }
       if (this.throttleTimeout) {
-        clearTimeout(this.throttleTimeout);
+        this.throttleTimeout.dispose();
       }
       this.errors.push(value);
-      this.throttleTimeout = setTimeout(() => {
+      const timeoutHandle = setTimeout(() => {
         this.telemetry.send({ name: 'yaml.server.error', properties: { error: this.createErrorMessage() } });
         this.errors = undefined;
       }, 50);
+      this.throttleTimeout = new vscode.Disposable(() => clearTimeout(timeoutHandle));
     }
   }
 
