@@ -39,13 +39,20 @@ describe('Telemetry Test', () => {
     let telemetryChannel: TelemetryOutputChannel;
     let outputChannel: sinon.SinonStubbedInstance<vscode.OutputChannel>;
     let telemetry: sinon.SinonStubbedInstance<TelemetryService>;
+    let clock: sinon.SinonFakeTimers;
+
     beforeEach(() => {
       outputChannel = sandbox.stub(testOutputChannel);
       telemetry = sandbox.stub(new TelemetryStub());
       telemetryChannel = new TelemetryOutputChannel(
-        (outputChannel as unknown) as vscode.OutputChannel,
-        (telemetry as unknown) as TelemetryService
+        outputChannel as unknown as vscode.OutputChannel,
+        telemetry as unknown as TelemetryService
       );
+      clock = sinon.useFakeTimers();
+    });
+
+    afterEach(() => {
+      clock.restore();
     });
 
     it('should delegate "append" method', () => {
@@ -80,11 +87,13 @@ describe('Telemetry Test', () => {
 
     it('should send telemetry if log error in "append"', () => {
       telemetryChannel.append('[Error] Some');
+      clock.tick(51);
       expect(telemetry.send).calledOnceWith({ name: 'yaml.server.error', properties: { error: 'Some' } });
     });
 
     it('should send telemetry if log error on "appendLine"', () => {
       telemetryChannel.appendLine('[Error] Some error');
+      clock.tick(51);
       expect(telemetry.send).calledOnceWith({ name: 'yaml.server.error', properties: { error: 'Some error' } });
     });
 
@@ -92,7 +101,26 @@ describe('Telemetry Test', () => {
       telemetryChannel.append(
         "[Error - 15:10:33] (node:25052) Warning: Setting the NODE_TLS_REJECT_UNAUTHORIZED environment variable to '0' makes TLS connections and HTTPS requests insecure by disabling certificate verification."
       );
+      clock.tick(51);
       expect(telemetry.send).not.called;
+    });
+
+    it('should throttle send telemetry if "append" called multiple times', () => {
+      telemetryChannel.append('[Error] Some');
+      telemetryChannel.append('[Error] Second Error');
+      clock.tick(51);
+      expect(telemetry.send).calledOnceWith({ name: 'yaml.server.error', properties: { error: 'Some\nSecond Error' } });
+    });
+
+    it('should throttle send telemetry if "appendLine" called multiple times', () => {
+      telemetryChannel.appendLine('[Error] Some');
+      telemetryChannel.appendLine('[Error] Second Error');
+      telemetryChannel.appendLine('[Error] Third Error');
+      clock.tick(51);
+      expect(telemetry.send).calledOnceWith({
+        name: 'yaml.server.error',
+        properties: { error: 'Some\nSecond Error\nThird Error' },
+      });
     });
   });
 

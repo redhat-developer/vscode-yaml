@@ -46,6 +46,8 @@ export class TelemetryErrorHandler implements ErrorHandler {
 const errorMassagesToSkip = [{ text: 'Warning: Setting the NODE_TLS_REJECT_UNAUTHORIZED', contains: true }];
 
 export class TelemetryOutputChannel implements vscode.OutputChannel {
+  private errors: string[] | undefined;
+  private throttleTimeout: NodeJS.Timeout | undefined;
   constructor(private readonly delegate: vscode.OutputChannel, private readonly telemetry: TelemetryService) {}
 
   get name(): string {
@@ -65,7 +67,17 @@ export class TelemetryOutputChannel implements vscode.OutputChannel {
       if (this.isNeedToSkip(value)) {
         return;
       }
-      this.telemetry.send({ name: 'yaml.server.error', properties: { error: this.createErrorMessage(value) } });
+      if (!this.errors) {
+        this.errors = [];
+      }
+      if (this.throttleTimeout) {
+        clearTimeout(this.throttleTimeout);
+      }
+      this.errors.push(value);
+      this.throttleTimeout = setTimeout(() => {
+        this.telemetry.send({ name: 'yaml.server.error', properties: { error: this.createErrorMessage() } });
+        this.errors = undefined;
+      }, 50);
     }
   }
 
@@ -86,12 +98,17 @@ export class TelemetryOutputChannel implements vscode.OutputChannel {
     return false;
   }
 
-  private createErrorMessage(value: string): string {
-    if (value.startsWith('[Error')) {
-      value = value.substr(value.indexOf(']') + 1, value.length).trim();
+  private createErrorMessage(): string {
+    const result = [];
+    for (const value of this.errors) {
+      if (value.startsWith('[Error')) {
+        result.push(value.substr(value.indexOf(']') + 1, value.length).trim());
+      } else {
+        result.push(value);
+      }
     }
 
-    return value;
+    return result.join('\n');
   }
 
   clear(): void {
