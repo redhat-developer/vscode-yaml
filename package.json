@@ -14,9 +14,8 @@
     }
   ],
   "license": "MIT",
-  "version": "0.24.0",
+  "version": "1.0.0",
   "publisher": "redhat",
-  "preview": true,
   "bugs": "https://github.com/redhat-developer/vscode-yaml/issues",
   "repository": {
     "type": "git",
@@ -89,7 +88,10 @@
         "yaml.yamlVersion": {
           "type": "string",
           "default": "1.2",
-          "enum": ["1.1", "1.2"],
+          "enum": [
+            "1.1",
+            "1.2"
+          ],
           "markdownDescription": "Default YAML spec version"
         },
         "yaml.trace.server": {
