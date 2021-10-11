@@ -43,7 +43,7 @@ describe('JSON Schema Cache Tests', () => {
     pathExistsStub.resolves(false);
     readFileStub.resolves();
 
-    const cache = new JSONSchemaCache('/some/path/', memento as unknown as vscode.Memento, {} as vscode.OutputChannel);
+    const cache = new JSONSchemaCache('/some/path/', (memento as unknown) as vscode.Memento, {} as vscode.OutputChannel);
     const result = await cache.getSchema('/some/uri');
     expect(result).is.undefined;
     expect(memento.update).calledOnceWith('json-schema-key', {});
@@ -60,7 +60,7 @@ describe('JSON Schema Cache Tests', () => {
     pathExistsStub.resolves(false);
     readFileStub.resolves();
 
-    const cache = new JSONSchemaCache('/some/path/', memento as unknown as vscode.Memento, {} as vscode.OutputChannel);
+    const cache = new JSONSchemaCache('/some/path/', (memento as unknown) as vscode.Memento, {} as vscode.OutputChannel);
     const result = await cache.getSchema('/some/uri');
     expect(result).is.undefined;
     expect(memento.update).calledOnceWith('json-schema-key', mementoData);
