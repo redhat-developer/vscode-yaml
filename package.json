@@ -14,9 +14,8 @@
     }
   ],
   "license": "MIT",
-  "version": "0.24.0",
+  "version": "1.0.0",
   "publisher": "redhat",
-  "preview": true,
   "bugs": "https://github.com/redhat-developer/vscode-yaml/issues",
   "repository": {
     "type": "git",
@@ -90,7 +89,10 @@
         "yaml.yamlVersion": {
           "type": "string",
           "default": "1.2",
-          "enum": ["1.1", "1.2"],
+          "enum": [
+            "1.1",
+            "1.2"
+          ],
           "markdownDescription": "Default YAML spec version"
         },
         "yaml.trace.server": {
@@ -224,7 +226,7 @@
     "eslint-plugin-prettier": "^3.1.4",
     "glob": "^7.1.6",
     "mocha": "^8.0.1",
-    "prettier": "^2.0.5",
+    "prettier": "2.2.1",
     "rimraf": "^3.0.2",
     "sinon": "^9.0.3",
     "sinon-chai": "^3.5.0",
