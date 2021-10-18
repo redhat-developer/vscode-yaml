@@ -6,25 +6,20 @@
  *--------------------------------------------------------------------------------------------*/
 'use strict';
 
-import * as path from 'path';
-
-import { workspace, ExtensionContext, extensions, window, commands } from 'vscode';
+import { workspace, ExtensionContext, extensions, window, commands, Uri } from 'vscode';
 import {
-  LanguageClient,
+  CommonLanguageClient,
   LanguageClientOptions,
-  ServerOptions,
-  TransportKind,
   NotificationType,
   RequestType,
   RevealOutputChannelOn,
-} from 'vscode-languageclient/node';
+} from 'vscode-languageclient';
 import { CUSTOM_SCHEMA_REQUEST, CUSTOM_CONTENT_REQUEST, SchemaExtensionAPI } from './schema-extension-api';
 import { joinPath } from './paths';
-import { getJsonSchemaContent, JSONSchemaDocumentContentProvider } from './json-schema-content-provider';
-import { JSONSchemaCache } from './json-schema-cache';
+import { getJsonSchemaContent, IJSONSchemaCache, JSONSchemaDocumentContentProvider } from './json-schema-content-provider';
 import { getConflictingExtensions, showUninstallConflictsNotification } from './extensionConflicts';
-import { getRedHatService } from '@redhat-developer/vscode-redhat-telemetry';
 import { TelemetryErrorHandler, TelemetryOutputChannel } from './telemetry';
+import { TextDecoder } from 'util';
 
 export interface ISchemaAssociations {
   [pattern: string]: string[];
@@ -66,6 +61,12 @@ namespace VSCodeContentRequest {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
+namespace FSReadFile {
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  export const type: RequestType<string, string, {}> = new RequestType('fs/readFile');
+}
+
+// eslint-disable-next-line @typescript-eslint/no-namespace
 namespace DynamicCustomSchemaRequestRegistration {
   // eslint-disable-next-line @typescript-eslint/ban-types
   export const type: NotificationType<{}> = new NotificationType('yaml/registerCustomSchemaRequest');
@@ -77,28 +78,31 @@ namespace ResultLimitReachedNotification {
   export const type: NotificationType<string> = new NotificationType('yaml/resultLimitReached');
 }
 
-let client: LanguageClient;
+let client: CommonLanguageClient;
 
 const lsName = 'YAML Support';
 
-export async function activate(context: ExtensionContext): Promise<SchemaExtensionAPI> {
-  // Create Telemetry Service
-  const telemetry = await (await getRedHatService(context)).getTelemetryService();
-  telemetry.sendStartupEvent();
+export type LanguageClientConstructor = (
+  name: string,
+  description: string,
+  clientOptions: LanguageClientOptions
+) => CommonLanguageClient;
 
-  // The YAML language server is implemented in node
-  const serverModule = context.asAbsolutePath(path.join('.', 'dist', 'languageserver.js'));
-  // The debug options for the server
-  const debugOptions = { execArgv: ['--nolazy', '--inspect=6009'] };
+export interface RuntimeEnvironment {
+  readonly telemetry: TelemetryService;
+  readonly schemaCache: IJSONSchemaCache;
+}
 
-  // If the extension is launched in debug mode then the debug server options are used
-  // Otherwise the run options are used
-  const serverOptions: ServerOptions = {
-    run: { module: serverModule, transport: TransportKind.ipc },
-    debug: { module: serverModule, transport: TransportKind.ipc, options: debugOptions },
-  };
+export interface TelemetryService {
+  send(arg: { name: string; properties?: unknown });
+}
 
-  const telemetryErrorHandler = new TelemetryErrorHandler(telemetry, lsName, 4);
+export function startClient(
+  context: ExtensionContext,
+  newLanguageClient: LanguageClientConstructor,
+  runtime: RuntimeEnvironment
+): SchemaExtensionAPI {
+  const telemetryErrorHandler = new TelemetryErrorHandler(runtime.telemetry, lsName, 4);
   const outputChannel = window.createOutputChannel(lsName);
   // Options to control the language client
   const clientOptions: LanguageClientOptions = {
@@ -110,13 +114,12 @@ export async function activate(context: ExtensionContext): Promise<SchemaExtensi
     },
     revealOutputChannelOn: RevealOutputChannelOn.Never,
     errorHandler: telemetryErrorHandler,
-    outputChannel: new TelemetryOutputChannel(outputChannel, telemetry),
+    outputChannel: new TelemetryOutputChannel(outputChannel, runtime.telemetry),
   };
 
   // Create the language client and start it
-  client = new LanguageClient('yaml', lsName, serverOptions, clientOptions);
+  client = newLanguageClient('yaml', lsName, clientOptions);
 
-  const schemaCache = new JSONSchemaCache(context.globalStorageUri.fsPath, context.globalState, client.outputChannel);
   const disposable = client.start();
 
   const schemaExtensionAPI = new SchemaExtensionAPI(client);
@@ -127,13 +130,13 @@ export async function activate(context: ExtensionContext): Promise<SchemaExtensi
   context.subscriptions.push(
     workspace.registerTextDocumentContentProvider(
       'json-schema',
-      new JSONSchemaDocumentContentProvider(schemaCache, schemaExtensionAPI)
+      new JSONSchemaDocumentContentProvider(runtime.schemaCache, schemaExtensionAPI)
     )
   );
 
   context.subscriptions.push(
     client.onTelemetry((e) => {
-      telemetry.send(e);
+      runtime.telemetry.send(e);
     })
   );
 
@@ -159,10 +162,13 @@ export async function activate(context: ExtensionContext): Promise<SchemaExtensi
       return schemaExtensionAPI.requestCustomSchemaContent(uri);
     });
     client.onRequest(VSCodeContentRequest.type, (uri: string) => {
-      return getJsonSchemaContent(uri, schemaCache);
+      return getJsonSchemaContent(uri, runtime.schemaCache);
+    });
+    client.onRequest(FSReadFile.type, (fsPath: string) => {
+      return workspace.fs.readFile(Uri.file(fsPath)).then((uint8array) => new TextDecoder().decode(uint8array));
     });
 
-    telemetry.send({ name: 'yaml.server.initialized' });
+    runtime.telemetry.send({ name: 'yaml.server.initialized' });
     // Adapted from:
     // https://github.com/microsoft/vscode/blob/94c9ea46838a9a619aeafb7e8afd1170c967bb55/extensions/json-language-features/client/src/jsonClient.ts#L305-L318
     client.onNotification(ResultLimitReachedNotification.type, async (message) => {

@@ -48,6 +48,7 @@
     "validation"
   ],
   "main": "./dist/extension",
+  "browser": "./dist/extension-web",
   "contributes": {
     "languages": [
       {
@@ -205,7 +206,8 @@
     "test": "yarn test-compile && sh scripts/e2e.sh",
     "vscode:prepublish": "webpack --mode production",
     "watch": "webpack --mode development --watch --info-verbosity verbose",
-    "test-compile": "tsc -p ./"
+    "test-compile": "tsc -p ./",
+    "run-in-chromium": "npm run compile && vscode-test-web --browserType=chromium --extensionDevelopmentPath=. ."
   },
   "devDependencies": {
     "@types/chai": "^4.2.12",
@@ -215,6 +217,7 @@
     "@types/sinon": "^9.0.5",
     "@types/sinon-chai": "^3.2.5",
     "@types/vscode": "^1.52.0",
+    "@types/webpack": "^4.4.10",
     "@typescript-eslint/eslint-plugin": "^4.16.1",
     "@typescript-eslint/parser": "^4.16.1",
     "chai": "^4.2.0",
@@ -232,13 +235,19 @@
     "typescript": "4.1.2",
     "umd-compat-loader": "^2.1.2",
     "vscode-test": "^1.4.0",
+    "@vscode/test-web": "0.0.11",
     "webpack": "^5.52.1",
-    "webpack-cli": "^4.8.0"
+    "webpack-cli": "^4.8.0",
+    "path-browserify": "^1.0.1",
+    "buffer": "^6.0.3",
+    "util": "^0.12.4",
+    "url": "^0.11.0",
+    "process": "^0.11.10"
   },
   "dependencies": {
     "@redhat-developer/vscode-redhat-telemetry": "0.4.2",
     "fs-extra": "^9.1.0",
-    "request-light": "^0.4.0",
+    "request-light": "^0.5.4",
     "vscode-languageclient": "7.0.0",
     "vscode-nls": "^3.2.1",
     "vscode-uri": "^2.0.3",

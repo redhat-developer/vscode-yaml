@@ -6,6 +6,7 @@ src/**
 images/**
 node_modules/**
 scripts/**
+build/**
 Jenkinsfile
 prettier*
 **/*.map
@@ -16,6 +17,7 @@ vsc-extension-quickstart.md
 undefined/**
 CONTRIBUTING.md
 .vscode-test/**
+.vscode-test-web/**
 **/**.vsix
 **/**.tar.gz
 !node_modules/prettier/index.js

@@ -7,6 +7,8 @@
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const path = require('path');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const webpack = require('webpack');
 
 /**@type {import('webpack').Configuration}*/
 const config = {
@@ -53,4 +55,103 @@ const config = {
     ],
   },
 };
-module.exports = config;
+
+/**@type {import('webpack').Configuration}*/
+const clientWeb = {
+  mode: 'none', // this leaves the source code as close as possible to the original (when packaging we set this to 'production')
+  target: 'webworker', // extensions run in a webworker context
+  entry: {
+    'extension-web': './src/webworker/yamlClientMain.ts',
+  },
+  output: {
+    filename: 'extension-web.js',
+    path: path.join(__dirname, './dist'),
+    libraryTarget: 'commonjs',
+    devtoolModuleFilenameTemplate: '../[resource-path]',
+  },
+  resolve: {
+    mainFields: ['module', 'main'],
+    extensions: ['.ts', '.js'], // support ts-files and js-files
+    alias: {},
+    fallback: {
+      path: require.resolve('path-browserify'),
+      util: require.resolve('util'),
+    },
+  },
+  module: {
+    rules: [
+      {
+        test: /\.ts$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            // configure TypeScript loader:
+            // * enable sources maps for end-to-end source maps
+            loader: 'ts-loader',
+            options: {
+              compilerOptions: {
+                sourceMap: true,
+                declaration: false,
+              },
+            },
+          },
+        ],
+      },
+    ],
+  },
+  plugins: [
+    new webpack.ProvidePlugin({
+      process: 'process/browser.js', // provide a shim for the global `process` variable
+    }),
+  ],
+  externals: {
+    vscode: 'commonjs vscode', // ignored because it doesn't exist
+  },
+  performance: {
+    hints: false,
+  },
+  devtool: 'nosources-source-map',
+};
+
+/**@type {import('webpack').Configuration}*/
+const serverWeb = {
+  mode: 'none', // this leaves the source code as close as possible to the original (when packaging we set this to 'production')
+  target: 'webworker', // extensions run in a webworker context
+  entry: {
+    'languageserver-web': './node_modules/yaml-language-server/lib/esm/webworker/yamlServerMain',
+  },
+  output: {
+    filename: 'languageserver-web.js',
+    path: path.join(__dirname, './dist'),
+    libraryTarget: 'var',
+    library: 'serverExportVar',
+    devtoolModuleFilenameTemplate: '../[resource-path]',
+  },
+  resolve: {
+    mainFields: ['browser', 'module', 'main'],
+    extensions: ['.ts', '.js'], // support ts-files and js-files
+    alias: {
+      './services/yamlFormatter': path.resolve(__dirname, './build/polyfills/yamlFormatter.js'), // not supported for now. prettier can run in the web, but it's a bit more work.
+      'vscode-json-languageservice/lib/umd': 'vscode-json-languageservice/lib/esm',
+    },
+    fallback: {
+      path: require.resolve('path-browserify/'),
+      url: require.resolve('url/'),
+      buffer: require.resolve('buffer/'),
+    },
+  },
+  plugins: [
+    new webpack.ProvidePlugin({
+      process: 'process/browser.js', // provide a shim for the global `process` variable
+    }),
+  ],
+  module: {},
+  externals: {},
+  performance: {
+    hints: false,
+  },
+
+  devtool: 'nosources-source-map',
+};
+
+module.exports = [config, clientWeb, serverWeb];

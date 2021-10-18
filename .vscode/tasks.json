@@ -20,6 +20,14 @@
       "problemMatcher": "$tsc-watch"
     },
     {
+      "label": "compile webpack",
+      "type": "npm",
+      "script": "compile",
+      "group": "build",
+      "isBackground": true,
+      "problemMatcher": ["$ts-webpack-watch"]
+    },
+    {
       "label": "compile test",
       // the command is a shell script
       "type": "shell",
