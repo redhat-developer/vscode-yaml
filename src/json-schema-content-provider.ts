@@ -5,11 +5,16 @@
 
 import { TextDocumentContentProvider, Uri, workspace, window } from 'vscode';
 import { xhr, configure as configureHttpRequests, getErrorStatusDescription, XHRResponse } from 'request-light';
-import { JSONSchemaCache } from './json-schema-cache';
 import { SchemaExtensionAPI } from './schema-extension-api';
 
+export interface IJSONSchemaCache {
+  getETag(schemaUri: string): string | undefined;
+  putSchema(schemaUri: string, eTag: string, schemaContent: string): Promise<void>;
+  getSchema(schemaUri: string): Promise<string | undefined>;
+}
+
 export class JSONSchemaDocumentContentProvider implements TextDocumentContentProvider {
-  constructor(private readonly schemaCache: JSONSchemaCache, private readonly schemaApi: SchemaExtensionAPI) {}
+  constructor(private readonly schemaCache: IJSONSchemaCache, private readonly schemaApi: SchemaExtensionAPI) {}
   async provideTextDocumentContent(uri: Uri): Promise<string> {
     if (uri.fragment) {
       const origUri = uri.fragment;
@@ -38,7 +43,7 @@ export class JSONSchemaDocumentContentProvider implements TextDocumentContentPro
   }
 }
 
-export async function getJsonSchemaContent(uri: string, schemaCache: JSONSchemaCache): Promise<string> {
+export async function getJsonSchemaContent(uri: string, schemaCache: IJSONSchemaCache): Promise<string> {
   const cachedETag = schemaCache.getETag(uri);
 
   const httpSettings = workspace.getConfiguration('http');
@@ -51,8 +56,9 @@ export async function getJsonSchemaContent(uri: string, schemaCache: JSONSchemaC
   return xhr({ url: uri, followRedirects: 5, headers })
     .then(async (response) => {
       // cache only if server supports 'etag' header
-      if (response.headers['etag']) {
-        await schemaCache.putSchema(uri, response.headers['etag'], response.responseText);
+      const etag = response.headers['etag'];
+      if (typeof etag === 'string') {
+        await schemaCache.putSchema(uri, etag, response.responseText);
       }
       return response.responseText;
     })
