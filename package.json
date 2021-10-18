@@ -206,7 +206,7 @@
     "test": "yarn test-compile && sh scripts/e2e.sh",
     "vscode:prepublish": "webpack --mode production",
     "watch": "webpack --mode development --watch --info-verbosity verbose",
-    "test-compile": "tsc -p ./",
+    "test-compile": "yarn clean && tsc -p ./ && webpack --mode development",
     "run-in-chromium": "npm run compile && vscode-test-web --browserType=chromium --extensionDevelopmentPath=. ."
   },
   "devDependencies": {

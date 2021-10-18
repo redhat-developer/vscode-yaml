@@ -18,7 +18,7 @@ const config = {
     __filename: false,
   },
   entry: {
-    extension: './src/extension.ts', // the entry point of this extension, 📖 -> https://webpack.js.org/configuration/entry-context/
+    extension: './src/node/yamlClientMain.ts', // the entry point of this extension, 📖 -> https://webpack.js.org/configuration/entry-context/
     languageserver: './node_modules/yaml-language-server/out/server/src/server.js',
   },
   output: {
