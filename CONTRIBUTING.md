@@ -48,19 +48,15 @@ All contributions are welcome!
 
 3. Run `yarn install` in both directories to initialize `node_modules` dependencies.
 
-4. In `vscode-yaml/src/extension.ts` set the `serverModule` variable to:
+4. In `vscode-yaml/webpack.config.js` set the `config.entry.languageserver` property to:
 
-   ```ts
-   serverModule = context.asAbsolutePath(path.join("..", "yaml-language-server", "out", "server", "src", "server.js"));
+   ```js
+   languageserver: './../yaml-language-server/out/server/src/server.js',
    ```
 
    _This will redirect which YAML LS to use._
 
-5. In BOTH directories run:
-
-   ```bash
-   yarn run compile
-   ```
+5. First run `yarn run compile` in `yaml-language-server` then in `vscode-yaml` directory
 
 6. To run the language server in VSCode, click `View -> Debug`, then from the drop down menu beside the green arrow select `Launch Extension (vscode-yaml)`, click the arrow, and a new VSCode window should load with the YAML LS running.
 
