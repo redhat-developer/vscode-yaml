@@ -58,7 +58,12 @@ describe('Completion should work in multiple different scenarios', () => {
     await activate(travisUri);
     await updateSettings('schemaStore.enable', false);
     await testCompletion(travisUri, new vscode.Position(0, 0), {
-      items: [],
+      items: [
+        {
+          label: 'Inline schema',
+          kind: 0,
+        },
+      ],
     });
   });
 });
