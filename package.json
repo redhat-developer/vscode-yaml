@@ -140,6 +140,11 @@
           "default": 80,
           "description": "Specify the line length that the printer will wrap on"
         },
+        "yaml.format.sequenceItemIndent": {
+          "type": "integer",
+          "default": 0,
+          "description": "Specify the indent size of the sequence item from it parent"
+        },
         "yaml.validate": {
           "type": "boolean",
           "default": true,
