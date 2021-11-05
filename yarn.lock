@@ -3935,10 +3935,10 @@ yallist@^4.0.0:
   resolved "https://registry.yarnpkg.com/yallist/-/yallist-4.0.0.tgz#9bb92790d9c0effec63be73519e11a35019a3a72"
   integrity sha512-3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A==
 
-yaml-language-server@next:
-  version "1.1.1-f218098.0"
-  resolved "https://registry.yarnpkg.com/yaml-language-server/-/yaml-language-server-1.1.1-f218098.0.tgz#ea912043533424ee2752e72e8d5b18e0d1410d29"
-  integrity sha512-AxY8eq/RlcNV9EYYQY+g1baSBk5XRQdKzsLcCaucwpD/Az5wzbWZgLJcs+Uc23Q0Ielw+Nhx4ab28Q9YuJJOCA==
+yaml-language-server@1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/yaml-language-server/-/yaml-language-server-1.1.1.tgz#a4f308c1546ec4e67923b205e7fc7b2c010d8880"
+  integrity sha512-YevHn6Y3gAUfh98KynXQYclU8oh1Kk+JYX/oZxqKUK2Y6P16+8v8sYg+3H0vXw2D0gjzXaorwJnPoU6a9Ft/7A==
   dependencies:
     jsonc-parser "^3.0.0"
     request-light "^0.5.4"
