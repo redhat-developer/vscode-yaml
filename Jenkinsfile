@@ -1,7 +1,7 @@
 #!/usr/bin/env groovy
 
 def installBuildRequirements(){
-  def nodeHome = tool 'nodejs-12.20.0'
+  def nodeHome = tool 'nodejs-14.18.0'
   env.PATH="${env.PATH}:${nodeHome}/bin"
   sh "npm install --global yarn"
   sh "npm install --global vsce"
