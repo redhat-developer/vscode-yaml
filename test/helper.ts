@@ -7,6 +7,8 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
 import assert = require('assert');
+import { CommonLanguageClient } from 'vscode-languageclient/lib/common/commonClient';
+import { MessageTransports } from 'vscode-languageclient';
 
 export let doc: vscode.TextDocument;
 export let editor: vscode.TextEditor;
@@ -136,6 +138,18 @@ export class TestMemento implements vscode.Memento {
   }
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   update(key: string, value: unknown): Thenable<void> {
+    throw new Error('Method not implemented.');
+  }
+}
+
+export class TestLanguageClient extends CommonLanguageClient {
+  constructor() {
+    super('test', 'test', {});
+  }
+  protected getLocale(): string {
+    throw new Error('Method not implemented.');
+  }
+  protected createMessageTransports(): Promise<MessageTransports> {
     throw new Error('Method not implemented.');
   }
 }
