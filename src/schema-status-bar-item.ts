@@ -71,9 +71,9 @@ async function updateStatusBar(editor: TextEditor): Promise<void> {
       statusBarItem.tooltip = 'Select JSON Schema';
       statusBarItem.backgroundColor = undefined;
     } else {
-      statusBarItem.text = 'Multiple JSON Schemas...'; //schema.map((val) => val.name ?? val.uri).join(' | ');
+      statusBarItem.text = 'Multiple JSON Schemas...';
       statusBarItem.tooltip = 'Multiple JSON Schema used to validate this file, click to select one';
-      statusBarItem.backgroundColor = new ThemeColor('statusBarItem.errorBackground');
+      statusBarItem.backgroundColor = new ThemeColor('statusBarItem.warningBackground');
     }
 
     statusBarItem.show();
@@ -153,10 +153,8 @@ function deleteExistingFilePattern(settings: Record<string, unknown>, fileUri: s
         settings[key] = filePatterns;
       }
 
-      if (typeof element === 'string') {
-        if (element === fileUri) {
-          delete settings[key];
-        }
+      if (element === fileUri) {
+        delete settings[key];
       }
     }
   }

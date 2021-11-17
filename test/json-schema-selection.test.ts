@@ -103,7 +103,7 @@ describe('Completion should work in multiple different scenarios', () => {
 
     expect(statusBar.text).to.equal('Multiple JSON Schemas...');
     expect(statusBar.tooltip).to.equal('Multiple JSON Schema used to validate this file, click to select one');
-    expect(statusBar.backgroundColor).to.eql({ id: 'statusBarItem.errorBackground' });
+    expect(statusBar.backgroundColor).to.eql({ id: 'statusBarItem.warningBackground' });
     expect(statusBar.show).calledOnce;
   });
 });
