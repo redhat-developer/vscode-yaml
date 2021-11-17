@@ -247,7 +247,7 @@
   "dependencies": {
     "@redhat-developer/vscode-redhat-telemetry": "0.4.2",
     "fs-extra": "^9.1.0",
-    "request-light": "^0.5.4",
+    "request-light": "^0.5.5",
     "vscode-languageclient": "7.0.0",
     "vscode-nls": "^3.2.1",
     "vscode-uri": "^2.0.3",
