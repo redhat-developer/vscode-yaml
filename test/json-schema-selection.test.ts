@@ -14,7 +14,7 @@ import * as jsonStatusBar from '../src/schema-status-bar-item';
 const expect = chai.expect;
 chai.use(sinonChai);
 
-describe('Completion should work in multiple different scenarios', () => {
+describe('Status bar should work in multiple different scenarios', () => {
   const sandbox = sinon.createSandbox();
   let clock: sinon.SinonFakeTimers;
   let clcStub: sinon.SinonStubbedInstance<TestLanguageClient>;
