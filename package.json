@@ -39,7 +39,8 @@
     "virtualWorkspaces": true
   },
   "activationEvents": [
-    "onLanguage:yaml"
+    "onLanguage:yaml",
+    "onLanguage:dockercompose"
   ],
   "keywords": [
     "kubernetes",
