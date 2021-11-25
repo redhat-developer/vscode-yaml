@@ -142,7 +142,7 @@ const serverWeb = {
   },
   plugins: [
     new webpack.ProvidePlugin({
-      process: 'process/browser.js', // provide a shim for the global `process` variable
+      process: path.resolve(path.join(__dirname, 'node_modules/process/browser.js')), // provide a shim for the global `process` variable
     }),
   ],
   module: {},
