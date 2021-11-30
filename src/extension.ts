@@ -114,7 +114,7 @@ export function startClient(
   // Options to control the language client
   const clientOptions: LanguageClientOptions = {
     // Register the server for on disk and newly created YAML documents
-    documentSelector: [{ language: 'yaml' }],
+    documentSelector: [{ language: 'yaml' }, { language: 'dockercompose' }, { pattern: '*.y(a)ml' }],
     synchronize: {
       // Notify the server about file changes to YAML and JSON files contained in the workspace
       fileEvents: [workspace.createFileSystemWatcher('**/*.?(e)y?(a)ml'), workspace.createFileSystemWatcher('**/*.json')],
