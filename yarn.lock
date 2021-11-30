@@ -3082,11 +3082,6 @@ remove-trailing-slash@^0.1.0:
   resolved "https://registry.yarnpkg.com/remove-trailing-slash/-/remove-trailing-slash-0.1.1.tgz#be2285a59f39c74d1bce4f825950061915e3780d"
   integrity sha512-o4S4Qh6L2jpnCy83ysZDau+VORNvnFw07CKSAymkd6ICNVEPisMyzlc00KlvvicsxKck94SEwhDnMNdICzO+tA==
 
-request-light@^0.5.4:
-  version "0.5.4"
-  resolved "https://registry.yarnpkg.com/request-light/-/request-light-0.5.4.tgz#497a98c6d8ae49536417a5e2d7f383b934f3e38c"
-  integrity sha512-t3566CMweOFlUk7Y1DJMu5OrtpoZEb6aSTsLQVT3wtrIEJ5NhcY9G/Oqxvjllzl4a15zXfFlcr9q40LbLVQJqw==
-
 request-light@^0.5.5:
   version "0.5.5"
   resolved "https://registry.yarnpkg.com/request-light/-/request-light-0.5.5.tgz#254ab0b38a1db2192170b599b05181934e14932b"
@@ -3940,13 +3935,13 @@ yallist@^4.0.0:
   resolved "https://registry.yarnpkg.com/yallist/-/yallist-4.0.0.tgz#9bb92790d9c0effec63be73519e11a35019a3a72"
   integrity sha512-3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A==
 
-yaml-language-server@next:
-  version "1.1.1-f218098.0"
-  resolved "https://registry.yarnpkg.com/yaml-language-server/-/yaml-language-server-1.1.1-f218098.0.tgz#ea912043533424ee2752e72e8d5b18e0d1410d29"
-  integrity sha512-AxY8eq/RlcNV9EYYQY+g1baSBk5XRQdKzsLcCaucwpD/Az5wzbWZgLJcs+Uc23Q0Ielw+Nhx4ab28Q9YuJJOCA==
+yaml-language-server@1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/yaml-language-server/-/yaml-language-server-1.2.2.tgz#95e6bfcf0609a2373b4716b206c0ed5d25523061"
+  integrity sha512-wjMlqjhg6hNMT8EgYYkfUaM0aXwjWSQDmPO18doWLxIXG7LGBuzb+Vm/MjLrP9LPblSEhE2WWHQFfGW+Odb7vw==
   dependencies:
     jsonc-parser "^3.0.0"
-    request-light "^0.5.4"
+    request-light "^0.5.5"
     vscode-json-languageservice "^4.1.7"
     vscode-languageserver "^7.0.0"
     vscode-languageserver-textdocument "^1.0.1"
