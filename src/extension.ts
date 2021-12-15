@@ -20,6 +20,7 @@ import { getJsonSchemaContent, IJSONSchemaCache, JSONSchemaDocumentContentProvid
 import { getConflictingExtensions, showUninstallConflictsNotification } from './extensionConflicts';
 import { TelemetryErrorHandler, TelemetryOutputChannel } from './telemetry';
 import { TextDecoder } from 'util';
+import { createJSONSchemaStatusBarItem } from './schema-status-bar-item';
 
 export interface ISchemaAssociations {
   [pattern: string]: string[];
@@ -76,6 +77,12 @@ namespace DynamicCustomSchemaRequestRegistration {
 namespace ResultLimitReachedNotification {
   // eslint-disable-next-line @typescript-eslint/ban-types
   export const type: NotificationType<string> = new NotificationType('yaml/resultLimitReached');
+}
+
+// eslint-disable-next-line @typescript-eslint/no-namespace
+export namespace SchemaSelectionRequests {
+  export const type: NotificationType<void> = new NotificationType('yaml/supportSchemaSelection');
+  export const schemaStoreInitialized: NotificationType<void> = new NotificationType('yaml/schema/store/initialized');
 }
 
 let client: CommonLanguageClient;
@@ -154,6 +161,8 @@ export function startClient(
     client.sendNotification(DynamicCustomSchemaRequestRegistration.type);
     // Tell the server that the client supports schema requests sent directly to it
     client.sendNotification(VSCodeContentRequestRegistration.type);
+    // Tell the server that the client supports schema selection requests
+    client.sendNotification(SchemaSelectionRequests.type);
     // If the server asks for custom schema content, get it and send it back
     client.onRequest(CUSTOM_SCHEMA_REQUEST, (resource: string) => {
       return schemaExtensionAPI.requestCustomSchema(resource);
@@ -189,6 +198,10 @@ export function startClient(
           await commands.executeCommand('workbench.action.openSettings', SettingIds.maxItemsComputed);
         }
       }
+    });
+
+    client.onNotification(SchemaSelectionRequests.schemaStoreInitialized, () => {
+      createJSONSchemaStatusBarItem(context, client);
     });
   });
 
