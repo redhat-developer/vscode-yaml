@@ -176,7 +176,15 @@ export function startClient(
     client.onRequest(FSReadFile.type, (fsPath: string) => {
       return workspace.fs.readFile(Uri.file(fsPath)).then((uint8array) => new TextDecoder().decode(uint8array));
     });
-
+    // update tabsize based on editor.detectIndentation flag
+    client.onRequest('custom/updateTabSize/request', (tabSize: number) => {
+      workspace
+        .getConfiguration()
+        .update('[yaml]', { 'editor.tabSize': tabSize })
+        .then(() => {
+          return true;
+        });
+    });
     runtime.telemetry.send({ name: 'yaml.server.initialized' });
     // Adapted from:
     // https://github.com/microsoft/vscode/blob/94c9ea46838a9a619aeafb7e8afd1170c967bb55/extensions/json-language-features/client/src/jsonClient.ts#L305-L318
