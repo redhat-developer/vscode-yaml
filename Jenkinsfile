@@ -44,7 +44,7 @@ node('rhel8'){
 node('rhel8'){
   if(publishToMarketPlace.equals('true')){
     timeout(time:5, unit:'DAYS') {
-      input message:'Approve deployment?', submitter: 'jpinkney,yvydolob'
+      input message:'Approve deployment?', submitter: 'yvydolob'
     }
 
     stage "Publish to Marketplaces"
