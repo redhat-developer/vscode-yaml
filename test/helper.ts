@@ -8,7 +8,7 @@ import * as vscode from 'vscode';
 import * as path from 'path';
 import assert = require('assert');
 import { CommonLanguageClient } from 'vscode-languageclient/lib/common/commonClient';
-import { MessageTransports } from 'vscode-languageclient';
+import { MessageTransports, ProtocolRequestType, ProtocolRequestType0, RequestType, RequestType0 } from 'vscode-languageclient';
 
 export let doc: vscode.TextDocument;
 export let editor: vscode.TextEditor;
@@ -151,5 +151,24 @@ export class TestLanguageClient extends CommonLanguageClient {
   }
   protected createMessageTransports(): Promise<MessageTransports> {
     throw new Error('Method not implemented.');
+  }
+
+  sendRequest<R, PR, E, RO>(type: ProtocolRequestType0<R, PR, E, RO>, token?: vscode.CancellationToken): Promise<R>;
+  sendRequest<P, R, PR, E, RO>(
+    type: ProtocolRequestType<P, R, PR, E, RO>,
+    params: P,
+    token?: vscode.CancellationToken
+  ): Promise<R>;
+  sendRequest<R, E>(type: RequestType0<R, E>, token?: vscode.CancellationToken): Promise<R>;
+  sendRequest<P, R, E>(type: RequestType<P, R, E>, params: P, token?: vscode.CancellationToken): Promise<R>;
+  sendRequest<R>(method: string, token?: vscode.CancellationToken): Promise<R>;
+  /* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-unused-vars*/
+  sendRequest<R>(method: string, param: any, token?: vscode.CancellationToken): Promise<R>;
+  sendRequest<R>(
+    method: any,
+    param?: any,
+    token?: any
+  ): Promise<R> | Promise<R> | Promise<R> | Promise<R> | Promise<R> | Promise<R> {
+    return Promise.resolve(void 0);
   }
 }
