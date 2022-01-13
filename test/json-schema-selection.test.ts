@@ -16,7 +16,6 @@ chai.use(sinonChai);
 
 describe('Status bar should work in multiple different scenarios', () => {
   const sandbox = sinon.createSandbox();
-  let clock: sinon.SinonFakeTimers;
   let clcStub: sinon.SinonStubbedInstance<TestLanguageClient>;
   let registerCommandStub: sinon.SinonStub;
   let createStatusBarItemStub: sinon.SinonStub;
@@ -28,20 +27,20 @@ describe('Status bar should work in multiple different scenarios', () => {
     createStatusBarItemStub = sandbox.stub(vscode.window, 'createStatusBarItem');
     onDidChangeActiveTextEditorStub = sandbox.stub(vscode.window, 'onDidChangeActiveTextEditor');
     sandbox.stub(vscode.window, 'activeTextEditor').returns(undefined);
-    clock = sandbox.useFakeTimers();
     sandbox.stub(jsonStatusBar, 'statusBarItem').returns(undefined);
   });
 
   afterEach(() => {
-    clock.restore();
     sandbox.restore();
   });
 
-  it('Should create status bar item for JSON Schema', () => {
+  it('Should create status bar item for JSON Schema', async () => {
     const context: vscode.ExtensionContext = {
       subscriptions: [],
     } as vscode.ExtensionContext;
-    createStatusBarItemStub.returns({});
+    const statusBar = ({ show: sandbox.stub() } as unknown) as vscode.StatusBarItem;
+    createStatusBarItemStub.returns(statusBar);
+    clcStub.sendRequest.resolves([]);
 
     createJSONSchemaStatusBarItem(context, (clcStub as unknown) as CommonLanguageClient);
 
@@ -66,7 +65,7 @@ describe('Status bar should work in multiple different scenarios', () => {
     expect(statusBar.text).to.equal('bar schema');
     expect(statusBar.tooltip).to.equal('Select JSON Schema');
     expect(statusBar.backgroundColor).to.be.undefined;
-    expect(statusBar.show).calledOnce;
+    expect(statusBar.show).calledTwice;
   });
 
   it('Should inform if there are no schema', async () => {
@@ -85,7 +84,7 @@ describe('Status bar should work in multiple different scenarios', () => {
     expect(statusBar.text).to.equal('No JSON Schema');
     expect(statusBar.tooltip).to.equal('Select JSON Schema');
     expect(statusBar.backgroundColor).to.be.undefined;
-    expect(statusBar.show).calledOnce;
+    expect(statusBar.show).calledTwice;
   });
 
   it('Should inform if there are more than one schema', async () => {
@@ -104,6 +103,6 @@ describe('Status bar should work in multiple different scenarios', () => {
     expect(statusBar.text).to.equal('Multiple JSON Schemas...');
     expect(statusBar.tooltip).to.equal('Multiple JSON Schema used to validate this file, click to select one');
     expect(statusBar.backgroundColor).to.eql({ id: 'statusBarItem.warningBackground' });
-    expect(statusBar.show).calledOnce;
+    expect(statusBar.show).calledTwice;
   });
 });
