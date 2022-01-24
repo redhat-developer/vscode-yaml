@@ -55,14 +55,15 @@ export function createJSONSchemaStatusBarItem(context: ExtensionContext, languag
   context.subscriptions.push(statusBarItem);
 
   context.subscriptions.push(window.onDidChangeActiveTextEditor(updateStatusBar));
-  setTimeout(() => updateStatusBar(window.activeTextEditor), 5000);
+
+  updateStatusBar(window.activeTextEditor);
 }
 
 async function updateStatusBar(editor: TextEditor): Promise<void> {
   if (editor && editor.document.languageId === 'yaml') {
     // get schema info there
     const schema = await client.sendRequest(getSchema, editor.document.uri.toString());
-    if (schema.length === 0) {
+    if (!schema || schema.length === 0) {
       statusBarItem.text = 'No JSON Schema';
       statusBarItem.tooltip = 'Select JSON Schema';
       statusBarItem.backgroundColor = undefined;
