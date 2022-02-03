@@ -14,7 +14,7 @@
     }
   ],
   "license": "MIT",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "publisher": "redhat",
   "bugs": "https://github.com/redhat-developer/vscode-yaml/issues",
   "repository": {
@@ -86,7 +86,9 @@
           "default": null,
           "markdownDescription": "Enable usage data and errors to be sent to Red Hat servers. Read our [privacy statement](https://developers.redhat.com/article/tool-data-collection).",
           "scope": "window",
-          "tags": [ "telemetry"]
+          "tags": [
+            "telemetry"
+          ]
         },
         "yaml.yamlVersion": {
           "type": "string",
