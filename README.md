@@ -38,19 +38,19 @@ The following settings are supported:
 * `yaml.format.enable`: Enable/disable default YAML formatter (requires restart)
 * `yaml.format.singleQuote`: Use single quotes instead of double quotes
 * `yaml.format.bracketSpacing`: Print spaces between brackets in objects
-* `yaml.format.proseWrap`: Always: wrap prose if it exeeds the print width, Never: never wrap the prose, Preserve: wrap prose as-is
+* `yaml.format.proseWrap`: Always: wrap prose if it exceeds the print width, Never: never wrap the prose, Preserve: wrap prose as-is
 * `yaml.format.printWidth`: Specify the line length that the printer will wrap on
 * `yaml.validate`: Enable/disable validation feature
 * `yaml.hover`: Enable/disable hover
 * `yaml.completion`: Enable/disable autocompletion
 * `yaml.schemas`: Helps you associate schemas with files in a glob pattern
-* `yaml.schemaStore.enable`: When set to true the YAML language server will pull in all available schemas from [JSON Schema Store](http://schemastore.org/json/)
+* `yaml.schemaStore.enable`: When set to true, the YAML language server will pull in all available schemas from [JSON Schema Store](http://schemastore.org/json/)
 * `yaml.schemaStore.url`: URL of a schema store catalog to use when downloading schemas.
-* `yaml.customTags`: Array of custom tags that the parser will validate against. It has two ways to be used. Either an item in the array is a custom tag such as "!Ref" and it will automatically map !Ref to scalar or you can specify the type of the object !Ref should be e.g. "!Ref sequence". The type of object can be either scalar (for strings and booleans), sequence (for arrays), mapping (for objects).
+* `yaml.customTags`: Array of custom tags that the parser will validate against. It has two ways to be used. Either an item in the array is a custom tag such as "!Ref" and it will automatically map !Ref to a scalar, or you can specify the type of the object !Ref should be, e.g. "!Ref sequence". The type of object can be either scalar (for strings and booleans), sequence (for arrays), mapping (for objects).
 * `yaml.maxComputedItems`: The maximum number of outline symbols and folding regions computed (limited for performance reasons).
 * `yaml.disableDefaultProperties`: Disable adding not required properties with default values into completion text (default is false).
 
-- `[yaml]`: VSCode-YAML adds default configuration for all yaml files. More specifically it converts tabs to spaces to ensure valid yaml, sets the tab size, and allows live typing autocompletion and formatting, also allows code lens. These settings can be modified via the corresponding settings inside the `[yaml]` section in the settings:
+- `[yaml]`: VSCode-YAML adds default configuration for all YAML files. More specifically, it converts tabs to spaces to ensure valid YAML, sets the tab size, allows live typing autocompletion and formatting, also allows code lens. These settings can be modified via the corresponding settings inside the `[yaml]` section in the settings:
   - `editor.tabSize`
   - `editor.formatOnType`
   - `editor.codeLens`
@@ -59,11 +59,11 @@ The following settings are supported:
 
 - `http.proxyStrictSSL`: If true the proxy server certificate should be verified against the list of supplied CAs. Default is false.
 
-in to your settings.
+In to your settings.
 
 ## Adding custom tags
 
-In order to use the custom tags in your YAML file you need to first specify the custom tags in the setting of your code editor. For example, you can have the following custom tags:
+To use the custom tags in your YAML file, you need to first specify the custom tags in the setting of your code editor. For example, you can have the following custom tags:
 
 ```YAML
 "yaml.customTags": [
@@ -97,7 +97,7 @@ The association of a YAML file to a schema can be done either in the YAML file i
 
 ### Associating a schema in the YAML file
 
-It is possible to specify a yaml schema using a modeline.
+It is possible to specify a YAML schema using a modeline.
 
 ```yaml
 # yaml-language-server: $schema=<urlToTheSchema>
@@ -105,7 +105,7 @@ It is possible to specify a yaml schema using a modeline.
 
 ### Associating a schema to a glob pattern via yaml.schemas:
 
-`yaml.schemas`  applies a schema to a file. In other words, the schema (placed on the left) is applied to the glob pattern on the right. Your schema can be local or online. Your schema must be a relative path and not an absolute path. The entrance point for `yaml.schemas` is location in [user and workspace settings](https://code.visualstudio.com/docs/getstarted/settings#_creating-user-and-workspace-settings)
+`yaml.schemas`  applies a schema to a file. In other words, the schema (placed on the left) is applied to the glob pattern on the right. Your schema can be local or online. Your schema must be a relative path and not an absolute path. The entrance point for `yaml.schemas` is a location in [user and workspace settings](https://code.visualstudio.com/docs/getstarted/settings#_creating-user-and-workspace-settings)
 
 When associating a schema it should follow the format below
 ```JSON
@@ -199,9 +199,9 @@ e.g.
 
 #### Multi root schema association:
 
-You can also use relative paths when working with multi root workspaces.
+You can also use relative paths when working with multi-root workspaces.
 
-Suppose you have a multi root workspace that is laid out like:
+Suppose you have a multi-root workspace that is laid out like:
 
 ```shell
 My_first_project:
@@ -221,11 +221,11 @@ yaml.schemas: {
 }
 ```
 
-`yaml.schemas` allows you to specify json schemas that you want to validate against the yaml that you write. *Kubernetes* is a reserved keyword field. It does not require a url as the language server will provide that. You just need the keyword `kubernetes` and a glob pattern.
+`yaml.schemas` allows you to specify JSON schemas that you want to validate against the YAML you write. *Kubernetes* is a reserved keyword field. It does not require a URL, as the language server will provide that. You need the keyword `kubernetes` and a glob pattern.
 
 ### Mapping a schema in an extension
 
-- Supports `yamlValidation` point which allows you to contribute a schema for a specific type of yaml file (Similar to [jsonValidation](https://code.visualstudio.com/docs/extensionAPI/extension-points#_contributesjsonvalidation))
+- Supports `yamlValidation` point, which allows you to contribute a schema for a specific type of YAML file (Similar to [jsonValidation](https://code.visualstudio.com/docs/extensionAPI/extension-points#_contributesjsonvalidation))
 e.g.
 ```JSON
 {
@@ -242,7 +242,7 @@ e.g.
 
 ## Data and Telemetry
 
-The `vscode-yaml` extension collects anonymous [usage data](USAGE_DATA.md) and sends it to Red Hat servers to help improve our products and services. Read our [privacy statement](https://developers.redhat.com/article/tool-data-collection) to learn more. This extension respects the `redhat.telemetry.enabled` setting which you can learn more about at https://github.com/redhat-developer/vscode-redhat-telemetry#how-to-disable-telemetry-reporting
+The `vscode-yaml` extension collects anonymous [usage data](USAGE_DATA.md) and sends it to Red Hat servers to help improve our products and services. Read our [privacy statement](https://developers.redhat.com/article/tool-data-collection) to learn more. This extension respects the `redhat.telemetry.enabled` setting, which you can learn more about at https://github.com/redhat-developer/vscode-redhat-telemetry#how-to-disable-telemetry-reporting
 
 ## How to contribute
 
