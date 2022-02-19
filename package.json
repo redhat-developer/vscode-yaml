@@ -137,7 +137,7 @@
             "never",
             "always"
           ],
-          "description": "Always: wrap prose if it exeeds the print width, Never: never wrap the prose, Preserve: wrap prose as-is"
+          "description": "Always: wrap prose if it exceeds the print width, Never: never wrap the prose, Preserve: wrap prose as-is"
         },
         "yaml.format.printWidth": {
           "type": "integer",
