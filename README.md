@@ -97,7 +97,7 @@ The association of a YAML file to a schema can be done either in the YAML file i
 
 ### Associating a schema in the YAML file
 
-It is possible to specify a YAML schema using a modeline.
+It is possible to specify a yaml schema using a modeline. Schema url can be a relative path. If a relative path is specified, it is calculated from yaml file path, not from workspace root path
 
 ```yaml
 # yaml-language-server: $schema=<urlToTheSchema>
