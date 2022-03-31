@@ -48,6 +48,9 @@ export let statusBarItem: StatusBarItem;
 
 let client: CommonLanguageClient;
 let versionSelection: SchemaItem = undefined;
+
+const selectVersionLabel = 'Select Different Version';
+
 export function createJSONSchemaStatusBarItem(context: ExtensionContext, languageclient: CommonLanguageClient): void {
   if (statusBarItem) {
     updateStatusBar(window.activeTextEditor);
@@ -84,10 +87,13 @@ async function updateStatusBar(editor: TextEditor): Promise<void> {
       } else {
         const schemas = await client.sendRequest(getJSONSchemas, window.activeTextEditor.document.uri.toString());
         let versionSchema: JSONSchema;
-        [version, versionSchema] = findSchemaStoreItem(schemas, schema[0].uri);
-        (versionSchema as MatchingJSONSchema).usedForCurrentFile = true;
-        versionSchema.uri = schema[0].uri;
-        versionSelection = createSelectVersionItem(version, versionSchema as MatchingJSONSchema);
+        const schemaStoreItem = findSchemaStoreItem(schemas, schema[0].uri);
+        if (schemaStoreItem) {
+          [version, versionSchema] = schemaStoreItem;
+          (versionSchema as MatchingJSONSchema).usedForCurrentFile = true;
+          versionSchema.uri = schema[0].uri;
+          versionSelection = createSelectVersionItem(version, versionSchema as MatchingJSONSchema);
+        }
       }
       if (version) {
         statusBarItem.text += `(${version})`;
@@ -153,7 +159,7 @@ async function showSchemaSelection(): Promise<void> {
   schemasPick.onDidChangeSelection((selection) => {
     try {
       if (selection.length > 0) {
-        if (selection[0].label === 'Select Another Version') {
+        if (selection[0].label === selectVersionLabel) {
           handleSchemaVersionSelection(selection[0].schema);
         } else if (selection[0].schema) {
           writeSchemaUriMapping(selection[0].schema.uri);
@@ -188,7 +194,7 @@ function deleteExistingFilePattern(settings: Record<string, unknown>, fileUri: s
 
 function createSelectVersionItem(version: string, schema: MatchingJSONSchema): SchemaItem {
   return {
-    label: 'Select Another Version',
+    label: selectVersionLabel,
     detail: `Current: ${version}`,
     alwaysShow: true,
     schema: schema,
