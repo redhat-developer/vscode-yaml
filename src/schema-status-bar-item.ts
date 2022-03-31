@@ -39,10 +39,10 @@ interface SchemaVersionItem extends QuickPickItem {
 }
 
 // eslint-disable-next-line @typescript-eslint/ban-types
-const getJSONSchemas: RequestType<FileUri, MatchingJSONSchema[], {}> = new RequestType('yaml/get/all/jsonSchemas');
+const getJSONSchemasRequestType: RequestType<FileUri, MatchingJSONSchema[], {}> = new RequestType('yaml/get/all/jsonSchemas');
 
 // eslint-disable-next-line @typescript-eslint/ban-types
-const getSchema: RequestType<FileUri, JSONSchema[], {}> = new RequestType('yaml/get/jsonSchema');
+const getSchemaRequestType: RequestType<FileUri, JSONSchema[], {}> = new RequestType('yaml/get/jsonSchema');
 
 export let statusBarItem: StatusBarItem;
 
@@ -74,7 +74,7 @@ async function updateStatusBar(editor: TextEditor): Promise<void> {
   if (editor && editor.document.languageId === 'yaml') {
     versionSelection = undefined;
     // get schema info there
-    const schema = await client.sendRequest(getSchema, editor.document.uri.toString());
+    const schema = await client.sendRequest(getSchemaRequestType, editor.document.uri.toString());
     if (!schema || schema.length === 0) {
       statusBarItem.text = 'No JSON Schema';
       statusBarItem.tooltip = 'Select JSON Schema';
@@ -85,7 +85,7 @@ async function updateStatusBar(editor: TextEditor): Promise<void> {
       if (schema[0].versions) {
         version = findUsedVersion(schema[0].versions, schema[0].uri);
       } else {
-        const schemas = await client.sendRequest(getJSONSchemas, window.activeTextEditor.document.uri.toString());
+        const schemas = await client.sendRequest(getJSONSchemasRequestType, window.activeTextEditor.document.uri.toString());
         let versionSchema: JSONSchema;
         const schemaStoreItem = findSchemaStoreItem(schemas, schema[0].uri);
         if (schemaStoreItem) {
@@ -95,7 +95,7 @@ async function updateStatusBar(editor: TextEditor): Promise<void> {
           versionSelection = createSelectVersionItem(version, versionSchema as MatchingJSONSchema);
         }
       }
-      if (version) {
+      if (version && !statusBarItem.text.includes(version)) {
         statusBarItem.text += `(${version})`;
       }
       statusBarItem.tooltip = 'Select JSON Schema';
@@ -113,7 +113,7 @@ async function updateStatusBar(editor: TextEditor): Promise<void> {
 }
 
 async function showSchemaSelection(): Promise<void> {
-  const schemas = await client.sendRequest(getJSONSchemas, window.activeTextEditor.document.uri.toString());
+  const schemas = await client.sendRequest(getJSONSchemasRequestType, window.activeTextEditor.document.uri.toString());
   const schemasPick = window.createQuickPick<SchemaItem>();
   let pickItems: SchemaItem[] = [];
 
