@@ -145,6 +145,7 @@ On Windows with full path:
 ```json
 yaml.schemas: {
     "C:\\Users\\user\\Documents\\custom_schema.json": "someFilePattern.yaml",
+    "file:///C:/Users/user/Documents/custom_schema.json": "someFilePattern.yaml",
 }
 ```
 
