@@ -60,9 +60,9 @@ All contributions are welcome!
 
 6. In `yaml-language-server/.vscode/launch.json` set `outFiles` in the `Attach to server` configuration to:
 
-  ```js
-  "outFiles": ["${workspaceFolder}/../vscode-yaml/dist/**/*.js"],
-  ```
+   ```js
+   "outFiles": ["${workspaceFolder}/../vscode-yaml/dist/**/*.js"],
+   ```
 
 7. To run the language server in VSCode, click `View -> Debug`, then from the drop down menu beside the green arrow select `Launch Extension (vscode-yaml)`, click the arrow, and a new VSCode window should load with the YAML LS running.
 
