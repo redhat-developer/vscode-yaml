@@ -101,7 +101,8 @@ export interface RuntimeEnvironment {
 }
 
 export interface TelemetryService {
-  send(arg: { name: string; properties?: unknown });
+  send(arg: { name: string; properties?: unknown }): Promise<void>;
+  sendStartupEvent(): Promise<void>;
 }
 
 export function startClient(
@@ -148,62 +149,67 @@ export function startClient(
   );
 
   findConflicts();
-  client.onReady().then(() => {
-    // Send a notification to the server with any YAML schema associations in all extensions
-    client.sendNotification(SchemaAssociationNotification.type, getSchemaAssociations());
-
-    // If the extensions change, fire this notification again to pick up on any association changes
-    extensions.onDidChange(() => {
+  client
+    .onReady()
+    .then(() => {
+      // Send a notification to the server with any YAML schema associations in all extensions
       client.sendNotification(SchemaAssociationNotification.type, getSchemaAssociations());
-      findConflicts();
-    });
-    // Tell the server that the client is ready to provide custom schema content
-    client.sendNotification(DynamicCustomSchemaRequestRegistration.type);
-    // Tell the server that the client supports schema requests sent directly to it
-    client.sendNotification(VSCodeContentRequestRegistration.type);
-    // Tell the server that the client supports schema selection requests
-    client.sendNotification(SchemaSelectionRequests.type);
-    // If the server asks for custom schema content, get it and send it back
-    client.onRequest(CUSTOM_SCHEMA_REQUEST, (resource: string) => {
-      return schemaExtensionAPI.requestCustomSchema(resource);
-    });
-    client.onRequest(CUSTOM_CONTENT_REQUEST, (uri: string) => {
-      return schemaExtensionAPI.requestCustomSchemaContent(uri);
-    });
-    client.onRequest(VSCodeContentRequest.type, (uri: string) => {
-      return getJsonSchemaContent(uri, runtime.schemaCache);
-    });
-    client.onRequest(FSReadFile.type, (fsPath: string) => {
-      return workspace.fs.readFile(Uri.file(fsPath)).then((uint8array) => new TextDecoder().decode(uint8array));
-    });
 
-    runtime.telemetry.send({ name: 'yaml.server.initialized' });
-    // Adapted from:
-    // https://github.com/microsoft/vscode/blob/94c9ea46838a9a619aeafb7e8afd1170c967bb55/extensions/json-language-features/client/src/jsonClient.ts#L305-L318
-    client.onNotification(ResultLimitReachedNotification.type, async (message) => {
-      const shouldPrompt = context.globalState.get<boolean>(StorageIds.maxItemsExceededInformation) !== false;
-      if (shouldPrompt) {
-        const ok = 'Ok';
-        const openSettings = 'Open Settings';
-        const neverAgain = "Don't Show Again";
-        const pick = await window.showInformationMessage(
-          `${message}\nUse setting '${SettingIds.maxItemsComputed}' to configure the limit.`,
-          ok,
-          openSettings,
-          neverAgain
-        );
-        if (pick === neverAgain) {
-          await context.globalState.update(StorageIds.maxItemsExceededInformation, false);
-        } else if (pick === openSettings) {
-          await commands.executeCommand('workbench.action.openSettings', SettingIds.maxItemsComputed);
+      // If the extensions change, fire this notification again to pick up on any association changes
+      extensions.onDidChange(() => {
+        client.sendNotification(SchemaAssociationNotification.type, getSchemaAssociations());
+        findConflicts();
+      });
+      // Tell the server that the client is ready to provide custom schema content
+      client.sendNotification(DynamicCustomSchemaRequestRegistration.type);
+      // Tell the server that the client supports schema requests sent directly to it
+      client.sendNotification(VSCodeContentRequestRegistration.type);
+      // Tell the server that the client supports schema selection requests
+      client.sendNotification(SchemaSelectionRequests.type);
+      // If the server asks for custom schema content, get it and send it back
+      client.onRequest(CUSTOM_SCHEMA_REQUEST, (resource: string) => {
+        return schemaExtensionAPI.requestCustomSchema(resource);
+      });
+      client.onRequest(CUSTOM_CONTENT_REQUEST, (uri: string) => {
+        return schemaExtensionAPI.requestCustomSchemaContent(uri);
+      });
+      client.onRequest(VSCodeContentRequest.type, (uri: string) => {
+        return getJsonSchemaContent(uri, runtime.schemaCache);
+      });
+      client.onRequest(FSReadFile.type, (fsPath: string) => {
+        return workspace.fs.readFile(Uri.file(fsPath)).then((uint8array) => new TextDecoder().decode(uint8array));
+      });
+
+      sendStartupTelemetryEvent(runtime.telemetry, true);
+      // Adapted from:
+      // https://github.com/microsoft/vscode/blob/94c9ea46838a9a619aeafb7e8afd1170c967bb55/extensions/json-language-features/client/src/jsonClient.ts#L305-L318
+      client.onNotification(ResultLimitReachedNotification.type, async (message) => {
+        const shouldPrompt = context.globalState.get<boolean>(StorageIds.maxItemsExceededInformation) !== false;
+        if (shouldPrompt) {
+          const ok = 'Ok';
+          const openSettings = 'Open Settings';
+          const neverAgain = "Don't Show Again";
+          const pick = await window.showInformationMessage(
+            `${message}\nUse setting '${SettingIds.maxItemsComputed}' to configure the limit.`,
+            ok,
+            openSettings,
+            neverAgain
+          );
+          if (pick === neverAgain) {
+            await context.globalState.update(StorageIds.maxItemsExceededInformation, false);
+          } else if (pick === openSettings) {
+            await commands.executeCommand('workbench.action.openSettings', SettingIds.maxItemsComputed);
+          }
         }
-      }
-    });
+      });
 
-    client.onNotification(SchemaSelectionRequests.schemaStoreInitialized, () => {
-      createJSONSchemaStatusBarItem(context, client);
+      client.onNotification(SchemaSelectionRequests.schemaStoreInitialized, () => {
+        createJSONSchemaStatusBarItem(context, client);
+      });
+    })
+    .catch((err) => {
+      sendStartupTelemetryEvent(runtime.telemetry, false, err);
     });
-  });
 
   return schemaExtensionAPI;
 }
@@ -255,6 +261,19 @@ function getSchemaAssociations(): ISchemaAssociation[] {
     }
   });
   return associations;
+}
+
+async function sendStartupTelemetryEvent(telemetry: TelemetryService, initialized: boolean, err?: Error): Promise<void> {
+  const startUpEvent = {
+    name: 'startup',
+    properties: {
+      'yaml.server.initialized': initialized,
+    },
+  };
+  if (err?.message) {
+    startUpEvent.properties['error'] = err.message;
+  }
+  await telemetry.send(startUpEvent);
 }
 
 export function logToExtensionOutputChannel(message: string): void {

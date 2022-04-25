@@ -16,7 +16,6 @@ import { JSONSchemaCache } from '../json-schema-cache';
 export async function activate(context: ExtensionContext): Promise<SchemaExtensionAPI> {
   // Create Telemetry Service
   const telemetry = await (await getRedHatService(context)).getTelemetryService();
-  telemetry.sendStartupEvent();
 
   // The YAML language server is implemented in node
   const serverModule = context.asAbsolutePath('./dist/languageserver.js');
