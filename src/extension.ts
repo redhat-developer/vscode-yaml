@@ -263,17 +263,17 @@ function getSchemaAssociations(): ISchemaAssociation[] {
   return associations;
 }
 
-function sendStartupTelemetryEvent(telemetry: TelemetryService, initialized: boolean, err?: Error): void {
+async function sendStartupTelemetryEvent(telemetry: TelemetryService, initialized: boolean, err?: Error): Promise<void> {
   const startUpEvent = {
     name: 'startup',
     properties: {
       'yaml.server.initialized': initialized,
     },
   };
-  if (err) {
-    startUpEvent.properties['error'] = err;
+  if (err?.message) {
+    startUpEvent.properties['error'] = err.message;
   }
-  telemetry.send(startUpEvent);
+  await telemetry.send(startUpEvent);
 }
 
 export function logToExtensionOutputChannel(message: string): void {
