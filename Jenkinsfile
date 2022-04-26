@@ -63,7 +63,8 @@ node('rhel8'){
     archive includes:"**.vsix"
 
     stage ("Promote the build to stable") {
-    sh "rsync -Pzrlt --rsh=ssh --protocol=28 *.vsix* ${UPLOAD_LOCATION}/stable/vscode-yaml/"
+      def vsix = findFiles(glob: '**.vsix')
+      sh "sftp -C ${UPLOAD_LOCATION}/stable/vscode-yaml/ <<< \$'put -p \"${vsix[0].path}\"'"
     }
   }
 }
