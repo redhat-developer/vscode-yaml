@@ -45,6 +45,12 @@ jobs:
         with:
           run: yarn test
 
+      # Run UI tests
+      - name: Run UI Test
+        uses: GabrielBB/xvfb-action@v1.0
+        with:
+          run: yarn run ui-test
+
       #Package vsix
       - name: Build .vsix package on Linux
         if: matrix.os == 'ubuntu-latest'
@@ -59,3 +65,14 @@ jobs:
         with:
           name: vscode-yaml
           path: vscode-yaml*.vsix
+
+      # Archive test results
+      - name: Archiving test artifacts
+        uses: actions/upload-artifact@v2
+        with: 
+          name: my-artifact
+          path: |
+            test-resources/screenshots/*.png
+            test-resources/*.log
+            test-resources/test-report.xml
+          retention-days: 2
