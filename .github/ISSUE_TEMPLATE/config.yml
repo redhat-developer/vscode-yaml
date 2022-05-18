@@ -8,5 +8,5 @@ contact_links:
       Any kind of questions should go onto discussions.
       We recommend using this even if you suspect a bug or have
       a feature request, so the core team can keep the issue tracker
-      clean. Also note that schema specific bugs should go to their own
+      clean. Also, note that schema specific bugs should go to their
       repositories as our extension does not contain any schema.
