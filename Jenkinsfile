@@ -44,7 +44,7 @@ node('rhel8'){
 node('rhel8'){
   if(publishToMarketPlace.equals('true')){
     timeout(time:5, unit:'DAYS') {
-      input message:'Approve deployment?', submitter: 'yvydolob'
+      input message:'Approve deployment?', submitter: 'yvydolob, msivasub'
     }
 
     stage "Publish to Marketplaces"
@@ -63,7 +63,7 @@ node('rhel8'){
     archive includes:"**.vsix"
 
     stage ("Promote the build to stable") {
-      def vsix = findFiles(glob: '**.vsix')
+      vsix = findFiles(glob: '**.vsix')
       sh "sftp -C ${UPLOAD_LOCATION}/stable/vscode-yaml/ <<< \$'put -p \"${vsix[0].path}\"'"
     }
   }
