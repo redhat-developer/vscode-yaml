@@ -42,7 +42,21 @@ node('rhel8'){
 }
 
 node('rhel8'){
-  if(publishToMarketPlace.equals('true')){
+  if(publishPreRelease.equals('true')){
+    stage "publish generic version"
+		withCredentials([[$class: 'StringBinding', credentialsId: 'vscode_java_marketplace', variable: 'TOKEN']]) {
+			sh 'vsce publish --pre-release -p ${TOKEN} --target win32-ia32 win32-arm64 linux-armhf alpine-x64 alpine-arm64'
+		}
+
+		stage "publish specific version"
+		// for pre-release versions, vsixs are not stashed and kept in project folder
+		withCredentials([[$class: 'StringBinding', credentialsId: 'vscode_java_marketplace', variable: 'TOKEN']]) {
+			def platformVsixes = findFiles(glob: '**.vsix')
+			for(platformVsix in platformVsixes){
+				sh 'vsce publish -p ${TOKEN}' + " --packagePath ${platformVsix.path}"
+			}
+		}
+  } else if(publishToMarketPlace.equals('true')){
     timeout(time:5, unit:'DAYS') {
       input message:'Approve deployment?', submitter: 'yvydolob, msivasub'
     }
