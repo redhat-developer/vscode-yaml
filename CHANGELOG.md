@@ -1,3 +1,5 @@
+### 1.9.1
+- Main Release
 ### 1.9.0
 - Add: Publish pre-release extension on nightly CI build [#682](https://github.com/redhat-developer/vscode-yaml/issues/682)
 - Add: Add title to extension configuration [#793](https://github.com/redhat-developer/vscode-yaml/pull/793)
