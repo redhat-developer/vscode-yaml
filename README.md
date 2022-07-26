@@ -1,5 +1,8 @@
-[![CI](https://github.com/redhat-developer/vscode-yaml/workflows/CI/badge.svg)](https://github.com/redhat-developer/vscode-yaml/actions/workflows/CI.yaml)
-[![Marketplace Version](https://vsmarketplacebadge.apphb.com/version/redhat.vscode-yaml.svg 'Current Release')](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml)
+[![Visual Studio Marketplace](https://img.shields.io/visual-studio-marketplace/v/redhat.vscode-yaml?style=for-the-badge&label=VS%20Marketplace&logo=visual-studio-code)](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml)
+[![Installs](https://img.shields.io/visual-studio-marketplace/i/redhat.vscode-yaml?style=for-the-badge&logo=microsoft)](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml)
+[![Build Status](https://img.shields.io/github/workflow/status/redhat-developer/vscode-yaml/CI?style=for-the-badge&logo=github)](https://github.com/redhat-developer/vscode-yaml/actions?query=workflow:CI)
+[![License](https://img.shields.io/github/license/redhat-developer/vscode-yaml?style=for-the-badge)](https://github.com/redhat-developer/vscode-yaml/blob/master/LICENSE)
+[![OpenVSX Registry](https://img.shields.io/open-vsx/dt/redhat/vscode-yaml?color=purple&label=OpenVSX%20Downloads&style=for-the-badge)](https://open-vsx.org/extension/redhat/vscode-yaml)
 
 # YAML Language Support by Red Hat
 Provides comprehensive YAML Language support to [Visual Studio Code](https://code.visualstudio.com/), via the [yaml-language-server](https://github.com/redhat-developer/yaml-language-server), with built-in Kubernetes syntax support.
@@ -241,7 +244,15 @@ e.g.
   }
 }
 ```
+## Feedback & Questions
 
+If you discover an issue please file a bug and we will fix it as soon as possible.
+* File a bug in [GitHub Issues](https://github.com/redhat-developer/vscode-yaml/issues).
+* Open a [Discussion on GitHub](https://github.com/redhat-developer/vscode-yaml/discussions).
+
+## License
+
+MIT, See [LICENSE](LICENSE) for more information.
 ## Data and Telemetry
 
 The `vscode-yaml` extension collects anonymous [usage data](USAGE_DATA.md) and sends it to Red Hat servers to help improve our products and services. Read our [privacy statement](https://developers.redhat.com/article/tool-data-collection) to learn more. This extension respects the `redhat.telemetry.enabled` setting, which you can learn more about at https://github.com/redhat-developer/vscode-redhat-telemetry#how-to-disable-telemetry-reporting
