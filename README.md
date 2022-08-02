@@ -62,7 +62,8 @@ The following settings are supported:
 * `http.proxy`: The URL of the proxy server that will be used when attempting to download a schema. If it is not set or it is undefined no proxy server will be used.
 
 - `http.proxyStrictSSL`: If true the proxy server certificate should be verified against the list of supplied CAs. Default is false.
-
+- `yaml.style.flowMapping` : Forbids flow style mappings if set to `forbid`
+- `yaml.style.flowSequence` : Forbids flow style sequences if set to `forbid`
 In to your settings.
 
 ## Adding custom tags
