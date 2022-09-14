@@ -41,6 +41,22 @@
       ],
       "outFiles": ["${workspaceRoot}/dist/**/*.js"],
       "preLaunchTask": "compile webpack"
+    },
+    {
+      "name": "Debug UI Tests",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/node_modules/.bin/extest",
+      "args": [
+        "setup-and-run",
+        "${workspaceFolder}/out/test/ui-test/allTestsSuite.js",
+        "-o",
+        "${workspaceFolder}/custom-settings.json",
+        "--mocha_config",
+        "${workspaceFolder}/src/ui-test/.mocharc-debug.js"
+      ],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
     }
   ]
 }
