@@ -24,7 +24,7 @@
   "icon": "icon/icon128.png",
   "engines": {
     "npm": ">=7.0.0",
-    "vscode": "^1.52.0"
+    "vscode": "^1.70.0"
   },
   "categories": [
     "Programming Languages",
@@ -244,7 +244,7 @@
     "@types/node": "^12.12.6",
     "@types/sinon": "^10.0.6",
     "@types/sinon-chai": "^3.2.5",
-    "@types/vscode": "^1.52.0",
+    "@types/vscode": "^1.70.0",
     "@types/webpack": "^4.4.10",
     "@typescript-eslint/eslint-plugin": "^4.16.1",
     "@typescript-eslint/parser": "^4.16.1",
