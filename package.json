@@ -14,7 +14,7 @@
     }
   ],
   "license": "MIT",
-  "version": "1.9.0",
+  "version": "1.11.0",
   "publisher": "redhat",
   "bugs": "https://github.com/redhat-developer/vscode-yaml/issues",
   "repository": {
@@ -194,6 +194,18 @@
           "type": "boolean",
           "default": false,
           "description": "If true, the user must select some parent skeleton first before autocompletion starts to suggest the rest of the properties. When yaml object is not empty, autocompletion ignores this setting and returns all properties and skeletons"
+        },
+        "yaml.style.flowMapping":{
+          "type": "string",
+          "enum":["allow", "forbid"],
+          "default":"allow",
+          "description": "Forbid flow style mappings"
+        },
+        "yaml.style.flowSequence":{
+          "type":"string",
+          "enum":["allow", "forbid"],
+          "default":"allow",
+          "description": "Forbid flow style sequences"
         }
       }
     },
@@ -219,7 +231,7 @@
     "format": "prettier --write .",
     "lint": "eslint -c .eslintrc.js --ext .ts src test",
     "test": "yarn test-compile && sh scripts/e2e.sh",
-    "ui-test": "yarn test-compile && extest setup-and-run -y out/test/ui-test/allTestsSuite.js",
+    "ui-test": "yarn test-compile && extest setup-and-run -y out/test/ui-test/allTestsSuite.js -c 1.69.2",
     "vscode:prepublish": "webpack --mode production",
     "watch": "webpack --mode development --watch --info-verbosity verbose",
     "test-compile": "yarn clean && tsc -p ./ && webpack --mode development",

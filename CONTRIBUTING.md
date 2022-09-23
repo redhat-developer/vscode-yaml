@@ -82,11 +82,11 @@ All contributions are welcome!
 
 Refer to VS Code [documentation](https://code.visualstudio.com/docs/extensions/debugging-extensions) on how to run and debug the extension
 
-### Installation from Github Release
+### Installation from GitHub Release
 
-To obtain and install the latest release from github you can:
+To obtain and install the latest release from GitHub you can:
 
-* First download the latest *.vsix file from [Github Releases section](https://github.com/redhat-developer/vscode-yaml/releases)
+* First download the latest *.vsix file from [GitHub Releases section](https://github.com/redhat-developer/vscode-yaml/releases)
 * Inside of VSCode navigate to the extension tab and click the three elipses (...).
 * Click install from VSIX and provide the location of the *.vsix that was downloaded
 
