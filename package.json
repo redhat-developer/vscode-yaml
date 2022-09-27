@@ -24,7 +24,7 @@
   "icon": "icon/icon128.png",
   "engines": {
     "npm": ">=7.0.0",
-    "vscode": "^1.70.0"
+    "vscode": "^1.69.2"
   },
   "categories": [
     "Programming Languages",
@@ -231,7 +231,7 @@
     "format": "prettier --write .",
     "lint": "eslint -c .eslintrc.js --ext .ts src test",
     "test": "yarn test-compile && sh scripts/e2e.sh",
-    "ui-test": "yarn test-compile && extest setup-and-run -y out/test/ui-test/allTestsSuite.js",
+    "ui-test": "yarn test-compile && extest setup-and-run -y out/test/ui-test/allTestsSuite.js -c 1.69.2",
     "vscode:prepublish": "webpack --mode production",
     "watch": "webpack --mode development --watch --info-verbosity verbose",
     "test-compile": "yarn clean && tsc -p ./ && webpack --mode development",
@@ -244,7 +244,7 @@
     "@types/node": "^12.12.6",
     "@types/sinon": "^10.0.6",
     "@types/sinon-chai": "^3.2.5",
-    "@types/vscode": "^1.70.0",
+    "@types/vscode": "^1.69.2",
     "@types/webpack": "^4.4.10",
     "@typescript-eslint/eslint-plugin": "^4.16.1",
     "@typescript-eslint/parser": "^4.16.1",
