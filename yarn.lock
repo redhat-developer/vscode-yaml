@@ -338,7 +338,7 @@
   dependencies:
     source-map "^0.6.1"
 
-"@types/vscode@^1.69.2":
+"@types/vscode@^1.63.0":
   version "1.71.0"
   resolved "https://registry.yarnpkg.com/@types/vscode/-/vscode-1.71.0.tgz#a8d9bb7aca49b0455060e6eb978711b510bdd2e2"
   integrity sha512-nB50bBC9H/x2CpwW9FzRRRDrTZ7G0/POttJojvN/LiVfzTGfLyQIje1L1QRMdFXK9G41k5UJN/1B9S4of7CSzA==
