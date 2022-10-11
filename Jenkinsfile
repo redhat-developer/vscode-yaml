@@ -45,7 +45,7 @@ node('rhel8'){
   if(publishPreRelease.equals('true')){
     stage "publish generic version"
 		withCredentials([[$class: 'StringBinding', credentialsId: 'vscode_java_marketplace', variable: 'TOKEN']]) {
-			sh 'vsce publish --pre-release -p ${TOKEN} --target win32-ia32 win32-arm64 linux-armhf alpine-x64 alpine-arm64'
+			sh 'vsce publish --pre-release -p ${TOKEN}'
 		}
 
 		stage "publish specific version"
