@@ -18,3 +18,5 @@ for information on what data it collects.
 ## How to opt-in or out
 
 Use the `redhat.telemetry.enabled` setting to enable or disable telemetry collection.
+
+Note that this extension abides by Visual Studio Code's telemetry level: if `telemetry.telemetryLevel` is set to off, then no telemetry events will be sent to Red Hat, even if `redhat.telemetry.enabled` is set to true. If `telemetry.telemetryLevel` is set to `error` or `crash`, only events containing an error or errors property will be sent to Red Hat.
