@@ -88,7 +88,8 @@
           "markdownDescription": "Enable usage data and errors to be sent to Red Hat servers. Read our [privacy statement](https://developers.redhat.com/article/tool-data-collection).",
           "scope": "window",
           "tags": [
-            "telemetry"
+            "telemetry",
+            "usesOnlineServices"
           ]
         },
         "yaml.yamlVersion": {
@@ -195,16 +196,22 @@
           "default": false,
           "description": "If true, the user must select some parent skeleton first before autocompletion starts to suggest the rest of the properties. When yaml object is not empty, autocompletion ignores this setting and returns all properties and skeletons"
         },
-        "yaml.style.flowMapping":{
+        "yaml.style.flowMapping": {
           "type": "string",
-          "enum":["allow", "forbid"],
-          "default":"allow",
+          "enum": [
+            "allow",
+            "forbid"
+          ],
+          "default": "allow",
           "description": "Forbid flow style mappings"
         },
-        "yaml.style.flowSequence":{
-          "type":"string",
-          "enum":["allow", "forbid"],
-          "default":"allow",
+        "yaml.style.flowSequence": {
+          "type": "string",
+          "enum": [
+            "allow",
+            "forbid"
+          ],
+          "default": "allow",
           "description": "Forbid flow style sequences"
         }
       }
@@ -274,7 +281,7 @@
     "webpack-cli": "^4.8.0"
   },
   "dependencies": {
-    "@redhat-developer/vscode-redhat-telemetry": "0.4.2",
+    "@redhat-developer/vscode-redhat-telemetry": "0.5.1",
     "fs-extra": "^9.1.0",
     "request-light": "^0.5.7",
     "vscode-languageclient": "7.0.0",
