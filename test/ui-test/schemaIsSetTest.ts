@@ -1,3 +1,5 @@
+import path = require('path');
+import os = require('os');
 import { WebDriver, VSBrowser, Key, InputBox, TextEditor, StatusBar, By } from 'vscode-extension-tester';
 
 /**
@@ -27,8 +29,17 @@ export function schemaIsSetTest(): void {
     });
 
     afterEach(async function () {
-      const { exec } = await require('child_process');
-      exec('rm ~/kustomization.yaml');
+      /* eslint-disable */
+      const fs = require('fs');
+      const homeDir = os.homedir();
+      const pathtofile = path.join(homeDir, 'kustomization.yaml');
+
+      if (fs.existsSync(pathtofile)) {
+        console.log(`yaml file does exist - removing`);
+        fs.rmSync(pathtofile, { recursive: true, force: true });
+      } else {
+        console.log(`yaml file does NOT exist - NOT removing`);
+      }
     });
   });
 }
