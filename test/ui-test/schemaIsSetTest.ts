@@ -21,14 +21,9 @@ export function schemaIsSetTest(): void {
       await input.setText('~/kustomization.yaml');
       await input.confirm();
 
-      await delay(10000);
-
-      const statusbar = new StatusBar();
-      const schema = await statusbar.findElements(By.xpath('.//a[@aria-label="kustomization.yaml, Select JSON Schema"]'));
-
-      if (schema.length != 1) {
-        throw new Error('The appropriate JSON schema has not been selected.');
-      }
+      (await VSBrowser.instance.driver.wait(() => {
+        return schemaLabelExists('kustomization.yaml');
+      }, 10000)) as boolean;
     });
 
     afterEach(async function () {
@@ -38,6 +33,8 @@ export function schemaIsSetTest(): void {
   });
 }
 
-function delay(milliseconds: number): Promise<number> {
-  return new Promise((resolve) => setTimeout(resolve, milliseconds));
+async function schemaLabelExists(text: string): Promise<boolean> {
+  const statusbar = new StatusBar();
+  const schemalabel = await statusbar.findElements(By.xpath('.//a[@aria-label="' + text + ', Select JSON Schema"]'));
+  return schemalabel.length == 1;
 }
