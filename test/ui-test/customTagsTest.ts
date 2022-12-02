@@ -1,6 +1,16 @@
-import path = require('path');
-import os = require('os');
-import { By, WebDriver, VSBrowser, Key, TextEditor, Workbench, InputBox, ContentAssist } from 'vscode-extension-tester';
+import { expect } from 'chai';
+import {
+  By,
+  WebDriver,
+  VSBrowser,
+  Key,
+  TextEditor,
+  Workbench,
+  InputBox,
+  ContentAssist,
+  WebElement,
+} from 'vscode-extension-tester';
+import { Utilities } from './Utilities';
 
 /**
  * @author Zbynek Cervinka <zcervink@redhat.com>
@@ -29,10 +39,15 @@ export function customTagsTest(): void {
 
       await driver.actions().sendKeys(Key.chord(TextEditor.ctlKey, 's')).perform();
       input = await InputBox.create();
-      await input.setText('~/customTagsTestFile.yaml');
+      await input.setText('~/kustomization.yaml');
       await input.confirm();
 
-      await delay(2000);
+      // wait until the schema is set and prepared
+      (await VSBrowser.instance.driver.wait(async () => {
+        this.timeout(30000);
+        const utils = new Utilities();
+        return await utils.getSchemaLabel('kustomization.yaml');
+      }, 30000)) as WebElement | undefined;
       await driver.actions().sendKeys('custom').perform();
 
       const contentAssist: ContentAssist | void = await new TextEditor().toggleContentAssist(true);
@@ -41,22 +56,16 @@ export function customTagsTest(): void {
       if (contentAssist instanceof ContentAssist) {
         const hasItem = await contentAssist.hasItem('customTag1');
         if (!hasItem) {
-          throw new Error("The 'customTag1' custom tag did not appear in the content assist's suggestion list.");
+          expect.fail("The 'customTag1' custom tag did not appear in the content assist's suggestion list.");
         }
       } else {
-        throw new Error("The 'customTag1' custom tag did not appear in the content assist's suggestion list.");
+        expect.fail("The 'customTag1' custom tag did not appear in the content assist's suggestion list.");
       }
     });
 
     afterEach(async function () {
-      /* eslint-disable */
-      const fs = require('fs');
-      const homeDir = os.homedir();
-      const pathtofile = path.join(homeDir, 'customTagsTestFile.yaml');
-
-      if (fs.existsSync(pathtofile)) {
-        fs.rmSync(pathtofile, { recursive: true, force: true });
-      }
+      const utils = new Utilities();
+      utils.deleteFileInHomeDir('kustomization.yaml');
     });
   });
 }
