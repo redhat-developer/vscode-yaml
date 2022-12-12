@@ -24,6 +24,7 @@ export function schemaIsSetTest(): void {
       await input.confirm();
 
       (await VSBrowser.instance.driver.wait(async () => {
+        this.timeout(10000);
         return await getSchemaLabel({ text: 'kustomization.yaml' });
       }, 10000)) as WebElement;
     });
