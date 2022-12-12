@@ -1,6 +1,6 @@
 import path = require('path');
 import os = require('os');
-import { WebDriver, VSBrowser, Key, InputBox, TextEditor, StatusBar, By } from 'vscode-extension-tester';
+import { WebDriver, VSBrowser, Key, InputBox, TextEditor, StatusBar, By, WebElement } from 'vscode-extension-tester';
 
 /**
  * @author Zbynek Cervinka <zcervink@redhat.com>
@@ -23,9 +23,9 @@ export function schemaIsSetTest(): void {
       await input.setText('~/kustomization.yaml');
       await input.confirm();
 
-      (await VSBrowser.instance.driver.wait(() => {
-        return schemaLabelExists('kustomization.yaml');
-      }, 10000)) as boolean;
+      (await VSBrowser.instance.driver.wait(async () => {
+        return await getSchemaLabel({ text: 'kustomization.yaml' });
+      }, 10000)) as WebElement;
     });
 
     afterEach(async function () {
@@ -41,8 +41,8 @@ export function schemaIsSetTest(): void {
   });
 }
 
-async function schemaLabelExists(text: string): Promise<boolean> {
+async function getSchemaLabel({ text }: { text: string; }): Promise<WebElement>  {
   const statusbar = new StatusBar();
-  const schemalabel = await statusbar.findElements(By.xpath('.//a[@aria-label="' + text + ', Select JSON Schema"]'));
-  return schemalabel.length == 1;
+  var schemalabel = await statusbar.findElements(By.xpath('.//a[@aria-label="' + text + ', Select JSON Schema"]'));
+  return schemalabel[0];
 }
