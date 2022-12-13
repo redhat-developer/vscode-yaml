@@ -55,10 +55,7 @@ export function customTagsTest(): void {
       const pathtofile = path.join(homeDir, 'customTagsTestFile.yaml');
 
       if (fs.existsSync(pathtofile)) {
-        console.log(`yaml file does exist - removing`);
         fs.rmSync(pathtofile, { recursive: true, force: true });
-      } else {
-        console.log(`yaml file does NOT exist - NOT removing`);
       }
     });
   });

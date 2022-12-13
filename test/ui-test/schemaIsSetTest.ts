@@ -26,7 +26,7 @@ export function schemaIsSetTest(): void {
       (await VSBrowser.instance.driver.wait(async () => {
         this.timeout(10000);
         return await getSchemaLabel({ text: 'kustomization.yaml' });
-      }, 10000)) as WebElement;
+      }, 10000)) as WebElement | undefined;
     });
 
     afterEach(async function () {
@@ -42,7 +42,7 @@ export function schemaIsSetTest(): void {
   });
 }
 
-async function getSchemaLabel({ text }: { text: string; }): Promise<WebElement>  {
+async function getSchemaLabel({ text }: { text: string; }): Promise<WebElement> | undefined  {
   const statusbar = new StatusBar();
   var schemalabel = await statusbar.findElements(By.xpath('.//a[@aria-label="' + text + ', Select JSON Schema"]'));
   return schemalabel[0];
