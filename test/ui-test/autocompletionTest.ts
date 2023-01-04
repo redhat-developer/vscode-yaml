@@ -1,13 +1,13 @@
 import { expect } from 'chai';
-import { WebDriver, VSBrowser, Key, InputBox, TextEditor, ContentAssist, WebElement } from 'vscode-extension-tester';
+import { WebDriver, VSBrowser, Key, InputBox, TextEditor, WebElement } from 'vscode-extension-tester';
 import { Utilities } from './Utilities';
 
 /**
  * @author Zbynek Cervinka <zcervink@redhat.com>
  */
-export function contentAssistSuggestionTest(): void {
-  describe('Verify content assist suggests right sugestion', () => {
-    it('Content assist suggests right sugestion', async function () {
+export function autocompletionTest(): void {
+  describe('Verify autocompletion completes what should be completed', () => {
+    it('Autocompletion works as expected', async function () {
       this.timeout(30000);
 
       const driver: WebDriver = VSBrowser.instance.driver;
@@ -31,16 +31,14 @@ export function contentAssistSuggestionTest(): void {
       }, 10000)) as WebElement | undefined;
 
       await driver.actions().sendKeys('api').perform();
-      const contentAssist: ContentAssist | void = await new TextEditor().toggleContentAssist(true);
+      await new TextEditor().toggleContentAssist(true);
+      await driver.actions().sendKeys(Key.ENTER).perform();
 
-      // find if an item with given label is present
-      if (contentAssist instanceof ContentAssist) {
-        const hasItem = await contentAssist.hasItem('apiVersion');
-        if (!hasItem) {
-          expect.fail("The 'apiVersion' string did not appear in the content assist's suggestion list.");
-        }
-      } else {
-        expect.fail("The 'apiVersion' string did not appear in the content assist's suggestion list.");
+      const editor = new TextEditor();
+      const text = await editor.getText();
+
+      if (text != 'apiVersion: ') {
+        expect.fail("The 'apiVersion: ' string has not been autocompleted.");
       }
     });
 

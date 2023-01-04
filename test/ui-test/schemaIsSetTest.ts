@@ -1,6 +1,5 @@
-import path = require('path');
-import os = require('os');
-import { WebDriver, VSBrowser, Key, InputBox, TextEditor, StatusBar, By, WebElement } from 'vscode-extension-tester';
+import { WebDriver, VSBrowser, Key, InputBox, TextEditor, WebElement } from 'vscode-extension-tester';
+import { Utilities } from './Utilities';
 
 /**
  * @author Zbynek Cervinka <zcervink@redhat.com>
@@ -25,25 +24,14 @@ export function schemaIsSetTest(): void {
 
       (await VSBrowser.instance.driver.wait(async () => {
         this.timeout(10000);
-        return await getSchemaLabel({ text: 'kustomization.yaml' });
+        const utils = new Utilities();
+        return await utils.getSchemaLabel('kustomization.yaml');
       }, 10000)) as WebElement | undefined;
     });
 
     afterEach(async function () {
-      /* eslint-disable */
-      const fs = require('fs');
-      const homeDir = os.homedir();
-      const pathtofile = path.join(homeDir, 'kustomization.yaml');
-
-      if (fs.existsSync(pathtofile)) {
-        fs.rmSync(pathtofile, { recursive: true, force: true });
-      }
+      const utils = new Utilities();
+      utils.deleteFileInHomeDir('kustomization.yaml');
     });
   });
-}
-
-async function getSchemaLabel({ text }: { text: string; }): Promise<WebElement> | undefined  {
-  const statusbar = new StatusBar();
-  var schemalabel = await statusbar.findElements(By.xpath('.//a[@aria-label="' + text + ', Select JSON Schema"]'));
-  return schemalabel[0];
 }
