@@ -41,5 +41,35 @@
       "\t}",
       "},"
     ]
+  },
+  "object": {
+    "description": "[object]",
+    "prefix": "object property definition",
+    "body": [
+      "\"${1:property}\": {",
+      "\t\"title\": \"${2:title}\",",
+      "\t\"description\": \"${3:description}\\n${4:documentation_url}\",",
+      "\t\"type\": \"object\",",
+      "\t\"properties\": {",
+      "\t\t$0",
+      "\t}",
+      "\t\"additionalProperties\": \"${5|true,false|}\"",
+      "}"
+    ]
+  },
+  "array": {
+    "description": "[array]",
+    "prefix": "array property definition",
+    "body": [
+      "\"${1:property}\": {",
+      "\t\"title\": \"${2:title}\",",
+      "\t\"description\": \"${3:description}\\n${4:documentation_url}\",",
+      "\t\"type\": \"array\",",
+      "\t\"uniqueItems\": \"${5|true,false|}\"",
+      "\t\"items\": {",
+      "\t\t$0",
+      "\t}",
+      "}"
+    ]
   }
 }
