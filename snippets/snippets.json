@@ -36,7 +36,7 @@
       "\"then\": {",
       "\t\"properties\": {",
       "\t\t\"${4:property2}\": {",
-      "\t\t\t${5:requirenments}",
+      "\t\t\t$0",
       "\t\t}",
       "\t}",
       "},"
