@@ -62,7 +62,6 @@
     "prefix": "array property definition",
     "body": [
       "\"${1:property}\": {",
-      "\t\"title\": \"${2:title}\",",
       "\t\"description\": \"${3:description}\\n${4:documentation_url}\",",
       "\t\"type\": \"array\",",
       "\t\"uniqueItems\": \"${5|true,false|}\"",
