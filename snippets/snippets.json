@@ -21,5 +21,25 @@
       "${1:key}: >",
       "\t${2:value}"
     ]
+  },
+  "if": {
+    "description": "[if]",
+    "prefix": "if",
+    "body": [
+      "\"if\": {",
+      "\t\"properties\": {",
+      "\t\t\"${1:property1}\": {",
+      "\t\t\t\"${2|const,pattern|}\": ${3:value}",
+      "\t\t}",
+      "\t}",
+      "},",
+      "\"then\": {",
+      "\t\"properties\": {",
+      "\t\t\"${4:property2}\": {",
+      "\t\t\t${5:requirenments}",
+      "\t\t}",
+      "\t}",
+      "},"
+    ]
   }
 }
