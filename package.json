@@ -51,6 +51,12 @@
   "main": "./dist/extension",
   "browser": "./dist/extension-web",
   "contributes": {
+    "snippets": [
+      {
+        "language": "yaml",
+        "path": "./snippets/snippets.json"
+      }
+    ],
     "languages": [
       {
         "id": "yaml",

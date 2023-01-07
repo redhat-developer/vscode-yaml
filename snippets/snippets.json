@@ -1,0 +1,25 @@
+{
+  "pa": {
+    "description": "[pa]ir",
+    "prefix": "pa",
+    "body": [
+      "${1:key}: ${2:value}"
+    ]
+  },
+  "in": {
+    "description": "[in]cluded multilines",
+    "prefix": "in",
+    "body": [
+      "${1:key}: |",
+      "\t${2:value}"
+    ]
+  },
+  "fo": {
+    "description": "[fo]lded multilines",
+    "prefix": "fo",
+    "body": [
+      "${1:key}: >",
+      "\t${2:value}"
+    ]
+  }
+}
