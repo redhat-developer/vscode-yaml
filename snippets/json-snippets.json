@@ -20,8 +20,8 @@
     ]
   },
   "object": {
-    "description": "[object]",
-    "prefix": "object property definition",
+    "description": "[ob]ject property definition",
+    "prefix": "ob",
     "body": [
       "\"${1:property}\": {",
       "\t\"title\": \"${2:title}\",",
@@ -34,9 +34,9 @@
       "}"
     ]
   },
-  "array": {
-    "description": "[array]",
-    "prefix": "array property definition",
+  "ar": {
+    "description": "[ar]ray property definition",
+    "prefix": "ar",
     "body": [
       "\"${1:property}\": {",
       "\t\"description\": \"${3:description}\\n${4:documentation_url}\",",
