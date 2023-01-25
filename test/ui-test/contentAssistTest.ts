@@ -1,37 +1,34 @@
+import os = require('os');
+import path = require('path');
 import { expect } from 'chai';
-import { WebDriver, VSBrowser, Key, InputBox, TextEditor, ContentAssist, WebElement } from 'vscode-extension-tester';
-import { Utilities } from './Utilities';
-
+import { WebDriver, VSBrowser, ContentAssist, EditorView, TextEditor } from 'vscode-extension-tester';
+import { createCustomFile, deleteFileInHomeDir, getSchemaLabel } from './util/utility';
 /**
  * @author Zbynek Cervinka <zcervink@redhat.com>
+ * @author Ondrej Dockal <odockal@redhat.com>
  */
 export function contentAssistSuggestionTest(): void {
   describe('Verify content assist suggests right sugestion', () => {
-    it('Content assist suggests right sugestion', async function () {
-      this.timeout(30000);
+    let driver: WebDriver;
+    let editor: TextEditor;
+    const yamlFileName = 'kustomization.yaml';
+    const homeDir = os.homedir();
+    const yamlFilePath = path.join(homeDir, yamlFileName);
 
-      const driver: WebDriver = VSBrowser.instance.driver;
-      await driver.actions().sendKeys(Key.F1).perform();
+    before(async function setup() {
+      this.timeout(20000);
+      driver = VSBrowser.instance.driver;
+      editor = await createCustomFile(yamlFilePath);
+      await driver.wait(async () => {
+        return await getSchemaLabel(yamlFileName);
+      }, 18000);
+    });
 
-      let input = await InputBox.create();
-      await input.setText('>new file');
-      await input.confirm();
-      await input.confirm();
-
-      await driver.actions().sendKeys(Key.chord(TextEditor.ctlKey, 's')).perform();
-      input = await InputBox.create();
-      await input.setText('~/kustomization.yaml');
-      await input.confirm();
-
-      // wait until the schema is set and prepared
-      (await VSBrowser.instance.driver.wait(async () => {
-        this.timeout(10000);
-        const utils = new Utilities();
-        return await utils.getSchemaLabel('kustomization.yaml');
-      }, 10000)) as WebElement | undefined;
-
-      await driver.actions().sendKeys('api').perform();
-      const contentAssist: ContentAssist | void = await new TextEditor().toggleContentAssist(true);
+    it('Content assist suggests right suggestion', async function () {
+      this.timeout(15000);
+      editor = new TextEditor();
+      await editor.setText('api');
+      const contentAssist = await editor.toggleContentAssist(true);
 
       // find if an item with given label is present
       if (contentAssist instanceof ContentAssist) {
@@ -44,9 +41,11 @@ export function contentAssistSuggestionTest(): void {
       }
     });
 
-    afterEach(async function () {
-      const utils = new Utilities();
-      utils.deleteFileInHomeDir('kustomization.yaml');
+    after(async function () {
+      this.timeout(5000);
+      await editor.save();
+      await new EditorView().closeAllEditors();
+      deleteFileInHomeDir(yamlFileName);
     });
   });
 }

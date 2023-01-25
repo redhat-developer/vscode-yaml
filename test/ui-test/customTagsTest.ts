@@ -1,56 +1,50 @@
+import os = require('os');
+import path = require('path');
 import { expect } from 'chai';
-import {
-  By,
-  WebDriver,
-  VSBrowser,
-  Key,
-  TextEditor,
-  Workbench,
-  InputBox,
-  ContentAssist,
-  WebElement,
-} from 'vscode-extension-tester';
-import { Utilities } from './Utilities';
+import { By, WebDriver, TextEditor, Workbench, ContentAssist, EditorView, VSBrowser } from 'vscode-extension-tester';
+import { createCustomFile, deleteFileInHomeDir, getSchemaLabel, hardDelay } from './util/utility';
 
 /**
  * @author Zbynek Cervinka <zcervink@redhat.com>
+ * @author Ondrej Dockal <odockal@redhat.com>
  */
 export function customTagsTest(): void {
   describe("Verify extension's custom tags", () => {
+    let driver: WebDriver;
+    const yamlFileName = 'kustomization.yaml';
+    const homeDir = os.homedir();
+    const yamlFilePath = path.join(homeDir, yamlFileName);
+    let editor: TextEditor;
+    let editorView: EditorView;
+
+    before(async function setup() {
+      this.timeout(20000);
+      driver = VSBrowser.instance.driver;
+      editorView = new EditorView();
+      await createCustomFile(yamlFilePath);
+      await driver.wait(async () => {
+        return await getSchemaLabel(yamlFileName);
+      }, 18000);
+    });
+
     it('YAML custom tags works as expected', async function () {
       this.timeout(30000);
 
-      let driver: WebDriver = VSBrowser.instance.driver;
       const settingsEditor = await new Workbench().openSettings();
       const setting = await settingsEditor.findSetting('Custom Tags', 'Yaml');
       await setting.findElement(By.className('edit-in-settings-button')).click();
 
-      await delay(2000);
-      await driver.actions().sendKeys('    "customTag1"').perform();
-      await driver.actions().sendKeys(Key.chord(TextEditor.ctlKey, 's')).perform();
+      await hardDelay(2000);
+      const textSettingsEditor = (await editorView.openEditor('settings.json')) as TextEditor;
+      const coor = await textSettingsEditor.getCoordinates();
+      await textSettingsEditor.typeTextAt(coor[0], coor[1], '    "customTag1"');
+      await textSettingsEditor.save();
 
-      driver = VSBrowser.instance.driver;
-      await driver.actions().sendKeys(Key.F1).perform();
+      editor = (await editorView.openEditor(yamlFileName)) as TextEditor;
+      await editor.setText('custom');
+      await editor.save();
 
-      let input = await InputBox.create();
-      await input.setText('>new file');
-      await input.confirm();
-      await input.confirm();
-
-      await driver.actions().sendKeys(Key.chord(TextEditor.ctlKey, 's')).perform();
-      input = await InputBox.create();
-      await input.setText('~/kustomization.yaml');
-      await input.confirm();
-
-      // wait until the schema is set and prepared
-      (await VSBrowser.instance.driver.wait(async () => {
-        this.timeout(30000);
-        const utils = new Utilities();
-        return await utils.getSchemaLabel('kustomization.yaml');
-      }, 30000)) as WebElement | undefined;
-      await driver.actions().sendKeys('custom').perform();
-
-      const contentAssist: ContentAssist | void = await new TextEditor().toggleContentAssist(true);
+      const contentAssist = await editor.toggleContentAssist(true);
 
       // find if an item with given label is present in the content assist
       if (contentAssist instanceof ContentAssist) {
@@ -63,13 +57,11 @@ export function customTagsTest(): void {
       }
     });
 
-    afterEach(async function () {
-      const utils = new Utilities();
-      utils.deleteFileInHomeDir('kustomization.yaml');
+    after(async function () {
+      this.timeout(5000);
+      await editor.save();
+      await new EditorView().closeAllEditors();
+      deleteFileInHomeDir(yamlFileName);
     });
   });
-}
-
-function delay(milliseconds: number): Promise<number> {
-  return new Promise((resolve) => setTimeout(resolve, milliseconds));
 }
