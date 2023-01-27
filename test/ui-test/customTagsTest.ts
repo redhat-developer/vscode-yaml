@@ -36,8 +36,12 @@ export function customTagsTest(): void {
 
       await hardDelay(2000);
       const textSettingsEditor = (await editorView.openEditor('settings.json')) as TextEditor;
-      const coor = await textSettingsEditor.getCoordinates();
-      await textSettingsEditor.typeTextAt(coor[0], coor[1], '    "customTag1"');
+      if (process.platform === 'darwin') {
+        await driver.actions().sendKeys('    "customTag1"').perform();
+      } else {
+        const coor = await textSettingsEditor.getCoordinates();
+        await textSettingsEditor.typeTextAt(coor[0], coor[1], '    "customTag1"');
+      }
       await textSettingsEditor.save();
 
       editor = (await editorView.openEditor(yamlFileName)) as TextEditor;
@@ -59,7 +63,6 @@ export function customTagsTest(): void {
 
     after(async function () {
       this.timeout(5000);
-      await editor.save();
       await new EditorView().closeAllEditors();
       deleteFileInHomeDir(yamlFileName);
     });
