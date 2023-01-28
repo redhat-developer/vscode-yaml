@@ -47,9 +47,10 @@ jobs:
 
       # Run UI tests
       - name: Run UI Test
-        uses: GabrielBB/xvfb-action@v1.0
+        uses: GabrielBB/xvfb-action@v1.6
         with:
           run: yarn run ui-test
+          options: -screen 0 1920x1080x24
 
       #Package vsix
       - name: Build .vsix package on Linux
@@ -70,9 +71,7 @@ jobs:
       - name: Archiving test artifacts
         uses: actions/upload-artifact@v2
         with: 
-          name: my-artifact
+          name: ${{ matrix.os }}-artifacts
           path: |
             test-resources/screenshots/*.png
-            test-resources/*.log
-            test-resources/test-report.xml
           retention-days: 2
