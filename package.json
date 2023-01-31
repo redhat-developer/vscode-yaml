@@ -213,6 +213,11 @@
           ],
           "default": "allow",
           "description": "Forbid flow style sequences"
+        },
+        "yaml.keyOrdering": {
+          "type": "boolean",
+          "default": false,
+          "description": "Enforces alphabetical ordering of keys in mappings when set to true"
         }
       }
     },
