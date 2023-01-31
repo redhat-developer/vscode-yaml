@@ -64,7 +64,7 @@ The following settings are supported:
 - `http.proxyStrictSSL`: If true the proxy server certificate should be verified against the list of supplied CAs. Default is false.
 - `yaml.style.flowMapping` : Forbids flow style mappings if set to `forbid`
 - `yaml.style.flowSequence` : Forbids flow style sequences if set to `forbid`
-In to your settings.
+- `yaml.keyOrdering` : Enforces alphabetical ordering of keys in mappings when set to `true`. Default is `false`
 
 ## Adding custom tags
 
