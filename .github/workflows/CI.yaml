@@ -41,13 +41,13 @@ jobs:
 
       # Run tests
       - name: Run Test
-        uses: GabrielBB/xvfb-action@v1.0
+        uses: GabrielBB/xvfb-action@fe2609f8182a9ed5aee7d53ff3ed04098a904df2 #v1.0
         with:
           run: yarn test
 
       # Run UI tests
       - name: Run UI Test
-        uses: GabrielBB/xvfb-action@v1.6
+        uses: GabrielBB/xvfb-action@86d97bde4a65fe9b290c0b3fb92c2c4ed0e5302d #v1.6
         with:
           run: yarn run ui-test
           options: -screen 0 1920x1080x24
