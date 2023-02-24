@@ -17,8 +17,13 @@ export async function activate(context: ExtensionContext): Promise<SchemaExtensi
   // Create Telemetry Service
   const telemetry = await (await getRedHatService(context)).getTelemetryService();
 
-  // The YAML language server is implemented in node
-  const serverModule = context.asAbsolutePath('./dist/languageserver.js');
+  let serverModule: string;
+  if (startedFromSources()) {
+    serverModule = context.asAbsolutePath('../yaml-language-server/out/server/src/server.js');
+  } else {
+    // The YAML language server is implemented in node
+    serverModule = context.asAbsolutePath('./dist/languageserver.js');
+  }
 
   // The debug options for the server
   const debugOptions = { execArgv: ['--nolazy', '--inspect=6009'] };
@@ -40,4 +45,8 @@ export async function activate(context: ExtensionContext): Promise<SchemaExtensi
   };
 
   return startClient(context, newLanguageClient, runtime);
+}
+
+function startedFromSources(): boolean {
+  return process.env['DEBUG_VSCODE_YAML'] === 'true';
 }
