@@ -222,7 +222,7 @@
         "yaml.recommendations.show": {
           "type": "boolean",
           "default": "true",
-          "description": "Show recommendations of dependency extensions"
+          "description": "Suggest additional extensions based on YAML usage."
         }
       }
     },
