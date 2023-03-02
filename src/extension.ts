@@ -21,7 +21,7 @@ import { getConflictingExtensions, showUninstallConflictsNotification } from './
 import { TelemetryErrorHandler, TelemetryOutputChannel } from './telemetry';
 import { TextDecoder } from 'util';
 import { createJSONSchemaStatusBarItem } from './schema-status-bar-item';
-import { initialize } from './recommendation';
+import { initializeRecommendation } from './recommendation';
 
 export interface ISchemaAssociations {
   [pattern: string]: string[];
@@ -208,7 +208,7 @@ export function startClient(
         createJSONSchemaStatusBarItem(context, client);
       });
 
-      initialize(context);
+      initializeRecommendation(context);
     })
     .catch((err) => {
       sendStartupTelemetryEvent(runtime.telemetry, false, err);

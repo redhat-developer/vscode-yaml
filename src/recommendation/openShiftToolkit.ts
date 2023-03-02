@@ -20,10 +20,10 @@ function isDevfileYAML(uri: vscode.Uri): boolean {
     const devFileYamlPath = path.join(uri.fsPath, 'devfile.yaml');
     return fs.existsSync(devFileYamlPath);
   }
-  return !!uri.path && uri.path.toLowerCase().endsWith('devfile.yaml');
+  return !!uri.path && path.basename(uri.path).toLowerCase() === 'devfile.yaml';
 }
 
-export function initialize(context: vscode.ExtensionContext, handler: IHandler): void {
+export function initializeRecommendation(context: vscode.ExtensionContext, handler: IHandler): void {
   const show = vscode.workspace.getConfiguration().get(YAML_RECOMMENDATIONS_SHOW);
   if (!show) {
     return;

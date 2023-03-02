@@ -7,9 +7,9 @@
 
 import * as vscode from 'vscode';
 import { HandlerImpl } from './handlerImpl';
-import { initialize as initDependencyAnalytics } from './dependencyAnalytics';
+import { initializeRecommendation as initOpenShiftToolkit } from './openShiftToolkit';
 
-export function initialize(context: vscode.ExtensionContext): void {
+export function initializeRecommendation(context: vscode.ExtensionContext): void {
   const handler = new HandlerImpl(context);
-  initDependencyAnalytics(context, handler);
+  initOpenShiftToolkit(context, handler);
 }
