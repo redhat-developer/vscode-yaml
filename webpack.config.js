@@ -76,6 +76,7 @@ const clientWeb = {
     fallback: {
       path: require.resolve('path-browserify'),
       util: require.resolve('util'),
+      fs: false,
     },
   },
   module: {
@@ -138,6 +139,7 @@ const serverWeb = {
       path: require.resolve('path-browserify/'),
       url: require.resolve('url/'),
       buffer: require.resolve('buffer/'),
+      fs: false,
     },
   },
   plugins: [

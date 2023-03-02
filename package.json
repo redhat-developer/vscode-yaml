@@ -218,6 +218,11 @@
           "type": "boolean",
           "default": false,
           "description": "Enforces alphabetical ordering of keys in mappings when set to true"
+        },
+        "yaml.recommendations.show": {
+          "type": "boolean",
+          "default": "true",
+          "description": "Suggest additional extensions based on YAML usage."
         }
       }
     },
