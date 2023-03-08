@@ -1,4 +1,4 @@
-### 1.12.0
+### 1.12.1
 - Fix: Completion Value with dash [#832](https://github.com/redhat-developer/yaml-language-server/pull/832)
 - Add: Enforce alphabetical ordering of keys in mappings and provide codeaction to fix it. [#839](https://github.com/redhat-developer/yaml-language-server/pull/839)
 - Fix: Value completion with trailing spaces [#834](https://github.com/redhat-developer/yaml-language-server/pull/834)
