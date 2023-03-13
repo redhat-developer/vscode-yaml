@@ -39,7 +39,7 @@ export function initializeRecommendation(context: vscode.ExtensionContext, handl
     })
   );
 
-  const isdevfileYAMLOpened = vscode.workspace.workspaceFolders?.findIndex((workspace) => isDevfileYAML(workspace.uri)) !== -1;
+  const isdevfileYAMLOpened = vscode.workspace.workspaceFolders?.findIndex((workspace) => isDevfileYAML(workspace.uri)) === 0;
   if (isdevfileYAMLOpened) {
     handler.handle(EXTENSION_NAME, RECOMMENDATION_MESSAGE);
   }
