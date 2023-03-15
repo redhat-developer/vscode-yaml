@@ -219,7 +219,7 @@
           "default": false,
           "description": "Enforces alphabetical ordering of keys in mappings when set to true"
         },
-        "yaml.recommendations.show": {
+        "yaml.extension.recommendations": {
           "type": "boolean",
           "default": "true",
           "description": "Suggest additional extensions based on YAML usage."
