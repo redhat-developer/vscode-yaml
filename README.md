@@ -65,6 +65,7 @@ The following settings are supported:
 - `yaml.style.flowMapping` : Forbids flow style mappings if set to `forbid`
 - `yaml.style.flowSequence` : Forbids flow style sequences if set to `forbid`
 - `yaml.keyOrdering` : Enforces alphabetical ordering of keys in mappings when set to `true`. Default is `false`
+- `yaml.recommendations.show` : Recommend to install [OpenShift Toolkit](https://github.com/redhat-developer/vscode-openshift-tools) extension when detects devfile.yaml. Default is `true`
 
 ## Adding custom tags
 
