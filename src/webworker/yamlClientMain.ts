@@ -10,9 +10,9 @@ import { startClient, LanguageClientConstructor, RuntimeEnvironment } from '../e
 import { LanguageClient } from 'vscode-languageclient/browser';
 import { SchemaExtensionAPI } from '../schema-extension-api';
 import { IJSONSchemaCache } from '../json-schema-content-provider';
-
+import { getRedHatService } from '@redhat-developer/vscode-redhat-telemetry/lib/webworker';
 // this method is called when vs code is activated
-export async function activate(context: ExtensionContext): Promise<SchemaExtensionAPI> {
+export async function activate(context: ExtensionContext): Promise<SchemaExtensionAPI | undefined> {
   const extensionUri = context.extensionUri;
   const serverMain = extensionUri.with({
     path: extensionUri.path + '/dist/languageserver-web.js',
@@ -25,12 +25,12 @@ export async function activate(context: ExtensionContext): Promise<SchemaExtensi
 
     const schemaCache: IJSONSchemaCache = {
       getETag: () => undefined,
-      getSchema: () => undefined,
+      getSchema: async () => undefined,
       putSchema: () => Promise.resolve(),
     };
-
+    const telemetry = await (await getRedHatService(context)).getTelemetryService();
     const runtime: RuntimeEnvironment = {
-      telemetry: { send: () => undefined, sendStartupEvent: () => undefined },
+      telemetry,
       schemaCache,
     };
     return startClient(context, newLanguageClient, runtime);

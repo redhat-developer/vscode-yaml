@@ -7,7 +7,7 @@ import * as sinonChai from 'sinon-chai';
 import * as chai from 'chai';
 import * as vscode from 'vscode';
 import { TelemetryErrorHandler, TelemetryOutputChannel } from '../src/telemetry';
-import { TelemetryEvent, TelemetryService } from '@redhat-developer/vscode-redhat-telemetry/lib/interfaces/telemetry';
+import { TelemetryEvent, TelemetryService } from '@redhat-developer/vscode-redhat-telemetry';
 
 const expect = chai.expect;
 chai.use(sinonChai);
