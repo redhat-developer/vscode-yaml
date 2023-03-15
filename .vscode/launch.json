@@ -8,7 +8,6 @@
       "request": "launch",
       "runtimeExecutable": "${execPath}",
       "args": ["--extensionDevelopmentPath=${workspaceRoot}"],
-      "stopOnEntry": false,
       "sourceMaps": true,
       "outFiles": ["${workspaceRoot}/dist/**/*.js"],
       "preLaunchTask": "compile typescript",
@@ -36,13 +35,16 @@
     },
     {
       "name": "Launch Web Extension",
-      "type": "pwa-extensionHost",
+      "type": "extensionHost",
       "debugWebWorkerHost": true,
       "request": "launch",
       "args": [
         "--extensionDevelopmentPath=${workspaceFolder}",
         "--extensionDevelopmentKind=web"
       ],
+      "env": {
+        "VSCODE_REDHAT_TELEMETRY_DEBUG":"true"
+      },
       "outFiles": ["${workspaceRoot}/dist/**/*.js"],
       "preLaunchTask": "compile webpack"
     },
