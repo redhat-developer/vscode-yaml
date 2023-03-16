@@ -16,9 +16,13 @@ const RECOMMENDATION_MESSAGE = `The workspace has a devfile.yaml. Install [OpenS
 const YAML_RECOMMENDATIONS_SHOW = 'yaml.recommendations.show';
 
 function isDevfileYAML(uri: vscode.Uri): boolean {
-  if (fs.lstatSync(uri.fsPath).isDirectory()) {
-    const devFileYamlPath = path.join(uri.fsPath, 'devfile.yaml');
-    return fs.existsSync(devFileYamlPath);
+  try {
+    if (fs.lstatSync(uri.fsPath).isDirectory()) {
+      const devFileYamlPath = path.join(uri.fsPath, 'devfile.yaml');
+      return fs.existsSync(devFileYamlPath);
+    }
+  } catch (error) {
+    return false;
   }
   return !!uri.path && path.basename(uri.path).toLowerCase() === 'devfile.yaml';
 }
