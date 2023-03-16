@@ -13,7 +13,7 @@ import { IHandler } from './handler';
 const EXTENSION_NAME = 'redhat.vscode-openshift-connector';
 const GH_ORG_URL = `https://github.com/redhat-developer/vscode-openshift-tools`;
 const RECOMMENDATION_MESSAGE = `The workspace has a devfile.yaml. Install [OpenShift Toolkit](${GH_ORG_URL}) extension for assistance with deploying to a cluster?`;
-const YAML_RECOMMENDATIONS_SHOW = 'yaml.recommendations.show';
+const YAML_EXTENSION_RECOMMENDATIONS = 'yaml.extension.recommendations';
 
 function isDevfileYAML(uri: vscode.Uri): boolean {
   try {
@@ -28,7 +28,7 @@ function isDevfileYAML(uri: vscode.Uri): boolean {
 }
 
 export function initializeRecommendation(context: vscode.ExtensionContext, handler: IHandler): void {
-  const show = vscode.workspace.getConfiguration().get(YAML_RECOMMENDATIONS_SHOW);
+  const show = vscode.workspace.getConfiguration().get(YAML_EXTENSION_RECOMMENDATIONS);
   if (!show) {
     return;
   }
