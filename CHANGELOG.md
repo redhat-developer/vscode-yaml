@@ -1,3 +1,6 @@
+### 1.12.2
+- Add: Enable telemetry in Web extension [#903](https://github.com/redhat-developer/vscode-yaml/pull/903)
+- Fix: Extension crashing remote extensions host Error: ENOENT: no such file or directory, lstat 'tasks' [#904](https://github.com/redhat-developer/vscode-yaml/issues/904)
 ### 1.12.1
 - Fix: Completion Value with dash [#832](https://github.com/redhat-developer/yaml-language-server/pull/832)
 - Add: Enforce alphabetical ordering of keys in mappings and provide codeaction to fix it. [#839](https://github.com/redhat-developer/yaml-language-server/pull/839)
