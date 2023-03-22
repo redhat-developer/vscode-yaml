@@ -27,6 +27,7 @@ Provides comprehensive YAML Language support to [Visual Studio Code](https://cod
 5. Formatter:
    * Allows for formatting the current file
    * On type formatting auto indent for array items
+6. Snippets for JSON schemas and YAML configs.
 
 *Auto completion and hover support are provided by the schema. Please refer to Language Server Settings to setup a schema*
 
