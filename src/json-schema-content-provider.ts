@@ -47,7 +47,7 @@ export async function getJsonSchemaContent(uri: string, schemaCache: IJSONSchema
   const cachedETag = schemaCache.getETag(uri);
 
   const httpSettings = workspace.getConfiguration('http');
-  configureHttpRequests(httpSettings.http && httpSettings.http.proxy, httpSettings.http && httpSettings.http.proxyStrictSSL);
+  configureHttpRequests(httpSettings.proxy, httpSettings.proxyStrictSSL);
 
   const headers: { [key: string]: string } = { 'Accept-Encoding': 'gzip, deflate' };
   if (cachedETag) {
