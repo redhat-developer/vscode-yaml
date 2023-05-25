@@ -50,7 +50,7 @@ The following settings are supported:
 * `yaml.schemaStore.enable`: When set to true, the YAML language server will pull in all available schemas from [JSON Schema Store](http://schemastore.org/json/)
 * `yaml.schemaStore.url`: URL of a schema store catalog to use when downloading schemas.
 * `yaml.customTags`: Array of custom tags that the parser will validate against. It has two ways to be used. Either an item in the array is a custom tag such as "!Ref" and it will automatically map !Ref to a scalar, or you can specify the type of the object !Ref should be, e.g. "!Ref sequence". The type of object can be either scalar (for strings and booleans), sequence (for arrays), mapping (for objects).
-* `yaml.maxComputedItems`: The maximum number of outline symbols and folding regions computed (limited for performance reasons).
+* `yaml.maxItemsComputed`: The maximum number of outline symbols and folding regions computed (limited for performance reasons).
 * `yaml.disableDefaultProperties`: Disable adding not required properties with default values into completion text (default is false).
 * `yaml.suggest.parentSkeletonSelectedFirst`: If true, the user must select some parent skeleton first before autocompletion starts to suggest the rest of the properties. When the YAML object is not empty, autocompletion ignores this setting and returns all properties and skeletons.
 
