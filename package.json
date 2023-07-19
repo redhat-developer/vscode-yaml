@@ -14,7 +14,7 @@
     }
   ],
   "license": "MIT",
-  "version": "1.13.0",
+  "version": "1.14.0",
   "publisher": "redhat",
   "bugs": "https://github.com/redhat-developer/vscode-yaml/issues",
   "repository": {
