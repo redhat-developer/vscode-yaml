@@ -70,7 +70,7 @@ jobs:
       # Archive test results
       - name: Archiving test artifacts
         uses: actions/upload-artifact@v2
-        with: 
+        with:
           name: ${{ matrix.os }}-artifacts
           path: |
             test-resources/screenshots/*.png

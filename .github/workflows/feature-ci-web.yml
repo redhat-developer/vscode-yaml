@@ -1,0 +1,27 @@
+name: "Feature CI"
+
+on:
+  push:
+    branches-ignore:
+      - main
+
+jobs:
+  ci-build:
+    name: Build and Test
+    runs-on: unbuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontend
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node 16.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: "16.x"
+      - name: Install dependencies (npm)
+        run: npm install
+      - name: build
+        run: npm run build
+      - name: test
+        run: npm run test
