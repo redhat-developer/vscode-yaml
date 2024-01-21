@@ -5,8 +5,8 @@
 		"Once accepted there, we are happy to receive an update request."
 	],
 	"version": "https://github.com/textmate/yaml.tmbundle/commit/e54ceae3b719506dba7e481a77cea4a8b576ae46",
-	"name": "YAML",
-	"scopeName": "source.yaml",
+	"name": "eBuilder YAML",
+	"scopeName": "source.eBuilder.yaml",
 	"patterns": [
 		{
 			"include": "#comment"
@@ -149,7 +149,15 @@
 				{
 					"begin": "^([ ]+)(?! )",
 					"end": "^(?!\\1|\\s*$)",
-					"name": "string.unquoted.block.yaml"
+          "patterns": [
+            {
+              "include": "#block-js-expression"
+            },
+            {
+              "match": ".+",
+              "name": "string.unquoted.block.yaml"
+            }
+          ]
 				}
 			]
 		},
@@ -469,7 +477,16 @@
 				{
 					"begin": "(?x)\n                          [^\\s[-?:,\\[\\]{}#&*!|>'\"%@`]]\n                        | [?:-] \\S\n                    ",
 					"end": "(?x)\n                        (?=\n                              \\s* $\n                            | \\s+ \\#\n                            | \\s* : (\\s|$)\n                        )\n                    ",
-					"name": "string.unquoted.plain.out.yaml"
+          "name": "string.unquoted.plain.out.yaml",
+          "patterns": [
+            {
+              "include": "#one-line-js-expression"
+            },
+            {
+              "match": ".+",
+              "name": "string.unquoted.plain.out.yaml"
+            }
+          ]
 				}
 			]
 		},
@@ -616,6 +633,51 @@
 					"include": "#property"
 				}
 			]
-		}
+		},
+    "block-js-expression": {
+      "begin": "(^|\\G)\\$\\{\\{\\s+",
+      "end": "(^|\\G)\\s+\\}\\}\\s*$",
+      "beginCaptures": {
+          "0": {
+            "name": "string.unquoted.plain.out.yaml"
+          }
+        },
+        "endCaptures": {
+          "0": {
+            "name": "string.unquoted.plain.out.yaml"
+          }
+        },
+      "patterns": [
+				{
+					"begin": "(^|\\G)(\\s*)(.*)",
+					"while": "(^|\\G)(?!\\s+\\}\\}\\s*$)",
+					"contentName": "meta.embedded.block.javascript",
+					"patterns": [
+						{
+							"include": "source.js"
+						}
+					]
+				}
+			]
+    },
+    "one-line-js-expression": {
+      "match": "(\\{\\{\\s+.*?\\s+\\}\\}\\s*$)",
+      "captures": {
+        "1": {
+          "patterns": [
+            {
+              "begin": "\\{\\{",
+              "end": "\\}\\}\\s*$",
+              "contentName": "meta.embedded.block.javascript",
+              "patterns": [
+                {
+                  "include": "source.js"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
 	}
 }
