@@ -6,7 +6,20 @@
  *--------------------------------------------------------------------------------------------*/
 'use strict';
 
-import { workspace, ExtensionContext, extensions, window, commands, Uri } from 'vscode';
+import {
+  workspace,
+  ExtensionContext,
+  extensions,
+  window,
+  commands,
+  Uri,
+  CompletionList,
+  languages,
+  TextDocument,
+  Position,
+  CancellationToken,
+  CompletionContext,
+} from 'vscode';
 import {
   CommonLanguageClient,
   LanguageClientOptions,
@@ -22,6 +35,7 @@ import { TelemetryErrorHandler, TelemetryOutputChannel } from './telemetry';
 import { TextDecoder } from 'util';
 import { createJSONSchemaStatusBarItem } from './schema-status-bar-item';
 import { initializeRecommendation } from './recommendation';
+import { buildRootStyleVirtualContent, isInRootComponentStyle } from './eBuilderYaml';
 
 export interface ISchemaAssociations {
   [pattern: string]: string[];
@@ -111,12 +125,18 @@ export function startClient(
   newLanguageClient: LanguageClientConstructor,
   runtime: RuntimeEnvironment
 ): SchemaExtensionAPI {
+  const virtualDocumentContents = new Map<string, string>();
   const telemetryErrorHandler = new TelemetryErrorHandler(runtime.telemetry, lsName, 4);
   const outputChannel = window.createOutputChannel(lsName);
   // Options to control the language client
   const clientOptions: LanguageClientOptions = {
     // Register the server for on disk and newly created YAML documents
-    documentSelector: [{ language: 'yaml' }, { language: 'dockercompose' }, { pattern: '*.y(a)ml' }],
+    documentSelector: [
+      { language: 'eBuilder.yaml' },
+      { language: 'yaml' },
+      { language: 'dockercompose' },
+      { pattern: '*.y(a)ml' },
+    ],
     synchronize: {
       // Notify the server about file changes to YAML and JSON files contained in the workspace
       fileEvents: [workspace.createFileSystemWatcher('**/*.?(e)y?(a)ml'), workspace.createFileSystemWatcher('**/*.json')],
@@ -124,6 +144,29 @@ export function startClient(
     revealOutputChannelOn: RevealOutputChannelOn.Never,
     errorHandler: telemetryErrorHandler,
     outputChannel: new TelemetryOutputChannel(outputChannel, runtime.telemetry),
+    // Follow https://code.visualstudio.com/api/language-extensions/embedded-languages#request-forwarding-sample
+    middleware: {
+      provideCompletionItem: async (document, position, context, token, next) => {
+        // If not in any special block, do not perform request forwarding
+        if (!isInRootComponentStyle(document.uri, document.getText(), document.offsetAt(position))) {
+          return await next(document, position, context, token);
+        }
+
+        const originalUri = document.uri.toString(true);
+        virtualDocumentContents.set(originalUri, buildRootStyleVirtualContent(document.getText(), document.offsetAt(position)));
+
+        const vdocUriString = `embedded-content://css/${encodeURIComponent(originalUri)}.less`;
+        const vdocUri = Uri.parse(vdocUriString);
+        const result = await commands.executeCommand<CompletionList>(
+          'vscode.executeCompletionItemProvider',
+          vdocUri,
+          position,
+          context.triggerCharacter
+        );
+
+        return result;
+      },
+    },
   };
 
   // Create the language client and start it
@@ -142,20 +185,18 @@ export function startClient(
       new JSONSchemaDocumentContentProvider(runtime.schemaCache, schemaExtensionAPI)
     )
   );
+  context.subscriptions.push(
+    workspace.registerTextDocumentContentProvider('embedded-content', {
+      provideTextDocumentContent: (uri) => {
+        // TODO: support .less and .js
+        // Remove leading `/` and ending `.less` to get original URI
+        const originalUri = uri.path.slice(1).slice(0, -5);
+        const decodedUri = decodeURIComponent(originalUri);
 
-  // TODO: Register embedded-content for embedded-languages request forwarding
-  const virtualDocumentContents = new Map<string, string>();
-
-  workspace.registerTextDocumentContentProvider('embedded-content', {
-    provideTextDocumentContent: (uri) => {
-      // TODO: support .css and .js
-      // Remove leading `/` and ending `.css` to get original URI
-      const originalUri = uri.path.slice(1).slice(0, -4);
-      const decodedUri = decodeURIComponent(originalUri);
-
-      return virtualDocumentContents.get(decodedUri);
-    },
-  });
+        return virtualDocumentContents.get(decodedUri);
+      },
+    })
+  );
 
   context.subscriptions.push(
     client.onTelemetry((e) => {
@@ -183,6 +224,7 @@ export function startClient(
       client.sendNotification(SchemaSelectionRequests.type);
       // If the server asks for custom schema content, get it and send it back
       client.onRequest(CUSTOM_SCHEMA_REQUEST, (resource: string) => {
+        // TODO: return custom schema here
         return schemaExtensionAPI.requestCustomSchema(resource);
       });
       client.onRequest(CUSTOM_CONTENT_REQUEST, (uri: string) => {
