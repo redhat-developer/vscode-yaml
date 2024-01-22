@@ -26,6 +26,9 @@
 			"name": "entity.other.document.end.yaml"
 		},
 		{
+			"include": "#block-css-node"
+		},
+		{
 			"include": "#node"
 		}
 	],
@@ -587,6 +590,33 @@
 		},
 		"node": {
 			"patterns": [
+        {
+          "begin": "^(style)(:)\\s+(\\|)\\s*(.*)$",
+			    "end": "^(?=\\S)",
+			    "beginCaptures": {
+            "1": {
+              "name": "entity.name.tag.yaml"
+            },
+            "2": {
+              "name": "punctuation.separator.key-value.mapping.yaml"
+            },
+            "3": {
+              "name": "keyword.control.flow.block-scalar.literal.yaml"
+            }
+          },
+          "patterns": [
+            {
+              "begin": "(^|\\G)(\\s*)(.*)",
+              "end": "^(?=\\S)",
+              "contentName": "meta.embedded.block.less",
+              "patterns": [
+                {
+                  "include": "source.css.less"
+                }
+              ]
+            }
+          ]
+        },
 				{
 					"include": "#block-node"
 				}
@@ -638,15 +668,15 @@
       "begin": "(^|\\G)\\$\\{\\{\\s+",
       "end": "(^|\\G)\\s+\\}\\}\\s*$",
       "beginCaptures": {
-          "0": {
-            "name": "string.unquoted.plain.out.yaml"
-          }
-        },
-        "endCaptures": {
-          "0": {
-            "name": "string.unquoted.plain.out.yaml"
-          }
-        },
+        "0": {
+          "name": "string.unquoted.plain.out.yaml"
+        }
+      },
+      "endCaptures": {
+        "0": {
+          "name": "string.unquoted.plain.out.yaml"
+        }
+      },
       "patterns": [
 				{
 					"begin": "(^|\\G)(\\s*)(.*)",

@@ -143,6 +143,20 @@ export function startClient(
     )
   );
 
+  // TODO: Register embedded-content for embedded-languages request forwarding
+  const virtualDocumentContents = new Map<string, string>();
+
+  workspace.registerTextDocumentContentProvider('embedded-content', {
+    provideTextDocumentContent: (uri) => {
+      // TODO: support .css and .js
+      // Remove leading `/` and ending `.css` to get original URI
+      const originalUri = uri.path.slice(1).slice(0, -4);
+      const decodedUri = decodeURIComponent(originalUri);
+
+      return virtualDocumentContents.get(decodedUri);
+    },
+  });
+
   context.subscriptions.push(
     client.onTelemetry((e) => {
       runtime.telemetry.send(e);

@@ -72,7 +72,10 @@
         "path": "./syntaxes/yaml.tmLanguage.json",
         "embeddedLanguages": {
           "source.js": "javascript",
-          "meta.embedded.block.javascript": "javascript"
+          "source.css": "css",
+          "meta.embedded.block.javascript": "javascript",
+          "meta.embedded.block.less": "less",
+          "meta.embedded.block.css": "css"
         }
       }
     ],
