@@ -1,7 +1,7 @@
 import { TextDocument } from 'vscode';
-import { yamlDocumentsCache } from 'yaml-language-server/lib/esm/languageservice/parser/yaml-documents';
-import { matchOffsetToDocument } from 'yaml-language-server/lib/esm/languageservice/utils/arrUtils';
 import { TelemetryService } from './extension';
+import { yamlDocumentsCache } from './languageservice/parser/yaml-documents';
+import { matchOffsetToDocument } from './languageservice/utils/arrUtils';
 
 export const isInRootComponentStyle = (document: TextDocument, offset: number, telemetry: TelemetryService): boolean => {
   try {
