@@ -1,34 +1,68 @@
-import { Uri } from 'vscode';
+import { TextDocument } from 'vscode';
+import { yamlDocumentsCache } from 'yaml-language-server/lib/esm/languageservice/parser/yaml-documents';
+import { matchOffsetToDocument } from 'yaml-language-server/lib/esm/languageservice/utils/arrUtils';
+import { TelemetryService } from './extension';
 
-export const isInRootComponentStyle = (docUri: Uri, documentText: string, offset: number): boolean => {
-  return true;
+export const isInRootComponentStyle = (document: TextDocument, offset: number, telemetry: TelemetryService): boolean => {
+  try {
+    const doc = yamlDocumentsCache.getYamlDocument(document as any);
+    const currentDoc = matchOffsetToDocument(offset, doc);
+    const node = currentDoc.getNodeFromOffset(offset);
+
+    return (
+      // only string...
+      node.type === 'string' &&
+      node.parent?.type === 'property' &&
+      // ... 'style' property
+      node.parent?.keyNode?.value == 'style' &&
+      // ... at root component
+      node.parent?.parent?.parent == null
+    );
+  } catch (error) {
+    telemetry.send({
+      name: 'eBuilderYaml.isInRootComponentStyle',
+      properties: {
+        error,
+      },
+    });
+
+    return false;
+  }
 };
 
-export const buildRootStyleVirtualContent = (documentText: string, offset: number): string => {
-  return `# includes:
-#  call-in-progress-modal: /components/call/call-in-progress-modal.yml
-#  chat-modal: /components/chat/chat-modal.yml
+export const buildRootStyleVirtualContent = (document: TextDocument, offset: number, telemetry: TelemetryService): string => {
+  try {
+    const doc = yamlDocumentsCache.getYamlDocument(document as any);
+    const currentDoc = matchOffsetToDocument(offset, doc);
+    const node = currentDoc.getNodeFromOffset(offset, true);
+    // we need to + 1 here, since the offset of `node` is offset of `|` character
+    const startPositionLine = document.positionAt(node.offset).line + 1;
+    const endPositionLine = document.positionAt(node.offset + node.length).line;
+    const nodeLines = node.value.toString().split('\n');
+    const content = document
+      .getText()
+      .split('\n')
+      .map((line, i) => {
+        console.log('line ' + i + ': ' + line);
+        if (i >= startPositionLine && i < endPositionLine) {
+          return ' '.repeat(2) + nodeLines[i - startPositionLine];
+        }
 
-# style: |
-  .connect-widget {
-    position: fixed;
-    right: 0;
-    bottom: 100px;
-    display: flex;
-    flex-direction: column;
-    background: var(--primary-color);
-    border-radius: var(--border-radius);
-    padding: var(--padding-md);
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-    z-index: 10;
-    width: 10;
+        return ' '.repeat(line.length);
+      })
+      .join('\n');
 
-    hr {
+    console.log(content);
 
-      width: 70%;
-      opacity: 0.3;
-    }
+    return content;
+  } catch (error) {
+    telemetry.send({
+      name: 'eBuilderYaml.isInRootComponentStyle',
+      properties: {
+        error,
+      },
+    });
+
+    return document.getText();
   }
-  `;
 };

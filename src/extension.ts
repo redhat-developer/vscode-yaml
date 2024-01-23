@@ -6,20 +6,7 @@
  *--------------------------------------------------------------------------------------------*/
 'use strict';
 
-import {
-  workspace,
-  ExtensionContext,
-  extensions,
-  window,
-  commands,
-  Uri,
-  CompletionList,
-  languages,
-  TextDocument,
-  Position,
-  CancellationToken,
-  CompletionContext,
-} from 'vscode';
+import { workspace, ExtensionContext, extensions, window, commands, Uri, CompletionList } from 'vscode';
 import {
   CommonLanguageClient,
   LanguageClientOptions,
@@ -148,14 +135,17 @@ export function startClient(
     middleware: {
       provideCompletionItem: async (document, position, context, token, next) => {
         // If not in any special block, do not perform request forwarding
-        if (!isInRootComponentStyle(document.uri, document.getText(), document.offsetAt(position))) {
+        if (!isInRootComponentStyle(document, document.offsetAt(position), runtime.telemetry)) {
           return await next(document, position, context, token);
         }
 
         const originalUri = document.uri.toString(true);
-        virtualDocumentContents.set(originalUri, buildRootStyleVirtualContent(document.getText(), document.offsetAt(position)));
+        virtualDocumentContents.set(
+          originalUri,
+          buildRootStyleVirtualContent(document, document.offsetAt(position), runtime.telemetry)
+        );
 
-        const vdocUriString = `embedded-content://css/${encodeURIComponent(originalUri)}.less`;
+        const vdocUriString = `embedded-content://less/${encodeURIComponent(originalUri)}.less`;
         const vdocUri = Uri.parse(vdocUriString);
         const result = await commands.executeCommand<CompletionList>(
           'vscode.executeCompletionItemProvider',
