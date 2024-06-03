@@ -23,13 +23,13 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       # Set up Node
-      - name: Use Node 14
-        uses: actions/setup-node@v1
+      - name: Use Node 20
+        uses: actions/setup-node@v4
         with:
-          node-version: 14
+          node-version: 20
 
       # Run install dependencies
       - name: Install dependencies
@@ -41,13 +41,13 @@ jobs:
 
       # Run tests
       - name: Run Test
-        uses: GabrielBB/xvfb-action@fe2609f8182a9ed5aee7d53ff3ed04098a904df2 #v1.0
+        uses: coactions/setup-xvfb@b6b4fcfb9f5a895edadc3bc76318fae0ac17c8b3 #v1.0.1
         with:
           run: yarn test
 
       # Run UI tests
       - name: Run UI Test
-        uses: GabrielBB/xvfb-action@86d97bde4a65fe9b290c0b3fb92c2c4ed0e5302d #v1.6
+        uses: coactions/setup-xvfb@b6b4fcfb9f5a895edadc3bc76318fae0ac17c8b3 #v1.0.1
         with:
           run: yarn run ui-test
           options: -screen 0 1920x1080x24
@@ -62,15 +62,15 @@ jobs:
       #Upload vsix
       - name: Upload linux-built vsix
         if: matrix.os == 'ubuntu-latest'
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: vscode-yaml
           path: vscode-yaml*.vsix
 
       # Archive test results
       - name: Archiving test artifacts
-        uses: actions/upload-artifact@v2
-        with: 
+        uses: actions/upload-artifact@v4
+        with:
           name: ${{ matrix.os }}-artifacts
           path: |
             test-resources/screenshots/*.png
