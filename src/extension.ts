@@ -75,12 +75,6 @@ namespace DynamicCustomSchemaRequestRegistration {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
-export namespace KubernetesSchemaURLsNotification {
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  export const type: NotificationType<string[]> = new NotificationType('yaml/kubernetesSchemaURLs');
-}
-
-// eslint-disable-next-line @typescript-eslint/no-namespace
 namespace ResultLimitReachedNotification {
   // eslint-disable-next-line @typescript-eslint/ban-types
   export const type: NotificationType<string> = new NotificationType('yaml/resultLimitReached');
@@ -167,7 +161,6 @@ export function startClient(
         client.sendNotification(SchemaAssociationNotification.type, getSchemaAssociations());
         findConflicts();
       });
-      client.sendNotification(KubernetesSchemaURLsNotification.type, getKubernetesSchemaURLs());
       // Tell the server that the client is ready to provide custom schema content
       client.sendNotification(DynamicCustomSchemaRequestRegistration.type);
       // Tell the server that the client supports schema requests sent directly to it
@@ -234,10 +227,6 @@ function findConflicts(): void {
   if (conflictingExtensions.length > 0) {
     showUninstallConflictsNotification(conflictingExtensions);
   }
-}
-
-function getKubernetesSchemaURLs(): string[] {
-  return workspace.getConfiguration('yaml').get('kubernetesSchemaURLs') || [];
 }
 
 function getSchemaAssociations(): ISchemaAssociation[] {
