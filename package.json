@@ -166,11 +166,6 @@
           "default": [],
           "description": "Custom tags for the parser to use"
         },
-        "yaml.kubernetesSchemaURLs": {
-          "type": "array",
-          "default": [],
-          "description": "URLs to Kubernetes schemas"
-        },
         "yaml.schemaStore.enable": {
           "type": "boolean",
           "default": true,
