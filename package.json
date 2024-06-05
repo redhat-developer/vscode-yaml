@@ -14,7 +14,7 @@
     }
   ],
   "license": "MIT",
-  "version": "1.14.0",
+  "version": "1.14.1",
   "publisher": "redhat",
   "bugs": "https://github.com/redhat-developer/vscode-yaml/issues",
   "repository": {
@@ -292,7 +292,7 @@
     "webpack-cli": "^5.0.1"
   },
   "dependencies": {
-    "@redhat-developer/vscode-redhat-telemetry": "^0.6.0",
+    "@redhat-developer/vscode-redhat-telemetry": "^0.8.0",
     "fs-extra": "^9.1.0",
     "request-light": "^0.5.7",
     "vscode-languageclient": "7.0.0",
