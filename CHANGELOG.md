@@ -1,5 +1,7 @@
 ### 1.15.0
+- Fix: maxItemsComputed settings name [#936](https://github.com/redhat-developer/vscode-yaml/pull/936)
 - Fix: Update telemetry to 0.8.0 [#1023](https://github.com/redhat-developer/vscode-yaml/pull/1023)
+- Fix: GH version updated [#1027](https://github.com/redhat-developer/vscode-yaml/pull/1027)
 - Fix: some small type issues [#918](https://github.com/redhat-developer/yaml-language-server/pull/918)
 - Add: volar-service-yaml to clients [#920](https://github.com/redhat-developer/yaml-language-server/pull/920)
 - Fix: Remove ide-yaml from known clients [#921](https://github.com/redhat-developer/yaml-language-server/pull/921)
