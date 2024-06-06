@@ -31,7 +31,7 @@ describe('Tests for schema provider feature', () => {
     await vscode.window.showTextDocument(hoverUri);
     await testHover(hoverUri, new vscode.Position(0, 3), [
       {
-        contents: ['A stringy string string'],
+        contents: ['A stringy string string\n\nAllowed Values:\n\n* `test`\n'],
       },
     ]);
 

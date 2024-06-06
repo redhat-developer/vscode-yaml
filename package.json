@@ -299,6 +299,6 @@
     "vscode-nls": "^3.2.1",
     "vscode-uri": "^2.0.3",
     "whatwg-fetch": "^3.6.2",
-    "yaml-language-server": "next"
+    "yaml-language-server": "1.15.0"
   }
 }
