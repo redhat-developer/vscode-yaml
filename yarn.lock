@@ -4927,10 +4927,10 @@ yallist@^4.0.0:
   resolved "https://registry.yarnpkg.com/yallist/-/yallist-4.0.0.tgz#9bb92790d9c0effec63be73519e11a35019a3a72"
   integrity sha512-3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A==
 
-yaml-language-server@1.15.0:
-  version "1.15.0"
-  resolved "https://registry.yarnpkg.com/yaml-language-server/-/yaml-language-server-1.15.0.tgz#3bd36f1f7fd74e63b591e5148df992c7327be05a"
-  integrity sha512-N47AqBDCMQmh6mBLmI6oqxryHRzi33aPFPsJhYy3VTUGCdLHYjGh4FZzpUjRlphaADBBkDmnkM/++KNIOHi5Rw==
+yaml-language-server@next:
+  version "1.15.1-f039273.0"
+  resolved "https://registry.yarnpkg.com/yaml-language-server/-/yaml-language-server-1.15.1-f039273.0.tgz#dd4cdda9ac8f0d6f6935b0a360ac80ccb464bac0"
+  integrity sha512-J7cew3dP3Dp91DpCIXnSwrbpgKGA3QBwaA6E6CjQ2XvhErdNNj2z7CH0vrNjpKWp1+AphYX5SosvX//K9Qymzw==
   dependencies:
     ajv "^8.11.0"
     lodash "4.17.21"
