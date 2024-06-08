@@ -58,14 +58,14 @@ jobs:
       - name: Package
         run: |
           node ./out/build/update-readme.js
-          vsce package --target ${target} -o yaml-${{ env.EXT_VERSION }}-${GITHUB_RUN_NUMBER}-${target}.vsix
-          sha256sum *-${target}.vsix > yaml-${{ env.EXT_VERSION }}-${GITHUB_RUN_NUMBER}-${target}.vsix.sha256
+          vsce package -o vscode-yaml-${{ env.EXT_VERSION }}-${GITHUB_RUN_NUMBER}-${target}.vsix
+          sha256sum *-${target}.vsix > vscode-yaml-${{ env.EXT_VERSION }}-${GITHUB_RUN_NUMBER}-${target}.vsix.sha256
           ls -lash *.vsix *.sha256
       - name: Upload VSIX Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: vscode-yaml
-          path: yaml-${{ env.EXT_VERSION }}-${{github.run_number}}*.vsix
+          path: vscode-yaml-${{ env.EXT_VERSION }}-${{github.run_number}}*.vsix
           if-no-files-found: error
       - name: Publish to GH Release Tab
         if: ${{ inputs.publishToMarketPlace == 'true' && inputs.publishToOVSX == 'true' }}
@@ -75,8 +75,8 @@ jobs:
           automatic_release_tag: "${{ env.EXT_VERSION }}"
           draft: true
           files: |
-            yaml-${{ env.EXT_VERSION }}-${{github.run_number}}*.vsix
-            yaml-${{ env.EXT_VERSION }}-${{github.run_number}}*.sha256
+            vscode-yaml-${{ env.EXT_VERSION }}-${{github.run_number}}*.vsix
+            vscode-yaml-${{ env.EXT_VERSION }}-${{github.run_number}}*.sha256
 
   release-job:
     if: ${{ inputs.publishToMarketPlace == 'true' || inputs.publishToOVSX == 'true' }}
@@ -100,8 +100,8 @@ jobs:
     - name: Publish to VS Code Marketplace
       if: ${{ github.event_name == 'schedule' || inputs.publishToMarketPlace == 'true' || inputs.publishPreRelease == 'true' }}
       run: |
-          vsce publish -p ${{ secrets.VSCODE_MARKETPLACE_TOKEN }} --packagePath vscode-yaml/yaml-${{ env.EXT_VERSION }}-${GITHUB_RUN_NUMBER}-${platform}.vsix
+          vsce publish -p ${{ secrets.VSCODE_MARKETPLACE_TOKEN }} --packagePath vscode-yaml/vscode-yaml-${{ env.EXT_VERSION }}-${GITHUB_RUN_NUMBER}-${platform}.vsix
     - name: Publish to OpenVSX Registry
       if: ${{ github.event_name == 'schedule' || inputs.publishToOVSX == 'true' || inputs.publishPreRelease == 'true' }}
       run: |
-          ovsx publish -p ${{ secrets.OVSX_MARKETPLACE_TOKEN }} --packagePath vscode-yaml/yaml-${{ env.EXT_VERSION }}-${GITHUB_RUN_NUMBER}-${platform}.vsix
+          ovsx publish -p ${{ secrets.OVSX_MARKETPLACE_TOKEN }} --packagePath vscode-yaml/vscode-yaml-${{ env.EXT_VERSION }}-${GITHUB_RUN_NUMBER}-${platform}.vsix
