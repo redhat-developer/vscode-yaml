@@ -10,6 +10,7 @@ export const isInRootComponentStyle = (document: TextDocument, offset: number, t
     const node = currentDoc.getNodeFromOffset(offset);
 
     return (
+      node &&
       // only string...
       node.type === 'string' &&
       node.parent?.type === 'property' &&
