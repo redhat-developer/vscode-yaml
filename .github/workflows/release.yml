@@ -57,9 +57,8 @@ jobs:
           run: yarn test --silent
       - name: Package
         run: |
-          node ./out/build/update-readme.js
-          vsce package -o vscode-yaml-${{ env.EXT_VERSION }}-${GITHUB_RUN_NUMBER}-${target}.vsix
-          sha256sum *-${target}.vsix > vscode-yaml-${{ env.EXT_VERSION }}-${GITHUB_RUN_NUMBER}-${target}.vsix.sha256
+          vsce package -o vscode-yaml-${{ env.EXT_VERSION }}-${GITHUB_RUN_NUMBER}.vsix
+          sha256sum *.vsix > vscode-yaml-${{ env.EXT_VERSION }}-${GITHUB_RUN_NUMBER}.vsix.sha256
           ls -lash *.vsix *.sha256
       - name: Upload VSIX Artifacts
         uses: actions/upload-artifact@v4
