@@ -42,7 +42,6 @@ jobs:
       - name: Install dependencies
         run: |
           npm install -g typescript "yarn" "@vscode/vsce" "ovsx"
-          npm install
           echo "EXT_VERSION=$(cat package.json | jq -r .version)" >> $GITHUB_ENV
       - name: Build vscode-yaml
         uses: coactions/setup-xvfb@b6b4fcfb9f5a895edadc3bc76318fae0ac17c8b3 #v1.0.1
@@ -92,7 +91,6 @@ jobs:
     - name: Install dependencies
       run: |
         npm install -g typescript "yarn" "@vscode/vsce" "ovsx"
-        npm install
         echo "EXT_VERSION=$(cat package.json | jq -r .version)" >> $GITHUB_ENV
     - name: Download VSIX Artifacts
       uses: actions/download-artifact@v4
