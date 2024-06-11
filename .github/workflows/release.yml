@@ -99,8 +99,8 @@ jobs:
     - name: Publish to VS Code Marketplace
       if: ${{ github.event_name == 'schedule' || inputs.publishToMarketPlace == 'true' || inputs.publishPreRelease == 'true' }}
       run: |
-          vsce publish -p ${{ secrets.VSCODE_MARKETPLACE_TOKEN }} --packagePath vscode-yaml/vscode-yaml-${{ env.EXT_VERSION }}-${GITHUB_RUN_NUMBER}-${platform}.vsix
+          vsce publish -p ${{ secrets.VSCODE_MARKETPLACE_TOKEN }} --packagePath vscode-yaml/vscode-yaml-${{ env.EXT_VERSION }}-${GITHUB_RUN_NUMBER}.vsix
     - name: Publish to OpenVSX Registry
       if: ${{ github.event_name == 'schedule' || inputs.publishToOVSX == 'true' || inputs.publishPreRelease == 'true' }}
       run: |
-          ovsx publish -p ${{ secrets.OVSX_MARKETPLACE_TOKEN }} --packagePath vscode-yaml/vscode-yaml-${{ env.EXT_VERSION }}-${GITHUB_RUN_NUMBER}-${platform}.vsix
+          ovsx publish -p ${{ secrets.OVSX_MARKETPLACE_TOKEN }} --packagePath vscode-yaml/vscode-yaml-${{ env.EXT_VERSION }}-${GITHUB_RUN_NUMBER}.vsix
