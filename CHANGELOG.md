@@ -4,10 +4,11 @@
 - Add: Send real errors to telemetry [#981](https://github.com/redhat-developer/yaml-language-server/pull/981)
 - Add: Missing field descriptions for anyOf [#1007](https://github.com/redhat-developer/yaml-language-server/pull/1007)
 - Add: k8s update schema to 1.32.1 [#1011](https://github.com/redhat-developer/yaml-language-server/pull/1011)
-- Add: Adjust to new hover behviour for enum [#1030](https://github.com/redhat-developer/vscode-yaml/pull/1030)
+- Add: Adjust to new hover behavior for enum [#1030](https://github.com/redhat-developer/vscode-yaml/pull/1030)
+- Add: Filename .clang-tidy as YAML [#1055](https://github.com/redhat-developer/vscode-yaml/pull/1055)
 - Bump: Dependencies [#1000](https://github.com/redhat-developer/yaml-language-server/pull/1000) [#1001](https://github.com/redhat-developer/yaml-language-server/pull/1001) [#1002](https://github.com/redhat-developer/yaml-language-server/pull/1002) [#1003](https://github.com/redhat-developer/yaml-language-server/pull/1003)
 
-Thanks to [Remco Haszing](https://github.com/remcohaszing), [Petr Spacek](https://github.com/p-spacek), [David Hernando](https://github.com/Davidonium), [Yannik Tausch](https://github.com/ytausch), [Lauri Tirkkonen](https://github.com/lotheac) for your contributions.
+Thanks to [Remco Haszing](https://github.com/remcohaszing), [Petr Spacek](https://github.com/p-spacek), [David Hernando](https://github.com/Davidonium), [Yannik Tausch](https://github.com/ytausch), [Lauri Tirkkonen](https://github.com/lotheac), [Tobias Hernstig](https://github.com/thernstig) for your contributions.
 
 ### 1.15.0
 - Fix: maxItemsComputed settings name [#936](https://github.com/redhat-developer/vscode-yaml/pull/936)
