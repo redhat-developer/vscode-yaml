@@ -62,6 +62,12 @@
           ".yml",
           ".yaml"
         ],
+        "filenames": [
+          ".clang-format",
+          "_clang-format",
+          ".clang-tidy"
+        ],
+        "firstLine": "^#cloud-config",
         "configuration": "./language-configuration.json"
       }
     ],
