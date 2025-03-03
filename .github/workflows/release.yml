@@ -56,8 +56,18 @@ jobs:
           run: yarn test --silent
       - name: Package
         run: |
-          vsce package -o vscode-yaml-${{ env.EXT_VERSION }}-${GITHUB_RUN_NUMBER}.vsix
-          sha256sum *.vsix > vscode-yaml-${{ env.EXT_VERSION }}-${GITHUB_RUN_NUMBER}.vsix.sha256
+          declare -A targets
+          targets["win32-x64"]=win32
+          targets["win32-arm64"]=win32
+          targets["linux-x64"]=linux
+          targets["linux-arm64"]=linux-arm64
+          targets["darwin-x64"]=darwin
+          targets["darwin-arm64"]=darwin
+          for target in ${!targets[@]}; do
+            export TARGET=${targets[${target}]}
+            vsce package --target ${target} -o vscode-yaml-${{ env.EXT_VERSION }}-${GITHUB_RUN_NUMBER}-${target}.vsix
+            sha256sum *-${target}.vsix > vscode-yaml-${{ env.EXT_VERSION }}-${GITHUB_RUN_NUMBER}-${target}.vsix.sha256
+          done
           ls -lash *.vsix *.sha256
       - name: Upload VSIX Artifacts
         uses: actions/upload-artifact@v4
