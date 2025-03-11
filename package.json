@@ -40,7 +40,9 @@
   },
   "activationEvents": [
     "onLanguage:yaml",
-    "onLanguage:dockercompose"
+    "onLanguage:dockercompose",
+    "onLanguage:yaml-textmate",
+    "onLanguage:yaml-tmlanguage"
   ],
   "keywords": [
     "kubernetes",
