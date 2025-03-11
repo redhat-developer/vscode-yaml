@@ -40,7 +40,8 @@
   },
   "activationEvents": [
     "onLanguage:yaml",
-    "onLanguage:dockercompose"
+    "onLanguage:dockercompose",
+    "onLanguage:github-actions-workflow"
   ],
   "keywords": [
     "kubernetes",
