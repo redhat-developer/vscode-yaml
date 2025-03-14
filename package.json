@@ -14,7 +14,7 @@
     }
   ],
   "license": "MIT",
-  "version": "1.15.0",
+  "version": "1.18.0",
   "publisher": "redhat",
   "bugs": "https://github.com/redhat-developer/vscode-yaml/issues",
   "repository": {
@@ -41,6 +41,7 @@
   "activationEvents": [
     "onLanguage:yaml",
     "onLanguage:dockercompose",
+    "onLanguage:github-actions-workflow",
     "onLanguage:yaml-textmate",
     "onLanguage:yaml-tmlanguage"
   ],
