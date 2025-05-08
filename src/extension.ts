@@ -122,6 +122,7 @@ export function startClient(
       { language: 'eBuilder.yaml' },
       { language: 'yaml' },
       { language: 'dockercompose' },
+      { language: 'github-actions-workflow' },
       { pattern: '*.y(a)ml' },
     ],
     synchronize: {

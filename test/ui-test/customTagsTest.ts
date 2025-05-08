@@ -43,6 +43,7 @@ export function customTagsTest(): void {
         await textSettingsEditor.typeTextAt(coor[0], coor[1], '    "customTag1"');
       }
       await textSettingsEditor.save();
+      await hardDelay(1_000);
 
       editor = (await editorView.openEditor(yamlFileName)) as TextEditor;
       await editor.setText('custom');
