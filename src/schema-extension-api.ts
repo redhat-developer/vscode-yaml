@@ -80,7 +80,7 @@ class SchemaExtensionAPI implements ExtensionAPI {
       const [first, second] = label.split(':');
       if (first && second) {
         label = second.trim();
-        label = label.replace('.', '\\.');
+        label = label.replaceAll('.', '\\.');
         label = `${first}:[\t ]+${label}`;
       }
     }
