@@ -14,7 +14,7 @@
     }
   ],
   "license": "MIT",
-  "version": "1.18.0",
+  "version": "1.19.0",
   "publisher": "redhat",
   "bugs": "https://github.com/redhat-developer/vscode-yaml/issues",
   "repository": {
@@ -149,6 +149,11 @@
           "type": "integer",
           "default": 80,
           "description": "Specify the line length that the printer will wrap on"
+        },
+        "yaml.format.trailingComma": {
+          "type": "boolean",
+          "default": true,
+          "description": "Specify if trailing commas should be used in JSON-like segments of the YAML"
         },
         "yaml.validate": {
           "type": "boolean",
