@@ -265,7 +265,7 @@
     "@types/chai": "^4.2.12",
     "@types/fs-extra": "^9.0.6",
     "@types/mocha": "^2.2.48",
-    "@types/node": "^12.12.6",
+    "@types/node": "^18.x",
     "@types/sinon": "^10.0.6",
     "@types/sinon-chai": "^3.2.5",
     "@types/vscode": "^1.63.0",
