@@ -114,8 +114,6 @@ export function startClient(
   const telemetryErrorHandler = new TelemetryErrorHandler(runtime.telemetry, lsName, 4);
   const outputChannel = window.createOutputChannel(lsName);
   const l10nPath = context.asAbsolutePath('../yaml-language-server/l10n');
-  const supportedLanguages = ['de', 'fr', 'ja', 'ko', 'zh-cn', 'zh-tw'];
-  const locale = supportedLanguages.includes(env.language) ? env.language : 'en';
   // Options to control the language client
   const clientOptions: LanguageClientOptions = {
     // Register the server for on disk and newly created YAML documents
@@ -134,7 +132,6 @@ export function startClient(
     outputChannel: new TelemetryOutputChannel(outputChannel, runtime.telemetry),
     initializationOptions: {
       l10nPath,
-      locale,
     },
   };
 
