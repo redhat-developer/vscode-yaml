@@ -3,13 +3,12 @@
 def installBuildRequirements(){
   def nodeHome = tool 'nodejs-lts'
   env.PATH="${env.PATH}:${nodeHome}/bin"
-  sh "npm install --global yarn"
   sh "npm install --global vsce"
 }
 
 def buildVscodeExtension(){
-  sh "yarn install"
-  sh "yarn run vscode:prepublish"
+  sh "npm run install"
+  sh "npm run vscode:prepublish"
 }
 
 node('rhel8'){
@@ -22,13 +21,13 @@ node('rhel8'){
   installBuildRequirements()
 
   stage 'Build vscode-yaml'
-  sh "yarn install"
-  sh "yarn run build"
-  sh "yarn run check-dependencies"
+  sh "npm run install"
+  sh "npm run build"
+  sh "npm run check-dependencies"
 
   stage 'Test vscode-yaml for staging'
   wrap([$class: 'Xvnc']) {
-    sh "yarn test --silent"
+    sh "npm test --silent"
   }
 
   stage "Package vscode-yaml"

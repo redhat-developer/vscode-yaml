@@ -7,4 +7,3 @@ test/testFixture/.vscode
 *.vsix
 .DS_Store
 test-resources
-yarn-error.log

@@ -9,7 +9,7 @@
       // the command is a shell script
       "type": "shell",
       // we run the custom npm script "compile" as defined in package.json
-      "command": "yarn run compile",
+      "command": "npm run compile",
       // show the output window only if unrecognized errors occur.
       "presentation": {
         "reveal": "never"
@@ -32,7 +32,7 @@
       // the command is a shell script
       "type": "shell",
       // we run the custom npm script "compile" as defined in package.json
-      "command": "yarn test-compile",
+      "command": "npm run test-compile",
       // show the output window only if unrecognized errors occur.
       "presentation": {
         "reveal": "never"

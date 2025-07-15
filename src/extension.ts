@@ -6,7 +6,7 @@
  *--------------------------------------------------------------------------------------------*/
 'use strict';
 
-import { workspace, ExtensionContext, extensions, window, commands, Uri, ConfigurationTarget, env } from 'vscode';
+import { workspace, ExtensionContext, extensions, window, commands, Uri, ConfigurationTarget } from 'vscode';
 import {
   CommonLanguageClient,
   LanguageClientOptions,
