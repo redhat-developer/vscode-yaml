@@ -31,6 +31,12 @@ jobs:
         with:
           node-version: 20
 
+      - name: Check for yarn
+        run: |
+          which yarn || echo "✅ Yarn not found"
+          yarn --version || echo "✅ Yarn not used"
+        
+
       # Run install dependencies
       - name: Install dependencies
         run: npm ci
