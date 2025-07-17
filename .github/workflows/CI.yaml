@@ -33,7 +33,7 @@ jobs:
 
       - name: Remove globally installed Yarn
         run: |
-          sudo rm -f /usr/local/bin/yarn /usr/local/bin/yarnpkg
+          rm -f $HOME/.yarn/bin/yarn $HOME/.yarn/bin/yarnpkg
           echo "🧹 Yarn removed"
         
 
