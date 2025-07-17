@@ -31,6 +31,12 @@ jobs:
         with:
           node-version: 20
 
+      - name: Remove globally installed Yarn
+        run: |
+          sudo rm -f /usr/local/bin/yarn /usr/local/bin/yarnpkg
+          echo "🧹 Yarn removed"
+        
+
       - name: Check for yarn
         run: |
           which yarn || echo "✅ Yarn not found"
