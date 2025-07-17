@@ -6,4 +6,6 @@ dist/
 test/testFixture/.vscode
 *.vsix
 .DS_Store
-test-resources
+test-resources/
+yarn.lock
+.yarnrc
