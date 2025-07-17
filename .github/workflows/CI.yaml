@@ -33,10 +33,9 @@ jobs:
 
       - name: Remove globally installed Yarn
         run: |
-          rm -f $HOME/.yarn/bin/yarn $HOME/.yarn/bin/yarnpkg
+          sudo rm -f /usr/local/bin/yarn /usr/local/bin/yarnpkg yarn.lock
           echo "🧹 Yarn removed"
         
-
       - name: Check for yarn
         run: |
           which yarn || echo "✅ Yarn not found"
