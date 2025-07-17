@@ -33,8 +33,8 @@ jobs:
 
       - name: Remove globally installed Yarn
         run: |
-          rm -f /Users/runner/.yarn/bin/yarn
-          rm -f /Users/runner/.yarn/bin/yarnpkg
+          rm -force /usr/local/bin/yarn /usr/local/bin/yarnpkg
+          rm -force /Users/runner/.yarn/bin/yarn /Users/runner/.yarn/bin/yarnpkg
           echo "🧹 Yarn removed"
         
       - name: Check for yarn
