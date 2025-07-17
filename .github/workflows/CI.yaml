@@ -48,9 +48,12 @@ jobs:
                 Remove-Item $path -Force
               }
             }
-            where yarn || echo "✅ Yarn not found"
+            if (Get-Command yarn -ErrorAction SilentlyContinue) {
+              yarn --version
+            } else {
+              Write-Output "✅ Yarn not found"
+            }
         
-
       - name: Remove Yarn on Linux/macOS
         if: runner.os != 'Windows'
         run: |
