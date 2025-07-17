@@ -31,42 +31,6 @@ jobs:
         with:
           node-version: 20
 
-      - name: Remove Yarn on Windows
-        if: runner.os == 'Windows'
-        shell: powershell
-        run: |
-            $paths = @(
-              "$env:USERPROFILE\.yarn\bin\yarn.cmd",
-              "$env:USERPROFILE\.yarn\bin\yarnpkg.cmd",
-              "C:\Program Files (x86)\Yarn\bin\yarn.cmd",
-              "C:\Program Files (x86)\Yarn\bin\yarnpkg.cmd",
-              "C:\Program Files\Yarn\bin\yarn.cmd",
-              "C:\Program Files\Yarn\bin\yarnpkg.cmd"
-            )
-            foreach ($path in $paths) {
-              if (Test-Path $path) {
-                Remove-Item $path -Force
-              }
-            }
-            if (Get-Command yarn -ErrorAction SilentlyContinue) {
-              yarn --version
-            } else {
-              Write-Output "✅ Yarn not found"
-            }
-        
-      - name: Remove Yarn on Linux/macOS
-        if: runner.os != 'Windows'
-        run: |
-          rm -f /usr/local/bin/yarn /usr/local/bin/yarnpkg
-          rm -f /Users/runner/.yarn/bin/yarn /Users/runner/.yarn/bin/yarnpkg
-          echo "🧹 Yarn removed"
-        
-      - name: Check for yarn
-        run: |
-          which yarn || echo "✅ Yarn not found"
-          yarn --version || echo "✅ Yarn not used"
-        
-
       # Run install dependencies
       - name: Install dependencies
         run: npm ci
