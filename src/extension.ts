@@ -113,7 +113,7 @@ export function startClient(
 ): SchemaExtensionAPI {
   const telemetryErrorHandler = new TelemetryErrorHandler(runtime.telemetry, lsName, 4);
   const outputChannel = window.createOutputChannel(lsName);
-  const l10nPath = context.asAbsolutePath('../yaml-language-server/l10n');
+  const l10nPath = context.asAbsolutePath('./dist/l10n');
   // Options to control the language client
   const clientOptions: LanguageClientOptions = {
     // Register the server for on disk and newly created YAML documents
