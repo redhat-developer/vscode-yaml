@@ -6,7 +6,7 @@
  *--------------------------------------------------------------------------------------------*/
 'use strict';
 
-import { workspace, ExtensionContext, extensions, window, commands, Uri, ConfigurationTarget } from 'vscode';
+import { workspace, ExtensionContext, extensions, window, commands, Uri } from 'vscode';
 import {
   CommonLanguageClient,
   LanguageClientOptions,
@@ -161,7 +161,7 @@ export function startClient(
   findConflicts();
   client
     .onReady()
-    .then(async () => {
+    .then(() => {
       // Send a notification to the server with any YAML schema associations in all extensions
       client.sendNotification(SchemaAssociationNotification.type, getSchemaAssociations());
 
@@ -218,31 +218,12 @@ export function startClient(
       });
 
       initializeRecommendation(context);
-
-      await setDefaultFormatter(['dockercompose', 'github-actions-workflow']);
     })
     .catch((err) => {
       sendStartupTelemetryEvent(runtime.telemetry, false, err);
     });
 
   return schemaExtensionAPI;
-}
-
-/**
- * set redhat.vscode-yaml as default formatter
- * @param extensions [dockercompose, github-actions-workflow]
- */
-async function setDefaultFormatter(extensions: string[]): Promise<void> {
-  const config = workspace.getConfiguration();
-  extensions.forEach(async (extension) => {
-    const extensionConf = config.get<Record<string, string>>(`[${extension}]`) || {};
-    if (extensionConf) {
-      if (extensionConf['editor.defaultFormatter'] === undefined) {
-        extensionConf['editor.defaultFormatter'] = 'redhat.vscode-yaml';
-        await config.update(`[${extension}]`, extensionConf, ConfigurationTarget.Global);
-      }
-    }
-  });
 }
 
 /**
