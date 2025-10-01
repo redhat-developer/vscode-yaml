@@ -74,7 +74,7 @@ jobs:
           node-version: 20
       - name: Set version to prerelease version
         run: |
-          node change-version-to-prerelease.mjs
+          node ./scripts/change-version-to-prerelease.mjs
           echo "publishPreReleaseFlag=--pre-release" >> $GITHUB_ENV
         if: ${{ github.event_name == 'schedule' || inputs.publishPreRelease == 'true'}}
       - name: Install dependencies
@@ -130,6 +130,10 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: 20
+    - name: Set version to prerelease version
+      run: |
+        node ./scripts/change-version-to-prerelease.mjs
+      if: ${{ github.event_name == 'schedule' || inputs.publishPreRelease == 'true'}}
     - name: Install dependencies
       run: |
         npm install -g typescript "@vscode/vsce" "ovsx"
