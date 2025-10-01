@@ -121,6 +121,8 @@ export function startClient(
       { language: 'yaml' },
       { language: 'dockercompose' },
       { language: 'github-actions-workflow' },
+      { language: 'yaml-textmate' },
+      { language: 'yaml-tmlanguage' },
       { pattern: '*.y(a)ml' },
     ],
     synchronize: {
