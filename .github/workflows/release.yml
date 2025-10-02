@@ -108,7 +108,6 @@ jobs:
           path: vscode-yaml-${{ env.EXT_VERSION }}-${{github.run_number}}*.vsix
           if-no-files-found: error
       - name: Publish to GH Release Tab
-        if: ${{ inputs.publishToMarketPlace == 'true' && inputs.publishToOVSX == 'true' }}
         uses: "marvinpinto/action-automatic-releases@919008cf3f741b179569b7a6fb4d8860689ab7f0"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
@@ -119,7 +118,6 @@ jobs:
             vscode-yaml-${{ env.EXT_VERSION }}-${{github.run_number}}*.sha256
 
   release-job:
-    if: ${{ inputs.publishToMarketPlace == 'true' || inputs.publishToOVSX == 'true' }}
     environment: ${{ (inputs.publishToMarketPlace == 'true' || inputs.publishToOVSX == 'true') && 'release' || 'pre-release' }}
     runs-on: ubuntu-latest
     needs: packaging-job
