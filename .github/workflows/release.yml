@@ -1,6 +1,8 @@
 name: release
 
 on:
+  schedule:
+    - cron: '0 8 * * *'
   workflow_dispatch:
     inputs:
       publishPreRelease:
@@ -29,8 +31,39 @@ on:
         default: 'true'
 
 jobs:
+
+  should-build-change:
+    runs-on: ubuntu-latest
+    outputs:
+      repo-cache-hit: ${{ steps.cache-last-commit.outputs.cache-hit }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: "redhat-developer/vscode-yaml"
+          fetch-depth: 2
+          path: vscode-yaml
+      - uses: actions/checkout@v4
+        with:
+          repository: "redhat-developer/yaml-language-server"
+          fetch-depth: 2
+          path: yaml-language-server
+      - run: |
+          pushd vscode-yaml
+          git rev-parse HEAD >> ../lastCommit
+          popd
+          pushd yaml-language-server
+          git rev-parse HEAD >> ../lastCommit
+      - name: Check New Changes
+        id: cache-last-commit
+        uses: actions/cache@v4
+        with:
+          path: lastCommit
+          key: lastCommit-${{ hashFiles('lastCommit') }}
+
   packaging-job:
     runs-on: ubuntu-latest
+    needs: should-build-change
+    if: ${{ needs.should-build-change.outputs.repo-cache-hit != 'true' || github.event_name != 'schedule' }}
     steps:
       - name: Checkout vscode-yaml
         uses: actions/checkout@v4
@@ -39,24 +72,33 @@ jobs:
         with:
           path: release
           node-version: 20
+      - name: Set version to prerelease version
+        run: |
+          node ./scripts/change-version-to-prerelease.mjs
+          echo "publishPreReleaseFlag=--pre-release" >> $GITHUB_ENV
+        if: ${{ github.event_name == 'schedule' || inputs.publishPreRelease == 'true'}}
       - name: Install dependencies
         run: |
-          npm install -g typescript "yarn" "@vscode/vsce" "ovsx"
+          npm install -g typescript "@vscode/vsce" "ovsx"
           echo "EXT_VERSION=$(cat package.json | jq -r .version)" >> $GITHUB_ENV
+      # Install latest yaml-language-server in the case of a prerelease
+      - name: Update yaml-language-server
+        if: ${{ github.event_name == 'schedule' || inputs.publishPreRelease == 'true'}}
+        run: npm i yaml-language-server@next
       - name: Build vscode-yaml
         uses: coactions/setup-xvfb@b6b4fcfb9f5a895edadc3bc76318fae0ac17c8b3 #v1.0.1
         with:
           run: |
-            yarn install
-            yarn run build
-            yarn run check-dependencies
+            npm ci
+            npm run build
+            npm run check-dependencies
       - name: Run Unit Tests
         uses: coactions/setup-xvfb@b6b4fcfb9f5a895edadc3bc76318fae0ac17c8b3 #v1.0.1
         with:
-          run: yarn test --silent
+          run: npm test --silent
       - name: Package
         run: |
-          vsce package -o vscode-yaml-${{ env.EXT_VERSION }}-${GITHUB_RUN_NUMBER}.vsix
+          vsce package ${{ env.publishPreReleaseFlag }} -o vscode-yaml-${{ env.EXT_VERSION }}-${GITHUB_RUN_NUMBER}.vsix
           sha256sum *.vsix > vscode-yaml-${{ env.EXT_VERSION }}-${GITHUB_RUN_NUMBER}.vsix.sha256
           ls -lash *.vsix *.sha256
       - name: Upload VSIX Artifacts
@@ -66,18 +108,16 @@ jobs:
           path: vscode-yaml-${{ env.EXT_VERSION }}-${{github.run_number}}*.vsix
           if-no-files-found: error
       - name: Publish to GH Release Tab
-        if: ${{ inputs.publishToMarketPlace == 'true' && inputs.publishToOVSX == 'true' }}
         uses: "marvinpinto/action-automatic-releases@919008cf3f741b179569b7a6fb4d8860689ab7f0"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "${{ env.EXT_VERSION }}"
+          automatic_release_tag: "${{ github.event_name != 'schedule' && inputs.publishPreRelease != 'true' && env.EXT_VERSION || null }}"
           draft: true
           files: |
             vscode-yaml-${{ env.EXT_VERSION }}-${{github.run_number}}*.vsix
             vscode-yaml-${{ env.EXT_VERSION }}-${{github.run_number}}*.sha256
 
   release-job:
-    if: ${{ inputs.publishToMarketPlace == 'true' || inputs.publishToOVSX == 'true' }}
     environment: ${{ (inputs.publishToMarketPlace == 'true' || inputs.publishToOVSX == 'true') && 'release' || 'pre-release' }}
     runs-on: ubuntu-latest
     needs: packaging-job
@@ -88,9 +128,13 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: 20
+    - name: Set version to prerelease version
+      run: |
+        node ./scripts/change-version-to-prerelease.mjs
+      if: ${{ github.event_name == 'schedule' || inputs.publishPreRelease == 'true'}}
     - name: Install dependencies
       run: |
-        npm install -g typescript "yarn" "@vscode/vsce" "ovsx"
+        npm install -g typescript "@vscode/vsce" "ovsx"
         echo "EXT_VERSION=$(cat package.json | jq -r .version)" >> $GITHUB_ENV
     - name: Download VSIX Artifacts
       uses: actions/download-artifact@v4

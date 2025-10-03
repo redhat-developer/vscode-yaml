@@ -115,6 +115,7 @@ export function startClient(
   const virtualDocumentContents = new Map<string, string>();
   const telemetryErrorHandler = new TelemetryErrorHandler(runtime.telemetry, lsName, 4);
   const outputChannel = window.createOutputChannel(lsName);
+  const l10nPath = context.asAbsolutePath('./dist/l10n');
   // Options to control the language client
   const clientOptions: LanguageClientOptions = {
     // Register the server for on disk and newly created YAML documents
@@ -123,6 +124,8 @@ export function startClient(
       { language: 'yaml' },
       { language: 'dockercompose' },
       { language: 'github-actions-workflow' },
+      { language: 'yaml-textmate' },
+      { language: 'yaml-tmlanguage' },
       { pattern: '*.y(a)ml' },
     ],
     synchronize: {
@@ -156,7 +159,10 @@ export function startClient(
         );
 
         return result;
-      },
+      }
+    },
+    initializationOptions: {
+      l10nPath,
     },
   };
 

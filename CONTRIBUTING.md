@@ -48,7 +48,7 @@ All contributions are welcome!
 
 3. Open the `vscode-yaml` folder in VSCode, and then add the `yaml-language-server` project to the workspace using `File -> Add Folder to Workspace...`.
 
-4. Run `yarn install` in both directories to initialize `node_modules` dependencies.
+4. Run `npm run install` in both directories to initialize `node_modules` dependencies.
 
 5. To run the language server in VSCode, click `View -> Debug`, then from the drop down menu beside the green arrow select `Launch Extension (vscode-yaml)`, click the arrow, and a new VSCode window should load with the YAML LS running.
 
