@@ -109,9 +109,10 @@ jobs:
           if-no-files-found: error
       - name: Publish to GH Release Tab
         uses: "marvinpinto/action-automatic-releases@919008cf3f741b179569b7a6fb4d8860689ab7f0"
+        if: ${{ github.event_name != 'schedule' && inputs.publishPreRelease != 'true' }}
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "${{ github.event_name != 'schedule' && inputs.publishPreRelease != 'true' && env.EXT_VERSION || null }}"
+          automatic_release_tag: "${{ env.EXT_VERSION }}"
           draft: true
           files: |
             vscode-yaml-${{ env.EXT_VERSION }}-${{github.run_number}}*.vsix
