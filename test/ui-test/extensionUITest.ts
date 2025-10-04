@@ -26,7 +26,7 @@ export function extensionUIAssetsTest(): void {
       driver = VSBrowser.instance.driver;
       view = await new ActivityBar().getViewControl('Extensions');
       sideBar = await view.openView();
-      driver.wait(
+      await driver.wait(
         async () => !(await sideBar.getContent().hasProgress()),
         5000,
         "Progress bar hasn't been hidden within the timeout"
