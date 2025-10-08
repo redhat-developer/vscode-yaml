@@ -19,7 +19,7 @@ export async function activate(context: ExtensionContext): Promise<SchemaExtensi
 
   let serverModule: string;
   if (startedFromSources()) {
-    serverModule = context.asAbsolutePath('../yaml-language-server/out/server/src/server.js');
+    serverModule = context.asAbsolutePath('../yaml-language-server/lib/cjs/server.js');
   } else {
     // The YAML language server is implemented in node
     serverModule = context.asAbsolutePath('./dist/languageserver.js');
