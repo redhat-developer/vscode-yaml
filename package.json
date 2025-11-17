@@ -43,7 +43,9 @@
     "onLanguage:dockercompose",
     "onLanguage:github-actions-workflow",
     "onLanguage:yaml-textmate",
-    "onLanguage:yaml-tmlanguage"
+    "onLanguage:yaml-tmlanguage",
+    "onLanguage:ansible",
+    "onLanguage:ansible-jinja"
   ],
   "keywords": [
     "kubernetes",

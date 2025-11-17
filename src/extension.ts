@@ -123,6 +123,8 @@ export function startClient(
       { language: 'github-actions-workflow' },
       { language: 'yaml-textmate' },
       { language: 'yaml-tmlanguage' },
+      { language: 'ansible' },
+      { language: 'ansible-jinja' },
       { pattern: '*.y(a)ml' },
     ],
     synchronize: {
