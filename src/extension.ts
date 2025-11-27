@@ -125,7 +125,7 @@ export function startClient(
       { language: 'yaml-tmlanguage' },
       { language: 'ansible' },
       { language: 'ansible-jinja' },
-      { pattern: '*.y(a)ml' },
+      { pattern: '**/*.{yaml,yml}' },
     ],
     synchronize: {
       // Notify the server about file changes to YAML and JSON files contained in the workspace

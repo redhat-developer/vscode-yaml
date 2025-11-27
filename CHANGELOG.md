@@ -1,5 +1,4 @@
-### 1.19.2
-
+### 1.20.0
 - Add: Support `ansible` and `ansible-jinja` languages [#1179](https://github.com/redhat-developer/vscode-yaml/pull/1179)
 
 ### 1.19.1
