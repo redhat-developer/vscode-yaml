@@ -1,5 +1,3 @@
-- Add: Support `ansible` and `ansible-jinja` languages and fix final fallback of yaml glob patten [#1179](https://github.com/redhat-developer/vscode-yaml/pull/1179)
-
 ### 1.19.1
 - Fix: Revert change that modified user settings on each launch [#1157](https://github.com/redhat-developer/vscode-yaml/issues/1157)
 - Fix: QuickFix to replace value with integer/number appears blank and doesn't work [#1116](https://github.com/redhat-developer/yaml-language-server/issues/1116)
