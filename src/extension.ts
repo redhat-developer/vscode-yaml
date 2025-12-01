@@ -123,7 +123,9 @@ export function startClient(
       { language: 'github-actions-workflow' },
       { language: 'yaml-textmate' },
       { language: 'yaml-tmlanguage' },
-      { pattern: '*.y(a)ml' },
+      { language: 'ansible' },
+      { language: 'ansible-jinja' },
+      { pattern: '**/*.{yaml,yml}' },
     ],
     synchronize: {
       // Notify the server about file changes to YAML and JSON files contained in the workspace
