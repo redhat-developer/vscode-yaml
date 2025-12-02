@@ -36,12 +36,9 @@ export function customTagsTest(): void {
 
       await hardDelay(2000);
       const textSettingsEditor = (await editorView.openEditor('settings.json')) as TextEditor;
-      if (process.platform === 'darwin') {
-        await driver.actions().sendKeys('    "customTag1"').perform();
-      } else {
-        const coor = await textSettingsEditor.getCoordinates();
-        await textSettingsEditor.typeTextAt(coor[0], coor[1], '    "customTag1"');
-      }
+
+      const coor = await textSettingsEditor.getCoordinates();
+      await textSettingsEditor.typeTextAt(coor[0], coor[1], '    "customTag1"');
       await textSettingsEditor.save();
       await hardDelay(1_000);
 
