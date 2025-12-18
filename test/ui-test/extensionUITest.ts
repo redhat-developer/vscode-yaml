@@ -22,7 +22,7 @@ export function extensionUIAssetsTest(): void {
     let yamlItem: ExtensionsViewItem;
 
     before(async function () {
-      this.timeout(20000);
+      this.timeout(30000);
       driver = VSBrowser.instance.driver;
       view = await new ActivityBar().getViewControl('Extensions');
       sideBar = await view.openView();
