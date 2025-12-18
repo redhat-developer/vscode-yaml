@@ -33,15 +33,28 @@ export function extensionUIAssetsTest(): void {
       );
       // wait a bit for sections to load
       await new Promise((resolve) => setTimeout(resolve, 3000));
-      section = (await sideBar.getContent().getSection('Installed')) as ExtensionsViewSection;
-      await section.expand();
-      yamlItem = await driver.wait(
+      section = await driver.wait(
         async () => {
-          return await section.findItem(`@installed ${YamlConstants.YAML_NAME}`);
+          try {
+            const content = sideBar.getContent();
+            try {
+              const sec = (await content.getSection('Installed')) as ExtensionsViewSection;
+              return sec;
+            } catch {
+              // ignore and fall back below
+            }
+
+            // pick the first available section
+            const sections = await content.getSections();
+            return (sections?.[0] as ExtensionsViewSection) ?? null;
+          } catch {
+            return null;
+          }
         },
         15000,
-        'There were not visible items available under installed section'
+        'Could not find extensions section'
       );
+      await section.expand();
       yamlItem = await driver.wait(
         async () => {
           return await section.findItem(`@installed ${YamlConstants.YAML_NAME}`);
