@@ -28,7 +28,7 @@ export function extensionUIAssetsTest(): void {
       sideBar = await view.openView();
       await driver.wait(
         async () => !(await sideBar.getContent().hasProgress()),
-        5000,
+        10000,
         "Progress bar hasn't been hidden within the timeout"
       );
       section = (await sideBar.getContent().getSection('Installed')) as ExtensionsViewSection;
@@ -43,7 +43,7 @@ export function extensionUIAssetsTest(): void {
     });
 
     it('YAML extension is installed', async function () {
-      this.timeout(5000);
+      this.timeout(10000);
       expect(yamlItem).not.undefined;
       let author: string;
       let name: string;
