@@ -22,7 +22,7 @@ export function extensionUIAssetsTest(): void {
     let yamlItem: ExtensionsViewItem;
 
     before(async function () {
-      this.timeout(40000);
+      this.timeout(30000);
       driver = VSBrowser.instance.driver;
       view = await new ActivityBar().getViewControl('Extensions');
       sideBar = await view.openView();
@@ -37,16 +37,19 @@ export function extensionUIAssetsTest(): void {
         async () => {
           try {
             const content = sideBar.getContent();
-            try {
-              const sec = (await content.getSection('Installed')) as ExtensionsViewSection;
-              return sec;
-            } catch {
-              // ignore and fall back below
-            }
-
-            // pick the first available section
             const sections = await content.getSections();
-            return (sections?.[0] as ExtensionsViewSection) ?? null;
+            for (const sectionName of ['Installed', 'INSTALLED', 'installed']) {
+              try {
+                const sec = await content.getSection(sectionName);
+                if (sec) return sec as ExtensionsViewSection;
+              } catch {
+                // try next name
+              }
+            }
+            if (sections.length > 0) {
+              return sections[0] as ExtensionsViewSection;
+            }
+            return null;
           } catch {
             return null;
           }
