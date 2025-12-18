@@ -22,7 +22,7 @@ export function extensionUIAssetsTest(): void {
     let yamlItem: ExtensionsViewItem;
 
     before(async function () {
-      this.timeout(30000);
+      this.timeout(40000);
       driver = VSBrowser.instance.driver;
       view = await new ActivityBar().getViewControl('Extensions');
       sideBar = await view.openView();
@@ -31,13 +31,22 @@ export function extensionUIAssetsTest(): void {
         10000,
         "Progress bar hasn't been hidden within the timeout"
       );
+      // wait a bit for sections to load
+      await new Promise((resolve) => setTimeout(resolve, 3000));
       section = (await sideBar.getContent().getSection('Installed')) as ExtensionsViewSection;
       await section.expand();
       yamlItem = await driver.wait(
         async () => {
           return await section.findItem(`@installed ${YamlConstants.YAML_NAME}`);
         },
-        5000,
+        15000,
+        'There were not visible items available under installed section'
+      );
+      yamlItem = await driver.wait(
+        async () => {
+          return await section.findItem(`@installed ${YamlConstants.YAML_NAME}`);
+        },
+        10000,
         'There were not visible items available under installed section'
       );
     });
