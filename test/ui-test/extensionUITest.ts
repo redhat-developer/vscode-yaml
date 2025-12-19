@@ -87,7 +87,8 @@ export function extensionUIAssetsTest(): void {
       expect(author).to.equal('Red Hat');
     });
 
-    after(async () => {
+    after(async function () {
+      this.timeout(5000);
       if (sideBar && (await sideBar.isDisplayed()) && view) {
         await view.closeView();
       }
