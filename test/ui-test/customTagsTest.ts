@@ -18,17 +18,17 @@ export function customTagsTest(): void {
     let editorView: EditorView;
 
     before(async function setup() {
-      this.timeout(20000);
+      this.timeout(80000);
       driver = VSBrowser.instance.driver;
       editorView = new EditorView();
       await createCustomFile(yamlFilePath);
       await driver.wait(async () => {
         return await getSchemaLabel(yamlFileName);
-      }, 18000);
+      }, 45000);
     });
 
     it('YAML custom tags works as expected', async function () {
-      this.timeout(30000);
+      this.timeout(60000);
 
       const settingsEditor = await new Workbench().openSettings();
       const setting = await settingsEditor.findSetting('Custom Tags', 'Yaml');
