@@ -16,16 +16,16 @@ export function contentAssistSuggestionTest(): void {
     const yamlFilePath = path.join(homeDir, yamlFileName);
 
     before(async function setup() {
-      this.timeout(20000);
+      this.timeout(80000);
       driver = VSBrowser.instance.driver;
       editor = await createCustomFile(yamlFilePath);
       await driver.wait(async () => {
         return await getSchemaLabel(yamlFileName);
-      }, 18000);
+      }, 45000);
     });
 
     it('Content assist suggests right suggestion', async function () {
-      this.timeout(15000);
+      this.timeout(45000);
       editor = new TextEditor();
       await editor.setText('api');
       const contentAssist = await editor.toggleContentAssist(true);

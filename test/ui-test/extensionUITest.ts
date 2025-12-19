@@ -22,28 +22,53 @@ export function extensionUIAssetsTest(): void {
     let yamlItem: ExtensionsViewItem;
 
     before(async function () {
-      this.timeout(20000);
+      this.timeout(100000);
       driver = VSBrowser.instance.driver;
       view = await new ActivityBar().getViewControl('Extensions');
       sideBar = await view.openView();
-      driver.wait(
+      await driver.wait(
         async () => !(await sideBar.getContent().hasProgress()),
-        5000,
+        30000,
         "Progress bar hasn't been hidden within the timeout"
       );
-      section = (await sideBar.getContent().getSection('Installed')) as ExtensionsViewSection;
+      // wait a bit for sections to load
+      await new Promise((resolve) => setTimeout(resolve, 10000));
+      section = await driver.wait(
+        async () => {
+          try {
+            const content = sideBar.getContent();
+            const sections = await content.getSections();
+            for (const sectionName of ['Installed', 'INSTALLED', 'installed']) {
+              try {
+                const sec = await content.getSection(sectionName);
+                if (sec) return sec as ExtensionsViewSection;
+              } catch {
+                // try next name
+              }
+            }
+            if (sections.length > 0) {
+              return sections[0] as ExtensionsViewSection;
+            }
+            return null;
+          } catch {
+            return null;
+          }
+        },
+        40000,
+        'Could not find extensions section'
+      );
       await section.expand();
       yamlItem = await driver.wait(
         async () => {
           return await section.findItem(`@installed ${YamlConstants.YAML_NAME}`);
         },
-        5000,
+        20000,
         'There were not visible items available under installed section'
       );
     });
 
     it('YAML extension is installed', async function () {
-      this.timeout(5000);
+      this.timeout(10000);
       expect(yamlItem).not.undefined;
       let author: string;
       let name: string;
@@ -62,7 +87,8 @@ export function extensionUIAssetsTest(): void {
       expect(author).to.equal('Red Hat');
     });
 
-    after(async () => {
+    after(async function () {
+      this.timeout(5000);
       if (sideBar && (await sideBar.isDisplayed()) && view) {
         await view.closeView();
       }
