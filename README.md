@@ -48,7 +48,7 @@ The following settings are supported:
 * `yaml.hover`: Enable/disable hover
 * `yaml.completion`: Enable/disable autocompletion
 * `yaml.schemas`: Helps you associate schemas with files in a glob pattern
-* `yaml.schemaStore.enable`: When set to true, the YAML language server will pull in all available schemas from [JSON Schema Store](http://schemastore.org/json/)
+* `yaml.schemaStore.enable`: When set to true, the YAML language server will pull in all available schemas from [JSON Schema Store](http://schemastore.org/)
 * `yaml.schemaStore.url`: URL of a schema store catalog to use when downloading schemas.
 * `yaml.customTags`: Array of custom tags that the parser will validate against. It has two ways to be used. Either an item in the array is a custom tag such as "!Ref" and it will automatically map !Ref to a scalar, or you can specify the type of the object !Ref should be, e.g. "!Ref sequence". The type of object can be either scalar (for strings and booleans), sequence (for arrays), mapping (for objects).
 * `yaml.maxItemsComputed`: The maximum number of outline symbols and folding regions computed (limited for performance reasons).
@@ -98,7 +98,7 @@ some_mapping: !Mapping-example
 
 YAML Language support uses [JSON Schemas](https://json-schema.org/) to understand the shape of a YAML file, including its value sets, defaults and descriptions. The schema support is shipped with JSON Schema Draft 7.
 
-We support schemas provided through [JSON Schema Store](http://schemastore.org/json/). However, schemas can also be defined in a workspace.
+We support schemas provided through [JSON Schema Store](http://schemastore.org/). However, schemas can also be defined in a workspace.
 
 The association of a YAML file to a schema can be done either in the YAML file itself using a modeline or in the User or Workspace [settings](https://code.visualstudio.com/docs/getstarted/settings) under the property `yaml.schemas`.
 
@@ -126,7 +126,7 @@ e.g.
 
 ```json
 yaml.schemas: {
-    "https://json.schemastore.org/composer": "/*"
+    "https://getcomposer.org/schema.json": "/*"
 }
 ```
 
@@ -142,7 +142,7 @@ e.g.
 
 ```json
 yaml.schemas: {
-    "https://json.schemastore.org/composer": "/*",
+    "https://getcomposer.org/schema.json": "/*",
     "kubernetes": "/myYamlFile.yaml"
 }
 ```
@@ -182,7 +182,7 @@ e.g.
 
 ```json
 "yaml.schemas": {
-    "http://json.schemastore.org/composer": ["/*"],
+    "https://getcomposer.org/schema.json": ["/*"],
     "file:///home/johnd/some-schema.json": ["some.yaml"],
     "../relative/path/schema.json": ["/config*.yaml"],
     "/Users/johnd/some-schema.json": ["some.yaml"],
@@ -200,7 +200,7 @@ e.g.
 e.g.
 ```json
 "yaml.schemas": {
-    "http://json.schemastore.org/composer": ["/*"],
+    "https://getcomposer.org/schema.json": ["/*"],
     "kubernetes": ["/myYamlFile.yaml"]
 }
 ```
