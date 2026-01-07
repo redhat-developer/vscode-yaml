@@ -181,6 +181,11 @@
           "default": true,
           "description": "Enable/disable hover feature"
         },
+        "yaml.hoverAnchor": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable/disable hover feature for anchors"
+        },
         "yaml.completion": {
           "type": "boolean",
           "default": true,

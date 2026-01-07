@@ -46,6 +46,7 @@ The following settings are supported:
 * `yaml.format.trailingComma`: Specify if trailing commas should be used in JSON-like segments of the YAML
 * `yaml.validate`: Enable/disable validation feature
 * `yaml.hover`: Enable/disable hover
+* `yaml.hoverAnchor`: Enable/disable hover feature for anchors
 * `yaml.completion`: Enable/disable autocompletion
 * `yaml.schemas`: Helps you associate schemas with files in a glob pattern
 * `yaml.schemaStore.enable`: When set to true, the YAML language server will pull in all available schemas from [JSON Schema Store](http://schemastore.org/json/)
