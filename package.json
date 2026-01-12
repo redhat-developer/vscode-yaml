@@ -126,6 +126,16 @@
           },
           "markdownDescription": "Associate schemas to YAML files in the current workspace. The expected value of this configuration option is a string to string map:\n- **Key**: The path or URL of the schema to use\n- **Value**: A glob pattern specifying which files the schema should be used on"
         },
+        "yaml.kubernetesCRDStore.enable": {
+          "type": "boolean",
+          "description": "Enable/disable attempting to validate custom Kuberbetes resources against schemas of well-known custom resource definitions (CRDs)",
+          "default": true
+        },
+        "yaml.kubernetesCRDStore.url": {
+          "type": "string",
+          "description": "The URL to use as the list of well-known custom resource definition (CRD) schemas",
+          "default": "https://raw.githubusercontent.com/datreeio/CRDs-catalog/main"
+        },
         "yaml.format.enable": {
           "type": "boolean",
           "default": true,
