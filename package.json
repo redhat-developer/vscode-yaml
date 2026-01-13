@@ -128,7 +128,7 @@
         },
         "yaml.kubernetesCRDStore.enable": {
           "type": "boolean",
-          "description": "Enable/disable attempting to validate custom Kuberbetes resources against schemas of well-known custom resource definitions (CRDs)",
+          "description": "Enable/disable validation of Kubernetes custom resources using schemas from well-known Custom Resource Definitions (CRDs)",
           "default": true
         },
         "yaml.kubernetesCRDStore.url": {
