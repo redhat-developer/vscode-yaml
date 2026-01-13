@@ -133,7 +133,7 @@
         },
         "yaml.kubernetesCRDStore.url": {
           "type": "string",
-          "description": "The URL to use as the list of well-known custom resource definition (CRD) schemas",
+          "description": "The base URL for fetching well-known Custom Resource Definition (CRD) schemas,
           "default": "https://raw.githubusercontent.com/datreeio/CRDs-catalog/main"
         },
         "yaml.format.enable": {
