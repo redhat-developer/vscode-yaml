@@ -3,6 +3,7 @@
   "displayName": "YAML",
   "description": "YAML Language Support by Red Hat, with built-in Kubernetes syntax support",
   "author": "Red Hat",
+  "l10n": "./dist/l10n",
   "contributors": [
     {
       "name": "Joshua Pinkney",

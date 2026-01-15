@@ -4,7 +4,7 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-import { ExtensionContext } from 'vscode';
+import { ExtensionContext, l10n } from 'vscode';
 import { LanguageClientOptions } from 'vscode-languageclient';
 import { startClient, LanguageClientConstructor, RuntimeEnvironment } from '../extension';
 import { LanguageClient } from 'vscode-languageclient/browser';
@@ -19,6 +19,7 @@ export async function activate(context: ExtensionContext): Promise<SchemaExtensi
   });
   try {
     const worker = new Worker(serverMain.toString());
+    worker.postMessage({ l10nBundle: l10n.bundle });
     const newLanguageClient: LanguageClientConstructor = (id: string, name: string, clientOptions: LanguageClientOptions) => {
       return new LanguageClient(id, name, clientOptions, worker);
     };
