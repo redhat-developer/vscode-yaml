@@ -19,7 +19,6 @@ import { joinPath } from './paths';
 import { getJsonSchemaContent, IJSONSchemaCache, JSONSchemaDocumentContentProvider } from './json-schema-content-provider';
 import { getConflictingExtensions, showUninstallConflictsNotification } from './extensionConflicts';
 import { TelemetryErrorHandler, TelemetryOutputChannel } from './telemetry';
-import { TextDecoder } from 'util';
 import { createJSONSchemaStatusBarItem } from './schema-status-bar-item';
 import { initializeRecommendation } from './recommendation';
 
@@ -190,8 +189,15 @@ export function startClient(
       client.onRequest(VSCodeContentRequest.type, (uri: string) => {
         return getJsonSchemaContent(uri, runtime.schemaCache);
       });
-      client.onRequest(FSReadFile.type, (fsPath: string) => {
-        return workspace.fs.readFile(Uri.file(fsPath)).then((uint8array) => new TextDecoder().decode(uint8array));
+      client.onRequest(FSReadFile.type, async (fsPath: string) => {
+        try {
+          const uint8array = await workspace.fs.readFile(Uri.file(fsPath));
+          return new TextDecoder().decode(uint8array);
+        } catch {
+          const workspaceFolderBasedPath = workspace.workspaceFolders[0].uri.with({ path: fsPath });
+          const uint8array = await workspace.fs.readFile(workspaceFolderBasedPath);
+          return new TextDecoder().decode(uint8array);
+        }
       });
 
       sendStartupTelemetryEvent(runtime.telemetry, true);
