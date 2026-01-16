@@ -1,0 +1,3 @@
+# yaml-language-server: $schema=./dressSize.json
+dress:
+  size: -2

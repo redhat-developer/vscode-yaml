@@ -9,5 +9,5 @@
     "target": "es2022"
   },
   "exclude": ["node_modules", "server", "src/webworker"],
-  "include": ["src", "test"]
+  "include": ["src", "test", "smoke-test"]
 }
