@@ -42,7 +42,9 @@
         "--extensionDevelopmentPath=${workspaceFolder}",
         "--extensionDevelopmentKind=web"
       ],
+      "sourceMaps": true,
       "env": {
+        "DEBUG_VSCODE_YAML": "true",
         "VSCODE_REDHAT_TELEMETRY_DEBUG":"true"
       },
       "outFiles": ["${workspaceRoot}/dist/**/*.js"],
