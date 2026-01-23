@@ -17,23 +17,6 @@
       }
     },
     {
-      "name": "Extension Tests",
-      "type": "extensionHost",
-      "request": "launch",
-      "runtimeExecutable": "${execPath}",
-      "preLaunchTask": "compile test",
-      "args": [
-        "--disable-extension=ms-kubernetes-tools.vscode-kubernetes-tools",
-        "--extensionDevelopmentPath=${workspaceFolder}",
-        "--extensionTestsPath=${workspaceFolder}/out/test",
-        "${workspaceRoot}/test/testFixture"
-      ],
-      "outFiles": ["${workspaceFolder}/out/test/**/*.js"],
-      "env": {
-        "DEBUG_VSCODE_YAML":"true"
-      }
-    },
-    {
       "name": "Launch Web Extension",
       "type": "extensionHost",
       "debugWebWorkerHost": true,

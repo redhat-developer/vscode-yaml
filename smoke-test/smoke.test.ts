@@ -2,7 +2,7 @@ import { assert } from 'chai';
 import * as vscode from 'vscode';
 import { URI } from 'vscode-uri';
 
-suite('Smoke test suite', function () {
+describe('Smoke test suite', function () {
   this.timeout(10_000);
 
   // diagnostics take some time to appear; the language server must be started and respond to file open event
@@ -16,7 +16,7 @@ suite('Smoke test suite', function () {
   let throughSettingsUri: URI;
   let unformattedUri: URI;
 
-  this.beforeAll(async function () {
+  before(async function () {
     if (vscode.workspace.workspaceFolders === undefined) {
       assert.fail('No workspace folder');
     }
@@ -32,7 +32,7 @@ suite('Smoke test suite', function () {
     });
   });
 
-  test('instance has right diagnostics', async function () {
+  it('has right diagnostics when schema is referenced through a comment', async function () {
     const textDocument = await vscode.workspace.openTextDocument(schemaInstanceUri);
     await vscode.window.showTextDocument(textDocument);
     await new Promise((resolve) => setTimeout(resolve, DIAGNOSTICS_DELAY));
@@ -42,7 +42,7 @@ suite('Smoke test suite', function () {
     assert.strictEqual(diagnostics[0].message, 'Value is below the minimum of 0.');
   });
 
-  test('has right diagnostics when schema is referenced through settings', async function () {
+  it('has right diagnostics when schema is referenced through settings', async function () {
     const textDocument = await vscode.workspace.openTextDocument(throughSettingsUri);
     await vscode.window.showTextDocument(textDocument);
     await new Promise((resolve) => setTimeout(resolve, DIAGNOSTICS_DELAY));
@@ -52,7 +52,7 @@ suite('Smoke test suite', function () {
     assert.strictEqual(diagnostics[0].message, 'Value is below the minimum of 0.');
   });
 
-  test('has right formatting', async function () {
+  it('has right formatting', async function () {
     const textDocument = await vscode.workspace.openTextDocument(unformattedUri);
     await vscode.window.showTextDocument(textDocument);
 
