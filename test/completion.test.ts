@@ -16,6 +16,10 @@ describe('Completion should work in multiple different scenarios', () => {
     await resetSettings('schemaStore.enable', true);
   });
 
+  after(async () => {
+    vscode.window.tabGroups.close(vscode.window.tabGroups.activeTabGroup);
+  });
+
   it('completion works with local schema', async () => {
     await activate(docUri);
     const schemaPath = path.join(__dirname, '..', '..', 'test', 'testFixture', 'schemas', 'basic_completion_schema.json');
