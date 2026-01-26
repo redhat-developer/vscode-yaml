@@ -39,7 +39,7 @@ describe('Status bar should work in multiple different scenarios', () => {
     const context: vscode.ExtensionContext = {
       subscriptions: [],
     } as vscode.ExtensionContext;
-    const statusBar = ({ show: sandbox.stub() } as unknown) as vscode.StatusBarItem;
+    const statusBar = ({ show: sandbox.stub(), hide: sandbox.stub() } as unknown) as vscode.StatusBarItem;
     createStatusBarItemStub.returns(statusBar);
     clcStub.sendRequest.resolves([]);
 
@@ -54,7 +54,7 @@ describe('Status bar should work in multiple different scenarios', () => {
     const context: vscode.ExtensionContext = {
       subscriptions: [],
     } as vscode.ExtensionContext;
-    const statusBar = ({ show: sandbox.stub() } as unknown) as vscode.StatusBarItem;
+    const statusBar = ({ show: sandbox.stub(), hide: sandbox.stub() } as unknown) as vscode.StatusBarItem;
     createStatusBarItemStub.returns(statusBar);
     onDidChangeActiveTextEditorStub.returns({});
     clcStub.sendRequest.resolves([{ uri: 'https://foo.com/bar.json', name: 'bar schema' }]);
@@ -66,14 +66,14 @@ describe('Status bar should work in multiple different scenarios', () => {
     expect(statusBar.text).to.equal('bar schema');
     expect(statusBar.tooltip).to.equal('Select JSON Schema');
     expect(statusBar.backgroundColor).to.be.undefined;
-    expect(statusBar.show).calledTwice;
+    expect(statusBar.show).calledOnce;
   });
 
   it('Should inform if there are no schema', async () => {
     const context: vscode.ExtensionContext = {
       subscriptions: [],
     } as vscode.ExtensionContext;
-    const statusBar = ({ show: sandbox.stub() } as unknown) as vscode.StatusBarItem;
+    const statusBar = ({ show: sandbox.stub(), hide: sandbox.stub() } as unknown) as vscode.StatusBarItem;
     createStatusBarItemStub.returns(statusBar);
     onDidChangeActiveTextEditorStub.returns({});
     clcStub.sendRequest.resolves([]);
@@ -85,14 +85,14 @@ describe('Status bar should work in multiple different scenarios', () => {
     expect(statusBar.text).to.equal('No JSON Schema');
     expect(statusBar.tooltip).to.equal('Select JSON Schema');
     expect(statusBar.backgroundColor).to.be.undefined;
-    expect(statusBar.show).calledTwice;
+    expect(statusBar.show).calledOnce;
   });
 
   it('Should inform if there are more than one schema', async () => {
     const context: vscode.ExtensionContext = {
       subscriptions: [],
     } as vscode.ExtensionContext;
-    const statusBar = ({ show: sandbox.stub() } as unknown) as vscode.StatusBarItem;
+    const statusBar = ({ show: sandbox.stub(), hide: sandbox.stub() } as unknown) as vscode.StatusBarItem;
     createStatusBarItemStub.returns(statusBar);
     onDidChangeActiveTextEditorStub.returns({});
     clcStub.sendRequest.resolves([{}, {}]);
@@ -104,14 +104,14 @@ describe('Status bar should work in multiple different scenarios', () => {
     expect(statusBar.text).to.equal('Multiple JSON Schemas...');
     expect(statusBar.tooltip).to.equal('Multiple JSON Schema used to validate this file, click to select one');
     expect(statusBar.backgroundColor).to.eql({ id: 'statusBarItem.warningBackground' });
-    expect(statusBar.show).calledTwice;
+    expect(statusBar.show).calledOnce;
   });
 
   it('Should show JSON Schema Store schema version', async () => {
     const context: vscode.ExtensionContext = {
       subscriptions: [],
     } as vscode.ExtensionContext;
-    const statusBar = ({ show: sandbox.stub() } as unknown) as vscode.StatusBarItem;
+    const statusBar = ({ show: sandbox.stub(), hide: sandbox.stub() } as unknown) as vscode.StatusBarItem;
     createStatusBarItemStub.returns(statusBar);
     onDidChangeActiveTextEditorStub.returns({ document: { uri: vscode.Uri.parse('/foo.yaml') } });
     clcStub.sendRequest
@@ -128,14 +128,14 @@ describe('Status bar should work in multiple different scenarios', () => {
     expect(statusBar.text).to.equal('bar schema(1.0.0)');
     expect(statusBar.tooltip).to.equal('Select JSON Schema');
     expect(statusBar.backgroundColor).to.be.undefined;
-    expect(statusBar.show).calledTwice;
+    expect(statusBar.show).calledOnce;
   });
 
   it('Should show JSON Schema Store schema version, dont include version', async () => {
     const context: vscode.ExtensionContext = {
       subscriptions: [],
     } as vscode.ExtensionContext;
-    const statusBar = ({ show: sandbox.stub() } as unknown) as vscode.StatusBarItem;
+    const statusBar = ({ show: sandbox.stub(), hide: sandbox.stub() } as unknown) as vscode.StatusBarItem;
     createStatusBarItemStub.returns(statusBar);
     onDidChangeActiveTextEditorStub.returns({ document: { uri: vscode.Uri.parse('/foo.yaml') } });
     clcStub.sendRequest
@@ -152,6 +152,6 @@ describe('Status bar should work in multiple different scenarios', () => {
     expect(statusBar.text).to.equal('bar schema(1.0.0)');
     expect(statusBar.tooltip).to.equal('Select JSON Schema');
     expect(statusBar.backgroundColor).to.be.undefined;
-    expect(statusBar.show).calledTwice;
+    expect(statusBar.show).calledOnce;
   });
 });
