@@ -15,6 +15,11 @@ describe('Tests for schema provider feature', () => {
   const hoverUri = getDocUri('hover/basic.yaml');
   const schemaProviderUri = getDocUri('completion/schemaProvider.yaml');
 
+  after(async function () {
+    const client = await activate(undefined);
+    client._customSchemaContributors = {};
+  });
+
   it('completion, hover, and validation work with registered contributor schema', async () => {
     const client = await activate(docUri);
     client._customSchemaContributors = {};

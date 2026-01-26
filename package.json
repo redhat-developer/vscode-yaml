@@ -278,16 +278,16 @@
     "compile": "webpack --mode none",
     "format": "prettier --write .",
     "lint": "eslint -c .eslintrc.js --ext .ts src test",
-    "test": "npm run test-compile && sh scripts/e2e.sh",
+    "test": "npm run test-compile && npx vscode-test",
     "ui-test": "npm run test-compile && extest setup-and-run out/test/ui-test/allTestsSuite.js -c 1.76.2",
     "vscode:prepublish": "webpack --mode production && npm run copy-l10n",
     "copy-l10n": "cp -r node_modules/yaml-language-server/l10n dist/l10n",
     "watch": "webpack --mode development --watch --info-verbosity verbose",
     "test-compile": "npm run clean && tsc -p ./ && webpack --mode development && npm run copy-l10n",
-    "smoke-test": "npm run test-compile && vscode-test smoke-test/*",
+    "smoke-test": "npm run test-compile && vscode-test --config .vscode-test.smoketest.mjs",
     "compile-smoke-test-web": "webpack --config smoke-test/webpack.config",
     "smoke-test-web": "npm run compile-smoke-test-web && vscode-test-web --extensionDevelopmentPath=. --extensionTestsPath=./out/smoke-test/smoke-test-runner.js ./smoke-test",
-    "run-in-chromium": "npm run compile && vscode-test-web --browserType=chromium --extensionDevelopmentPath=. ."
+    "run-in-chromium": "npm run compile && vscode-test-web --browserType=chromium --extensionDevelopmentPath=. smoke-test"
   },
   "devDependencies": {
     "@types/chai": "^4.2.12",
