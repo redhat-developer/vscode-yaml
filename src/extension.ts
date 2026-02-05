@@ -6,7 +6,7 @@
  *--------------------------------------------------------------------------------------------*/
 'use strict';
 
-import { workspace, ExtensionContext, extensions, window, commands, Uri, l10n } from 'vscode';
+import { workspace, ExtensionContext, extensions, window, commands, Uri } from 'vscode';
 import {
   CommonLanguageClient,
   LanguageClientOptions,
@@ -66,6 +66,8 @@ namespace FSReadFile {
   // eslint-disable-next-line @typescript-eslint/ban-types
   export const type: RequestType<string, string, {}> = new RequestType('fs/readFile');
 }
+
+export const FSReadUriType: RequestType<string, string, unknown> = new RequestType('fs/readUri');
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 namespace DynamicCustomSchemaRequestRegistration {
@@ -197,6 +199,16 @@ export function startClient(
           const workspaceFolderBasedPath = workspace.workspaceFolders[0].uri.with({ path: fsPath });
           const uint8array = await workspace.fs.readFile(workspaceFolderBasedPath);
           return new TextDecoder().decode(uint8array);
+        }
+      });
+      client.onRequest(FSReadUriType, async (uri: string) => {
+        try {
+          const parsedUri = Uri.parse(uri);
+          window.showInformationMessage(`uri: ${parsedUri.toString()}`);
+          const uint8array = await workspace.fs.readFile(parsedUri);
+          return new TextDecoder().decode(uint8array);
+        } catch (e) {
+          window.showErrorMessage(`Error while retrieving content of '${uri}': ${e}`);
         }
       });
 
