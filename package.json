@@ -287,7 +287,7 @@
     "smoke-test": "npm run test-compile && vscode-test smoke-test/*",
     "compile-smoke-test-web": "webpack --config smoke-test/webpack.config",
     "smoke-test-web": "npm run compile-smoke-test-web && vscode-test-web --extensionDevelopmentPath=. --extensionTestsPath=./out/smoke-test/smoke-test-runner.js ./smoke-test",
-    "run-in-chromium": "npm run compile && vscode-test-web --browserType=chromium --extensionDevelopmentPath=. ."
+    "run-in-chromium": "npm run compile && vscode-test-web --browserType=chromium --extensionDevelopmentPath=. smoke-test"
   },
   "devDependencies": {
     "@types/chai": "^4.2.12",
