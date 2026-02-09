@@ -204,7 +204,6 @@ export function startClient(
       client.onRequest(FSReadUriType, async (uri: string) => {
         try {
           const parsedUri = Uri.parse(uri);
-          window.showInformationMessage(`uri: ${parsedUri.toString()}`);
           const uint8array = await workspace.fs.readFile(parsedUri);
           return new TextDecoder().decode(uint8array);
         } catch (e) {
