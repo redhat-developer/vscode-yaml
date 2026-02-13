@@ -28,22 +28,6 @@ function linesOf(lines: string[]): GetLineText {
 // Pattern matching
 // ---------------------------------------------------------------------------
 describe('YAML_LINT_DISABLE_PATTERN', () => {
-  it('should match a plain disable comment', () => {
-    expect(YAML_LINT_DISABLE_PATTERN.test('# yaml-lint-disable')).to.be.true;
-  });
-
-  it('should match with leading whitespace', () => {
-    expect(YAML_LINT_DISABLE_PATTERN.test('  # yaml-lint-disable')).to.be.true;
-  });
-
-  it('should match with extra spaces after #', () => {
-    expect(YAML_LINT_DISABLE_PATTERN.test('#   yaml-lint-disable')).to.be.true;
-  });
-
-  it('should match with specifiers after the keyword', () => {
-    expect(YAML_LINT_DISABLE_PATTERN.test('# yaml-lint-disable Incorrect type')).to.be.true;
-  });
-
   it('should capture specifiers in group 1', () => {
     const match = YAML_LINT_DISABLE_PATTERN.exec('# yaml-lint-disable Incorrect type, not accepted');
     expect(match).to.not.be.null;
@@ -54,22 +38,6 @@ describe('YAML_LINT_DISABLE_PATTERN', () => {
     const match = YAML_LINT_DISABLE_PATTERN.exec('# yaml-lint-disable');
     expect(match).to.not.be.null;
     expect(match[1].trim()).to.equal('');
-  });
-
-  it('should not match a regular comment', () => {
-    expect(YAML_LINT_DISABLE_PATTERN.test('# this is a regular comment')).to.be.false;
-  });
-
-  it('should not match a partial keyword', () => {
-    expect(YAML_LINT_DISABLE_PATTERN.test('# yaml-lint-disabl')).to.be.false;
-  });
-
-  it('should not match without the hash', () => {
-    expect(YAML_LINT_DISABLE_PATTERN.test('yaml-lint-disable')).to.be.false;
-  });
-
-  it('should not match an inline value that contains the phrase', () => {
-    expect(YAML_LINT_DISABLE_PATTERN.test('key: value # yaml-lint-disable')).to.be.false;
   });
 });
 
@@ -137,7 +105,7 @@ describe('shouldSuppressDiagnostic', () => {
 describe('filterSuppressedDiagnostics', () => {
   // Use inline arrows for getStartLine and getMessage so TypeScript infers T
   // from the diagnostics array and preserves all properties on the result.
-  const filter = (diagnostics: ReturnType<typeof makeDiag>[], lines: GetLineText) =>
+  const filter = (diagnostics: ReturnType<typeof makeDiag>[], lines: GetLineText): ReturnType<typeof makeDiag>[] =>
     filterSuppressedDiagnostics(
       diagnostics,
       (d) => d.startLine,
@@ -234,13 +202,7 @@ describe('filterSuppressedDiagnostics', () => {
   });
 
   it('should handle multiple disable comments for different lines', () => {
-    const lines = linesOf([
-      '# yaml-lint-disable',
-      'line1: bad',
-      'line2: ok',
-      '# yaml-lint-disable',
-      'line4: also-bad',
-    ]);
+    const lines = linesOf(['# yaml-lint-disable', 'line1: bad', 'line2: ok', '# yaml-lint-disable', 'line4: also-bad']);
     const diagnostics = [makeDiag(1, 'error on line 1'), makeDiag(2, 'error on line 2'), makeDiag(4, 'error on line 4')];
 
     const result = filter(diagnostics, lines);

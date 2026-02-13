@@ -8,9 +8,10 @@
  * Pattern that matches a `# yaml-lint-disable` comment.
  *
  * Usage in YAML files:
- *   # yaml-lint-disable                          ← suppress ALL diagnostics on the next line
- *   # yaml-lint-disable Incorrect type            ← suppress diagnostics whose message contains "Incorrect type"
- *   # yaml-lint-disable Incorrect type, not accepted  ← suppress diagnostics matching any of the substrings
+ *
+ *   - `# yaml-lint-disable` - suppress ALL diagnostics on the next line
+ *   - `# yaml-lint-disable Incorrect type` - suppress diagnostics whose message contains "Incorrect type"
+ *   - `# yaml-lint-disable Incorrect type, not accepted` - suppress diagnostics matching any of the substrings
  *
  * Capture group 1 (optional) contains the comma-separated list of message
  * substrings to match against. If absent, all diagnostics are suppressed.
