@@ -122,10 +122,20 @@
           "type": "object",
           "default": {},
           "additionalProperties": {
-            "type": "string",
-            "markdownDescription": "- **Key**: The path or URL of the schema to use\n- **Value**: A glob pattern specifying which files the schema should be used on"
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ],
+            "markdownDescription": "- **Key**: The path or URL of the schema to use\n- **Value**: A glob pattern or list of glob patterns specifying which files the schema should be used on"
           },
-          "markdownDescription": "Associate schemas to YAML files in the current workspace. The expected value of this configuration option is a string to string map:\n- **Key**: The path or URL of the schema to use\n- **Value**: A glob pattern specifying which files the schema should be used on"
+          "markdownDescription": "Associate schemas to YAML files in the current workspace. The expected value of this configuration option is a string to string map:\n- **Key**: The path or URL of the schema to use\n- **Value**: A glob pattern or list of glob patterns specifying which files the schema should be used on"
         },
         "yaml.kubernetesCRDStore.enable": {
           "type": "boolean",
