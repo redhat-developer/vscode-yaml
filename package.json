@@ -44,15 +44,11 @@
     "onLanguage:yaml-textmate",
     "onLanguage:yaml-tmlanguage",
     "onLanguage:ansible",
-    "onLanguage:ansible-jinja",
     "onLanguage:azure-pipelines",
     "onLanguage:dockercompose",
     "onLanguage:github-actions-workflow",
     "onLanguage:home-assistant",
-    "onLanguage:home-assistant-jinja",
-    "onLanguage:jekyll",
     "onLanguage:manifest-yaml",
-    "onLanguage:sls",
     "onLanguage:spring-boot-properties-yaml"
   ],
   "keywords": [
