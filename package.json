@@ -41,12 +41,15 @@
   },
   "activationEvents": [
     "onLanguage:yaml",
-    "onLanguage:dockercompose",
-    "onLanguage:github-actions-workflow",
     "onLanguage:yaml-textmate",
     "onLanguage:yaml-tmlanguage",
     "onLanguage:ansible",
-    "onLanguage:ansible-jinja"
+    "onLanguage:azure-pipelines",
+    "onLanguage:dockercompose",
+    "onLanguage:github-actions-workflow",
+    "onLanguage:home-assistant",
+    "onLanguage:manifest-yaml",
+    "onLanguage:spring-boot-properties-yaml"
   ],
   "keywords": [
     "kubernetes",
