@@ -153,7 +153,8 @@
         "yaml.format.enable": {
           "type": "boolean",
           "default": true,
-          "description": "Enable/disable default YAML formatter"
+          "description": "Enable/disable default YAML formatter",
+          "scope": "language-overridable"
         },
         "yaml.format.singleQuote": {
           "type": "boolean",
@@ -188,7 +189,8 @@
         "yaml.validate": {
           "type": "boolean",
           "default": true,
-          "description": "Enable/disable validation feature"
+          "description": "Enable/disable validation feature",
+          "scope": "language-overridable"
         },
         "yaml.hover": {
           "type": "boolean",
