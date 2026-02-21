@@ -69,6 +69,33 @@ The following settings are supported:
 - `yaml.keyOrdering` : Enforces alphabetical ordering of keys in mappings when set to `true`. Default is `false`
 - `yaml.extension.recommendations` : Enable extension recommendations for YAML files. Default is `true`
 
+## Suppressing diagnostics
+
+You can suppress specific validation warnings on a per-line basis by adding a `# yaml-lint-disable` comment on the line immediately before the one producing the diagnostic.
+
+### Suppress all diagnostics on a line
+
+```yaml
+# yaml-lint-disable
+version: 123
+```
+
+### Suppress only specific diagnostics
+
+Provide one or more message substrings (comma-separated, case-insensitive). Only diagnostics whose message contains a matching substring will be suppressed; the rest are kept.
+
+```yaml
+# yaml-lint-disable Incorrect type
+version: 123
+```
+
+```yaml
+# yaml-lint-disable Incorrect type, not accepted
+version: 123
+```
+
+The substrings are matched against the diagnostic messages shown in the VS Code **Problems** panel.
+
 ## Adding custom tags
 
 To use the custom tags in your YAML file, you need to first specify the custom tags in the setting of your code editor. For example, you can have the following custom tags:
