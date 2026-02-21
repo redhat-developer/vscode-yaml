@@ -21,7 +21,6 @@ import { getConflictingExtensions, showUninstallConflictsNotification } from './
 import { TelemetryErrorHandler, TelemetryOutputChannel } from './telemetry';
 import { createJSONSchemaStatusBarItem } from './schema-status-bar-item';
 import { initializeRecommendation } from './recommendation';
-import { filterSuppressedDiagnostics } from './diagnostic-filter';
 
 export interface ISchemaAssociations {
   [pattern: string]: string[];
@@ -140,27 +139,6 @@ export function startClient(
     outputChannel: new TelemetryOutputChannel(outputChannel, runtime.telemetry),
     initializationOptions: {
       l10nPath,
-    },
-    middleware: {
-      handleDiagnostics(uri, diagnostics, next) {
-        const doc = workspace.textDocuments.find((d) => d.uri.toString() === uri.toString());
-        const getLineText = (line: number): string | undefined => {
-          try {
-            return doc?.lineAt(line).text;
-          } catch {
-            return undefined;
-          }
-        };
-        next(
-          uri,
-          filterSuppressedDiagnostics(
-            diagnostics,
-            (d) => d.range.start.line,
-            (d) => d.message,
-            getLineText
-          )
-        );
-      },
     },
   };
 
