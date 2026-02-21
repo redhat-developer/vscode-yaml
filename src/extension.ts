@@ -121,13 +121,15 @@ export function startClient(
     // Register the server for on disk and newly created YAML documents
     documentSelector: [
       { language: 'yaml' },
-      { language: 'dockercompose' },
-      { language: 'github-actions-workflow' },
       { language: 'yaml-textmate' },
       { language: 'yaml-tmlanguage' },
       { language: 'ansible' },
-      { language: 'ansible-jinja' },
-      { pattern: '**/*.{yaml,yml}' },
+      { language: 'azure-pipelines' },
+      { language: 'dockercompose' },
+      { language: 'github-actions-workflow' },
+      { language: 'home-assistant' },
+      { language: 'manifest-yaml' },
+      { language: 'spring-boot-properties-yaml' },
     ],
     synchronize: {
       // Notify the server about file changes to YAML and JSON files contained in the workspace

@@ -15,7 +15,7 @@
     }
   ],
   "license": "MIT",
-  "version": "1.20.0",
+  "version": "1.20.1",
   "publisher": "redhat",
   "bugs": "https://github.com/redhat-developer/vscode-yaml/issues",
   "repository": {
@@ -41,12 +41,15 @@
   },
   "activationEvents": [
     "onLanguage:yaml",
-    "onLanguage:dockercompose",
-    "onLanguage:github-actions-workflow",
     "onLanguage:yaml-textmate",
     "onLanguage:yaml-tmlanguage",
     "onLanguage:ansible",
-    "onLanguage:ansible-jinja"
+    "onLanguage:azure-pipelines",
+    "onLanguage:dockercompose",
+    "onLanguage:github-actions-workflow",
+    "onLanguage:home-assistant",
+    "onLanguage:manifest-yaml",
+    "onLanguage:spring-boot-properties-yaml"
   ],
   "keywords": [
     "kubernetes",
@@ -122,10 +125,20 @@
           "type": "object",
           "default": {},
           "additionalProperties": {
-            "type": "string",
-            "markdownDescription": "- **Key**: The path or URL of the schema to use\n- **Value**: A glob pattern specifying which files the schema should be used on"
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ],
+            "markdownDescription": "- **Key**: The path or URL of the schema to use\n- **Value**: A glob pattern or list of glob patterns specifying which files the schema should be used on"
           },
-          "markdownDescription": "Associate schemas to YAML files in the current workspace. The expected value of this configuration option is a string to string map:\n- **Key**: The path or URL of the schema to use\n- **Value**: A glob pattern specifying which files the schema should be used on"
+          "markdownDescription": "Associate schemas to YAML files in the current workspace. The expected value of this configuration option is a string to string map:\n- **Key**: The path or URL of the schema to use\n- **Value**: A glob pattern or list of glob patterns specifying which files the schema should be used on"
         },
         "yaml.kubernetesCRDStore.enable": {
           "type": "boolean",
@@ -140,7 +153,8 @@
         "yaml.format.enable": {
           "type": "boolean",
           "default": true,
-          "description": "Enable/disable default YAML formatter"
+          "description": "Enable/disable default YAML formatter",
+          "scope": "language-overridable"
         },
         "yaml.format.singleQuote": {
           "type": "boolean",
@@ -175,7 +189,8 @@
         "yaml.validate": {
           "type": "boolean",
           "default": true,
-          "description": "Enable/disable validation feature"
+          "description": "Enable/disable validation feature",
+          "scope": "language-overridable"
         },
         "yaml.hover": {
           "type": "boolean",
