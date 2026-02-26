@@ -6,7 +6,7 @@
 - Fix: Prevent infinite `$ref` resolution loops [#1195](https://github.com/redhat-developer/yaml-language-server/issues/1195)
 - Fix: Preserve document end marker (`...`) when formatting (by updating prettier to 3.8.1) [vscode-yaml#1211](https://github.com/redhat-developer/vscode-yaml/issues/1211)
 - Fix: Don't escape '-' in hover text, since it was breaking links [#1151](https://github.com/redhat-developer/yaml-language-server/issues/1151)
-- Fix: Attempt to resolve a schema referenced though a relative `$ref` locally before peforming a remote `$id` lookup [#1186](https://github.com/redhat-developer/yaml-language-server/issues/1184)
+- Fix: Attempt to resolve a schema referenced through a relative `$ref` locally before performing a remote `$id` lookup [#1186](https://github.com/redhat-developer/yaml-language-server/issues/1184)
 - Fix: Improve documentation of `yaml.schemas` setting [vscode-yaml#1207](https://github.com/redhat-developer/vscode-yaml/issues/1207)
 
 Thanks to [Simon Heather](https://github.com/X-Guardian) for your contributions
