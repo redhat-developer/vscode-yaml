@@ -1,7 +1,7 @@
 ### 1.21.0
 - Feat: Enable suppressing diagnostics per-line by adding a `# yaml-language-server-disable` comment [vscode-yaml#666](https://github.com/redhat-developer/vscode-yaml/issues/666)
 - Feat: Allow `yaml.validate` and `yaml.format.enable` to be overriden in language-specific settings [#1188](https://github.com/redhat-developer/yaml-language-server/pull/1188)
-- Fix: Do not register the extension for templated YAML languages (such as Helm, Jinja, etc.) [vscode-yaml#1204](https://github.com/redhat-developer/vscode-yaml/issues/1204)  Remove unsupported language IDs
+- Fix: Do not register the extension for templated YAML languages (such as Helm, Jinja, etc.) [vscode-yaml#1204](https://github.com/redhat-developer/vscode-yaml/issues/1204)
 - Fix: Handle default booleans and integers properly in required properties completion [vscode-yaml#1205](https://github.com/redhat-developer/vscode-yaml/1205)
 - Fix: Prevent infinite $ref resolution loops [#1195](https://github.com/redhat-developer/yaml-language-server/issues/1195)
 - Fix: Preserve document end marker (`...`) when formatting (by updating prettier to 3.8.1) [vscode-yaml#1211](https://github.com/redhat-developer/vscode-yaml/issues/1211)
