@@ -132,7 +132,7 @@ export function startClient(
     ],
     synchronize: {
       // Notify the server about file changes to YAML and JSON files contained in the workspace
-      fileEvents: [workspace.createFileSystemWatcher('**/*.?(e)y?(a)ml'), workspace.createFileSystemWatcher('**/*.json')],
+      fileEvents: [workspace.createFileSystemWatcher('{**/*.json,**/*.yaml,**/*.eyaml,**/*.yml}')],
     },
     revealOutputChannelOn: RevealOutputChannelOn.Never,
     errorHandler: telemetryErrorHandler,
