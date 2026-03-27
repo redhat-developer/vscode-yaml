@@ -10,9 +10,11 @@ suite('Smoke test suite', function () {
 
   const SCHEMA_INSTANCE_NAME = 'references-schema.yaml';
   const THROUGH_SETTINGS_NAME = 'references-schema-settings.yaml';
+  const UNFORMATTED_NAME = 'unformatted.yaml';
 
   let schemaInstanceUri: URI;
   let throughSettingsUri: URI;
+  let unformattedUri: URI;
 
   this.beforeAll(async function () {
     const workspaceUri = vscode.workspace.workspaceFolders[0].uri;
@@ -21,6 +23,9 @@ suite('Smoke test suite', function () {
     });
     throughSettingsUri = workspaceUri.with({
       path: workspaceUri.path + (workspaceUri.path.endsWith('/') ? '' : '/') + THROUGH_SETTINGS_NAME,
+    });
+    unformattedUri = workspaceUri.with({
+      path: workspaceUri.path + (workspaceUri.path.endsWith('/') ? '' : '/') + UNFORMATTED_NAME,
     });
   });
 
@@ -42,5 +47,29 @@ suite('Smoke test suite', function () {
 
     assert.strictEqual(diagnostics.length, 1);
     assert.strictEqual(diagnostics[0].message, 'Value is below the minimum of 0.');
+  });
+
+  test('has right formatting', async function () {
+    const textDocument = await vscode.workspace.openTextDocument(unformattedUri);
+    await vscode.window.showTextDocument(textDocument);
+
+    // heavily borrowed from prettier's test suite
+    const edits = await vscode.commands.executeCommand<vscode.TextEdit[]>(
+      'vscode.executeFormatDocumentProvider',
+      textDocument.uri,
+      { tabSize: 2, insertSpaces: true }
+    );
+
+    if (edits && edits.length > 0) {
+      const workspaceEdit = new vscode.WorkspaceEdit();
+      workspaceEdit.set(textDocument.uri, edits);
+      await vscode.workspace.applyEdit(workspaceEdit);
+    }
+
+    const EXPECTED = `aaa:
+  bbb: hjkl
+`;
+
+    assert.strictEqual(textDocument.getText(), EXPECTED);
   });
 });
