@@ -17,6 +17,9 @@ suite('Smoke test suite', function () {
   let unformattedUri: URI;
 
   this.beforeAll(async function () {
+    if (vscode.workspace.workspaceFolders === undefined) {
+      assert.fail('No workspace folder');
+    }
     const workspaceUri = vscode.workspace.workspaceFolders[0].uri;
     schemaInstanceUri = workspaceUri.with({
       path: workspaceUri.path + (workspaceUri.path.endsWith('/') ? '' : '/') + SCHEMA_INSTANCE_NAME,
