@@ -49,7 +49,13 @@ export async function getJsonSchemaContent(uri: string, schemaCache: IJSONSchema
   const httpSettings = workspace.getConfiguration('http');
   configureHttpRequests(httpSettings.proxy, httpSettings.proxyStrictSSL);
 
-  const headers: { [key: string]: string } = { 'Accept-Encoding': 'gzip, deflate' };
+  const version = (typeof process !== 'undefined' && process.env.YAML_LANGUAGE_SERVER_VERSION) || 'unknown';
+  const nodeVersion = typeof process !== 'undefined' && process.versions?.node ? ` node/${process.versions.node}` : '';
+  const platform = typeof process !== 'undefined' && process.platform ? ` (${process.platform})` : '';
+  const headers: { [key: string]: string } = {
+    'Accept-Encoding': 'gzip, deflate',
+    'User-Agent': `yaml-language-server/${version} (RedHat)${nodeVersion}${platform}`,
+  };
   if (cachedETag) {
     headers['If-None-Match'] = cachedETag;
   }
