@@ -31,6 +31,7 @@ const config = {
   devtool: 'source-map',
   externals: {
     vscode: 'commonjs vscode', // the vscode-module is created on-the-fly and must be excluded. Add other modules that cannot be webpack'ed, 📖 -> https://webpack.js.org/configuration/externals/
+    prettier: 'commonjs prettier',
   },
   resolve: {
     // support reading TypeScript and JavaScript files, 📖 -> https://github.com/TypeStrong/ts-loader
@@ -135,6 +136,7 @@ const serverWeb = {
     mainFields: ['browser', 'module', 'main'],
     extensions: ['.ts', '.js'], // support ts-files and js-files
     alias: {
+      './services/yamlFormatter': path.resolve(__dirname, './build/polyfills/yamlFormatter.js'), // not supported for now. prettier can run in the web, but it's a bit more work.
       'vscode-json-languageservice/lib/umd': 'vscode-json-languageservice/lib/esm',
     },
     fallback: {
