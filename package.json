@@ -267,12 +267,12 @@
         },
         "yaml.extension.recommendations": {
           "type": "boolean",
-          "default": "true",
+          "default": true,
           "description": "Suggest additional extensions based on YAML usage."
         },
         "yaml.hoverSchemaSource": {
           "type": "boolean",
-          "default": "true",
+          "default": true,
           "description": "Enable/disable showing the schema source in hover tooltips"
         }
       }
