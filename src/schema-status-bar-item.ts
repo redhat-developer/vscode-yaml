@@ -31,6 +31,7 @@ interface MatchingJSONSchema extends JSONSchema {
 
 interface SchemaItem extends QuickPickItem {
   schema?: MatchingJSONSchema;
+  disableSchemaDetection?: boolean;
 }
 
 interface SchemaVersionItem extends QuickPickItem {
@@ -50,6 +51,7 @@ let client: CommonLanguageClient;
 let versionSelection: SchemaItem = undefined;
 
 const selectVersionLabel = 'Select Different Version';
+const noSchemaLabel = 'No JSON Schema';
 
 export function createJSONSchemaStatusBarItem(context: ExtensionContext, languageclient: CommonLanguageClient): void {
   if (statusBarItem) {
@@ -73,10 +75,11 @@ export function createJSONSchemaStatusBarItem(context: ExtensionContext, languag
 async function updateStatusBar(editor: TextEditor): Promise<void> {
   if (editor && editor.document.languageId === 'yaml') {
     versionSelection = undefined;
+    const fileUri = editor.document.uri.toString();
     // get schema info there
-    const schema = await client.sendRequest(getSchemaRequestType, editor.document.uri.toString());
+    const schema = await client.sendRequest(getSchemaRequestType, fileUri);
     if (!schema || schema.length === 0) {
-      statusBarItem.text = 'No JSON Schema';
+      statusBarItem.text = noSchemaLabel;
       statusBarItem.tooltip = 'Select JSON Schema';
       statusBarItem.backgroundColor = undefined;
     } else if (schema.length === 1) {
@@ -85,7 +88,7 @@ async function updateStatusBar(editor: TextEditor): Promise<void> {
       if (schema[0].versions) {
         version = findUsedVersion(schema[0].versions, schema[0].uri);
       } else {
-        const schemas = await client.sendRequest(getJSONSchemasRequestType, window.activeTextEditor.document.uri.toString());
+        const schemas = await client.sendRequest(getJSONSchemasRequestType, fileUri);
         let versionSchema: JSONSchema;
         const schemaStoreItem = findSchemaStoreItem(schemas, schema[0].uri);
         if (schemaStoreItem) {
@@ -113,7 +116,8 @@ async function updateStatusBar(editor: TextEditor): Promise<void> {
 }
 
 async function showSchemaSelection(): Promise<void> {
-  const schemas = await client.sendRequest(getJSONSchemasRequestType, window.activeTextEditor.document.uri.toString());
+  const fileUri = window.activeTextEditor.document.uri.toString();
+  const schemas = await client.sendRequest(getJSONSchemasRequestType, fileUri);
   const schemasPick = window.createQuickPick<SchemaItem>();
   let pickItems: SchemaItem[] = [];
 
@@ -151,6 +155,12 @@ async function showSchemaSelection(): Promise<void> {
     return a.label.localeCompare(b.label);
   });
 
+  pickItems.unshift({
+    label: noSchemaLabel,
+    alwaysShow: true,
+    disableSchemaDetection: true,
+  });
+
   schemasPick.items = pickItems;
   schemasPick.placeholder = 'Search JSON schema';
   schemasPick.title = 'Select JSON schema';
@@ -160,9 +170,11 @@ async function showSchemaSelection(): Promise<void> {
     try {
       if (selection.length > 0) {
         if (selection[0].label === selectVersionLabel) {
-          handleSchemaVersionSelection(selection[0].schema);
+          handleSchemaVersionSelection(selection[0].schema, fileUri);
+        } else if (selection[0].disableSchemaDetection) {
+          writeDisableSchemaDetectionMapping(fileUri);
         } else if (selection[0].schema) {
-          writeSchemaUriMapping(selection[0].schema.uri);
+          writeSchemaUriMapping(selection[0].schema.uri, fileUri);
         }
       }
     } catch (err) {
@@ -192,6 +204,34 @@ function deleteExistingFilePattern(settings: Record<string, unknown>, fileUri: s
   return settings;
 }
 
+function removeFilePatternFromSetting(setting: unknown, fileUri: string): string | string[] {
+  if (Array.isArray(setting)) {
+    return setting.filter((value): value is string => typeof value === 'string' && value !== fileUri);
+  }
+
+  if (setting === fileUri) {
+    return [];
+  }
+
+  return typeof setting === 'string' ? setting : [];
+}
+
+function addFilePatternToSetting(setting: unknown, fileUri: string): string | string[] {
+  if (Array.isArray(setting)) {
+    const filePatterns = setting.filter((value): value is string => typeof value === 'string');
+    if (!filePatterns.includes(fileUri)) {
+      filePatterns.push(fileUri);
+    }
+    return filePatterns;
+  }
+
+  if (typeof setting === 'string') {
+    return setting === fileUri ? setting : [setting, fileUri];
+  }
+
+  return [fileUri];
+}
+
 function createSelectVersionItem(version: string, schema: MatchingJSONSchema): SchemaItem {
   return {
     label: selectVersionLabel,
@@ -212,9 +252,11 @@ function findSchemaStoreItem(schemas: JSONSchema[], url: string): [string, JSONS
   }
 }
 
-function writeSchemaUriMapping(schemaUrl: string): void {
-  const settings: Record<string, unknown> = workspace.getConfiguration('yaml').get('schemas');
-  const fileUri = window.activeTextEditor.document.uri.toString();
+function writeSchemaUriMapping(schemaUrl: string, fileUri: string): void {
+  const yamlConfiguration = workspace.getConfiguration('yaml');
+  const settings: Record<string, unknown> = yamlConfiguration.get('schemas');
+  const disableSchemaDetection = yamlConfiguration.get('disableSchemaDetection');
+  yamlConfiguration.update('disableSchemaDetection', removeFilePatternFromSetting(disableSchemaDetection, fileUri));
   const newSettings = Object.assign({}, settings);
   deleteExistingFilePattern(newSettings, fileUri);
   const schemaSettings = newSettings[schemaUrl];
@@ -227,10 +269,16 @@ function writeSchemaUriMapping(schemaUrl: string): void {
   } else {
     newSettings[schemaUrl] = fileUri;
   }
-  workspace.getConfiguration('yaml').update('schemas', newSettings);
+  yamlConfiguration.update('schemas', newSettings);
 }
 
-function handleSchemaVersionSelection(schema: MatchingJSONSchema): void {
+function writeDisableSchemaDetectionMapping(fileUri: string): void {
+  const yamlConfiguration = workspace.getConfiguration('yaml');
+  const disableSchemaDetection = yamlConfiguration.get('disableSchemaDetection');
+  yamlConfiguration.update('disableSchemaDetection', addFilePatternToSetting(disableSchemaDetection, fileUri));
+}
+
+function handleSchemaVersionSelection(schema: MatchingJSONSchema, fileUri: string): void {
   const versionPick = window.createQuickPick<SchemaVersionItem>();
   const versionItems: SchemaVersionItem[] = [];
   const usedVersion = findUsedVersion(schema.versions, schema.uri);
@@ -249,7 +297,7 @@ function handleSchemaVersionSelection(schema: MatchingJSONSchema): void {
 
   versionPick.onDidChangeSelection((items) => {
     if (items && items.length === 1) {
-      writeSchemaUriMapping(items[0].url);
+      writeSchemaUriMapping(items[0].url, fileUri);
     }
     versionPick.hide();
   });
