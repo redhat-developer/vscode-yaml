@@ -225,7 +225,7 @@
         "yaml.customTags": {
           "type": "array",
           "default": [],
-          "description": "Custom tags for the parser to use"
+          "description": "Custom tags for the parser to use. Supported formats are \"!Tag\" for a scalar tag, \"!Tag nodeType\" to specify the YAML node type, and \"!Tag nodeType:returnType\" to specify both the YAML node type and the schema type the tagged value evaluates to."
         },
         "yaml.schemaStore.enable": {
           "type": "boolean",

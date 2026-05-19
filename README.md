@@ -52,7 +52,7 @@ The following settings are supported:
 * `yaml.schemas`: Helps you associate schemas with files in a glob pattern
 * `yaml.schemaStore.enable`: When set to true, the YAML language server will pull in all available schemas from [JSON Schema Store](http://schemastore.org/)
 * `yaml.schemaStore.url`: URL of a schema store catalog to use when downloading schemas.
-* `yaml.customTags`: Array of custom tags that the parser will validate against. It has two ways to be used. Either an item in the array is a custom tag such as "!Ref" and it will automatically map !Ref to a scalar, or you can specify the type of the object !Ref should be, e.g. "!Ref sequence". The type of object can be either scalar (for strings and booleans), sequence (for arrays), mapping (for objects).
+* `yaml.customTags`: Array of custom tags that the parser will validate against. It has three ways to be used. A tag without a type, such as "!Ref", is treated as a scalar tag. A tag with a node type, such as "!Ref sequence", specifies the YAML node type that the tag is written on. A tag with a node type and return type, such as "!FindInMap sequence:string", also specifies the schema type that the tagged value evaluates to. Supported node types are scalar, sequence, and mapping. Supported return types are string, number, integer, boolean, null, array, and object. The return type aliases scalar, sequence, and mapping are accepted as string, array, and object.
 * `yaml.maxItemsComputed`: The maximum number of outline symbols and folding regions computed (limited for performance reasons).
 * `yaml.disableDefaultProperties`: Disable adding not required properties with default values into completion text (default is false).
 * `yaml.suggest.parentSkeletonSelectedFirst`: If true, the user must select some parent skeleton first before autocompletion starts to suggest the rest of the properties. When the YAML object is not empty, autocompletion ignores this setting and returns all properties and skeletons.
@@ -105,11 +105,13 @@ To use the custom tags in your YAML file, you need to first specify the custom t
 "yaml.customTags": [
     "!Scalar-example scalar",
     "!Seq-example sequence",
-    "!Mapping-example mapping"
+    "!Mapping-example mapping",
+    "!Seq-as-string-example sequence:string"
 ]
 ```
 
-The !Scalar-example would map to a scalar custom tag, the !Seq-example would map to a sequence custom tag, the !Mapping-example would map to a mapping custom tag.
+The !Scalar-example would map to a scalar custom tag, the !Seq-example would map to a sequence custom tag, and the !Mapping-example would map to a mapping custom tag.
+The !Seq-as-string-example would map to a sequence custom tag, and the whole tagged value would be treated as a string during schema validation.
 
 You can then use the newly defined custom tags inside the YAML file:
 
@@ -121,6 +123,9 @@ some_sequence: !Seq-example
 some_mapping: !Mapping-example
   some_mapping_key_1: some_mapping_value_1
   some_mapping_key_2: some_mapping_value_2
+some_string: !Seq-as-string-example
+  - value_1
+  - value_2
 ```
 
 ## Associating schemas
