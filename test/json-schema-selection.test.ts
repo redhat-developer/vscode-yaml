@@ -249,6 +249,49 @@ describe('Status bar should work in multiple different scenarios', () => {
     expect(update).calledWith('schemas', { 'https://foo.com/bar.json': 'file:///foo.yaml' });
     expect(quickPick.hide).calledOnce;
   });
+
+  it('Should replace existing exact schema mappings when a schema is selected', async () => {
+    const context: vscode.ExtensionContext = {
+      subscriptions: [],
+    } as vscode.ExtensionContext;
+    const statusBar = ({ show: sandbox.stub(), hide: sandbox.stub() } as unknown) as vscode.StatusBarItem;
+    const quickPick = createQuickPickStubValue<TestSchemaItem>();
+    const update = sandbox.stub();
+    const get = sandbox.stub();
+    get.withArgs('disableSchemaDetection').returns(['foo.yaml', 'file:///other.yaml']);
+    get.withArgs('schemas').returns({
+      'https://foo.com/old-a.json': 'foo.yaml',
+      'https://foo.com/old-b.json': ['foo.yaml', 'bar.yaml'],
+    });
+    createStatusBarItemStub.returns(statusBar);
+    createQuickPickStub.returns(quickPick);
+    clcStub.sendRequest.resolves([{ uri: 'https://foo.com/new.json', name: 'new schema' }]);
+    activeTextEditor = ({
+      document: { languageId: 'yaml', uri: vscode.Uri.parse('/workspace/foo.yaml') },
+    } as unknown) as vscode.TextEditor;
+    sandbox.stub(vscode.workspace, 'asRelativePath').returns('foo.yaml');
+    sandbox
+      .stub(vscode.workspace, 'getConfiguration')
+      .withArgs('yaml')
+      .returns(({
+        get,
+        update,
+      } as unknown) as vscode.WorkspaceConfiguration);
+
+    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as CommonLanguageClient);
+    const command = registerCommandStub.firstCall.args[1];
+    await command();
+    const schemaItem = quickPick.items.find((item) => (item.schema as { uri?: string })?.uri === 'https://foo.com/new.json');
+    expect(schemaItem).to.exist;
+    quickPick.select([schemaItem as TestSchemaItem]);
+
+    expect(update).calledWith('disableSchemaDetection', ['file:///other.yaml']);
+    expect(update).calledWith('schemas', {
+      'https://foo.com/old-b.json': ['bar.yaml'],
+      'https://foo.com/new.json': 'file:///workspace/foo.yaml',
+    });
+    expect(quickPick.hide).calledOnce;
+  });
 });
 
 function createQuickPickStubValue<T extends vscode.QuickPickItem>(): vscode.QuickPick<T> & { select: (items: T[]) => void } {
