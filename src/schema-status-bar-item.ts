@@ -195,6 +195,7 @@ function getFilePatternCandidates(fileUri: string): string[] {
       candidates.add(workspace.asRelativePath(uri, false));
     }
   } catch {
+    // ignore
   }
   return Array.from(candidates).filter(Boolean);
 }
