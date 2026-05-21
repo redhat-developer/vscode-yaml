@@ -12,6 +12,7 @@ import {
   QuickPickItem,
   ThemeColor,
   workspace,
+  Uri,
 } from 'vscode';
 import { CommonLanguageClient, RequestType } from 'vscode-languageclient/node';
 
@@ -185,17 +186,37 @@ async function showSchemaSelection(): Promise<void> {
   schemasPick.show();
 }
 
-function deleteExistingFilePattern(settings: Record<string, unknown>, fileUri: string): unknown {
+function getFilePatternCandidates(fileUri: string): string[] {
+  const candidates = new Set<string>([fileUri]);
+  try {
+    const uri = Uri.parse(fileUri);
+    if (uri.fsPath) {
+      candidates.add(uri.fsPath);
+      candidates.add(workspace.asRelativePath(uri, false));
+    }
+  } catch {
+    // ignore
+  }
+  return Array.from(candidates).filter(Boolean);
+}
+
+function deleteExistingFilePattern(settings: Record<string, unknown>, filePatterns: string[]): unknown {
   for (const key in settings) {
     if (Object.prototype.hasOwnProperty.call(settings, key)) {
       const element = settings[key];
 
       if (Array.isArray(element)) {
-        const filePatterns = element.filter((val) => val !== fileUri);
-        settings[key] = filePatterns;
+        const remainingFilePatterns = element.filter(
+          (val): val is string => typeof val === 'string' && !filePatterns.includes(val)
+        );
+        if (remainingFilePatterns.length === 0) {
+          delete settings[key];
+        } else {
+          settings[key] = remainingFilePatterns;
+        }
       }
 
-      if (element === fileUri) {
+      if (typeof element === 'string' && filePatterns.includes(element)) {
         delete settings[key];
       }
     }
@@ -204,12 +225,12 @@ function deleteExistingFilePattern(settings: Record<string, unknown>, fileUri: s
   return settings;
 }
 
-function removeFilePatternFromSetting(setting: unknown, fileUri: string): string | string[] {
+function removeFilePatternFromSetting(setting: unknown, filePatterns: string[]): string | string[] {
   if (Array.isArray(setting)) {
-    return setting.filter((value): value is string => typeof value === 'string' && value !== fileUri);
+    return setting.filter((value): value is string => typeof value === 'string' && !filePatterns.includes(value));
   }
 
-  if (setting === fileUri) {
+  if (typeof setting === 'string' && filePatterns.includes(setting)) {
     return [];
   }
 
@@ -256,9 +277,10 @@ function writeSchemaUriMapping(schemaUrl: string, fileUri: string): void {
   const yamlConfiguration = workspace.getConfiguration('yaml');
   const settings: Record<string, unknown> = yamlConfiguration.get('schemas');
   const disableSchemaDetection = yamlConfiguration.get('disableSchemaDetection');
-  yamlConfiguration.update('disableSchemaDetection', removeFilePatternFromSetting(disableSchemaDetection, fileUri));
+  const filePatterns = getFilePatternCandidates(fileUri);
+  yamlConfiguration.update('disableSchemaDetection', removeFilePatternFromSetting(disableSchemaDetection, filePatterns));
   const newSettings = Object.assign({}, settings);
-  deleteExistingFilePattern(newSettings, fileUri);
+  deleteExistingFilePattern(newSettings, filePatterns);
   const schemaSettings = newSettings[schemaUrl];
   if (schemaSettings) {
     if (Array.isArray(schemaSettings)) {
