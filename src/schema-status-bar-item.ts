@@ -168,9 +168,21 @@ async function showSchemaSelection(): Promise<void> {
   const selectedSchemaItems = pickItems.filter((item) => item.schema?.usedForCurrentFile);
   schemasPick.selectedItems =
     selectedSchemaItems.length > 0 && !isSchemaDetectionDisabled(fileUri) ? selectedSchemaItems : [noSchemaItem];
+  let previousSelectedItems = schemasPick.selectedItems;
   schemasPick.placeholder = 'Search JSON schema';
   schemasPick.title = 'Select JSON schemas';
   schemasPick.onDidHide(() => schemasPick.dispose());
+  schemasPick.onDidChangeSelection((items) => {
+    const selectedSchemaItems = items.filter((item) => item.schema);
+    const hasNoSchemaItem = items.some((item) => item.disableSchemaDetection);
+    if (items.length === 0) {
+      schemasPick.selectedItems = [noSchemaItem];
+    } else if (hasNoSchemaItem && selectedSchemaItems.length > 0) {
+      const previousHadNoSchemaItem = previousSelectedItems.some((item) => item.disableSchemaDetection);
+      schemasPick.selectedItems = previousHadNoSchemaItem ? selectedSchemaItems : [noSchemaItem];
+    }
+    previousSelectedItems = schemasPick.selectedItems;
+  });
   schemasPick.onDidTriggerItemButton((event) => {
     if (event.button === selectSchemaVersionButton && event.item.schema?.versions) {
       const selectedSchemaUris = schemasPick.selectedItems.flatMap((item) => (item.schema ? [item.schema.uri] : []));
