@@ -43,7 +43,9 @@ export function autocompletionTest(): void {
 
     after(async function () {
       this.timeout(5000);
-      await editor.save();
+      if (editor) {
+        await editor.save();
+      }
       await new EditorView().closeAllEditors();
       deleteFileInHomeDir(yamlFileName);
     });
