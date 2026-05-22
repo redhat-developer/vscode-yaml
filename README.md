@@ -146,7 +146,7 @@ It is possible to specify a yaml schema using a modeline. Schema url can be a re
 
 ### Associating a schema to a glob pattern via yaml.schemas:
 
-`yaml.schemas`  applies a schema to a file. In other words, the schema (placed on the left) is applied to the glob pattern on the right. Your schema can be local or online. Your schema must be a relative path and not an absolute path. The entrance point for `yaml.schemas` is a location in [user and workspace settings](https://code.visualstudio.com/docs/getstarted/settings#_creating-user-and-workspace-settings)
+`yaml.schemas`  applies a schema to a file. In other words, the schema (placed on the left) is applied to the glob pattern on the right. Your schema can be local or online. Local schema paths can be relative to the project root or absolute paths. The entrance point for `yaml.schemas` is a location in [user and workspace settings](https://code.visualstudio.com/docs/getstarted/settings#_creating-user-and-workspace-settings)
 
 When associating a schema it should follow the format below
 ```JSON
