@@ -15,7 +15,7 @@ export async function createCustomFile(path: string): Promise<TextEditor> {
   await input.confirm();
   await input.confirm();
   const editor = new TextEditor();
-  editor.save();
+  await editor.save();
   input = await InputBox.create();
   await input.setText(path);
   await input.confirm();
@@ -34,7 +34,9 @@ export function deleteFileInHomeDir(filename: string): void {
 }
 
 export async function getSchemaLabel(text: string): Promise<WebElement | undefined> {
-  const schemalabel = await new StatusBar().findElements(By.xpath('.//a[@aria-label="' + text + ', Select JSON Schemas"]'));
+  const schemalabel = await new StatusBar().findElements(
+    By.xpath('.//a[contains(@aria-label, "' + text + '") and contains(@aria-label, "Select JSON Schema")]')
+  );
   return schemalabel[0];
 }
 
