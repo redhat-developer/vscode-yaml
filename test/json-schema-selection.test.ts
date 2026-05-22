@@ -74,7 +74,7 @@ describe('Status bar should work in multiple different scenarios', () => {
     const statusBar = ({ show: sandbox.stub(), hide: sandbox.stub() } as unknown) as vscode.StatusBarItem;
     createStatusBarItemStub.returns(statusBar);
     onDidChangeActiveTextEditorStub.returns({});
-    clcStub.sendRequest.resolves([{ uri: 'https://foo.com/bar.json', name: 'bar schema' }]);
+    clcStub.sendRequest.resolves([{ uri: 'https://foo.com/bar.json', name: 'bar schema', usedForCurrentFile: true }]);
 
     createJSONSchemaStatusBarItem(context, (clcStub as unknown) as CommonLanguageClient);
     const callBackFn = onDidChangeActiveTextEditorStub.firstCall.firstArg;
@@ -198,7 +198,7 @@ describe('Status bar should work in multiple different scenarios', () => {
     expect(statusBar.show).calledOnce;
   });
 
-  it('Should include No JSON Schema in schema selection', async () => {
+  it('Should include "No JSON Schema" in schema selection', async () => {
     const context: vscode.ExtensionContext = {
       subscriptions: [],
     } as vscode.ExtensionContext;
@@ -206,7 +206,7 @@ describe('Status bar should work in multiple different scenarios', () => {
     const quickPick = createQuickPickStubValue<TestSchemaItem>();
     createStatusBarItemStub.returns(statusBar);
     createQuickPickStub.returns(quickPick);
-    clcStub.sendRequest.resolves([{ uri: 'https://foo.com/bar.json', name: 'bar schema' }]);
+    clcStub.sendRequest.resolves([{ uri: 'https://foo.com/bar.json', name: 'bar schema', usedForCurrentFile: true }]);
     activeTextEditor = ({
       document: { languageId: 'yaml', uri: vscode.Uri.parse('/foo.yaml') },
     } as unknown) as vscode.TextEditor;
@@ -472,7 +472,7 @@ describe('Status bar should work in multiple different scenarios', () => {
     expect(quickPick.hide).calledOnce;
   });
 
-  it('Should use No JSON Schema when all schemas are deselected', async () => {
+  it('Should use and auto-select "No JSON Schema" when all schemas are deselected', async () => {
     const context: vscode.ExtensionContext = {
       subscriptions: [],
     } as vscode.ExtensionContext;
@@ -498,6 +498,7 @@ describe('Status bar should work in multiple different scenarios', () => {
     await command();
     expect(quickPick.selectedItems).has.length(1);
     quickPick.select([]);
+    expect(quickPick.selectedItems).to.deep.equal([quickPick.items[0]]);
     await quickPick.accept();
 
     expect(update).calledWith('disableSchemaDetection', ['file:///foo.yaml']);
@@ -505,7 +506,7 @@ describe('Status bar should work in multiple different scenarios', () => {
     expect(quickPick.hide).calledOnce;
   });
 
-  it('Should let No JSON Schema override other selected schemas', async () => {
+  it('Should auto-deselect all other selected schemas when "No JSON Schema" is selected', async () => {
     const context: vscode.ExtensionContext = {
       subscriptions: [],
     } as vscode.ExtensionContext;
@@ -514,7 +515,7 @@ describe('Status bar should work in multiple different scenarios', () => {
     const update = sandbox.stub();
     createStatusBarItemStub.returns(statusBar);
     createQuickPickStub.returns(quickPick);
-    clcStub.sendRequest.resolves([{ uri: 'https://foo.com/bar.json', name: 'bar schema' }]);
+    clcStub.sendRequest.resolves([{ uri: 'https://foo.com/bar.json', name: 'bar schema', usedForCurrentFile: true }]);
     activeTextEditor = ({
       document: { languageId: 'yaml', uri: vscode.Uri.parse('/foo.yaml') },
     } as unknown) as vscode.TextEditor;
@@ -532,11 +533,52 @@ describe('Status bar should work in multiple different scenarios', () => {
     const noSchemaItem = quickPick.items[0];
     const schemaItem = quickPick.items.find((item) => item.schema);
     expect(schemaItem).to.exist;
-    quickPick.select([noSchemaItem, schemaItem as TestSchemaItem]);
+    expect(quickPick.selectedItems).to.deep.equal([schemaItem]);
+    quickPick.select([schemaItem as TestSchemaItem, noSchemaItem]);
+    expect(quickPick.selectedItems).to.deep.equal([noSchemaItem]);
     await quickPick.accept();
 
     expect(update).calledWith('disableSchemaDetection', ['file:///foo.yaml']);
     expect(update).not.calledWith('schemas');
+    expect(quickPick.hide).calledOnce;
+  });
+
+  it('Should deselect "No JSON Schema" when a schema is selected', async () => {
+    const context: vscode.ExtensionContext = {
+      subscriptions: [],
+    } as vscode.ExtensionContext;
+    const statusBar = ({ show: sandbox.stub(), hide: sandbox.stub() } as unknown) as vscode.StatusBarItem;
+    const quickPick = createQuickPickStubValue<TestSchemaItem>();
+    const update = sandbox.stub();
+    const get = sandbox.stub();
+    get.withArgs('disableSchemaDetection').returns([]);
+    get.withArgs('schemas').returns({});
+    createStatusBarItemStub.returns(statusBar);
+    createQuickPickStub.returns(quickPick);
+    clcStub.sendRequest.resolves([{ uri: 'https://foo.com/bar.json', name: 'bar schema' }]);
+    activeTextEditor = ({
+      document: { languageId: 'yaml', uri: vscode.Uri.parse('/foo.yaml') },
+    } as unknown) as vscode.TextEditor;
+    sandbox
+      .stub(vscode.workspace, 'getConfiguration')
+      .withArgs('yaml')
+      .returns(({
+        get,
+        update,
+      } as unknown) as vscode.WorkspaceConfiguration);
+
+    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as CommonLanguageClient);
+    const command = registerCommandStub.firstCall.args[1];
+    await command();
+    const noSchemaItem = quickPick.items[0];
+    const schemaItem = quickPick.items.find((item) => item.schema);
+    expect(schemaItem).to.exist;
+    quickPick.select([noSchemaItem, schemaItem as TestSchemaItem]);
+    expect(quickPick.selectedItems).to.deep.equal([schemaItem]);
+    await quickPick.accept();
+
+    expect(update).calledWith('disableSchemaDetection', []);
+    expect(update).calledWith('schemas', { 'https://foo.com/bar.json': 'file:///foo.yaml' });
     expect(quickPick.hide).calledOnce;
   });
 
