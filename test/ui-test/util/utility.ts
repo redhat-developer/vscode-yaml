@@ -34,7 +34,7 @@ export function deleteFileInHomeDir(filename: string): void {
 }
 
 export async function getSchemaLabel(text: string): Promise<WebElement | undefined> {
-  const schemalabel = await new StatusBar().findElements(By.xpath('.//a[@aria-label="' + text + ', Select JSON Schema"]'));
+  const schemalabel = await new StatusBar().findElements(By.xpath('.//a[@aria-label="' + text + ', Select JSON Schemas"]'));
   return schemalabel[0];
 }
 
