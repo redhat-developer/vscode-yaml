@@ -21,6 +21,7 @@ import { getConflictingExtensions, showUninstallConflictsNotification } from './
 import { TelemetryErrorHandler, TelemetryOutputChannel } from './telemetry';
 import { createJSONSchemaStatusBarItem } from './schema-status-bar-item';
 import { initializeRecommendation } from './recommendation';
+import { initializeAutoDisableSchemaDetection } from './autoDisableSchemaDetection';
 
 export interface ISchemaAssociations {
   [pattern: string]: string[];
@@ -107,11 +108,11 @@ export interface TelemetryService {
   sendStartupEvent(): Promise<void>;
 }
 
-export function startClient(
+export async function startClient(
   context: ExtensionContext,
   newLanguageClient: LanguageClientConstructor,
   runtime: RuntimeEnvironment
-): SchemaExtensionAPI {
+): Promise<SchemaExtensionAPI> {
   const telemetryErrorHandler = new TelemetryErrorHandler(runtime.telemetry, lsName, 4);
   const outputChannel = window.createOutputChannel(lsName);
   const l10nPath = context.asAbsolutePath('./dist/l10n');
@@ -144,6 +145,7 @@ export function startClient(
 
   // Create the language client and start it
   client = newLanguageClient('yaml', lsName, clientOptions);
+  await initializeAutoDisableSchemaDetection(context);
 
   const disposable = client.start();
 
