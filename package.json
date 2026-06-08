@@ -165,6 +165,11 @@
           "description": "The base URL for fetching well-known Custom Resource Definition (CRD) schemas",
           "default": "https://raw.githubusercontent.com/datreeio/CRDs-catalog/main"
         },
+        "yaml.kubernetesVersion": {
+          "type": "string",
+          "description": "Kubernetes version used to build the schema URL when yaml.schemas maps files to the Kubernetes keyword",
+          "pattern": "^v?\\d+\\.\\d+\\.\\d+$"
+        },
         "yaml.format.enable": {
           "type": "boolean",
           "default": true,

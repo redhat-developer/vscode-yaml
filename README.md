@@ -50,6 +50,7 @@ The following settings are supported:
 * `yaml.hoverSchemaSource`: Enable/disable showing the schema source in hover tooltips
 * `yaml.completion`: Enable/disable autocompletion
 * `yaml.schemas`: Helps you associate schemas with files in a glob pattern
+* `yaml.kubernetesVersion`: Kubernetes version used to build the schema URL when `yaml.schemas` maps files to the `Kubernetes` keyword
 * `yaml.disableSchemaDetection`: Disable schema detection for YAML files matching the configured glob pattern or list of glob patterns. Common patterns are automatically added when another enabled extension provides more specific YAML support, such as [Docker DX](https://marketplace.visualstudio.com/items?itemName=docker.docker), [GitHub Actions](https://marketplace.visualstudio.com/items?itemName=github.vscode-github-actions), or [Azure Pipelines](https://marketplace.visualstudio.com/items?itemName=ms-azure-devops.azure-pipelines). Modelines still apply.
 * `yaml.schemaStore.enable`: When set to true, the YAML language server will pull in all available schemas from [JSON Schema Store](http://schemastore.org/)
 * `yaml.schemaStore.url`: URL of a schema store catalog to use when downloading schemas.
