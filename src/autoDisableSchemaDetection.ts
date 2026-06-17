@@ -13,6 +13,10 @@ interface AutoDisableSchemaDetectionEntry {
 
 const autoDisableSchemaDetectionEntries: AutoDisableSchemaDetectionEntry[] = [
   {
+    extensionId: 'dbtlabsinc.dbt',
+    fileMatches: ['**/dbt_project.yml', '**/dbt_project.yaml'],
+  },
+  {
     extensionId: 'docker.docker',
     configurationKey: 'docker.extension.enableComposeLanguageServer',
     fileMatches: [
