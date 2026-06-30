@@ -110,6 +110,44 @@ describe('Status bar should work in multiple different scenarios', () => {
     expect(statusBar.show).calledTwice;
   });
 
+  it('Should update status bar when an inline schema changes', async () => {
+    const context: vscode.ExtensionContext = {
+      subscriptions: [],
+    } as vscode.ExtensionContext;
+    const statusBar = ({ show: sandbox.stub(), hide: sandbox.stub() } as unknown) as vscode.StatusBarItem;
+    const document = {
+      languageId: 'yaml',
+      uri: vscode.Uri.parse('/foo.yaml'),
+      lineAt: sandbox.stub().returns({ text: '$schema: https://foo.com/inline.json' }),
+    };
+    createStatusBarItemStub.returns(statusBar);
+    onDidChangeTextDocumentStub.returns({});
+    activeTextEditor = ({ document } as unknown) as vscode.TextEditor;
+    const getSchemaRequest = clcStub.sendRequest.withArgs(sinon.match.has('method', 'yaml/get/jsonSchema'), sinon.match.any);
+    getSchemaRequest.onFirstCall().resolves([{ uri: 'https://foo.com/old.json', name: 'old schema' }]);
+    getSchemaRequest.onSecondCall().resolves([{ uri: 'https://foo.com/inline.json', name: 'inline schema' }]);
+    clcStub.sendRequest.withArgs(sinon.match.has('method', 'yaml/get/all/jsonSchemas'), sinon.match.any).resolves([]);
+
+    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as CommonLanguageClient);
+    await waitForPromises();
+    expect(statusBar.text).to.equal('old schema');
+
+    const callBackFn = onDidChangeTextDocumentStub.firstCall.firstArg;
+    await callBackFn({
+      document,
+      contentChanges: [
+        {
+          text: 'https://foo.com/inline.json',
+          range: new vscode.Range(0, 9, 0, 33),
+        },
+      ],
+    });
+    await waitForPromises();
+    expect(statusBar.text).to.equal('inline schema');
+    expect(statusBar.tooltip).to.equal('Select JSON Schemas');
+    expect(statusBar.show).calledTwice;
+  });
+
   it('Should inform if there are no schema', async () => {
     const context: vscode.ExtensionContext = {
       subscriptions: [],

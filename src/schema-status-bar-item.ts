@@ -46,6 +46,8 @@ const getJSONSchemasRequestType: RequestType<FileUri, MatchingJSONSchema[], {}> 
 // eslint-disable-next-line @typescript-eslint/ban-types
 const getSchemaRequestType: RequestType<FileUri, JSONSchema[], {}> = new RequestType('yaml/get/jsonSchema');
 
+const schemaDeclarationPattern = /(?:#\s*(?:yaml-language-server\s*:\s*)?\$schema\s*(?:=|:)|^[ \t]*["']?\$schema["']?\s*:)/m;
+
 export let statusBarItem: StatusBarItem;
 
 let client: CommonLanguageClient;
@@ -77,7 +79,13 @@ export function createJSONSchemaStatusBarItem(context: ExtensionContext, languag
       if (
         editor?.document.languageId === 'yaml' &&
         editor.document.uri.toString() === event.document.uri.toString() &&
-        event.contentChanges?.some((change) => /#\s*yaml-language-server:\s*\$schema=/.test(change.text))
+        event.contentChanges?.some((change) => {
+          if (schemaDeclarationPattern.test(change.text)) {
+            return true;
+          }
+          const changedLine = event.document.lineAt(change.range.start.line).text;
+          return schemaDeclarationPattern.test(changedLine);
+        })
       ) {
         updateStatusBar(editor);
       }
