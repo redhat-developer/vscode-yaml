@@ -32,7 +32,7 @@ All contributions are welcome!
 ##### Developing the client side
 
 1. Open the client in vscode
-2. Make changes as neccessary and the run the code using F5
+2. Make changes as necessary and then run the code using F5
 
 ##### Developing the client and server together
 
@@ -73,7 +73,7 @@ Refer to VS Code [documentation](https://code.visualstudio.com/docs/extensions/d
 To obtain and install the latest release from GitHub you can:
 
 * First download the latest *.vsix file from [GitHub Releases section](https://github.com/redhat-developer/vscode-yaml/releases)
-* Inside of VSCode navigate to the extension tab and click the three elipses (...).
+* Inside of VSCode navigate to the extension tab and click the ellipsis (...).
 * Click install from VSIX and provide the location of the *.vsix that was downloaded
 
 ### Certificate of Origin
