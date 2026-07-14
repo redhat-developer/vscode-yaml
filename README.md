@@ -1,12 +1,12 @@
 [![Visual Studio Marketplace](https://img.shields.io/visual-studio-marketplace/v/redhat.vscode-yaml?style=for-the-badge&label=VS%20Marketplace&logo=visual-studio-code)](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml)
 [![Installs](https://img.shields.io/visual-studio-marketplace/i/redhat.vscode-yaml?style=for-the-badge&logo=microsoft)](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml)
 [![Build Status](https://img.shields.io/github/actions/workflow/status/redhat-developer/vscode-yaml/CI.yaml?branch=main&style=for-the-badge&logo=github)](https://github.com/redhat-developer/vscode-yaml/actions?query=workflow:CI)
-[![License](https://img.shields.io/github/license/redhat-developer/vscode-yaml?style=for-the-badge)](https://github.com/redhat-developer/vscode-yaml/blob/master/LICENSE)
+[![License](https://img.shields.io/github/license/redhat-developer/vscode-yaml?style=for-the-badge)](https://github.com/redhat-developer/vscode-yaml/blob/main/LICENSE)
 [![OpenVSX Registry](https://img.shields.io/open-vsx/dt/redhat/vscode-yaml?color=purple&label=OpenVSX%20Downloads&style=for-the-badge)](https://open-vsx.org/extension/redhat/vscode-yaml)
 
 # YAML Language Support by Red Hat
 
-Provides comprehensive YAML Language support to [Visual Studio Code](https://code.visualstudio.com/), via the [yaml-language-server](https://github.com/redhat-developer/yaml-language-server), with built-in Kubernetes syntax support.
+Provides comprehensive YAML language support for [Visual Studio Code](https://code.visualstudio.com/) through [yaml-language-server](https://github.com/redhat-developer/yaml-language-server), with built-in Kubernetes schema support.
 
 Starting from version `1.0.0`, the language server uses [eemeli/yaml](https://github.com/eemeli/yaml) as its YAML parser, which strictly enforces the specified YAML spec version. The default YAML spec version is `1.2`. Set `yaml.yamlVersion` to `1.1` for compatibility with older YAML files.
 
@@ -40,12 +40,13 @@ Schema validation supports JSON Schema `draft-04`, `draft-07`, `2019-09`, and `2
 
 ## Extension settings
 
-The following settings are supported:
-* `yaml.yamlVersion`: Set default YAML spec version (`1.2` or `1.1`). Defaults to `1.2`.
-* `yaml.maxItemsComputed`: The maximum number of outline symbols and folding regions computed (limited for performance reasons). Defaults to `5000`.
-* `yaml.format.enable`: Enable/disable default YAML formatter. Defaults to `true`.
-* `yaml.format.singleQuote`: Use single quotes instead of double quotes. Defaults to `false`.
-* `yaml.format.bracketSpacing`: Print spaces between brackets in objects. Defaults to `true`.
+### Language features
+
+- `yaml.yamlVersion`: Set the default YAML spec version (`1.2` or `1.1`). Defaults to `1.2`.
+- `yaml.maxItemsComputed`: Set the maximum number of outline symbols and folding regions computed. Defaults to `5000`.
+- `yaml.validate`: Enable or disable validation. Defaults to `true`.
+- `yaml.completion`: Enable or disable completion. Defaults to `true`.
+- `yaml.hover`: Enable or disable hover. Defaults to `true`.
 * `yaml.format.proseWrap`: Control prose wrapping behavior. `always`: wrap prose if it exceeds the print width, `never`: never wrap the prose, `preserve`: wrap prose as-is. Defaults to `preserve`.
 * `yaml.format.printWidth`: Specify the line length that the printer will wrap on. Defaults to `80`.
 * `yaml.format.trailingComma`: Specify if trailing commas should be used in JSON-like segments of the YAML. Defaults to `true`.
@@ -71,7 +72,7 @@ The following settings are supported:
 * `yaml.extension.recommendations`: Enable/disable extension recommendations for YAML files. Default is `true`.
 * `http.proxy`: The URL of the proxy server that will be used when attempting to download a schema. If it is not set or it is undefined, no proxy server will be used.
 * `http.proxyStrictSSL`: If true, the proxy server certificate should be verified against the list of supplied CAs. Defaults to `false`.
-
+* `yaml.trace.server`: Set the language server trace level to `off`, `messages`, or `verbose`. Defaults to `off`.
 * `[yaml]`: VSCode-YAML adds default editor configuration for all YAML files. More specifically, it converts tabs to spaces to ensure valid YAML, sets the tab size, enables quick suggestions while typing, and maintains auto indentation behavior. These default settings can be modified via the corresponding settings in the `[yaml]` section of VS Code settings:
   * `editor.insertSpaces`: Defaults to `true`.
   * `editor.tabSize`: Defaults to `2`.
@@ -313,7 +314,7 @@ For multiple file patterns:
 
 ## Schema resolution priority
 
-When multiple schema sources apply to the same YAML file, the language server uses the following priority order, from highest to lowest:
+When multiple schema sources or schema-disabling mechanisms apply to the same YAML file, the language server uses the following priority order, from highest to lowest:
 
 1. Modeline
 2. Inline `$schema` property
@@ -321,7 +322,7 @@ When multiple schema sources apply to the same YAML file, the language server us
 4. `yaml.disableSchemaDetection`
 5. `yaml.schemas`
 6. `yamlValidation` contributions from other extensions
-7. Schema Store
+7. SchemaStore
 
 ## Adding custom tags
 
@@ -367,15 +368,16 @@ some_string: !Seq-as-string-example
 
 In the last example, `!Seq-as-string-example` is written on a YAML sequence, but schema validation treats the tagged value as a string because its return type is `string`.
 
-## Feedback & questions
+## Feedback and questions
 
 If you discover an issue or have questions:
-* File a bug in [GitHub Issues](https://github.com/redhat-developer/vscode-yaml/issues)
-* Open a [Discussion on GitHub](https://github.com/redhat-developer/vscode-yaml/discussions)
+
+- File a bug in [GitHub Issues](https://github.com/redhat-developer/vscode-yaml/issues)
+- Open a [Discussion on GitHub](https://github.com/redhat-developer/vscode-yaml/discussions)
 
 ## License
 
-MIT, See [LICENSE](LICENSE) for more information.
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
 
 ## Data and telemetry
 
