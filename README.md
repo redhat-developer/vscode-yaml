@@ -24,7 +24,7 @@ Schema validation supports JSON Schema `draft-04`, `draft-07`, `2019-09`, and `2
         * Node is not a valid child node
         * Node is an additional property of its parent
 2. **Document outlining** (<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>O</kbd>):
-    * Shows YAML nodes hierarchically in the Outline view and makes them available through Go to Symbol
+    * Shows YAML nodes hierarchically in the **Outline view** and makes them available through **Go to Symbol**
 3. **Auto completion** (<kbd>Ctrl</kbd> + <kbd>Space</kbd>):
     * Auto completes YAML keys, values, and structure based on the associated schema
     * Auto completes scalar nodes with schema defaults when defaults are available
