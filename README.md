@@ -40,54 +40,52 @@ Schema validation supports JSON Schema `draft-04`, `draft-07`, `2019-09`, and `2
 
 ## Extension settings
 
-### Language features
-
 - `yaml.yamlVersion`: Set the default YAML spec version (`1.2` or `1.1`). Defaults to `1.2`.
-- `yaml.maxItemsComputed`: Set the maximum number of outline symbols and folding regions computed. Defaults to `5000`.
-- `yaml.validate`: Enable or disable validation. Defaults to `true`.
-- `yaml.completion`: Enable or disable completion. Defaults to `true`.
-- `yaml.hover`: Enable or disable hover. Defaults to `true`.
-* `yaml.format.proseWrap`: Control prose wrapping behavior. `always`: wrap prose if it exceeds the print width, `never`: never wrap the prose, `preserve`: wrap prose as-is. Defaults to `preserve`.
-* `yaml.format.printWidth`: Specify the line length that the printer will wrap on. Defaults to `80`.
-* `yaml.format.trailingComma`: Specify if trailing commas should be used in JSON-like segments of the YAML. Defaults to `true`.
-* `yaml.validate`: Enable/disable validation feature. Defaults to `true`.
-* `yaml.hover`: Enable/disable hover. Defaults to `true`.
-* `yaml.hoverAnchor`: Enable/disable hover feature for anchors. Defaults to `true`.
-* `yaml.hoverSchemaSource`: Enable/disable showing the schema source in hover tooltips. Defaults to `true`.
-* `yaml.completion`: Enable/disable autocompletion. Defaults to `true`.
-* `yaml.disableDefaultProperties`: Disable adding not required properties with default values into completion text. Defaults to `false`.
-* `yaml.suggest.parentSkeletonSelectedFirst`: If true, the user must select some parent skeleton first before autocompletion starts to suggest the rest of the properties. When the YAML object is not empty, autocompletion ignores this setting and returns all properties and skeletons. Defaults to `false`.
-* `yaml.schemas`: Associate schemas with files using glob patterns. See [Associating schemas](#associating-schemas) for details.
-* `yaml.disableSchemaDetection`: Disable schema detection for YAML files matching the configured glob pattern or list of glob patterns. Modelines still apply.
-* `yaml.schemaStore.enable`: When set to true, the YAML language server will pull in all available schemas from [JSON Schema Store](http://schemastore.org/). Defaults to `true`.
-* `yaml.schemaStore.url`: URL of a schema store catalog to use when downloading schemas. Defaults to `https://www.schemastore.org/api/json/catalog.json`.
-* `yaml.customTags`: Array of custom tags that the parser will validate against. It has three ways to be used. A tag without a type, such as "!Ref", is treated as a scalar tag. A tag with a node type, such as "!Ref sequence", specifies the YAML node type that the tag is written on. A tag with a node type and return type, such as "!FindInMap sequence:string", also specifies the schema type that the tagged value evaluates to. Supported node types are scalar, sequence, and mapping. Supported return types are string, number, integer, boolean, null, array, and object. The return type aliases scalar, sequence, and mapping are accepted as string, array, and object. See [Adding custom tags](#adding-custom-tags) for usage details.
-* `yaml.disableAdditionalProperties`: Globally set `additionalProperties` to `false` for all objects. When enabled, no extra properties are allowed in YAML objects beyond those defined in the schema. Defaults to `false`.
-* `yaml.kubernetesCRDStore.enable`: Enable/disable validation of Kubernetes custom resources using schemas from well-known Custom Resource Definitions (CRDs). Defaults to `true`.
-* `yaml.kubernetesCRDStore.url`: The base URL for fetching well-known Custom Resource Definition (CRD) schemas. Defaults to `https://raw.githubusercontent.com/datreeio/CRDs-catalog/main`.
-* `yaml.kubernetesVersion`: Kubernetes version used to build the schema URL when `yaml.schemas` maps files to the `kubernetes` keyword. If omitted, the extension falls back to a predefined default Kubernetes version.
-* `yaml.style.flowMapping`: Control flow style mappings. Forbids flow style mappings if set to `forbid`. Defaults to `allow`.
-* `yaml.style.flowSequence`: Control flow style sequences. Forbids flow style sequences if set to `forbid`. Defaults to `allow`.
-* `yaml.keyOrdering`: Enforces alphabetical ordering of keys in mappings when set to `true`. Defaults to `false`.
-* `yaml.extension.recommendations`: Enable/disable extension recommendations for YAML files. Default is `true`.
-* `http.proxy`: The URL of the proxy server that will be used when attempting to download a schema. If it is not set or it is undefined, no proxy server will be used.
-* `http.proxyStrictSSL`: If true, the proxy server certificate should be verified against the list of supplied CAs. Defaults to `false`.
-* `yaml.trace.server`: Set the language server trace level to `off`, `messages`, or `verbose`. Defaults to `off`.
-* `[yaml]`: VSCode-YAML adds default editor configuration for all YAML files. More specifically, it converts tabs to spaces to ensure valid YAML, sets the tab size, enables quick suggestions while typing, and maintains auto indentation behavior. These default settings can be modified via the corresponding settings in the `[yaml]` section of VS Code settings:
-  * `editor.insertSpaces`: Defaults to `true`.
-  * `editor.tabSize`: Defaults to `2`.
-  * `editor.autoIndent`: Defaults to `keep`.
-  * `editor.quickSuggestions`: Defaults to `{"other": true, "comments": false, "strings": true}`.
+- `yaml.maxItemsComputed`: The maximum number of document symbols and folding regions computed (limited for performance reasons). Defaults to `5000`.
+- `yaml.format.enable`: Enable/disable the default YAML formatter. Defaults to `true`.
+- `yaml.format.singleQuote`: Use single quotes instead of double quotes. Defaults to `false`.
+- `yaml.format.bracketSpacing`: Print spaces between brackets in objects. Defaults to `true`.
+- `yaml.format.proseWrap`: Control prose wrapping behavior. `always`: wrap prose if it exceeds the print width, `never`: never wrap the prose, `preserve`: wrap prose as-is. Defaults to `preserve`.
+- `yaml.format.printWidth`: Specify the line length that the printer will wrap on. Defaults to `80`.
+- `yaml.format.trailingComma`: Specify if trailing commas should be used in JSON-like segments of the YAML. Defaults to `true`.
+- `yaml.validate`: Enable/disable validation feature. Defaults to `true`.
+- `yaml.hover`: Enable/disable hover. Defaults to `true`.
+- `yaml.hoverAnchor`: Enable/disable hover feature for anchors. Defaults to `true`.
+- `yaml.hoverSchemaSource`: Enable/disable showing the schema source in hover tooltips. Defaults to `true`.
+- `yaml.completion`: Enable/disable autocompletion. Defaults to `true`.
+- `yaml.disableDefaultProperties`: Disable adding not required properties with default values into completion text. Defaults to `false`.
+- `yaml.suggest.parentSkeletonSelectedFirst`: If true, the user must select some parent skeleton first before autocompletion starts to suggest the rest of the properties. When the YAML object is not empty, autocompletion ignores this setting and returns all properties and skeletons. Defaults to `false`.
+- `yaml.schemas`: Associate schemas with files using glob patterns. See [Associating schemas](#associating-schemas) for details.
+- `yaml.disableSchemaDetection`: Disable schema detection for YAML files matching the configured glob pattern or list of glob patterns. Modelines still apply.
+- `yaml.schemaStore.enable`: Use the [SchemaStore](https://www.schemastore.org/) catalog to automatically associate schemas with common YAML file patterns. Defaults to `true`.
+- `yaml.schemaStore.url`: URL of a schema store catalog to use when downloading schemas. Defaults to `https://www.schemastore.org/api/json/catalog.json`.
+- `yaml.customTags`: Array of custom tags that the parser will validate against. It has three ways to be used. A tag without a type, such as "!Ref", is treated as a scalar tag. A tag with a node type, such as "!Ref sequence", specifies the YAML node type that the tag is written on. A tag with a node type and return type, such as "!FindInMap sequence:string", also specifies the schema type that the tagged value evaluates to. Supported node types are scalar, sequence, and mapping. Supported return types are string, number, integer, boolean, null, array, and object. The return type aliases scalar, sequence, and mapping are accepted as string, array, and object. See [Adding custom tags](#adding-custom-tags) for usage details.
+- `yaml.disableAdditionalProperties`: Globally set `additionalProperties` to `false` for all objects. When enabled, no extra properties are allowed in YAML objects beyond those defined in the schema. Defaults to `false`.
+- `yaml.kubernetesCRDStore.enable`: Enable/disable validation of Kubernetes custom resources using schemas from well-known Custom Resource Definitions (CRDs). Defaults to `true`.
+- `yaml.kubernetesCRDStore.url`: The base URL for fetching well-known Custom Resource Definition (CRD) schemas. Defaults to `https://raw.githubusercontent.com/datreeio/CRDs-catalog/main`.
+- `yaml.kubernetesVersion`: Kubernetes version used to build the schema URL when `yaml.schemas` maps files to the `kubernetes` keyword. If omitted, the extension falls back to a predefined default Kubernetes version.
+- `yaml.style.flowMapping`: Control flow style mappings. Forbids flow style mappings if set to `forbid`. Defaults to `allow`.
+- `yaml.style.flowSequence`: Control flow style sequences. Forbids flow style sequences if set to `forbid`. Defaults to `allow`.
+- `yaml.keyOrdering`: Enforces alphabetical ordering of keys in mappings when set to `true`. Defaults to `false`.
+- `http.proxy`: The URL of the proxy server that will be used when attempting to download a schema. If it is not set or it is undefined, no proxy server will be used.
+- `http.proxyStrictSSL`: If true, the proxy server certificate should be verified against the list of supplied CAs. Defaults to `false`.
+- `yaml.extension.recommendations`: Enable/disable extension recommendations for YAML files. Default is `true`.
+- `yaml.trace.server`: Set the language server trace level to `off`, `messages`, or `verbose`. Defaults to `off`.
+- `[yaml]`: VSCode-YAML adds default editor configuration for all YAML files. More specifically, it converts tabs to spaces to ensure valid YAML, sets the tab size, enables quick suggestions while typing, and maintains auto indentation behavior. These default settings can be modified via the corresponding settings in the `[yaml]` section of VS Code settings:
+  - `editor.insertSpaces`: Defaults to `true`.
+  - `editor.tabSize`: Defaults to `2`.
+  - `editor.autoIndent`: Defaults to `keep`.
+  - `editor.quickSuggestions`: Defaults to `{"other": true, "comments": false, "strings": true}`.
 
   Other VS Code editor settings can also be overridden for YAML files in the `[yaml]` section, including:
-  * `editor.formatOnType`
-  * `editor.codeLens`
+  - `editor.formatOnType`
+  - `editor.codeLens`
 
 ## Associating schemas
 
 The extension uses [JSON Schema](https://json-schema.org/) to understand the shape of YAML files. Schema definitions can be written in JSON (`.json`) or YAML (`.yaml` or `.yml`) format.
 
-Schemas can be associated with YAML files by using a modeline, an inline `$schema` property, or the `yaml.schemas` setting. The extension also automatically matches common file patterns to schemas from [SchemaStore](https://www.schemastore.org/) when `yaml.schemaStore.enable` is enabled, which it is by default.
+Schemas can be associated with YAML files using a modeline, an inline `$schema` property, or the `yaml.schemas` setting. The extension can also obtain schemas through the [`registerContributor` extension API](https://github.com/redhat-developer/vscode-yaml/wiki/Extension-API#register-contributor) and [`yamlValidation` contributions](#using-the-yamlvalidation-contribution-point) from other VS Code extensions. Additionally, it automatically matches common file patterns to schemas from [SchemaStore](https://www.schemastore.org/) when `yaml.schemaStore.enable` is enabled, as it is by default.
 
 When multiple schema sources or schema-disabling settings apply to the same file, see [Schema resolution priority](#schema-resolution-priority).
 
@@ -120,8 +118,8 @@ Relative paths in inline `$schema` properties are resolved from the YAML file's 
 ### Using `yaml.schemas`
 
 The `yaml.schemas` setting maps schemas to file patterns using key-value pairs:
-* **Key**: Schema URI, local file path, or the `kubernetes` keyword
-* **Value**: A glob pattern or array of glob patterns
+- **Key**: Schema URI, local file path, or the `kubernetes` keyword
+- **Value**: A glob pattern or array of glob patterns
 
 #### Remote schemas
 
