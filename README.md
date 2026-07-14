@@ -40,6 +40,8 @@ Schema validation supports JSON Schema `draft-04`, `draft-07`, `2019-09`, and `2
 
 ## Extension settings
 
+The following settings are supported:
+
 - `yaml.yamlVersion`: Set the default YAML spec version (`1.2` or `1.1`). Defaults to `1.2`.
 - `yaml.maxItemsComputed`: The maximum number of document symbols and folding regions computed (limited for performance reasons). Defaults to `5000`.
 - `yaml.format.enable`: Enable/disable the default YAML formatter. Defaults to `true`.
