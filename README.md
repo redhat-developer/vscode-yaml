@@ -77,6 +77,7 @@ The following settings are supported:
   * `editor.tabSize`: Defaults to `2`.
   * `editor.autoIndent`: Defaults to `keep`.
   * `editor.quickSuggestions`: Defaults to `{"other": true, "comments": false, "strings": true}`.
+
   Other VS Code editor settings can also be overridden for YAML files in the `[yaml]` section, including:
   * `editor.formatOnType`
   * `editor.codeLens`
@@ -378,7 +379,9 @@ MIT, See [LICENSE](LICENSE) for more information.
 
 ## Data and telemetry
 
-The `vscode-yaml` extension collects anonymous [usage data](USAGE_DATA.md) and sends it to Red Hat servers to help improve our products and services. Read our [privacy statement](https://developers.redhat.com/article/tool-data-collection) to learn more. This extension respects the `redhat.telemetry.enabled` setting, which you can learn more about at https://github.com/redhat-developer/vscode-redhat-telemetry#how-to-disable-telemetry-reporting
+When telemetry is enabled, the extension collects anonymous [usage data](USAGE_DATA.md) and sends it to Red Hat to help improve its products and services. For more information, see Red Hat's [telemetry data collection notice](https://developers.redhat.com/article/tool-data-collection).
+
+Use the `redhat.telemetry.enabled` setting to enable or disable telemetry. The extension also honors VS Code's `telemetry.telemetryLevel` setting. See [How to disable telemetry reporting](https://github.com/redhat-developer/vscode-redhat-telemetry#how-to-disable-telemetry-reporting) for details.
 
 ## How to contribute
 
