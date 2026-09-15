@@ -13,6 +13,7 @@ import {
   LanguageClientOptions,
   NotificationType,
   RequestType,
+  ResponseError,
   RevealOutputChannelOn,
 } from 'vscode-languageclient';
 import { CUSTOM_SCHEMA_REQUEST, CUSTOM_CONTENT_REQUEST, SchemaExtensionAPI } from './schema-extension-api';
@@ -60,7 +61,7 @@ namespace VSCodeContentRequestRegistration {
 // eslint-disable-next-line @typescript-eslint/no-namespace
 namespace VSCodeContentRequest {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  export const type: RequestType<string, string, any> = new RequestType('vscode/content');
+  export const type: RequestType<string, string, ResponseError<undefined>> = new RequestType('vscode/content');
 }
 
 // eslint-disable-next-line @typescript-eslint/no-namespace

@@ -6,6 +6,7 @@
 import { TextDocumentContentProvider, Uri, workspace, window } from 'vscode';
 import { xhr, configure as configureHttpRequests, getErrorStatusDescription, XHRResponse } from 'request-light';
 import { SchemaExtensionAPI } from './schema-extension-api';
+import { ResponseError } from 'vscode-languageclient';
 
 export interface IJSONSchemaCache {
   getETag(schemaUri: string): string | undefined;
@@ -101,5 +102,6 @@ export async function getJsonSchemaContent(uri: string, schemaCache: IJSONSchema
 }
 
 function createReject(error: XHRResponse): Promise<string> {
-  return Promise.reject(error.responseText || getErrorStatusDescription(error.status) || error.toString());
+  const message = error.responseText || getErrorStatusDescription(error.status) || error.toString();
+  return Promise.reject(new ResponseError<undefined>(error.status, message));
 }
