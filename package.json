@@ -337,7 +337,6 @@
     "@types/sinon": "^10.0.6",
     "@types/sinon-chai": "^3.2.5",
     "@types/vscode": "^1.63.0",
-    "@types/webpack": "^4.4.10",
     "@types/webpack-env": "^1.18.8",
     "@typescript-eslint/eslint-plugin": "^7.11.0",
     "@typescript-eslint/parser": "^7.11.0",
