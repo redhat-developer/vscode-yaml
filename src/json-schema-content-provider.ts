@@ -3,7 +3,7 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-import { TextDocumentContentProvider, Uri, workspace, window } from 'vscode';
+import { TextDocumentContentProvider, Uri, workspace, window, WorkspaceConfiguration } from 'vscode';
 import { xhr, configure as configureHttpRequests, getErrorStatusDescription, XHRResponse } from 'request-light';
 import { SchemaExtensionAPI } from './schema-extension-api';
 import { ResponseError } from 'vscode-languageclient';
@@ -48,7 +48,9 @@ export async function getJsonSchemaContent(uri: string, schemaCache: IJSONSchema
   const cachedETag = schemaCache.getETag(uri);
 
   const httpSettings = workspace.getConfiguration('http');
-  configureHttpRequests(httpSettings.proxy, httpSettings.proxyStrictSSL);
+  if (requestShouldBeProxied(uri, httpSettings)) {
+    configureHttpRequests(httpSettings.proxy, httpSettings.proxyStrictSSL);
+  }
 
   const version = (typeof process !== 'undefined' && process.env.YAML_LANGUAGE_SERVER_VERSION) || 'unknown';
   const nodeVersion = typeof process !== 'undefined' && process.versions?.node ? ` node/${process.versions.node}` : '';
@@ -104,4 +106,23 @@ export async function getJsonSchemaContent(uri: string, schemaCache: IJSONSchema
 function createReject(error: XHRResponse): Promise<string> {
   const message = error.responseText || getErrorStatusDescription(error.status) || error.toString();
   return Promise.reject(new ResponseError<undefined>(error.status, message));
+}
+
+export function requestShouldBeProxied(uri: string, httpSettings: WorkspaceConfiguration): boolean {
+  const proxy = httpSettings.get<string>('proxy');
+  const noProxy = httpSettings.get<string[]>('noProxy');
+  // proxy not configured
+  if (!proxy) return false;
+  // proxy configured, no items in noProxy
+  if (!noProxy.length) return true;
+
+  const noProxyEntries = noProxy.map((item) => item.trim());
+  const uriAuthority = Uri.parse(uri).authority;
+  return !noProxyEntries.some((entry) => {
+    if (entry.startsWith('*.')) {
+      return uriAuthority.endsWith(entry.substring(1));
+    } else {
+      return uriAuthority === entry;
+    }
+  });
 }
