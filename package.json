@@ -376,7 +376,6 @@
     "fs-extra": "^9.1.0",
     "request-light": "^0.5.7",
     "vscode-languageclient": "7.0.0",
-    "vscode-nls": "^3.2.1",
     "vscode-uri": "^2.0.3",
     "whatwg-fetch": "^3.6.2",
     "yaml-language-server": "next"
