@@ -4,6 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 import { TextDocumentContentProvider, Uri, workspace, window } from 'vscode';
+import { requestWithRetry } from './schema-request-retry';
 import { xhr, configure as configureHttpRequests, getErrorStatusDescription, XHRResponse } from 'request-light';
 import { SchemaExtensionAPI } from './schema-extension-api';
 import { ResponseError } from 'vscode-languageclient';
@@ -60,7 +61,7 @@ export async function getJsonSchemaContent(uri: string, schemaCache: IJSONSchema
   if (cachedETag) {
     headers['If-None-Match'] = cachedETag;
   }
-  return xhr({ url: uri, followRedirects: 5, headers })
+  return requestWithRetry(() => xhr({ url: uri, followRedirects: 5, headers }))
     .then(async (response) => {
       // cache only if server supports 'etag' header
       const etag = response.headers['etag'];
@@ -80,7 +81,7 @@ export async function getJsonSchemaContent(uri: string, schemaCache: IJSONSchema
         if (content === undefined) {
           console.error(`Cannot read cached content for: ${uri}, trying to load again`);
           delete headers['If-None-Match'];
-          return xhr({ url: uri, followRedirects: 5, headers })
+          return requestWithRetry(() => xhr({ url: uri, followRedirects: 5, headers }))
             .then((response) => {
               return response.responseText;
             })
