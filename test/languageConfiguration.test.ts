@@ -14,5 +14,9 @@ describe('Language configuration', () => {
     const increaseIndentPattern = new RegExp(config.indentationRules.increaseIndentPattern);
     assert.ok(increaseIndentPattern.test('base: &base'));
     assert.ok(increaseIndentPattern.test('- &item'));
+    assert.ok(increaseIndentPattern.test('second: &ref-erance'));
+    assert.ok(increaseIndentPattern.test('- &item.v2'));
+    assert.ok(!increaseIndentPattern.test('key: value'));
+    assert.ok(!increaseIndentPattern.test('- item'));
   });
 });
