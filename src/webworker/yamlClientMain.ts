@@ -11,6 +11,8 @@ import { LanguageClient } from 'vscode-languageclient/browser';
 import { SchemaExtensionAPI } from '../schema-extension-api';
 import { IJSONSchemaCache } from '../json-schema-content-provider';
 import { getRedHatService } from '@redhat-developer/vscode-redhat-telemetry/lib/webworker';
+
+export { deactivate } from '../extension';
 // this method is called when vs code is activated
 export async function activate(context: ExtensionContext): Promise<SchemaExtensionAPI | undefined> {
   const extensionUri = context.extensionUri;
@@ -21,7 +23,7 @@ export async function activate(context: ExtensionContext): Promise<SchemaExtensi
     const worker = new Worker(serverMain.toString());
     worker.postMessage({ l10nBundle: l10n.bundle });
     const newLanguageClient: LanguageClientConstructor = (id: string, name: string, clientOptions: LanguageClientOptions) => {
-      return new LanguageClient(id, name, clientOptions, worker);
+      return new LanguageClient(id, name, worker, clientOptions);
     };
 
     const schemaCache: IJSONSchemaCache = {

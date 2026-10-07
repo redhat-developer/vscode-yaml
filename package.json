@@ -25,7 +25,7 @@
   "icon": "icon/icon128.png",
   "engines": {
     "npm": ">=7.0.0",
-    "vscode": "^1.63.0"
+    "vscode": "^1.91.0"
   },
   "categories": [
     "Programming Languages",
@@ -324,7 +324,7 @@
     "format": "prettier --write .",
     "lint": "eslint -c .eslintrc.js --ext .ts src test",
     "test": "npm run test-compile && npx vscode-test",
-    "ui-test": "npm run test-compile && extest setup-and-run out/test/ui-test/allTestsSuite.js -c 1.76.2",
+    "ui-test": "npm run test-compile && extest setup-and-run out/test/ui-test/allTestsSuite.js -c 1.91.0",
     "vscode:prepublish": "webpack --mode production && npm run copy-l10n",
     "copy-l10n": "cp -r node_modules/yaml-language-server/l10n dist/l10n",
     "watch": "webpack --mode development --watch --info-verbosity verbose",
@@ -341,7 +341,7 @@
     "@types/node": "^18.x",
     "@types/sinon": "^10.0.6",
     "@types/sinon-chai": "^3.2.5",
-    "@types/vscode": "^1.63.0",
+    "@types/vscode": "^1.91.0",
     "@types/webpack-env": "^1.18.8",
     "@typescript-eslint/eslint-plugin": "^7.11.0",
     "@typescript-eslint/parser": "^7.11.0",
@@ -364,7 +364,6 @@
     "sinon-chai": "^3.7.0",
     "ts-loader": "^9.2.5",
     "typescript": "^5.4.5",
-    "umd-compat-loader": "^2.1.2",
     "url": "^0.11.0",
     "util": "^0.12.5",
     "vscode-extension-tester": "^5.3.0",
@@ -375,7 +374,7 @@
     "@redhat-developer/vscode-redhat-telemetry": "^0.8.0",
     "fs-extra": "^9.1.0",
     "request-light": "^0.5.7",
-    "vscode-languageclient": "7.0.0",
+    "vscode-languageclient": "10.1.2",
     "vscode-uri": "^2.0.3",
     "whatwg-fetch": "^3.6.2",
     "yaml-language-server": "next"
