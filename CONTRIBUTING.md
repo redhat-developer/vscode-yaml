@@ -9,7 +9,7 @@ All contributions are welcome!
 1. Install prerequisites:
 
    * latest [Visual Studio Code](https://code.visualstudio.com/)
-   * [Node.js](https://nodejs.org/) v14.0.0 or higher
+   * [Node.js](https://nodejs.org/) v22.13.0 or higher
 
 2. Fork and clone this repository and go into the folder
 
@@ -48,13 +48,22 @@ All contributions are welcome!
 
 3. Open the `vscode-yaml` folder in VSCode, and then add the `yaml-language-server` project to the workspace using `File -> Add Folder to Workspace...`.
 
-4. Run `npm run install` in both directories to initialize `node_modules` dependencies.
+4. Install and build the language server, then install and build the extension:
+
+   ```bash
+   cd ../yaml-language-server
+   npm install
+   npm run compile
+   cd ../vscode-yaml
+   npm install
+   npm run compile
+   ```
 
 5. To run the language server in VSCode, click `View -> Debug`, then from the drop down menu beside the green arrow select `Launch Extension (vscode-yaml)`, click the arrow, and a new VSCode window should load with the YAML LS running.
 
 6. To debug the language server in VSCode, from the same drop down menu
    select
-   `Attach (yaml-language-server)`, and click the green arrow to start.
+   `Attach to server (yaml-language-server)`, and click the green arrow to start.
    Ensure you've opened a YAML file or else the server would have not yet
    started.
 

@@ -3,7 +3,7 @@
  * Licensed under the MIT License. See License.txt in the project root for license information.
  * ------------------------------------------------------------------------------------------ */
 import * as sinon from 'sinon';
-import * as sinonChai from 'sinon-chai';
+import sinonChai from 'sinon-chai';
 import * as chai from 'chai';
 import * as vscode from 'vscode';
 import { TelemetryErrorHandler, TelemetryOutputChannel } from '../src/telemetry';
@@ -32,13 +32,13 @@ class TelemetryStub implements TelemetryService {
 // skip this suite as `useFakeTimers` hung's vscode and CI newer finish build
 describe.skip('Telemetry Test', () => {
   const sandbox = sinon.createSandbox();
-  const testOutputChannel = vscode.window.createOutputChannel('YAML_TEST');
+  const testOutputChannel = vscode.window.createOutputChannel('YAML_TEST', { log: true });
   afterEach(() => {
     sandbox.restore();
   });
   describe('TelemetryOutputChannel', () => {
     let telemetryChannel: TelemetryOutputChannel;
-    let outputChannel: sinon.SinonStubbedInstance<vscode.OutputChannel>;
+    let outputChannel: sinon.SinonStubbedInstance<vscode.LogOutputChannel>;
     let telemetry: sinon.SinonStubbedInstance<TelemetryService>;
     let clock: sinon.SinonFakeTimers;
 
@@ -46,7 +46,7 @@ describe.skip('Telemetry Test', () => {
       outputChannel = sandbox.stub(testOutputChannel);
       telemetry = sandbox.stub(new TelemetryStub());
       telemetryChannel = new TelemetryOutputChannel(
-        (outputChannel as unknown) as vscode.OutputChannel,
+        (outputChannel as unknown) as vscode.LogOutputChannel,
         (telemetry as unknown) as TelemetryService
       );
       clock = sinon.useFakeTimers();

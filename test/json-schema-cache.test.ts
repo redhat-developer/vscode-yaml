@@ -4,10 +4,10 @@
  *--------------------------------------------------------------------------------------------*/
 
 import * as sinon from 'sinon';
-import * as sinonChai from 'sinon-chai';
+import sinonChai from 'sinon-chai';
 import * as chai from 'chai';
 import * as vscode from 'vscode';
-import * as fs from 'fs-extra';
+import fs from 'fs-extra';
 import { JSONSchemaCache } from '../src/json-schema-cache';
 import { TestMemento } from './helper';
 

@@ -4,7 +4,7 @@
  *--------------------------------------------------------------------------------------------*/
 
 import { TelemetryService } from './extension';
-import { CloseAction, ErrorAction, ErrorHandler, Message } from 'vscode-languageclient';
+import { CloseAction, CloseHandlerResult, ErrorAction, ErrorHandler, ErrorHandlerResult, Message } from 'vscode-languageclient';
 import * as vscode from 'vscode';
 
 export class TelemetryErrorHandler implements ErrorHandler {
@@ -15,17 +15,17 @@ export class TelemetryErrorHandler implements ErrorHandler {
     private readonly maxRestartCount: number
   ) {}
 
-  error(error: Error, message: Message, count: number): ErrorAction {
-    this.telemetry.send({ name: 'yaml.lsp.error', properties: { jsonrpc: message.jsonrpc, error: error.message } });
+  error(error: Error, message: Message | undefined, count: number | undefined): ErrorHandlerResult {
+    this.telemetry.send({ name: 'yaml.lsp.error', properties: { jsonrpc: message?.jsonrpc, error: error.message } });
     if (count && count <= 3) {
-      return ErrorAction.Continue;
+      return { action: ErrorAction.Continue };
     }
-    return ErrorAction.Shutdown;
+    return { action: ErrorAction.Shutdown };
   }
-  closed(): CloseAction {
+  closed(): CloseHandlerResult {
     this.restarts.push(Date.now());
     if (this.restarts.length <= this.maxRestartCount) {
-      return CloseAction.Restart;
+      return { action: CloseAction.Restart };
     } else {
       const diff = this.restarts[this.restarts.length - 1] - this.restarts[0];
       if (diff <= 3 * 60 * 1000) {
@@ -34,10 +34,10 @@ export class TelemetryErrorHandler implements ErrorHandler {
             this.maxRestartCount + 1
           } times in the last 3 minutes. The server will not be restarted.`
         );
-        return CloseAction.DoNotRestart;
+        return { action: CloseAction.DoNotRestart, handled: true };
       } else {
         this.restarts.shift();
-        return CloseAction.Restart;
+        return { action: CloseAction.Restart };
       }
     }
   }
@@ -45,10 +45,33 @@ export class TelemetryErrorHandler implements ErrorHandler {
 
 const errorMassagesToSkip = [{ text: 'Warning: Setting the NODE_TLS_REJECT_UNAUTHORIZED', contains: true }];
 
-export class TelemetryOutputChannel implements vscode.OutputChannel {
+export class TelemetryOutputChannel implements vscode.LogOutputChannel {
   private errors: string[] | undefined;
   private throttleTimeout: vscode.Disposable | undefined;
-  constructor(private readonly delegate: vscode.OutputChannel, private readonly telemetry: TelemetryService) {}
+  constructor(private readonly delegate: vscode.LogOutputChannel, private readonly telemetry: TelemetryService) {}
+
+  get logLevel(): vscode.LogLevel {
+    return this.delegate.logLevel;
+  }
+  get onDidChangeLogLevel(): vscode.Event<vscode.LogLevel> {
+    return this.delegate.onDidChangeLogLevel;
+  }
+  trace(message: string, ...args: unknown[]): void {
+    this.delegate.trace(message, ...args);
+  }
+  debug(message: string, ...args: unknown[]): void {
+    this.delegate.debug(message, ...args);
+  }
+  info(message: string, ...args: unknown[]): void {
+    this.delegate.info(message, ...args);
+  }
+  warn(message: string, ...args: unknown[]): void {
+    this.delegate.warn(message, ...args);
+  }
+  error(error: string | Error, ...args: unknown[]): void {
+    this.checkError(`[Error] ${error instanceof Error ? error.message : error}`);
+    this.delegate.error(error, ...args);
+  }
 
   get name(): string {
     return this.delegate.name;

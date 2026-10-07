@@ -4,10 +4,10 @@
  *--------------------------------------------------------------------------------------------*/
 
 import * as sinon from 'sinon';
-import * as sinonChai from 'sinon-chai';
+import sinonChai from 'sinon-chai';
 import * as chai from 'chai';
 import { createJSONSchemaStatusBarItem } from '../src/schema-status-bar-item';
-import { CommonLanguageClient } from 'vscode-languageclient';
+import { BaseLanguageClient } from 'vscode-languageclient';
 import * as vscode from 'vscode';
 import { TestLanguageClient } from './helper';
 import * as jsonStatusBar from '../src/schema-status-bar-item';
@@ -60,7 +60,7 @@ describe('Status bar should work in multiple different scenarios', () => {
     createStatusBarItemStub.returns(statusBar);
     clcStub.sendRequest.resolves([]);
 
-    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as CommonLanguageClient);
+    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as BaseLanguageClient);
 
     expect(registerCommandStub).calledOnceWith('yaml.select.json.schema');
     expect(createStatusBarItemStub).calledOnceWith(vscode.StatusBarAlignment.Right);
@@ -76,7 +76,7 @@ describe('Status bar should work in multiple different scenarios', () => {
     onDidChangeActiveTextEditorStub.returns({});
     clcStub.sendRequest.resolves([{ uri: 'https://foo.com/bar.json', name: 'bar schema', usedForCurrentFile: true }]);
 
-    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as CommonLanguageClient);
+    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as BaseLanguageClient);
     const callBackFn = onDidChangeActiveTextEditorStub.firstCall.firstArg;
     await callBackFn({ document: { languageId: 'yaml', uri: vscode.Uri.parse('/foo.yaml') } });
 
@@ -97,7 +97,7 @@ describe('Status bar should work in multiple different scenarios', () => {
     activeTextEditor = ({ document } as unknown) as vscode.TextEditor;
     clcStub.sendRequest.resolves([{ uri: 'https://foo.com/modeline.json', name: 'modeline schema' }]);
 
-    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as CommonLanguageClient);
+    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as BaseLanguageClient);
     const callBackFn = onDidChangeTextDocumentStub.firstCall.firstArg;
     await callBackFn({
       document,
@@ -128,7 +128,7 @@ describe('Status bar should work in multiple different scenarios', () => {
     getSchemaRequest.onSecondCall().resolves([{ uri: 'https://foo.com/inline.json', name: 'inline schema' }]);
     clcStub.sendRequest.withArgs(sinon.match.has('method', 'yaml/get/all/jsonSchemas'), sinon.match.any).resolves([]);
 
-    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as CommonLanguageClient);
+    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as BaseLanguageClient);
     await waitForPromises();
     expect(statusBar.text).to.equal('old schema');
 
@@ -157,7 +157,7 @@ describe('Status bar should work in multiple different scenarios', () => {
     onDidChangeActiveTextEditorStub.returns({});
     clcStub.sendRequest.resolves([]);
 
-    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as CommonLanguageClient);
+    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as BaseLanguageClient);
     const callBackFn = onDidChangeActiveTextEditorStub.firstCall.firstArg;
     await callBackFn({ document: { languageId: 'yaml', uri: vscode.Uri.parse('/foo.yaml') } });
 
@@ -179,7 +179,7 @@ describe('Status bar should work in multiple different scenarios', () => {
       { uri: 'https://foo.com/b.json', name: 'b schema' },
     ]);
 
-    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as CommonLanguageClient);
+    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as BaseLanguageClient);
     const callBackFn = onDidChangeActiveTextEditorStub.firstCall.firstArg;
     await callBackFn({ document: { languageId: 'yaml', uri: vscode.Uri.parse('/foo.yaml') } });
 
@@ -202,7 +202,7 @@ describe('Status bar should work in multiple different scenarios', () => {
       .withArgs(sinon.match.has('method', 'yaml/get/all/jsonSchemas'), sinon.match.any)
       .resolves([{ versions: { '1.0.0': 'https://foo.com/bar.json' } }]);
 
-    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as CommonLanguageClient);
+    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as BaseLanguageClient);
     const callBackFn = onDidChangeActiveTextEditorStub.firstCall.firstArg;
     await callBackFn({ document: { languageId: 'yaml', uri: vscode.Uri.parse('/foo.yaml') } });
 
@@ -226,7 +226,7 @@ describe('Status bar should work in multiple different scenarios', () => {
       .withArgs(sinon.match.has('method', 'yaml/get/all/jsonSchemas'), sinon.match.any)
       .resolves([{ versions: { '1.0.0': 'https://foo.com/bar.json' } }]);
 
-    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as CommonLanguageClient);
+    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as BaseLanguageClient);
     const callBackFn = onDidChangeActiveTextEditorStub.firstCall.firstArg;
     await callBackFn({ document: { languageId: 'yaml', uri: vscode.Uri.parse('/foo.yaml') } });
 
@@ -249,7 +249,7 @@ describe('Status bar should work in multiple different scenarios', () => {
       document: { languageId: 'yaml', uri: vscode.Uri.parse('/foo.yaml') },
     } as unknown) as vscode.TextEditor;
 
-    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as CommonLanguageClient);
+    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as BaseLanguageClient);
     const command = registerCommandStub.firstCall.args[1];
     await command();
 
@@ -287,7 +287,7 @@ describe('Status bar should work in multiple different scenarios', () => {
         get: sandbox.stub().withArgs('disableSchemaDetection').returns([]),
       } as unknown) as vscode.WorkspaceConfiguration);
 
-    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as CommonLanguageClient);
+    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as BaseLanguageClient);
     const command = registerCommandStub.firstCall.args[1];
     await command();
     const versionedSchemaItem = quickPick.items.find(
@@ -322,7 +322,7 @@ describe('Status bar should work in multiple different scenarios', () => {
         get: sandbox.stub().withArgs('disableSchemaDetection').returns([]),
       } as unknown) as vscode.WorkspaceConfiguration);
 
-    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as CommonLanguageClient);
+    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as BaseLanguageClient);
     const command = registerCommandStub.firstCall.args[1];
     await command();
 
@@ -348,7 +348,7 @@ describe('Status bar should work in multiple different scenarios', () => {
         get: sandbox.stub().withArgs('disableSchemaDetection').returns(['file:///foo.yaml']),
       } as unknown) as vscode.WorkspaceConfiguration);
 
-    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as CommonLanguageClient);
+    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as BaseLanguageClient);
     const command = registerCommandStub.firstCall.args[1];
     await command();
 
@@ -380,7 +380,7 @@ describe('Status bar should work in multiple different scenarios', () => {
         update,
       } as unknown) as vscode.WorkspaceConfiguration);
 
-    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as CommonLanguageClient);
+    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as BaseLanguageClient);
     const command = registerCommandStub.firstCall.args[1];
     await command();
     const schemaItem = quickPick.items.find((item) => item.schema);
@@ -421,7 +421,7 @@ describe('Status bar should work in multiple different scenarios', () => {
         update,
       } as unknown) as vscode.WorkspaceConfiguration);
 
-    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as CommonLanguageClient);
+    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as BaseLanguageClient);
     const command = registerCommandStub.firstCall.args[1];
     await command();
     quickPick.select([]);
@@ -458,7 +458,7 @@ describe('Status bar should work in multiple different scenarios', () => {
         update,
       } as unknown) as vscode.WorkspaceConfiguration);
 
-    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as CommonLanguageClient);
+    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as BaseLanguageClient);
     const command = registerCommandStub.firstCall.args[1];
     await command();
     quickPick.select([]);
@@ -508,7 +508,7 @@ describe('Status bar should work in multiple different scenarios', () => {
         update,
       } as unknown) as vscode.WorkspaceConfiguration);
 
-    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as CommonLanguageClient);
+    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as BaseLanguageClient);
     const command = registerCommandStub.firstCall.args[1];
     await command();
     const userSchemaItem = quickPick.items.find((item) => (item.schema as { uri?: string })?.uri === userSchemaUri);
@@ -553,7 +553,7 @@ describe('Status bar should work in multiple different scenarios', () => {
         update,
       } as unknown) as vscode.WorkspaceConfiguration);
 
-    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as CommonLanguageClient);
+    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as BaseLanguageClient);
     const command = registerCommandStub.firstCall.args[1];
     await command();
     const schemaItem = quickPick.items.find((item) => item.schema);
@@ -596,7 +596,7 @@ describe('Status bar should work in multiple different scenarios', () => {
         update,
       } as unknown) as vscode.WorkspaceConfiguration);
 
-    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as CommonLanguageClient);
+    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as BaseLanguageClient);
     const command = registerCommandStub.firstCall.args[1];
     await command();
     const schemaItems = quickPick.items.filter((item) => item.schema);
@@ -634,7 +634,7 @@ describe('Status bar should work in multiple different scenarios', () => {
         update,
       } as unknown) as vscode.WorkspaceConfiguration);
 
-    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as CommonLanguageClient);
+    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as BaseLanguageClient);
     const command = registerCommandStub.firstCall.args[1];
     await command();
     expect(quickPick.selectedItems).has.length(1);
@@ -668,7 +668,7 @@ describe('Status bar should work in multiple different scenarios', () => {
         update,
       } as unknown) as vscode.WorkspaceConfiguration);
 
-    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as CommonLanguageClient);
+    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as BaseLanguageClient);
     const command = registerCommandStub.firstCall.args[1];
     await command();
     const noSchemaItem = quickPick.items[0];
@@ -710,7 +710,7 @@ describe('Status bar should work in multiple different scenarios', () => {
         update,
       } as unknown) as vscode.WorkspaceConfiguration);
 
-    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as CommonLanguageClient);
+    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as BaseLanguageClient);
     const command = registerCommandStub.firstCall.args[1];
     await command();
     const noSchemaItem = quickPick.items[0];
@@ -765,7 +765,7 @@ describe('Status bar should work in multiple different scenarios', () => {
         update,
       } as unknown) as vscode.WorkspaceConfiguration);
 
-    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as CommonLanguageClient);
+    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as BaseLanguageClient);
     const command = registerCommandStub.firstCall.args[1];
     await command();
     const versionedSchemaItem = schemaPick.items.find(
