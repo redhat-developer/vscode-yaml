@@ -14,6 +14,8 @@ import type { SchemaExtensionAPI } from '../schema-extension-api';
 import { getRedHatService } from '@redhat-developer/vscode-redhat-telemetry';
 import { JSONSchemaCache } from '../json-schema-cache';
 
+export { deactivate } from '../extension';
+
 // this method is called when vs code is activated
 export async function activate(context: ExtensionContext): Promise<SchemaExtensionAPI> {
   // Create Telemetry Service

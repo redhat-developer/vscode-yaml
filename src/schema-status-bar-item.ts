@@ -4,8 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 import type { ExtensionContext, TextEditor, StatusBarItem, QuickPickItem } from 'vscode';
 import { ConfigurationTarget, window, commands, StatusBarAlignment, ThemeIcon, workspace, Uri } from 'vscode';
-import type { CommonLanguageClient } from 'vscode-languageclient/node';
-import { RequestType } from 'vscode-languageclient/node';
+import type { BaseLanguageClient } from 'vscode-languageclient';
+import { RequestType } from 'vscode-languageclient';
 
 type FileUri = string;
 type SchemaVersions = { [version: string]: string };
@@ -41,7 +41,7 @@ const schemaDeclarationPattern = /(?:#\s*(?:yaml-language-server\s*:\s*)?\$schem
 
 export let statusBarItem: StatusBarItem;
 
-let client: CommonLanguageClient;
+let client: BaseLanguageClient;
 
 const noSchemaLabel = 'No JSON Schema';
 const selectSchemaVersionButton = {
@@ -49,7 +49,7 @@ const selectSchemaVersionButton = {
   tooltip: 'Select schema version',
 };
 
-export function createJSONSchemaStatusBarItem(context: ExtensionContext, languageclient: CommonLanguageClient): void {
+export function createJSONSchemaStatusBarItem(context: ExtensionContext, languageclient: BaseLanguageClient): void {
   if (statusBarItem) {
     updateStatusBar(window.activeTextEditor);
     return;

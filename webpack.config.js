@@ -12,8 +12,9 @@ const webpack = require('webpack');
 const config = {
   target: 'node', // vscode extensions run in a Node.js-context 📖 -> https://webpack.js.org/configuration/node/
   node: {
-    __dirname: false,
-    __filename: false,
+    // Translate import.meta paths from ESM dependencies for the CommonJS bundles.
+    __dirname: 'eval-only',
+    __filename: 'eval-only',
   },
   entry: {
     extension: './src/node/yamlClientMain.ts', // the entry point of this extension, 📖 -> https://webpack.js.org/configuration/entry-context/
@@ -117,7 +118,7 @@ const serverWeb = {
   mode: 'none', // this leaves the source code as close as possible to the original (when packaging we set this to 'production')
   target: 'webworker', // extensions run in a webworker context
   entry: {
-    'languageserver-web': './node_modules/yaml-language-server/lib/esm/webworker/yamlServerMain',
+    'languageserver-web': './node_modules/yaml-language-server/out/server/src/webworker/yamlServerMain.js',
   },
   output: {
     filename: 'languageserver-web.js',
@@ -130,7 +131,7 @@ const serverWeb = {
     mainFields: ['browser', 'module', 'main'],
     extensions: ['.ts', '.js'], // support ts-files and js-files
     alias: {
-      './services/yamlFormatter': path.resolve(__dirname, './build/polyfills/yamlFormatter.js'), // not supported for now. prettier can run in the web, but it's a bit more work.
+      './services/yamlFormatter.js': path.resolve(__dirname, './build/polyfills/yamlFormatter.js'), // not supported for now. prettier can run in the web, but it's a bit more work.
     },
     fallback: {
       path: require.resolve('path-browserify/'),

@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "lib": ["es2022","WebWorker"],
-    "module": "commonjs",
-    "moduleResolution": "node",
+    "lib": ["es2022", "WebWorker"],
+    "module": "Node16",
+    "moduleResolution": "Node16",
     "outDir": "out",
     "skipLibCheck": true,
     "sourceMap": true,
