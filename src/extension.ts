@@ -6,19 +6,14 @@
  *--------------------------------------------------------------------------------------------*/
 'use strict';
 
-import { workspace, ExtensionContext, extensions, window, commands, Uri } from 'vscode';
-import {
-  CommonLanguageClient,
-  DidChangeConfigurationNotification,
-  LanguageClientOptions,
-  NotificationType,
-  RequestType,
-  ResponseError,
-  RevealOutputChannelOn,
-} from 'vscode-languageclient';
+import type { ExtensionContext } from 'vscode';
+import { workspace, extensions, window, commands, Uri } from 'vscode';
+import type { CommonLanguageClient, LanguageClientOptions, ResponseError } from 'vscode-languageclient';
+import { DidChangeConfigurationNotification, NotificationType, RequestType, RevealOutputChannelOn } from 'vscode-languageclient';
 import { CUSTOM_SCHEMA_REQUEST, CUSTOM_CONTENT_REQUEST, SchemaExtensionAPI } from './schema-extension-api';
 import { joinPath } from './paths';
-import { getJsonSchemaContent, IJSONSchemaCache, JSONSchemaDocumentContentProvider } from './json-schema-content-provider';
+import type { IJSONSchemaCache } from './json-schema-content-provider';
+import { getJsonSchemaContent, JSONSchemaDocumentContentProvider } from './json-schema-content-provider';
 import { getConflictingExtensions, showUninstallConflictsNotification } from './extensionConflicts';
 import { TelemetryErrorHandler, TelemetryOutputChannel } from './telemetry';
 import { createJSONSchemaStatusBarItem } from './schema-status-bar-item';
@@ -46,7 +41,6 @@ namespace StorageIds {
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 namespace SchemaAssociationNotification {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   export const type: NotificationType<ISchemaAssociations | ISchemaAssociation[]> = new NotificationType(
     'json/schemaAssociations'
   );
@@ -54,19 +48,18 @@ namespace SchemaAssociationNotification {
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 namespace VSCodeContentRequestRegistration {
-  // eslint-disable-next-line @typescript-eslint/ban-types
+  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
   export const type: NotificationType<{}> = new NotificationType('yaml/registerContentRequest');
 }
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 namespace VSCodeContentRequest {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   export const type: RequestType<string, string, ResponseError<undefined>> = new RequestType('vscode/content');
 }
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 namespace FSReadFile {
-  // eslint-disable-next-line @typescript-eslint/ban-types
+  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
   export const type: RequestType<string, string, {}> = new RequestType('fs/readFile');
 }
 
@@ -74,13 +67,12 @@ export const FSReadUriType: RequestType<string, string, unknown> = new RequestTy
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 namespace DynamicCustomSchemaRequestRegistration {
-  // eslint-disable-next-line @typescript-eslint/ban-types
+  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
   export const type: NotificationType<{}> = new NotificationType('yaml/registerCustomSchemaRequest');
 }
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 namespace ResultLimitReachedNotification {
-  // eslint-disable-next-line @typescript-eslint/ban-types
   export const type: NotificationType<string> = new NotificationType('yaml/resultLimitReached');
 }
 

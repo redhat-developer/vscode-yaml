@@ -3,11 +3,13 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-import { ExtensionContext } from 'vscode';
-import { startClient, LanguageClientConstructor, RuntimeEnvironment } from '../extension';
-import { ServerOptions, TransportKind, LanguageClientOptions, LanguageClient } from 'vscode-languageclient/node';
+import type { ExtensionContext } from 'vscode';
+import type { LanguageClientConstructor, RuntimeEnvironment } from '../extension';
+import { startClient } from '../extension';
+import type { ServerOptions, LanguageClientOptions } from 'vscode-languageclient/node';
+import { TransportKind, LanguageClient } from 'vscode-languageclient/node';
 
-import { SchemaExtensionAPI } from '../schema-extension-api';
+import type { SchemaExtensionAPI } from '../schema-extension-api';
 
 import { getRedHatService } from '@redhat-developer/vscode-redhat-telemetry';
 import { JSONSchemaCache } from '../json-schema-cache';

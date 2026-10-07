@@ -71,7 +71,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           path: release
-          node-version: 20
+          node-version: 22
       - name: Set version to prerelease version
         run: |
           node ./scripts/change-version-to-prerelease.mjs
@@ -128,7 +128,7 @@ jobs:
     - name: Use Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: 20
+        node-version: 22
     - name: Set version to prerelease version
       run: |
         node ./scripts/change-version-to-prerelease.mjs

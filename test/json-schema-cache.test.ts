@@ -6,7 +6,7 @@
 import * as sinon from 'sinon';
 import * as sinonChai from 'sinon-chai';
 import * as chai from 'chai';
-import * as vscode from 'vscode';
+import type * as vscode from 'vscode';
 import * as fs from 'fs-extra';
 import { JSONSchemaCache } from '../src/json-schema-cache';
 import { TestMemento } from './helper';
@@ -43,7 +43,7 @@ describe('JSON Schema Cache Tests', () => {
     pathExistsStub.resolves(false);
     readFileStub.resolves();
 
-    const cache = new JSONSchemaCache('/some/path/', (memento as unknown) as vscode.Memento);
+    const cache = new JSONSchemaCache('/some/path/', memento as unknown as vscode.Memento);
     const result = await cache.getSchema('/some/uri');
     expect(result).is.undefined;
     expect(memento.update).calledOnceWith('json-schema-key', {});
@@ -60,7 +60,7 @@ describe('JSON Schema Cache Tests', () => {
     pathExistsStub.resolves(false);
     readFileStub.resolves();
 
-    const cache = new JSONSchemaCache('/some/path/', (memento as unknown) as vscode.Memento);
+    const cache = new JSONSchemaCache('/some/path/', memento as unknown as vscode.Memento);
     const result = await cache.getSchema('/some/uri');
     expect(result).is.undefined;
     expect(memento.update).calledOnceWith('json-schema-key', mementoData);

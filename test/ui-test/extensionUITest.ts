@@ -1,14 +1,7 @@
 import { expect } from 'chai';
 import { YamlConstants } from './common/YAMLConstants';
-import {
-  ActivityBar,
-  ExtensionsViewItem,
-  ExtensionsViewSection,
-  SideBarView,
-  VSBrowser,
-  ViewControl,
-  WebDriver,
-} from 'vscode-extension-tester';
+import type { ExtensionsViewItem, ExtensionsViewSection, SideBarView, ViewControl, WebDriver } from 'vscode-extension-tester';
+import { ActivityBar, VSBrowser } from 'vscode-extension-tester';
 
 /**
  * @author Ondrej Dockal <odockal@redhat.com>
@@ -80,8 +73,9 @@ export function extensionUIAssetsTest(): void {
           yamlItem = await section.findItem(`@installed ${YamlConstants.YAML_NAME}`);
           name = await yamlItem.getTitle();
           author = await yamlItem.getAuthor();
+        } else {
+          throw error;
         }
-        throw error;
       }
       expect(name).to.equal(YamlConstants.YAML_NAME);
       expect(author).to.equal('Red Hat');

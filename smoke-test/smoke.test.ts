@@ -1,6 +1,6 @@
 import { assert } from 'chai';
 import * as vscode from 'vscode';
-import { URI } from 'vscode-uri';
+import type { URI } from 'vscode-uri';
 
 describe('Smoke test suite', function () {
   this.timeout(10_000);

@@ -2,7 +2,8 @@
  *  Copyright (c) Red Hat, Inc. All rights reserved..
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
-import { commands, Extension, extensions, window } from 'vscode';
+import type { Extension } from 'vscode';
+import { commands, extensions, window } from 'vscode';
 
 // A set of VSCode extension ID's that conflict with VSCode-YAML
 const azureDeploy = 'ms-vscode-deploy-azure.azure-deploy';
@@ -40,7 +41,7 @@ export function showUninstallConflictsNotification(conflictingExts: Extension<an
   const uninstallMsg = 'Uninstall';
 
   // Gather all the conflicting display names
-  let conflictMsg = '';
+  let conflictMsg: string;
   if (conflictingExts.length === 1) {
     conflictMsg = `${conflictingExts[0].packageJSON.displayName} extension is incompatible with VSCode-YAML. Please uninstall it.`;
   } else {

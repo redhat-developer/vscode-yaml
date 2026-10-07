@@ -1,6 +1,7 @@
-import os = require('os');
-import path = require('path');
-import { WebDriver, VSBrowser, EditorView, WebElement } from 'vscode-extension-tester';
+import * as os from 'os';
+import * as path from 'path';
+import type { WebDriver, WebElement } from 'vscode-extension-tester';
+import { VSBrowser, EditorView } from 'vscode-extension-tester';
 import { createCustomFile, deleteFileInHomeDir, getSchemaLabel } from './util/utility';
 import { expect } from 'chai';
 

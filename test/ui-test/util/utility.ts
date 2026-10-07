@@ -1,6 +1,8 @@
-import os = require('os');
-import path = require('path');
-import { StatusBar, By, WebElement, InputBox, TextEditor, Workbench } from 'vscode-extension-tester';
+import * as os from 'os';
+import * as fs from 'fs';
+import * as path from 'path';
+import type { WebElement } from 'vscode-extension-tester';
+import { StatusBar, By, InputBox, TextEditor, Workbench } from 'vscode-extension-tester';
 
 /**
  * @author Zbynek Cervinka <zcervink@redhat.com>
@@ -26,8 +28,6 @@ export function deleteFileInHomeDir(filename: string): void {
   const homeDir = os.homedir();
   const pathtofile = path.join(homeDir, filename);
 
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const fs = require('fs');
   if (fs.existsSync(pathtofile)) {
     fs.rmSync(pathtofile, { recursive: true, force: true });
   }

@@ -2,20 +2,10 @@
  *  Copyright (c) Red Hat, Inc. All rights reserved.
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
-import {
-  ConfigurationTarget,
-  ExtensionContext,
-  window,
-  commands,
-  StatusBarAlignment,
-  TextEditor,
-  StatusBarItem,
-  QuickPickItem,
-  ThemeIcon,
-  workspace,
-  Uri,
-} from 'vscode';
-import { CommonLanguageClient, RequestType } from 'vscode-languageclient/node';
+import type { ExtensionContext, TextEditor, StatusBarItem, QuickPickItem } from 'vscode';
+import { ConfigurationTarget, window, commands, StatusBarAlignment, ThemeIcon, workspace, Uri } from 'vscode';
+import type { CommonLanguageClient } from 'vscode-languageclient/node';
+import { RequestType } from 'vscode-languageclient/node';
 
 type FileUri = string;
 type SchemaVersions = { [version: string]: string };
@@ -41,10 +31,10 @@ interface SchemaVersionItem extends QuickPickItem {
   url: string;
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 const getJSONSchemasRequestType: RequestType<FileUri, MatchingJSONSchema[], {}> = new RequestType('yaml/get/all/jsonSchemas');
 
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 const getSchemaRequestType: RequestType<FileUri, JSONSchema[], {}> = new RequestType('yaml/get/jsonSchema');
 
 const schemaDeclarationPattern = /(?:#\s*(?:yaml-language-server\s*:\s*)?\$schema\s*(?:=|:)|^[ \t]*["']?\$schema["']?\s*:)/m;

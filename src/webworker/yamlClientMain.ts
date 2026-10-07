@@ -1,15 +1,16 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
 /*---------------------------------------------------------------------------------------------
  *  Copyright (c) Microsoft Corporation. All rights reserved.
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-import { ExtensionContext, l10n } from 'vscode';
-import { LanguageClientOptions } from 'vscode-languageclient';
-import { startClient, LanguageClientConstructor, RuntimeEnvironment } from '../extension';
+import type { ExtensionContext } from 'vscode';
+import { l10n } from 'vscode';
+import type { LanguageClientOptions } from 'vscode-languageclient';
+import type { LanguageClientConstructor, RuntimeEnvironment } from '../extension';
+import { startClient } from '../extension';
 import { LanguageClient } from 'vscode-languageclient/browser';
-import { SchemaExtensionAPI } from '../schema-extension-api';
-import { IJSONSchemaCache } from '../json-schema-content-provider';
+import type { SchemaExtensionAPI } from '../schema-extension-api';
+import type { IJSONSchemaCache } from '../json-schema-content-provider';
 import { getRedHatService } from '@redhat-developer/vscode-redhat-telemetry/lib/webworker';
 // this method is called when vs code is activated
 export async function activate(context: ExtensionContext): Promise<SchemaExtensionAPI | undefined> {

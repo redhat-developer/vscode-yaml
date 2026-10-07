@@ -9,7 +9,7 @@ All contributions are welcome!
 1. Install prerequisites:
 
    * latest [Visual Studio Code](https://code.visualstudio.com/)
-   * [Node.js](https://nodejs.org/) v14.0.0 or higher
+   * [Node.js](https://nodejs.org/) v22.13.0 or newer
 
 2. Fork and clone this repository and go into the folder
 
