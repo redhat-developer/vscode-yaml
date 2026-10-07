@@ -7,7 +7,7 @@ import * as sinonChai from 'sinon-chai';
 import * as chai from 'chai';
 import * as vscode from 'vscode';
 import { TelemetryErrorHandler, TelemetryOutputChannel } from '../src/telemetry';
-import { TelemetryEvent, TelemetryService } from '@redhat-developer/vscode-redhat-telemetry';
+import type { TelemetryEvent, TelemetryService } from '@redhat-developer/vscode-redhat-telemetry';
 
 const expect = chai.expect;
 chai.use(sinonChai);
@@ -46,8 +46,8 @@ describe.skip('Telemetry Test', () => {
       outputChannel = sandbox.stub(testOutputChannel);
       telemetry = sandbox.stub(new TelemetryStub());
       telemetryChannel = new TelemetryOutputChannel(
-        (outputChannel as unknown) as vscode.OutputChannel,
-        (telemetry as unknown) as TelemetryService
+        outputChannel as unknown as vscode.OutputChannel,
+        telemetry as unknown as TelemetryService
       );
       clock = sinon.useFakeTimers();
     });

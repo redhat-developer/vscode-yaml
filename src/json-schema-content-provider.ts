@@ -3,10 +3,12 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-import { TextDocumentContentProvider, Uri, workspace, window } from 'vscode';
+import type { TextDocumentContentProvider } from 'vscode';
+import { Uri, workspace, window } from 'vscode';
 import { requestWithRetry } from './schema-request-retry';
-import { xhr, configure as configureHttpRequests, getErrorStatusDescription, XHRResponse } from 'request-light';
-import { SchemaExtensionAPI } from './schema-extension-api';
+import type { XHRResponse } from 'request-light';
+import { xhr, configure as configureHttpRequests, getErrorStatusDescription } from 'request-light';
+import type { SchemaExtensionAPI } from './schema-extension-api';
 import { ResponseError } from 'vscode-languageclient';
 
 export interface IJSONSchemaCache {
@@ -16,7 +18,10 @@ export interface IJSONSchemaCache {
 }
 
 export class JSONSchemaDocumentContentProvider implements TextDocumentContentProvider {
-  constructor(private readonly schemaCache: IJSONSchemaCache, private readonly schemaApi: SchemaExtensionAPI) {}
+  constructor(
+    private readonly schemaCache: IJSONSchemaCache,
+    private readonly schemaApi: SchemaExtensionAPI
+  ) {}
   async provideTextDocumentContent(uri: Uri): Promise<string> {
     if (uri.fragment) {
       const origUri = uri.fragment;

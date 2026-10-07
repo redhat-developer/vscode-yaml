@@ -1,7 +1,8 @@
-import os = require('os');
-import path = require('path');
+import * as os from 'os';
+import * as path from 'path';
 import { expect } from 'chai';
-import { WebDriver, VSBrowser, ContentAssist, EditorView, TextEditor } from 'vscode-extension-tester';
+import type { WebDriver } from 'vscode-extension-tester';
+import { VSBrowser, ContentAssist, EditorView, TextEditor } from 'vscode-extension-tester';
 import { createCustomFile, deleteFileInHomeDir, getSchemaLabel } from './util/utility';
 /**
  * @author Zbynek Cervinka <zcervink@redhat.com>

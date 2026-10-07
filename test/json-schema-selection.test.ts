@@ -7,7 +7,7 @@ import * as sinon from 'sinon';
 import * as sinonChai from 'sinon-chai';
 import * as chai from 'chai';
 import { createJSONSchemaStatusBarItem } from '../src/schema-status-bar-item';
-import { CommonLanguageClient } from 'vscode-languageclient';
+import type { CommonLanguageClient } from 'vscode-languageclient';
 import * as vscode from 'vscode';
 import { TestLanguageClient } from './helper';
 import * as jsonStatusBar from '../src/schema-status-bar-item';
@@ -56,11 +56,11 @@ describe('Status bar should work in multiple different scenarios', () => {
     const context: vscode.ExtensionContext = {
       subscriptions: [],
     } as vscode.ExtensionContext;
-    const statusBar = ({ show: sandbox.stub(), hide: sandbox.stub() } as unknown) as vscode.StatusBarItem;
+    const statusBar = { show: sandbox.stub(), hide: sandbox.stub() } as unknown as vscode.StatusBarItem;
     createStatusBarItemStub.returns(statusBar);
     clcStub.sendRequest.resolves([]);
 
-    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as CommonLanguageClient);
+    createJSONSchemaStatusBarItem(context, clcStub as unknown as CommonLanguageClient);
 
     expect(registerCommandStub).calledOnceWith('yaml.select.json.schema');
     expect(createStatusBarItemStub).calledOnceWith(vscode.StatusBarAlignment.Right);
@@ -71,12 +71,12 @@ describe('Status bar should work in multiple different scenarios', () => {
     const context: vscode.ExtensionContext = {
       subscriptions: [],
     } as vscode.ExtensionContext;
-    const statusBar = ({ show: sandbox.stub(), hide: sandbox.stub() } as unknown) as vscode.StatusBarItem;
+    const statusBar = { show: sandbox.stub(), hide: sandbox.stub() } as unknown as vscode.StatusBarItem;
     createStatusBarItemStub.returns(statusBar);
     onDidChangeActiveTextEditorStub.returns({});
     clcStub.sendRequest.resolves([{ uri: 'https://foo.com/bar.json', name: 'bar schema', usedForCurrentFile: true }]);
 
-    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as CommonLanguageClient);
+    createJSONSchemaStatusBarItem(context, clcStub as unknown as CommonLanguageClient);
     const callBackFn = onDidChangeActiveTextEditorStub.firstCall.firstArg;
     await callBackFn({ document: { languageId: 'yaml', uri: vscode.Uri.parse('/foo.yaml') } });
 
@@ -90,14 +90,14 @@ describe('Status bar should work in multiple different scenarios', () => {
     const context: vscode.ExtensionContext = {
       subscriptions: [],
     } as vscode.ExtensionContext;
-    const statusBar = ({ show: sandbox.stub(), hide: sandbox.stub() } as unknown) as vscode.StatusBarItem;
+    const statusBar = { show: sandbox.stub(), hide: sandbox.stub() } as unknown as vscode.StatusBarItem;
     const document = { languageId: 'yaml', uri: vscode.Uri.parse('/foo.yaml') };
     createStatusBarItemStub.returns(statusBar);
     onDidChangeTextDocumentStub.returns({});
-    activeTextEditor = ({ document } as unknown) as vscode.TextEditor;
+    activeTextEditor = { document } as unknown as vscode.TextEditor;
     clcStub.sendRequest.resolves([{ uri: 'https://foo.com/modeline.json', name: 'modeline schema' }]);
 
-    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as CommonLanguageClient);
+    createJSONSchemaStatusBarItem(context, clcStub as unknown as CommonLanguageClient);
     const callBackFn = onDidChangeTextDocumentStub.firstCall.firstArg;
     await callBackFn({
       document,
@@ -114,7 +114,7 @@ describe('Status bar should work in multiple different scenarios', () => {
     const context: vscode.ExtensionContext = {
       subscriptions: [],
     } as vscode.ExtensionContext;
-    const statusBar = ({ show: sandbox.stub(), hide: sandbox.stub() } as unknown) as vscode.StatusBarItem;
+    const statusBar = { show: sandbox.stub(), hide: sandbox.stub() } as unknown as vscode.StatusBarItem;
     const document = {
       languageId: 'yaml',
       uri: vscode.Uri.parse('/foo.yaml'),
@@ -122,13 +122,13 @@ describe('Status bar should work in multiple different scenarios', () => {
     };
     createStatusBarItemStub.returns(statusBar);
     onDidChangeTextDocumentStub.returns({});
-    activeTextEditor = ({ document } as unknown) as vscode.TextEditor;
+    activeTextEditor = { document } as unknown as vscode.TextEditor;
     const getSchemaRequest = clcStub.sendRequest.withArgs(sinon.match.has('method', 'yaml/get/jsonSchema'), sinon.match.any);
     getSchemaRequest.onFirstCall().resolves([{ uri: 'https://foo.com/old.json', name: 'old schema' }]);
     getSchemaRequest.onSecondCall().resolves([{ uri: 'https://foo.com/inline.json', name: 'inline schema' }]);
     clcStub.sendRequest.withArgs(sinon.match.has('method', 'yaml/get/all/jsonSchemas'), sinon.match.any).resolves([]);
 
-    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as CommonLanguageClient);
+    createJSONSchemaStatusBarItem(context, clcStub as unknown as CommonLanguageClient);
     await waitForPromises();
     expect(statusBar.text).to.equal('old schema');
 
@@ -152,12 +152,12 @@ describe('Status bar should work in multiple different scenarios', () => {
     const context: vscode.ExtensionContext = {
       subscriptions: [],
     } as vscode.ExtensionContext;
-    const statusBar = ({ show: sandbox.stub(), hide: sandbox.stub() } as unknown) as vscode.StatusBarItem;
+    const statusBar = { show: sandbox.stub(), hide: sandbox.stub() } as unknown as vscode.StatusBarItem;
     createStatusBarItemStub.returns(statusBar);
     onDidChangeActiveTextEditorStub.returns({});
     clcStub.sendRequest.resolves([]);
 
-    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as CommonLanguageClient);
+    createJSONSchemaStatusBarItem(context, clcStub as unknown as CommonLanguageClient);
     const callBackFn = onDidChangeActiveTextEditorStub.firstCall.firstArg;
     await callBackFn({ document: { languageId: 'yaml', uri: vscode.Uri.parse('/foo.yaml') } });
 
@@ -171,7 +171,7 @@ describe('Status bar should work in multiple different scenarios', () => {
     const context: vscode.ExtensionContext = {
       subscriptions: [],
     } as vscode.ExtensionContext;
-    const statusBar = ({ show: sandbox.stub(), hide: sandbox.stub() } as unknown) as vscode.StatusBarItem;
+    const statusBar = { show: sandbox.stub(), hide: sandbox.stub() } as unknown as vscode.StatusBarItem;
     createStatusBarItemStub.returns(statusBar);
     onDidChangeActiveTextEditorStub.returns({});
     clcStub.sendRequest.resolves([
@@ -179,7 +179,7 @@ describe('Status bar should work in multiple different scenarios', () => {
       { uri: 'https://foo.com/b.json', name: 'b schema' },
     ]);
 
-    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as CommonLanguageClient);
+    createJSONSchemaStatusBarItem(context, clcStub as unknown as CommonLanguageClient);
     const callBackFn = onDidChangeActiveTextEditorStub.firstCall.firstArg;
     await callBackFn({ document: { languageId: 'yaml', uri: vscode.Uri.parse('/foo.yaml') } });
 
@@ -192,7 +192,7 @@ describe('Status bar should work in multiple different scenarios', () => {
     const context: vscode.ExtensionContext = {
       subscriptions: [],
     } as vscode.ExtensionContext;
-    const statusBar = ({ show: sandbox.stub(), hide: sandbox.stub() } as unknown) as vscode.StatusBarItem;
+    const statusBar = { show: sandbox.stub(), hide: sandbox.stub() } as unknown as vscode.StatusBarItem;
     createStatusBarItemStub.returns(statusBar);
     onDidChangeActiveTextEditorStub.returns({ document: { uri: vscode.Uri.parse('/foo.yaml') } });
     clcStub.sendRequest
@@ -202,7 +202,7 @@ describe('Status bar should work in multiple different scenarios', () => {
       .withArgs(sinon.match.has('method', 'yaml/get/all/jsonSchemas'), sinon.match.any)
       .resolves([{ versions: { '1.0.0': 'https://foo.com/bar.json' } }]);
 
-    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as CommonLanguageClient);
+    createJSONSchemaStatusBarItem(context, clcStub as unknown as CommonLanguageClient);
     const callBackFn = onDidChangeActiveTextEditorStub.firstCall.firstArg;
     await callBackFn({ document: { languageId: 'yaml', uri: vscode.Uri.parse('/foo.yaml') } });
 
@@ -216,7 +216,7 @@ describe('Status bar should work in multiple different scenarios', () => {
     const context: vscode.ExtensionContext = {
       subscriptions: [],
     } as vscode.ExtensionContext;
-    const statusBar = ({ show: sandbox.stub(), hide: sandbox.stub() } as unknown) as vscode.StatusBarItem;
+    const statusBar = { show: sandbox.stub(), hide: sandbox.stub() } as unknown as vscode.StatusBarItem;
     createStatusBarItemStub.returns(statusBar);
     onDidChangeActiveTextEditorStub.returns({ document: { uri: vscode.Uri.parse('/foo.yaml') } });
     clcStub.sendRequest
@@ -226,7 +226,7 @@ describe('Status bar should work in multiple different scenarios', () => {
       .withArgs(sinon.match.has('method', 'yaml/get/all/jsonSchemas'), sinon.match.any)
       .resolves([{ versions: { '1.0.0': 'https://foo.com/bar.json' } }]);
 
-    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as CommonLanguageClient);
+    createJSONSchemaStatusBarItem(context, clcStub as unknown as CommonLanguageClient);
     const callBackFn = onDidChangeActiveTextEditorStub.firstCall.firstArg;
     await callBackFn({ document: { languageId: 'yaml', uri: vscode.Uri.parse('/foo.yaml') } });
 
@@ -240,16 +240,16 @@ describe('Status bar should work in multiple different scenarios', () => {
     const context: vscode.ExtensionContext = {
       subscriptions: [],
     } as vscode.ExtensionContext;
-    const statusBar = ({ show: sandbox.stub(), hide: sandbox.stub() } as unknown) as vscode.StatusBarItem;
+    const statusBar = { show: sandbox.stub(), hide: sandbox.stub() } as unknown as vscode.StatusBarItem;
     const quickPick = createQuickPickStubValue<TestSchemaItem>();
     createStatusBarItemStub.returns(statusBar);
     createQuickPickStub.returns(quickPick);
     clcStub.sendRequest.resolves([{ uri: 'https://foo.com/bar.json', name: 'bar schema', usedForCurrentFile: true }]);
-    activeTextEditor = ({
+    activeTextEditor = {
       document: { languageId: 'yaml', uri: vscode.Uri.parse('/foo.yaml') },
-    } as unknown) as vscode.TextEditor;
+    } as unknown as vscode.TextEditor;
 
-    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as CommonLanguageClient);
+    createJSONSchemaStatusBarItem(context, clcStub as unknown as CommonLanguageClient);
     const command = registerCommandStub.firstCall.args[1];
     await command();
 
@@ -262,7 +262,7 @@ describe('Status bar should work in multiple different scenarios', () => {
     const context: vscode.ExtensionContext = {
       subscriptions: [],
     } as vscode.ExtensionContext;
-    const statusBar = ({ show: sandbox.stub(), hide: sandbox.stub() } as unknown) as vscode.StatusBarItem;
+    const statusBar = { show: sandbox.stub(), hide: sandbox.stub() } as unknown as vscode.StatusBarItem;
     const quickPick = createQuickPickStubValue<TestSchemaItem>();
     createStatusBarItemStub.returns(statusBar);
     createQuickPickStub.returns(quickPick);
@@ -277,17 +277,17 @@ describe('Status bar should work in multiple different scenarios', () => {
       },
       { uri: 'https://foo.com/b.json', name: 'b schema' },
     ]);
-    activeTextEditor = ({
+    activeTextEditor = {
       document: { languageId: 'yaml', uri: vscode.Uri.parse('/foo.yaml') },
-    } as unknown) as vscode.TextEditor;
+    } as unknown as vscode.TextEditor;
     sandbox
       .stub(vscode.workspace, 'getConfiguration')
       .withArgs('yaml')
-      .returns(({
+      .returns({
         get: sandbox.stub().withArgs('disableSchemaDetection').returns([]),
-      } as unknown) as vscode.WorkspaceConfiguration);
+      } as unknown as vscode.WorkspaceConfiguration);
 
-    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as CommonLanguageClient);
+    createJSONSchemaStatusBarItem(context, clcStub as unknown as CommonLanguageClient);
     const command = registerCommandStub.firstCall.args[1];
     await command();
     const versionedSchemaItem = quickPick.items.find(
@@ -307,22 +307,22 @@ describe('Status bar should work in multiple different scenarios', () => {
     const context: vscode.ExtensionContext = {
       subscriptions: [],
     } as vscode.ExtensionContext;
-    const statusBar = ({ show: sandbox.stub(), hide: sandbox.stub() } as unknown) as vscode.StatusBarItem;
+    const statusBar = { show: sandbox.stub(), hide: sandbox.stub() } as unknown as vscode.StatusBarItem;
     const quickPick = createQuickPickStubValue<TestSchemaItem>();
     createStatusBarItemStub.returns(statusBar);
     createQuickPickStub.returns(quickPick);
     clcStub.sendRequest.resolves([{ uri: 'https://foo.com/bar.json', name: 'bar schema' }]);
-    activeTextEditor = ({
+    activeTextEditor = {
       document: { languageId: 'yaml', uri: vscode.Uri.parse('/foo.yaml') },
-    } as unknown) as vscode.TextEditor;
+    } as unknown as vscode.TextEditor;
     sandbox
       .stub(vscode.workspace, 'getConfiguration')
       .withArgs('yaml')
-      .returns(({
+      .returns({
         get: sandbox.stub().withArgs('disableSchemaDetection').returns([]),
-      } as unknown) as vscode.WorkspaceConfiguration);
+      } as unknown as vscode.WorkspaceConfiguration);
 
-    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as CommonLanguageClient);
+    createJSONSchemaStatusBarItem(context, clcStub as unknown as CommonLanguageClient);
     const command = registerCommandStub.firstCall.args[1];
     await command();
 
@@ -333,22 +333,22 @@ describe('Status bar should work in multiple different scenarios', () => {
     const context: vscode.ExtensionContext = {
       subscriptions: [],
     } as vscode.ExtensionContext;
-    const statusBar = ({ show: sandbox.stub(), hide: sandbox.stub() } as unknown) as vscode.StatusBarItem;
+    const statusBar = { show: sandbox.stub(), hide: sandbox.stub() } as unknown as vscode.StatusBarItem;
     const quickPick = createQuickPickStubValue<TestSchemaItem>();
     createStatusBarItemStub.returns(statusBar);
     createQuickPickStub.returns(quickPick);
     clcStub.sendRequest.resolves([{ uri: 'https://foo.com/bar.json', name: 'bar schema', usedForCurrentFile: true }]);
-    activeTextEditor = ({
+    activeTextEditor = {
       document: { languageId: 'yaml', uri: vscode.Uri.parse('/foo.yaml') },
-    } as unknown) as vscode.TextEditor;
+    } as unknown as vscode.TextEditor;
     sandbox
       .stub(vscode.workspace, 'getConfiguration')
       .withArgs('yaml')
-      .returns(({
+      .returns({
         get: sandbox.stub().withArgs('disableSchemaDetection').returns(['file:///foo.yaml']),
-      } as unknown) as vscode.WorkspaceConfiguration);
+      } as unknown as vscode.WorkspaceConfiguration);
 
-    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as CommonLanguageClient);
+    createJSONSchemaStatusBarItem(context, clcStub as unknown as CommonLanguageClient);
     const command = registerCommandStub.firstCall.args[1];
     await command();
 
@@ -359,28 +359,28 @@ describe('Status bar should work in multiple different scenarios', () => {
     const context: vscode.ExtensionContext = {
       subscriptions: [],
     } as vscode.ExtensionContext;
-    const statusBar = ({ show: sandbox.stub(), hide: sandbox.stub() } as unknown) as vscode.StatusBarItem;
+    const statusBar = { show: sandbox.stub(), hide: sandbox.stub() } as unknown as vscode.StatusBarItem;
     const quickPick = createQuickPickStubValue<TestSchemaItem>();
     const update = sandbox.stub();
     const schemaUri = 'https://json.schemastore.org/github-workflow.json';
     createStatusBarItemStub.returns(statusBar);
     createQuickPickStub.returns(quickPick);
     clcStub.sendRequest.resolves([{ uri: schemaUri, name: 'github-workflow' }]);
-    activeTextEditor = ({
+    activeTextEditor = {
       document: { languageId: 'yaml', uri: vscode.Uri.parse('/workspace/test.yaml') },
-    } as unknown) as vscode.TextEditor;
+    } as unknown as vscode.TextEditor;
     sandbox
       .stub(vscode.workspace, 'getConfiguration')
       .withArgs('yaml')
-      .returns(({
+      .returns({
         get: sandbox.stub().callsFake((section: string) => (section === 'schemas' ? {} : [])),
         inspect: sandbox.stub().callsFake((section: string) => ({
           workspaceValue: section === 'schemas' ? {} : undefined,
         })),
         update,
-      } as unknown) as vscode.WorkspaceConfiguration);
+      } as unknown as vscode.WorkspaceConfiguration);
 
-    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as CommonLanguageClient);
+    createJSONSchemaStatusBarItem(context, clcStub as unknown as CommonLanguageClient);
     const command = registerCommandStub.firstCall.args[1];
     await command();
     const schemaItem = quickPick.items.find((item) => item.schema);
@@ -399,7 +399,7 @@ describe('Status bar should work in multiple different scenarios', () => {
     const context: vscode.ExtensionContext = {
       subscriptions: [],
     } as vscode.ExtensionContext;
-    const statusBar = ({ show: sandbox.stub(), hide: sandbox.stub() } as unknown) as vscode.StatusBarItem;
+    const statusBar = { show: sandbox.stub(), hide: sandbox.stub() } as unknown as vscode.StatusBarItem;
     const quickPick = createQuickPickStubValue<TestSchemaItem>();
     const update = sandbox.stub();
     createStatusBarItemStub.returns(statusBar);
@@ -407,21 +407,21 @@ describe('Status bar should work in multiple different scenarios', () => {
     const schemaUri = 'https://foo.com/bar.json';
     const schemas = { [schemaUri]: 'file:///foo.yaml' };
     clcStub.sendRequest.resolves([{ uri: schemaUri, name: 'bar schema', usedForCurrentFile: true }]);
-    activeTextEditor = ({
+    activeTextEditor = {
       document: { languageId: 'yaml', uri: vscode.Uri.parse('/foo.yaml') },
-    } as unknown) as vscode.TextEditor;
+    } as unknown as vscode.TextEditor;
     sandbox
       .stub(vscode.workspace, 'getConfiguration')
       .withArgs('yaml')
-      .returns(({
+      .returns({
         get: sandbox.stub().callsFake((section: string) => (section === 'schemas' ? schemas : ['file:///unchanged.yaml'])),
         inspect: sandbox.stub().callsFake((section: string) => ({
           workspaceValue: section === 'schemas' ? schemas : ['file:///unchanged.yaml'],
         })),
         update,
-      } as unknown) as vscode.WorkspaceConfiguration);
+      } as unknown as vscode.WorkspaceConfiguration);
 
-    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as CommonLanguageClient);
+    createJSONSchemaStatusBarItem(context, clcStub as unknown as CommonLanguageClient);
     const command = registerCommandStub.firstCall.args[1];
     await command();
     quickPick.select([]);
@@ -436,7 +436,7 @@ describe('Status bar should work in multiple different scenarios', () => {
     const context: vscode.ExtensionContext = {
       subscriptions: [],
     } as vscode.ExtensionContext;
-    const statusBar = ({ show: sandbox.stub(), hide: sandbox.stub() } as unknown) as vscode.StatusBarItem;
+    const statusBar = { show: sandbox.stub(), hide: sandbox.stub() } as unknown as vscode.StatusBarItem;
     const quickPick = createQuickPickStubValue<TestSchemaItem>();
     const update = sandbox.stub();
     const schemaUri = 'https://json.schemastore.org/github-workflow.json';
@@ -444,21 +444,21 @@ describe('Status bar should work in multiple different scenarios', () => {
     createStatusBarItemStub.returns(statusBar);
     createQuickPickStub.returns(quickPick);
     clcStub.sendRequest.resolves([{ uri: schemaUri, name: 'github-workflow', usedForCurrentFile: true }]);
-    activeTextEditor = ({
+    activeTextEditor = {
       document: { languageId: 'yaml', uri: vscode.Uri.parse('/workspace/test.yaml') },
-    } as unknown) as vscode.TextEditor;
+    } as unknown as vscode.TextEditor;
     sandbox
       .stub(vscode.workspace, 'getConfiguration')
       .withArgs('yaml')
-      .returns(({
+      .returns({
         get: sandbox.stub().callsFake((section: string) => (section === 'schemas' ? workspaceSchemas : [])),
         inspect: sandbox.stub().callsFake((section: string) => ({
           workspaceValue: section === 'schemas' ? workspaceSchemas : undefined,
         })),
         update,
-      } as unknown) as vscode.WorkspaceConfiguration);
+      } as unknown as vscode.WorkspaceConfiguration);
 
-    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as CommonLanguageClient);
+    createJSONSchemaStatusBarItem(context, clcStub as unknown as CommonLanguageClient);
     const command = registerCommandStub.firstCall.args[1];
     await command();
     quickPick.select([]);
@@ -478,7 +478,7 @@ describe('Status bar should work in multiple different scenarios', () => {
     const context: vscode.ExtensionContext = {
       subscriptions: [],
     } as vscode.ExtensionContext;
-    const statusBar = ({ show: sandbox.stub(), hide: sandbox.stub() } as unknown) as vscode.StatusBarItem;
+    const statusBar = { show: sandbox.stub(), hide: sandbox.stub() } as unknown as vscode.StatusBarItem;
     const quickPick = createQuickPickStubValue<TestSchemaItem>();
     const update = sandbox.stub();
     const userSchemaUri = 'https://json.schemastore.org/github-workflow.json';
@@ -491,13 +491,13 @@ describe('Status bar should work in multiple different scenarios', () => {
       { uri: userSchemaUri, name: 'github-workflow', usedForCurrentFile: true },
       { uri: workspaceSchemaUri, name: 'docker-compose', usedForCurrentFile: true },
     ]);
-    activeTextEditor = ({
+    activeTextEditor = {
       document: { languageId: 'yaml', uri: vscode.Uri.parse('/workspace/test.yaml') },
-    } as unknown) as vscode.TextEditor;
+    } as unknown as vscode.TextEditor;
     sandbox
       .stub(vscode.workspace, 'getConfiguration')
       .withArgs('yaml')
-      .returns(({
+      .returns({
         get: sandbox
           .stub()
           .callsFake((section: string) => (section === 'schemas' ? { ...globalSchemas, ...workspaceSchemas } : [])),
@@ -506,9 +506,9 @@ describe('Status bar should work in multiple different scenarios', () => {
           workspaceValue: section === 'schemas' ? workspaceSchemas : undefined,
         })),
         update,
-      } as unknown) as vscode.WorkspaceConfiguration);
+      } as unknown as vscode.WorkspaceConfiguration);
 
-    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as CommonLanguageClient);
+    createJSONSchemaStatusBarItem(context, clcStub as unknown as CommonLanguageClient);
     const command = registerCommandStub.firstCall.args[1];
     await command();
     const userSchemaItem = quickPick.items.find((item) => (item.schema as { uri?: string })?.uri === userSchemaUri);
@@ -530,7 +530,7 @@ describe('Status bar should work in multiple different scenarios', () => {
     const context: vscode.ExtensionContext = {
       subscriptions: [],
     } as vscode.ExtensionContext;
-    const statusBar = ({ show: sandbox.stub(), hide: sandbox.stub() } as unknown) as vscode.StatusBarItem;
+    const statusBar = { show: sandbox.stub(), hide: sandbox.stub() } as unknown as vscode.StatusBarItem;
     const quickPick = createQuickPickStubValue<TestSchemaItem>();
     const update = sandbox.stub();
     const get = sandbox.stub();
@@ -539,21 +539,21 @@ describe('Status bar should work in multiple different scenarios', () => {
     createStatusBarItemStub.returns(statusBar);
     createQuickPickStub.returns(quickPick);
     clcStub.sendRequest.resolves([{ uri: 'https://foo.com/bar.json', name: 'bar schema' }]);
-    activeTextEditor = ({
+    activeTextEditor = {
       document: { languageId: 'yaml', uri: vscode.Uri.parse('/foo.yaml') },
-    } as unknown) as vscode.TextEditor;
+    } as unknown as vscode.TextEditor;
     sandbox
       .stub(vscode.workspace, 'getConfiguration')
       .withArgs('yaml')
-      .returns(({
+      .returns({
         get,
         inspect: sandbox.stub().callsFake((section: string) => ({
           workspaceValue: section === 'disableSchemaDetection' ? ['file:///foo.yaml', 'file:///other.yaml'] : {},
         })),
         update,
-      } as unknown) as vscode.WorkspaceConfiguration);
+      } as unknown as vscode.WorkspaceConfiguration);
 
-    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as CommonLanguageClient);
+    createJSONSchemaStatusBarItem(context, clcStub as unknown as CommonLanguageClient);
     const command = registerCommandStub.firstCall.args[1];
     await command();
     const schemaItem = quickPick.items.find((item) => item.schema);
@@ -570,7 +570,7 @@ describe('Status bar should work in multiple different scenarios', () => {
     const context: vscode.ExtensionContext = {
       subscriptions: [],
     } as vscode.ExtensionContext;
-    const statusBar = ({ show: sandbox.stub(), hide: sandbox.stub() } as unknown) as vscode.StatusBarItem;
+    const statusBar = { show: sandbox.stub(), hide: sandbox.stub() } as unknown as vscode.StatusBarItem;
     const quickPick = createQuickPickStubValue<TestSchemaItem>();
     const update = sandbox.stub();
     const get = sandbox.stub();
@@ -582,21 +582,21 @@ describe('Status bar should work in multiple different scenarios', () => {
       { uri: 'https://foo.com/a.json', name: 'a schema' },
       { uri: 'https://foo.com/b.json', name: 'b schema' },
     ]);
-    activeTextEditor = ({
+    activeTextEditor = {
       document: { languageId: 'yaml', uri: vscode.Uri.parse('/foo.yaml') },
-    } as unknown) as vscode.TextEditor;
+    } as unknown as vscode.TextEditor;
     sandbox
       .stub(vscode.workspace, 'getConfiguration')
       .withArgs('yaml')
-      .returns(({
+      .returns({
         get,
         inspect: sandbox.stub().callsFake((section: string) => ({
           workspaceValue: section === 'schemas' ? {} : undefined,
         })),
         update,
-      } as unknown) as vscode.WorkspaceConfiguration);
+      } as unknown as vscode.WorkspaceConfiguration);
 
-    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as CommonLanguageClient);
+    createJSONSchemaStatusBarItem(context, clcStub as unknown as CommonLanguageClient);
     const command = registerCommandStub.firstCall.args[1];
     await command();
     const schemaItems = quickPick.items.filter((item) => item.schema);
@@ -616,25 +616,25 @@ describe('Status bar should work in multiple different scenarios', () => {
     const context: vscode.ExtensionContext = {
       subscriptions: [],
     } as vscode.ExtensionContext;
-    const statusBar = ({ show: sandbox.stub(), hide: sandbox.stub() } as unknown) as vscode.StatusBarItem;
+    const statusBar = { show: sandbox.stub(), hide: sandbox.stub() } as unknown as vscode.StatusBarItem;
     const quickPick = createQuickPickStubValue<TestSchemaItem>();
     const update = sandbox.stub();
     createStatusBarItemStub.returns(statusBar);
     createQuickPickStub.returns(quickPick);
     clcStub.sendRequest.resolves([{ uri: 'https://foo.com/bar.json', name: 'bar schema', usedForCurrentFile: true }]);
-    activeTextEditor = ({
+    activeTextEditor = {
       document: { languageId: 'yaml', uri: vscode.Uri.parse('/foo.yaml') },
-    } as unknown) as vscode.TextEditor;
+    } as unknown as vscode.TextEditor;
     sandbox
       .stub(vscode.workspace, 'getConfiguration')
       .withArgs('yaml')
-      .returns(({
+      .returns({
         get: sandbox.stub().callsFake((section: string) => (section === 'schemas' ? {} : [])),
         inspect: sandbox.stub().returns({}),
         update,
-      } as unknown) as vscode.WorkspaceConfiguration);
+      } as unknown as vscode.WorkspaceConfiguration);
 
-    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as CommonLanguageClient);
+    createJSONSchemaStatusBarItem(context, clcStub as unknown as CommonLanguageClient);
     const command = registerCommandStub.firstCall.args[1];
     await command();
     expect(quickPick.selectedItems).has.length(1);
@@ -650,25 +650,25 @@ describe('Status bar should work in multiple different scenarios', () => {
     const context: vscode.ExtensionContext = {
       subscriptions: [],
     } as vscode.ExtensionContext;
-    const statusBar = ({ show: sandbox.stub(), hide: sandbox.stub() } as unknown) as vscode.StatusBarItem;
+    const statusBar = { show: sandbox.stub(), hide: sandbox.stub() } as unknown as vscode.StatusBarItem;
     const quickPick = createQuickPickStubValue<TestSchemaItem>();
     const update = sandbox.stub();
     createStatusBarItemStub.returns(statusBar);
     createQuickPickStub.returns(quickPick);
     clcStub.sendRequest.resolves([{ uri: 'https://foo.com/bar.json', name: 'bar schema', usedForCurrentFile: true }]);
-    activeTextEditor = ({
+    activeTextEditor = {
       document: { languageId: 'yaml', uri: vscode.Uri.parse('/foo.yaml') },
-    } as unknown) as vscode.TextEditor;
+    } as unknown as vscode.TextEditor;
     sandbox
       .stub(vscode.workspace, 'getConfiguration')
       .withArgs('yaml')
-      .returns(({
+      .returns({
         get: sandbox.stub().callsFake((section: string) => (section === 'schemas' ? {} : [])),
         inspect: sandbox.stub().returns({}),
         update,
-      } as unknown) as vscode.WorkspaceConfiguration);
+      } as unknown as vscode.WorkspaceConfiguration);
 
-    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as CommonLanguageClient);
+    createJSONSchemaStatusBarItem(context, clcStub as unknown as CommonLanguageClient);
     const command = registerCommandStub.firstCall.args[1];
     await command();
     const noSchemaItem = quickPick.items[0];
@@ -687,7 +687,7 @@ describe('Status bar should work in multiple different scenarios', () => {
     const context: vscode.ExtensionContext = {
       subscriptions: [],
     } as vscode.ExtensionContext;
-    const statusBar = ({ show: sandbox.stub(), hide: sandbox.stub() } as unknown) as vscode.StatusBarItem;
+    const statusBar = { show: sandbox.stub(), hide: sandbox.stub() } as unknown as vscode.StatusBarItem;
     const quickPick = createQuickPickStubValue<TestSchemaItem>();
     const update = sandbox.stub();
     const get = sandbox.stub();
@@ -696,21 +696,21 @@ describe('Status bar should work in multiple different scenarios', () => {
     createStatusBarItemStub.returns(statusBar);
     createQuickPickStub.returns(quickPick);
     clcStub.sendRequest.resolves([{ uri: 'https://foo.com/bar.json', name: 'bar schema' }]);
-    activeTextEditor = ({
+    activeTextEditor = {
       document: { languageId: 'yaml', uri: vscode.Uri.parse('/foo.yaml') },
-    } as unknown) as vscode.TextEditor;
+    } as unknown as vscode.TextEditor;
     sandbox
       .stub(vscode.workspace, 'getConfiguration')
       .withArgs('yaml')
-      .returns(({
+      .returns({
         get,
         inspect: sandbox.stub().callsFake((section: string) => ({
           workspaceValue: section === 'schemas' ? {} : undefined,
         })),
         update,
-      } as unknown) as vscode.WorkspaceConfiguration);
+      } as unknown as vscode.WorkspaceConfiguration);
 
-    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as CommonLanguageClient);
+    createJSONSchemaStatusBarItem(context, clcStub as unknown as CommonLanguageClient);
     const command = registerCommandStub.firstCall.args[1];
     await command();
     const noSchemaItem = quickPick.items[0];
@@ -729,7 +729,7 @@ describe('Status bar should work in multiple different scenarios', () => {
     const context: vscode.ExtensionContext = {
       subscriptions: [],
     } as vscode.ExtensionContext;
-    const statusBar = ({ show: sandbox.stub(), hide: sandbox.stub() } as unknown) as vscode.StatusBarItem;
+    const statusBar = { show: sandbox.stub(), hide: sandbox.stub() } as unknown as vscode.StatusBarItem;
     const schemaPick = createQuickPickStubValue<TestSchemaItem>();
     const versionPick = createQuickPickStubValue<TestSchemaVersionItem>();
     const update = sandbox.stub();
@@ -751,21 +751,21 @@ describe('Status bar should work in multiple different scenarios', () => {
       },
       { uri: 'https://foo.com/b.json', name: 'b schema', usedForCurrentFile: true },
     ]);
-    activeTextEditor = ({
+    activeTextEditor = {
       document: { languageId: 'yaml', uri: vscode.Uri.parse('/foo.yaml') },
-    } as unknown) as vscode.TextEditor;
+    } as unknown as vscode.TextEditor;
     sandbox
       .stub(vscode.workspace, 'getConfiguration')
       .withArgs('yaml')
-      .returns(({
+      .returns({
         get,
         inspect: sandbox.stub().callsFake((section: string) => ({
           workspaceValue: section === 'schemas' ? {} : undefined,
         })),
         update,
-      } as unknown) as vscode.WorkspaceConfiguration);
+      } as unknown as vscode.WorkspaceConfiguration);
 
-    createJSONSchemaStatusBarItem(context, (clcStub as unknown) as CommonLanguageClient);
+    createJSONSchemaStatusBarItem(context, clcStub as unknown as CommonLanguageClient);
     const command = registerCommandStub.firstCall.args[1];
     await command();
     const versionedSchemaItem = schemaPick.items.find(
@@ -832,7 +832,7 @@ function createQuickPickStubValue<T extends vscode.QuickPickItem>(): vscode.Quic
     hideHandler = handler;
     return { dispose: sinon.stub() };
   });
-  return (quickPick as unknown) as vscode.QuickPick<T> & {
+  return quickPick as unknown as vscode.QuickPick<T> & {
     accept: () => Promise<void>;
     select: (items: T[]) => Promise<void>;
     triggerItemButton: (item: T, button: vscode.QuickInputButton) => Promise<void>;

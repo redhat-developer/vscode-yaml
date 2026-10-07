@@ -5,7 +5,7 @@
 
 'use strict';
 
-import * as vscode from 'vscode';
+import type * as vscode from 'vscode';
 import { HandlerImpl } from './handlerImpl';
 import { initializeRecommendation as initOpenShiftToolkit } from './openShiftToolkit';
 

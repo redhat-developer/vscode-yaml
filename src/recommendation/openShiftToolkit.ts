@@ -8,7 +8,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as vscode from 'vscode';
-import { IHandler } from './handler';
+import type { IHandler } from './handler';
 
 const EXTENSION_NAME = 'redhat.vscode-openshift-connector';
 const GH_ORG_URL = `https://github.com/redhat-developer/vscode-openshift-tools`;
@@ -21,7 +21,7 @@ function isDevfileYAML(uri: vscode.Uri): boolean {
       const devFileYamlPath = path.join(uri.fsPath, 'devfile.yaml');
       return fs.existsSync(devFileYamlPath);
     }
-  } catch (error) {
+  } catch {
     return false;
   }
   return !!uri.path && path.basename(uri.path).toLowerCase() === 'devfile.yaml';

@@ -26,10 +26,10 @@ jobs:
       - uses: actions/checkout@v4
 
       # Set up Node
-      - name: Use Node 22
+      - name: Use Node 22.13.0
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 22.13.0
 
       # Run install dependencies
       - name: Install dependencies

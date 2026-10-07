@@ -5,8 +5,6 @@
 
 //check package.json do not have dependency with 'next' version
 
-/* eslint-disable @typescript-eslint/no-var-requires */
-
 const exit = require('process').exit;
 const dependencies = require('../package.json').dependencies;
 

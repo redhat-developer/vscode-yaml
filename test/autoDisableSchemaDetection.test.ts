@@ -38,9 +38,9 @@ describe('Auto-disable schema detection', () => {
       .callsFake((extensionId) =>
         extensionId === 'ms-azure-devops.azure-pipelines' ? ({} as vscode.Extension<unknown>) : undefined
       );
-    sandbox.stub(vscode.workspace, 'getConfiguration').returns(({
+    sandbox.stub(vscode.workspace, 'getConfiguration').returns({
       get: sandbox.stub(),
-    } as unknown) as vscode.WorkspaceConfiguration);
+    } as unknown as vscode.WorkspaceConfiguration);
     const configurations: ConfigurationRequest.HandlerSignature = sandbox.stub().resolves([configuredYaml]);
 
     const result = await applyAutoDisableSchemaDetection(

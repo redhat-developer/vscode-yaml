@@ -6,7 +6,7 @@
 'use strict';
 
 import * as vscode from 'vscode';
-import { IHandler } from './handler';
+import type { IHandler } from './handler';
 
 const KEY_RECOMMENDATION_USER_CHOICE_MAP = 'recommendationUserChoice';
 

@@ -3,8 +3,9 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-import { TelemetryService } from './extension';
-import { CloseAction, ErrorAction, ErrorHandler, Message } from 'vscode-languageclient';
+import type { TelemetryService } from './extension';
+import type { ErrorHandler, Message } from 'vscode-languageclient';
+import { CloseAction, ErrorAction } from 'vscode-languageclient';
 import * as vscode from 'vscode';
 
 export class TelemetryErrorHandler implements ErrorHandler {
@@ -48,7 +49,10 @@ const errorMassagesToSkip = [{ text: 'Warning: Setting the NODE_TLS_REJECT_UNAUT
 export class TelemetryOutputChannel implements vscode.OutputChannel {
   private errors: string[] | undefined;
   private throttleTimeout: vscode.Disposable | undefined;
-  constructor(private readonly delegate: vscode.OutputChannel, private readonly telemetry: TelemetryService) {}
+  constructor(
+    private readonly delegate: vscode.OutputChannel,
+    private readonly telemetry: TelemetryService
+  ) {}
 
   get name(): string {
     return this.delegate.name;

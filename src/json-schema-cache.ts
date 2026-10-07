@@ -6,9 +6,9 @@
 import * as fs from 'fs-extra';
 import * as path from 'path';
 import * as crypto from 'crypto';
-import { Memento } from 'vscode';
+import type { Memento } from 'vscode';
 import { logToExtensionOutputChannel } from './extension';
-import { IJSONSchemaCache } from './json-schema-content-provider';
+import type { IJSONSchemaCache } from './json-schema-content-provider';
 
 const CACHE_DIR = 'schemas_cache';
 const CACHE_KEY = 'json-schema-key';
@@ -28,7 +28,10 @@ export class JSONSchemaCache implements IJSONSchemaCache {
 
   private isInitialized = false;
 
-  constructor(globalStoragePath: string, private memento: Memento) {
+  constructor(
+    globalStoragePath: string,
+    private memento: Memento
+  ) {
     this.cachePath = path.join(globalStoragePath, CACHE_DIR);
     this.cache = memento.get(CACHE_KEY, {});
   }

@@ -1,5 +1,6 @@
 import { URI } from 'vscode-uri';
-import { CommonLanguageClient as LanguageClient, RequestType } from 'vscode-languageclient/node';
+import type { CommonLanguageClient as LanguageClient } from 'vscode-languageclient/node';
+import { RequestType } from 'vscode-languageclient/node';
 import { workspace } from 'vscode';
 import { logToExtensionOutputChannel } from './extension';
 
@@ -10,8 +11,8 @@ interface SchemaContributorProvider {
 }
 
 export enum MODIFICATION_ACTIONS {
-  'delete',
-  'add',
+  delete,
+  add,
 }
 
 export interface SchemaAdditions {
@@ -31,7 +32,7 @@ export interface SchemaDeletions {
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 namespace SchemaModificationNotification {
-  // eslint-disable-next-line @typescript-eslint/ban-types
+  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
   export const type: RequestType<SchemaAdditions | SchemaDeletions, void, {}> = new RequestType('json/schema/modify');
 }
 
