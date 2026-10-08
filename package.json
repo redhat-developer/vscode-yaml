@@ -24,8 +24,8 @@
   },
   "icon": "icon/icon128.png",
   "engines": {
-    "npm": ">=7.0.0",
-    "vscode": "^1.63.0"
+  "npm": ">=7.0.0",
+    "vscode": "^1.90.0"
   },
   "categories": [
     "Programming Languages",
