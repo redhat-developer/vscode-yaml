@@ -37,26 +37,7 @@ export function customTagsTest(): void {
 
       await hardDelay(2000);
       const textSettingsEditor = (await editorView.openEditor('settings.json')) as TextEditor;
-      if (process.platform === 'darwin') {
-        const fullText = await textSettingsEditor.getText();
-        const lines = fullText.split('\n');
-
-        // find the line with "yaml.customTags"
-        let targetLine = -1;
-        for (let i = 0; i < lines.length; i++) {
-          if (lines[i].includes('"yaml.customTags"') && lines[i].includes('[')) {
-            targetLine = i + 2; // position on the line after the opening bracket
-            break;
-          }
-        }
-        if (targetLine === -1) {
-          expect.fail('Could not find yaml.customTags in settings.json');
-        }
-        await textSettingsEditor.typeTextAt(targetLine, 5, '    "customTag1"');
-      } else {
-        const coor = await textSettingsEditor.getCoordinates();
-        await textSettingsEditor.typeTextAt(coor[0], coor[1], '    "customTag1"');
-      }
+      await textSettingsEditor.typeText('"customTag1"');
       await textSettingsEditor.save();
       await hardDelay(1_000);
 

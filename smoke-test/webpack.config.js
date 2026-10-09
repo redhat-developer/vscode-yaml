@@ -13,7 +13,7 @@ const config = {
   output: {
     filename: 'smoke-test-runner.js',
     path: path.resolve(__dirname, '..', 'out', 'smoke-test'),
-    libraryTarget: 'commonjs',
+    libraryTarget: 'commonjs2',
   },
   externals: {
     vscode: 'commonjs vscode',

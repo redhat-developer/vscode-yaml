@@ -46,10 +46,6 @@ const config = {
           },
         ],
       },
-      {
-        test: /node_modules[\\|/](vscode-json-languageservice)/,
-        use: { loader: 'umd-compat-loader' },
-      },
     ],
   },
 };
@@ -135,7 +131,6 @@ const serverWeb = {
     extensions: ['.ts', '.js'], // support ts-files and js-files
     alias: {
       './services/yamlFormatter': path.resolve(__dirname, './build/polyfills/yamlFormatter.js'), // not supported for now. prettier can run in the web, but it's a bit more work.
-      'vscode-json-languageservice/lib/umd': 'vscode-json-languageservice/lib/esm',
     },
     fallback: {
       path: require.resolve('path-browserify/'),
