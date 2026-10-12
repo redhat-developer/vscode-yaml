@@ -17,7 +17,7 @@ const config = {
   },
   entry: {
     extension: './src/node/yamlClientMain.ts', // the entry point of this extension, 📖 -> https://webpack.js.org/configuration/entry-context/
-    languageserver: './node_modules/yaml-language-server/out/server/src/server.js',
+    languageserver: './node_modules/yaml-language-server/lib/cjs/server.js',
   },
   output: {
     // the bundle is stored in the 'dist' folder (check package.json), 📖 -> https://webpack.js.org/configuration/output/
