@@ -1,3 +1,11 @@
+### 2.0.0
+
+- Breaking: Raise the minimum supported VS Code version to 1.91.0, as required by `vscode-languageclient` 10.1.2.
+- Chore: Support ESM-only `yaml-language-server` builds in the desktop and browser extensions.
+- Chore: Upgrade `vscode-languageclient` to 10.1.2 and adapt to its updated APIs.
+
+See [#1292](https://github.com/redhat-developer/vscode-yaml/pull/1292) for details.
+
 ### 1.25.0
 
 - Breaking: Raise the minimum supported VS Code version to 1.90.0. See [#1295](https://github.com/redhat-developer/vscode-yaml/pull/1295).
