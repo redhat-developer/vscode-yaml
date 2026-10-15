@@ -7,7 +7,7 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
 import * as assert from 'assert';
-import { CommonLanguageClient } from 'vscode-languageclient/lib/common/commonClient';
+import { BaseLanguageClient } from 'vscode-languageclient';
 import type {
   MessageTransports,
   ProtocolRequestType,
@@ -148,7 +148,7 @@ export class TestMemento implements vscode.Memento {
   }
 }
 
-export class TestLanguageClient extends CommonLanguageClient {
+export class TestLanguageClient extends BaseLanguageClient {
   constructor() {
     super('test', 'test', {});
   }
