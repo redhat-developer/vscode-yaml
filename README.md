@@ -86,7 +86,7 @@ The following settings are supported:
 
 The extension uses [JSON Schema](https://json-schema.org/) to understand the shape of YAML files. Schema definitions can be written in JSON (`.json`) or YAML (`.yaml` or `.yml`) format.
 
-Schemas can be associated with YAML files using a modeline, an inline `$schema` property, or the `yaml.schemas` setting. The extension can also obtain schemas through the [`registerContributor` extension API](https://github.com/redhat-developer/vscode-yaml/wiki/Extension-API#register-contributor) and [`yamlValidation` contributions](#using-the-yamlvalidation-contribution-point) from other VS Code extensions. Additionally, it automatically matches common file patterns to schemas from [SchemaStore](https://www.schemastore.org/) when `yaml.schemaStore.enable` is enabled, as it is by default.
+Schemas can be associated with YAML files using a modeline, an inline `$schema` property, or the `yaml.schemas` setting. The extension can also obtain schemas through the [`registerContributor` extension API](./docs/extension-api.md#register-contributor) and [`yamlValidation` contributions](#using-the-yamlvalidation-contribution-point) from other VS Code extensions. Additionally, it automatically matches common file patterns to schemas from [SchemaStore](https://www.schemastore.org/) when `yaml.schemaStore.enable` is enabled, as it is by default.
 
 When multiple schema sources or schema-disabling settings apply to the same file, see [Schema resolution priority](#schema-resolution-priority).
 
@@ -331,7 +331,7 @@ When multiple schema sources or schema-disabling mechanisms apply to the same YA
 
 1. Modeline
 2. Inline `$schema` property
-3. [`registerContributor` extension API](https://github.com/redhat-developer/vscode-yaml/wiki/Extension-API#register-contributor)
+3. [`registerContributor` extension API](./docs/extension-api.md#register-contributor)
 4. `yaml.disableSchemaDetection`
 5. `yaml.schemas`
 6. `yamlValidation` contributions from other extensions
