@@ -9,7 +9,7 @@ The register contributor API allows one to automatically associate YAML files wi
 This allows for more flexibility than having to set it manually through `yaml.schemas` or having to upload the schema to the [json schema store](http://schemastore.org/json/).
 
 An example of this is as follows:
-```
+```typescript
 const SCHEMA = "myschema";
 
 const schemaJSON = JSON.stringify({
