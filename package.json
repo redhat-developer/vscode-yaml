@@ -366,7 +366,7 @@
     "url": "^0.11.0",
     "util": "^0.12.5",
     "vscode-extension-tester": "^8.28.1",
-    "webpack": "^5.76.1",
+    "webpack": "^5.111.1",
     "webpack-cli": "^5.0.1"
   },
   "dependencies": {
