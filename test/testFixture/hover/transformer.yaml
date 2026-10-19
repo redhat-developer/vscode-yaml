@@ -1,0 +1,2 @@
+# yaml-language-server: $schema=../schemas/basic_completion_schema.json
+my_key: my_value
