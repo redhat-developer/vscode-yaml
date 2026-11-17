@@ -121,6 +121,9 @@ jobs:
   release-job:
     environment: ${{ (inputs.publishToMarketPlace == 'true' || inputs.publishToOVSX == 'true') && 'release' || 'pre-release' }}
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
     needs: packaging-job
     steps:
     - name: Checkout vscode-yaml
@@ -142,8 +145,8 @@ jobs:
     - name: Publish to VS Code Marketplace
       if: ${{ github.event_name == 'schedule' || inputs.publishToMarketPlace == 'true' || inputs.publishPreRelease == 'true' }}
       run: |
-          vsce publish -p ${{ secrets.VSCODE_MARKETPLACE_TOKEN }} --packagePath vscode-yaml/vscode-yaml-${{ env.EXT_VERSION }}-${GITHUB_RUN_NUMBER}.vsix
+          vsce publish --oidc --packagePath vscode-yaml/vscode-yaml-${{ env.EXT_VERSION }}-${GITHUB_RUN_NUMBER}.vsix
     - name: Publish to OpenVSX Registry
       if: ${{ github.event_name == 'schedule' || inputs.publishToOVSX == 'true' || inputs.publishPreRelease == 'true' }}
       run: |
-          ovsx publish -p ${{ secrets.OVSX_MARKETPLACE_TOKEN }} --packagePath vscode-yaml/vscode-yaml-${{ env.EXT_VERSION }}-${GITHUB_RUN_NUMBER}.vsix
+          ovsx publish --trusted-publishing --packagePath vscode-yaml/vscode-yaml-${{ env.EXT_VERSION }}-${GITHUB_RUN_NUMBER}.vsix
