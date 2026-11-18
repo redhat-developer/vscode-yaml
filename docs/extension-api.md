@@ -6,7 +6,7 @@ The register contributor API allows one to automatically associate YAML files wi
 1. Identify if the current file is a file that we want to associate with. For example, if you want to associate with kubernetes files you might look to see if the open document contains `apiVersion` and `kind` in it.
 2. Return the JSON schema for the file if the current file is a file that we want to associate with.
 
-This allows for more flexibility than having to set it manually through `yaml.schemas` or having to upload the schema to the [json schema store](http://schemastore.org/json/).
+This allows for more flexibility than having to set it manually through `yaml.schemas` or having to upload the schema to the [json schema store](https://www.schemastore.org/).
 
 An example of this is as follows:
 ```typescript
