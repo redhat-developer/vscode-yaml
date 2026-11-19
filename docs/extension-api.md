@@ -101,3 +101,19 @@ yamlExtensionAPI.modifySchemaContent({
 ```
 
 and it will delete the examples key from the schema.
+
+### Hover Transformer
+The hover transformer API allows one to change the hovers of YAML documents before VS Code shows them, for example to render math or diagrams in schema descriptions. A third party extension registers a transformer, which receives each hover after the yaml language server has computed it:
+
+```typescript
+const yamlExtensionAPI = await vscode.extensions.getExtension("redhat.vscode-yaml").activate();
+context.subscriptions.push(
+	yamlExtensionAPI.registerHoverTransformer((hover, document, position, token) => {
+		return new vscode.Hover([...hover.contents, new vscode.MarkdownString("*Shown by my extension*")], hover.range);
+	})
+);
+```
+
+A transformer can return a new hover, or return `undefined` to keep the hover it received, which it may have changed in place. If several extensions register transformers, they run in registration order, and each one receives the hover as the previous one left it. A transformer that throws an error is logged to the "YAML Support" output channel and skipped. Transformers are not called when there is no hover or the request is cancelled.
+
+`registerHoverTransformer` returns a disposable that unregisters the transformer. Older versions of VSCode-YAML do not have this API, so check that `yamlExtensionAPI.registerHoverTransformer` exists before calling it.

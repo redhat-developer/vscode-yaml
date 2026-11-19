@@ -1,7 +1,8 @@
 import { URI } from 'vscode-uri';
-import type { BaseLanguageClient as LanguageClient } from 'vscode-languageclient';
+import type { BaseLanguageClient as LanguageClient, ProvideHoverSignature } from 'vscode-languageclient';
 import { RequestType } from 'vscode-languageclient';
-import { workspace } from 'vscode';
+import type { CancellationToken, Hover, Position, ProviderResult, TextDocument } from 'vscode';
+import { Disposable, workspace } from 'vscode';
 import { logToExtensionOutputChannel } from './extension';
 
 interface SchemaContributorProvider {
@@ -36,6 +37,17 @@ namespace SchemaModificationNotification {
   export const type: RequestType<SchemaAdditions | SchemaDeletions, void, {}> = new RequestType('json/schema/modify');
 }
 
+/**
+ * Changes a hover before VS Code shows it, for example to render parts of a schema description.
+ * Returns the hover to show, or `undefined` to keep the hover, which the transformer may have changed in place.
+ */
+export type HoverTransformer = (
+  hover: Hover,
+  document: TextDocument,
+  position: Position,
+  token: CancellationToken
+) => ProviderResult<Hover>;
+
 export interface ExtensionAPI {
   registerContributor(
     schema: string,
@@ -44,14 +56,49 @@ export interface ExtensionAPI {
     label?: string
   ): boolean;
   modifySchemaContent(schemaModifications: SchemaAdditions | SchemaDeletions): Promise<void>;
+  registerHoverTransformer(transformer: HoverTransformer): Disposable;
+}
+
+/** The registered hover transformers, applied by the language client's hover middleware. */
+export class HoverTransformers {
+  private _transformers: HoverTransformer[] = [];
+
+  public register(transformer: HoverTransformer): Disposable {
+    this._transformers.push(transformer);
+    return new Disposable(() => {
+      this._transformers = this._transformers.filter((registered) => registered !== transformer);
+    });
+  }
+
+  public provideHover = async (
+    document: TextDocument,
+    position: Position,
+    token: CancellationToken,
+    next: ProvideHoverSignature
+  ): Promise<Hover | null | undefined> => {
+    let hover = await next(document, position, token);
+    for (const transformer of this._transformers) {
+      if (!hover || token.isCancellationRequested) {
+        break;
+      }
+      try {
+        hover = (await transformer(hover, document, position, token)) ?? hover;
+      } catch (error) {
+        logToExtensionOutputChannel(`Error thrown while transforming a hover "${error}"`);
+      }
+    }
+    return hover;
+  };
 }
 
 class SchemaExtensionAPI implements ExtensionAPI {
   private _customSchemaContributors: { [index: string]: SchemaContributorProvider } = {};
   private _yamlClient: LanguageClient;
+  private _hoverTransformers: HoverTransformers;
 
-  constructor(client: LanguageClient) {
+  constructor(client: LanguageClient, hoverTransformers: HoverTransformers) {
     this._yamlClient = client;
+    this._hoverTransformers = hoverTransformers;
   }
 
   /**
@@ -154,6 +201,17 @@ class SchemaExtensionAPI implements ExtensionAPI {
 
   public async modifySchemaContent(schemaModifications: SchemaAdditions | SchemaDeletions): Promise<void> {
     return this._yamlClient.sendRequest(SchemaModificationNotification.type, schemaModifications);
+  }
+
+  /**
+   * Register a function that changes hovers of YAML documents before they are shown.
+   * Transformers run in registration order, each receiving the hover as the previous one left it.
+   *
+   * @param transformer the hover transformer
+   * @returns {Disposable} a disposable that unregisters the transformer
+   */
+  public registerHoverTransformer(transformer: HoverTransformer): Disposable {
+    return this._hoverTransformers.register(transformer);
   }
 
   public hasProvider(schema: string): boolean {

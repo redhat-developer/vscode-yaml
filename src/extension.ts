@@ -10,7 +10,7 @@ import type { ExtensionContext } from 'vscode';
 import { workspace, extensions, window, commands, Uri } from 'vscode';
 import type { BaseLanguageClient, LanguageClientOptions, ResponseError } from 'vscode-languageclient';
 import { DidChangeConfigurationNotification, NotificationType, RequestType, RevealOutputChannelOn } from 'vscode-languageclient';
-import { CUSTOM_SCHEMA_REQUEST, CUSTOM_CONTENT_REQUEST, SchemaExtensionAPI } from './schema-extension-api';
+import { CUSTOM_SCHEMA_REQUEST, CUSTOM_CONTENT_REQUEST, HoverTransformers, SchemaExtensionAPI } from './schema-extension-api';
 import { joinPath } from './paths';
 import type { IJSONSchemaCache } from './json-schema-content-provider';
 import { getJsonSchemaContent, JSONSchemaDocumentContentProvider } from './json-schema-content-provider';
@@ -110,6 +110,7 @@ export async function startClient(
   const telemetryErrorHandler = new TelemetryErrorHandler(runtime.telemetry, lsName, 4);
   const outputChannel = window.createOutputChannel(lsName, { log: true });
   const l10nPath = context.asAbsolutePath('./dist/l10n');
+  const hoverTransformers = new HoverTransformers();
   // Options to control the language client
   const clientOptions: LanguageClientOptions = {
     // Register the server for on disk and newly created YAML documents
@@ -139,13 +140,14 @@ export async function startClient(
       workspace: {
         configuration: applyAutoDisableSchemaDetection,
       },
+      provideHover: hoverTransformers.provideHover,
     },
   };
 
   // Create the language client and start it
   client = newLanguageClient('yaml', lsName, clientOptions);
 
-  const schemaExtensionAPI = new SchemaExtensionAPI(client);
+  const schemaExtensionAPI = new SchemaExtensionAPI(client, hoverTransformers);
 
   context.subscriptions.push(
     workspace.registerTextDocumentContentProvider(
