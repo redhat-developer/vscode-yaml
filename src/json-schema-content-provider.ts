@@ -98,8 +98,8 @@ export async function getJsonSchemaContent(uri: string, schemaCache: IJSONSchema
       }
       // in case of some error, like internet connection issue, check if cached version exist and return it
       if (schemaCache.getETag(uri)) {
-        const content = schemaCache.getSchema(uri);
-        if (content) {
+        const content = await schemaCache.getSchema(uri);
+        if (content !== undefined) {
           return content;
         }
       }
